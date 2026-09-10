@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCA-GENL Studio — Mappa del corso</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">NVIDIA Certified Associate · NCA-GENL</p>
+      <h1>Studio interattivo</h1>
+      <p class="subtitle">👆 Clicca un capitolo sulla mappa per iniziare a studiare.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="progress-label">Avanzamento corso</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-label="Avanzamento corso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+      <ul class="legend">
+        <li><span class="dot status-todo"></span> Non iniziato</li>
+        <li><span class="dot status-doing"></span> In corso</li>
+        <li><span class="dot status-done"></span> Completato</li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="map-container" class="map-container" aria-live="polite">
+      <p class="muted">Caricamento mappa…</p>
+    </section>
+    <p id="content-warning" class="notice" hidden></p>
+    <section class="areas-list">
+      <div class="area-cards">
+        <article class="area-card ripasso-card"><h3>★ Ripasso last-minute</h3><p>Scheda rapida pre-esame: formule, trappole e checklist. <a href="chapter.html?id=quick-ref">Apri il ripasso →</a></p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted small">Appunti e sito web a cura di Riccardo Dominici.</p>
+      <button id="reset-btn" class="btn ghost small" type="button">Azzera progressi</button>
+    </div>
+  </footer>
+
+  <script src="tracker.js"></script>
+  <script src="app.js"></script>
+  <script src="map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var app = window.NCA.app, tracker = window.NCA.tracker;
+      var ids = app.CHAPTERS.map(function (c) { return c.id; });
+
+      function drawProgress() {
+        var p = tracker.progress(ids);
+        document.getElementById('progress-label').textContent =
+          'Avanzamento corso · ' + p.done + ' / ' + p.total + ' completati';
+        document.getElementById('progress-pct').textContent = p.pct + '%';
+        var fill = document.getElementById('progress-fill');
+        fill.style.width = p.pct + '%';
+        fill.parentElement.setAttribute('aria-valuenow', String(p.pct));
+      }
+
+      app.loadContent().then(function (res) {
+        if (res.missing.length || Object.keys(res.chapters).length < 7) {
+          var w = document.getElementById('content-warning');
+          w.hidden = false;
+          w.textContent = '📦 Alcuni contenuti sono in arrivo: i capitoli senza dati mostrano il titolo provvisorio.';
+        }
+        window.NCA.map.render(document.getElementById('map-container'), res.chapters);
+        drawProgress();
+      });
+
+      document.getElementById('reset-btn').addEventListener('click', function () {
+        if (confirm('Azzerare tutti i progressi?')) {
+          tracker.resetAll();
+          location.reload();
+        }
+      });
+
+      // Ridisegna la mappa quando si torna da un capitolo (stato aggiornato).
+      window.addEventListener('pageshow', function () {
+        if (document.getElementById('map-container').querySelector('svg')) {
+          app.loadContent().then(function (res) {
+            window.NCA.map.render(document.getElementById('map-container'), res.chapters);
+            drawProgress();
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

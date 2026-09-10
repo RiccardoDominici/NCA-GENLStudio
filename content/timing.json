@@ -1,0 +1,1962 @@
+{
+ "version": 1,
+ "gap_sec": 0.25,
+ "chapters": {
+  "ch1-transformer": {
+   "audio": "audio/ch1-transformer.mp3",
+   "duration": 286.45,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 8.47,
+     "slide": 0,
+     "text": "Benvenuti al primo capitolo della guida NVIDIA NCA-GENL, dedicato all'architettura Transformer e ai meccanismi di attention."
+    },
+    {
+     "t0": 8.72,
+     "t1": 11.24,
+     "slide": 0,
+     "text": "Partiamo da una domanda fondamentale."
+    },
+    {
+     "t0": 11.49,
+     "t1": 25.08,
+     "slide": 0,
+     "text": "Prima del duemiladiciassette, i modelli di linguaggio erano basati su reti ricorrenti, le cosiddette RNN, che leggevano il testo una parola alla volta, in sequenza, come facciamo noi quando leggiamo."
+    },
+    {
+     "t0": 25.33,
+     "t1": 30.45,
+     "slide": 0,
+     "text": "Poi è arrivato l'articolo Attention Is All You Need, che ha cambiato tutto."
+    },
+    {
+     "t0": 30.7,
+     "t1": 32.82,
+     "slide": 0,
+     "text": "L'idea rivoluzionaria è questa."
+    },
+    {
+     "t0": 33.07,
+     "t1": 44.06,
+     "slide": 0,
+     "text": "Anziché leggere in sequenza, il Transformer guarda l'intera frase in parallelo, tutta insieme, e per ogni parola decide a quali altre parole prestare attenzione."
+    },
+    {
+     "t0": 44.31,
+     "t1": 52.78,
+     "slide": 0,
+     "text": "È come se, leggendo una frase, potessi vedere contemporaneamente ogni parola e capire al volo quali sono collegate tra loro."
+    },
+    {
+     "t0": 53.03,
+     "t1": 63.61,
+     "slide": 0,
+     "text": "Questo parallelismo è il motivo per cui i Transformer si addestrano molto più in fretta sulle GPU moderne, che sono fatte apposta per il calcolo parallelo."
+    },
+    {
+     "t0": 63.86,
+     "t1": 66.52,
+     "slide": 0,
+     "text": "Ma attenzione, c'è un prezzo da pagare."
+    },
+    {
+     "t0": 66.77,
+     "t1": 70.73,
+     "slide": 0,
+     "text": "Se guardi tutto in parallelo, perdi l'ordine delle parole."
+    },
+    {
+     "t0": 70.98,
+     "t1": 78.15,
+     "slide": 0,
+     "text": "'Il cane morde l'uomo' e 'L'uomo morde il cane' contengono le stesse parole, ma significano cose opposte."
+    },
+    {
+     "t0": 78.4,
+     "t1": 91.03,
+     "slide": 0,
+     "text": "Per questo esiste il positional encoding, un'informazione sulla posizione che viene sommata alla rappresentazione di ogni parola, usando funzioni sinusoidali o rappresentazioni apprese."
+    },
+    {
+     "t0": 91.28,
+     "t1": 94.42,
+     "slide": 0,
+     "text": "È come numerare i posti a sedere in un teatro."
+    },
+    {
+     "t0": 94.67,
+     "t1": 97.88,
+     "slide": 0,
+     "text": "Senza numeri, sai chi c'è ma non dove è seduto."
+    },
+    {
+     "t0": 98.13,
+     "t1": 101.48,
+     "slide": 1,
+     "text": "Veniamo ora al cuore di tutto, la self-attention."
+    },
+    {
+     "t0": 101.73,
+     "t1": 106.23,
+     "slide": 1,
+     "text": "Immaginate una riunione in cui ogni partecipante pone una domanda."
+    },
+    {
+     "t0": 106.48,
+     "t1": 111.06,
+     "slide": 1,
+     "text": "Nel nostro meccanismo ci sono tre protagonisti, Query, Key e Value."
+    },
+    {
+     "t0": 111.31,
+     "t1": 112.81,
+     "slide": 1,
+     "text": "La Query è la domanda."
+    },
+    {
+     "t0": 113.06,
+     "t1": 114.49,
+     "slide": 1,
+     "text": "'Cosa sto cercando?'."
+    },
+    {
+     "t0": 114.74,
+     "t1": 118.09,
+     "slide": 1,
+     "text": "La Key è come il cartellino di ogni partecipante."
+    },
+    {
+     "t0": 118.34,
+     "t1": 120.11,
+     "slide": 1,
+     "text": "'Ecco cosa ho da offrire'."
+    },
+    {
+     "t0": 120.36,
+     "t1": 125.14,
+     "slide": 1,
+     "text": "La Value è il contenuto vero e proprio che quel partecipante può dare."
+    },
+    {
+     "t0": 125.39,
+     "t1": 128.19,
+     "slide": 1,
+     "text": "Il procedimento è semplice da descrivere."
+    },
+    {
+     "t0": 128.44,
+     "t1": 143.67,
+     "slide": 1,
+     "text": "Ogni Query viene confrontata con tutte le Key, si calcolano dei punteggi di compatibilità, questi punteggi vengono normalizzati con la funzione softmax in modo che sommino a uno, e infine si fa una media pesata delle Value."
+    },
+    {
+     "t0": 143.92,
+     "t1": 153.75,
+     "slide": 1,
+     "text": "In formule si dice, l'attention è uguale alla softmax delle Query per le Key trasposte diviso radice di d k, il tutto moltiplicato per le Value."
+    },
+    {
+     "t0": 154.0,
+     "t1": 159.26,
+     "slide": 1,
+     "text": "Quella divisione per la radice della dimensione delle Key non è un dettaglio."
+    },
+    {
+     "t0": 159.51,
+     "t1": 166.68,
+     "slide": 1,
+     "text": "Serve a evitare che i punteggi diventino enormi e che i gradienti si azzerino, bloccando l'apprendimento."
+    },
+    {
+     "t0": 166.93,
+     "t1": 171.43,
+     "slide": 2,
+     "text": "La multi-head attention porta tutto questo a un livello superiore."
+    },
+    {
+     "t0": 171.68,
+     "t1": 178.44,
+     "slide": 2,
+     "text": "Invece di un singolo meccanismo di attenzione, ne eseguiamo tanti in parallelo, le cosiddette head."
+    },
+    {
+     "t0": 178.69,
+     "t1": 180.67,
+     "slide": 2,
+     "text": "Ogni head può specializzarsi."
+    },
+    {
+     "t0": 180.92,
+     "t1": 185.02,
+     "slide": 2,
+     "text": "Una impara le relazioni grammaticali, come soggetto e verbo."
+    },
+    {
+     "t0": 185.27,
+     "t1": 188.21,
+     "slide": 2,
+     "text": "Un'altra coglie somiglianze di significato."
+    },
+    {
+     "t0": 188.46,
+     "t1": 192.21,
+     "slide": 2,
+     "text": "Un'altra ancora segue i riferimenti tra pronomi e nomi."
+    },
+    {
+     "t0": 192.46,
+     "t1": 196.15,
+     "slide": 2,
+     "text": "Alla fine gli output vengono concatenati e proiettati."
+    },
+    {
+     "t0": 196.4,
+     "t1": 201.93,
+     "slide": 4,
+     "text": "Attorno all'attention, ogni layer del Transformer ha altri componenti essenziali."
+    },
+    {
+     "t0": 202.18,
+     "t1": 209.96,
+     "slide": 4,
+     "text": "La feed-forward network applica trasformazioni non lineari a ogni posizione, aggiungendo capacità di modellazione."
+    },
+    {
+     "t0": 210.21,
+     "t1": 221.75,
+     "slide": 4,
+     "text": "La layer normalization stabilizza l'addestramento normalizzando gli input di ogni layer, ed è ciò che permette di impilare decine di layer senza che il training diverga."
+    },
+    {
+     "t0": 222.0,
+     "t1": 234.36,
+     "slide": 4,
+     "text": "Le residual connection, infine, sommano l'input all'output di ogni sotto-layer, le famose operazioni Add and Norm, garantendo che il gradiente fluisca anche nelle reti più profonde."
+    },
+    {
+     "t0": 234.61,
+     "t1": 246.83,
+     "slide": 4,
+     "text": "E non dimentichiamo l'attention mask, che nei modelli generativi impedisce ai token di sbirciare le parole future durante l'addestramento, preservando la proprietà autoregressiva."
+    },
+    {
+     "t0": 247.08,
+     "t1": 248.85,
+     "slide": 5,
+     "text": "Ricapitolando per l'esame."
+    },
+    {
+     "t0": 249.1,
+     "t1": 254.36,
+     "slide": 5,
+     "text": "Il Transformer vince sulle reti ricorrenti grazie all'elaborazione parallela."
+    },
+    {
+     "t0": 254.61,
+     "t1": 260.01,
+     "slide": 5,
+     "text": "La Query cerca, la Key misura la compatibilità, la Value fornisce il contenuto."
+    },
+    {
+     "t0": 260.26,
+     "t1": 263.26,
+     "slide": 5,
+     "text": "Il positional encoding restituisce l'ordine."
+    },
+    {
+     "t0": 263.51,
+     "t1": 265.49,
+     "slide": 5,
+     "text": "La softmax normalizza i pesi."
+    },
+    {
+     "t0": 265.74,
+     "t1": 269.97,
+     "slide": 5,
+     "text": "E la divisione per radice di d k mantiene stabile il training."
+    },
+    {
+     "t0": 270.22,
+     "t1": 275.55,
+     "slide": 5,
+     "text": "Con queste idee chiare in testa, il resto della guida sarà molto più semplice."
+    },
+    {
+     "t0": 275.8,
+     "t1": 286.45,
+     "slide": 5,
+     "text": "Tenete infine a mente che ogni domanda d'esame su Query, Key e Value si risolve ricordando chi cerca, chi confronta e chi fornisce il contenuto informativo."
+    }
+   ]
+  },
+  "ch2-llm": {
+   "audio": "audio/ch2-llm.mp3",
+   "duration": 316.71,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 5.81,
+     "slide": 0,
+     "text": "Benvenuti al secondo capitolo, dedicato ai large language model, i cosiddetti LLM."
+    },
+    {
+     "t0": 6.06,
+     "t1": 10.31,
+     "slide": 0,
+     "text": "Nel capitolo uno abbiamo studiato il motore, il Transformer."
+    },
+    {
+     "t0": 10.56,
+     "t1": 14.68,
+     "slide": 0,
+     "text": "Ora vediamo le automobili costruite attorno a quel motore."
+    },
+    {
+     "t0": 14.93,
+     "t1": 26.2,
+     "slide": 0,
+     "text": "I tre modelli che dovete conoscere benissimo per l'esame sono BERT, GPT e T5, e la cosa più importante è distinguerli per architettura e obiettivo di training."
+    },
+    {
+     "t0": 26.45,
+     "t1": 32.54,
+     "slide": 1,
+     "text": "Partiamo da BERT, acronimo di Bidirectional Encoder Representations from Transformers."
+    },
+    {
+     "t0": 32.79,
+     "t1": 38.74,
+     "slide": 1,
+     "text": "BERT usa solo l'encoder del Transformer e si allena con il masked language modeling."
+    },
+    {
+     "t0": 38.99,
+     "t1": 40.06,
+     "slide": 1,
+     "text": "Cosa significa?"
+    },
+    {
+     "t0": 40.31,
+     "t1": 55.55,
+     "slide": 1,
+     "text": "Durante l'addestramento prendiamo una frase, ne nascondiamo alcune parole con una maschera, e chiediamo al modello di indovinarle guardando tutto il resto della frase, sia ciò che viene prima sia ciò che viene dopo."
+    },
+    {
+     "t0": 55.8,
+     "t1": 62.6,
+     "slide": 1,
+     "text": "È come un esercizio di completamento a scuola, ma potendo sbirciare sia a destra sia a sinistra."
+    },
+    {
+     "t0": 62.85,
+     "t1": 67.81,
+     "slide": 1,
+     "text": "Questa bidirezionalità rende BERT fortissimo nei task di comprensione."
+    },
+    {
+     "t0": 68.06,
+     "t1": 74.65,
+     "slide": 1,
+     "text": "Classificazione del testo, riconoscimento di entità, domande con risposta estratta dal testo."
+    },
+    {
+     "t0": 74.9,
+     "t1": 77.31,
+     "slide": 1,
+     "text": "Ma c'è un rovescio della medaglia."
+    },
+    {
+     "t0": 77.56,
+     "t1": 86.99,
+     "slide": 1,
+     "text": "Proprio perché guarda in entrambe le direzioni, BERT non può generare testo parola dopo parola, e quindi non è un modello generativo."
+    },
+    {
+     "t0": 87.24,
+     "t1": 91.07,
+     "slide": 2,
+     "text": "Passiamo a GPT, il Generative Pre-trained Transformer."
+    },
+    {
+     "t0": 91.32,
+     "t1": 92.52,
+     "slide": 2,
+     "text": "GPT fa l'opposto."
+    },
+    {
+     "t0": 92.77,
+     "t1": 101.77,
+     "slide": 2,
+     "text": "Usa solo il decoder, con l'attention mascherata che impedisce di guardare le parole future, e si allena in modo autoregressivo."
+    },
+    {
+     "t0": 102.02,
+     "t1": 110.88,
+     "slide": 2,
+     "text": "Prevede ogni parola guardando solo quelle precedenti, da sinistra a destra, esattamente come noi quando parliamo o scriviamo."
+    },
+    {
+     "t0": 111.13,
+     "t1": 117.44,
+     "slide": 2,
+     "text": "Questa è la chiave della generazione di testo, del completamento e del few-shot learning."
+    },
+    {
+     "t0": 117.69,
+     "t1": 123.08,
+     "slide": 2,
+     "text": "Il few-shot learning merita un approfondimento perché è un concetto d'esame."
+    },
+    {
+     "t0": 123.33,
+     "t1": 132.68,
+     "slide": 2,
+     "text": "Significa che il modello impara a svolgere un compito nuovo vedendo solo pochi esempi dentro il prompt, senza alcun riaddestramento."
+    },
+    {
+     "t0": 132.93,
+     "t1": 139.95,
+     "slide": 2,
+     "text": "Gli mostrate due o tre recensioni etichettate come positive o negative, e lui classifica la quarta."
+    },
+    {
+     "t0": 140.2,
+     "t1": 144.74,
+     "slide": 2,
+     "text": "Sembra magia, ma è una conseguenza della scala del pre-training."
+    },
+    {
+     "t0": 144.99,
+     "t1": 148.96,
+     "slide": 3,
+     "text": "Terzo modello, T5, il Text-to-Text Transfer Transformer."
+    },
+    {
+     "t0": 149.21,
+     "t1": 156.22,
+     "slide": 3,
+     "text": "T5 usa l'architettura encoder-decoder completa e riformula ogni problema come generazione di testo."
+    },
+    {
+     "t0": 156.47,
+     "t1": 157.39,
+     "slide": 3,
+     "text": "Classificare?"
+    },
+    {
+     "t0": 157.64,
+     "t1": 159.77,
+     "slide": 3,
+     "text": "Genera l'etichetta come testo."
+    },
+    {
+     "t0": 160.02,
+     "t1": 160.66,
+     "slide": 3,
+     "text": "Tradurre?"
+    },
+    {
+     "t0": 160.91,
+     "t1": 162.4,
+     "slide": 3,
+     "text": "Genera la traduzione."
+    },
+    {
+     "t0": 162.65,
+     "t1": 163.43,
+     "slide": 3,
+     "text": "Riassumere?"
+    },
+    {
+     "t0": 163.68,
+     "t1": 165.09,
+     "slide": 3,
+     "text": "Genera il riassunto."
+    },
+    {
+     "t0": 165.34,
+     "t1": 170.16,
+     "slide": 3,
+     "text": "Un unico formato per tutto, il che lo rende versatile su molti task."
+    },
+    {
+     "t0": 170.41,
+     "t1": 179.63,
+     "slide": 4,
+     "text": "Ora parliamo di come questi modelli nascono, perché pre-training, fine-tuning e transfer learning sono tra i concetti più testati."
+    },
+    {
+     "t0": 179.88,
+     "t1": 185.12,
+     "slide": 4,
+     "text": "Il pre-training è la fase iniziale, costosissima, eseguita una sola volta."
+    },
+    {
+     "t0": 185.37,
+     "t1": 200.26,
+     "slide": 4,
+     "text": "Il modello legge enormi quantità di testo non etichettato, pagine web, libri, e impara le rappresentazioni generali della lingua con obiettivi auto-supervisionati, come prevedere parole mascherate o successive."
+    },
+    {
+     "t0": 200.51,
+     "t1": 202.35,
+     "slide": 4,
+     "text": "Il fine-tuning viene dopo."
+    },
+    {
+     "t0": 202.6,
+     "t1": 211.03,
+     "slide": 4,
+     "text": "Prendiamo il modello pre-addestrato e lo adattiamo a un compito specifico con un dataset etichettato molto più piccolo."
+    },
+    {
+     "t0": 211.28,
+     "t1": 217.24,
+     "slide": 4,
+     "text": "È come assumere un laureato in lettere e formarlo per un ruolo specifico in azienda."
+    },
+    {
+     "t0": 217.49,
+     "t1": 222.02,
+     "slide": 4,
+     "text": "Non gli insegnate l'italiano da zero, gli insegnate il mestiere."
+    },
+    {
+     "t0": 222.27,
+     "t1": 226.88,
+     "slide": 4,
+     "text": "Il transfer learning è il paradigma generale dietro tutto questo."
+    },
+    {
+     "t0": 227.13,
+     "t1": 237.12,
+     "slide": 4,
+     "text": "Riusare la conoscenza appresa su larga scala riduce drasticamente tempi e costi computazionali e abilita il few-shot e lo zero-shot learning."
+    },
+    {
+     "t0": 237.37,
+     "t1": 240.07,
+     "slide": 4,
+     "text": "Attenzione però alle trappole d'esame."
+    },
+    {
+     "t0": 240.32,
+     "t1": 251.23,
+     "slide": 4,
+     "text": "Il transfer learning non elimina del tutto il bisogno di dati etichettati, non garantisce prestazioni migliori e non rimuove i bias del modello originale."
+    },
+    {
+     "t0": 251.48,
+     "t1": 255.03,
+     "slide": 5,
+     "text": "Due concetti ancora, entrambi probabili all'esame."
+    },
+    {
+     "t0": 255.28,
+     "t1": 262.01,
+     "slide": 5,
+     "text": "La subword tokenization, con algoritmi come BPE e WordPiece, scompone le parole in sotto-unità."
+    },
+    {
+     "t0": 262.26,
+     "t1": 268.71,
+     "slide": 5,
+     "text": "Così il modello gestisce parole mai viste combinando pezzi noti, senza vocabolari infiniti."
+    },
+    {
+     "t0": 268.96,
+     "t1": 274.49,
+     "slide": 5,
+     "text": "E le hallucination, quando il modello genera informazioni plausibili ma false."
+    },
+    {
+     "t0": 274.74,
+     "t1": 289.27,
+     "slide": 5,
+     "text": "Succede perché il modello impara pattern statistici dai dati senza vera comprensione dei fatti, ed è uno dei motivi per cui esistono tecniche come la retrieval-augmented generation, che vedremo più avanti."
+    },
+    {
+     "t0": 289.52,
+     "t1": 290.51,
+     "slide": 5,
+     "text": "Ricapitolando."
+    },
+    {
+     "t0": 290.76,
+     "t1": 293.95,
+     "slide": 5,
+     "text": "BERT è encoder bidirezionale per comprendere."
+    },
+    {
+     "t0": 294.2,
+     "t1": 297.18,
+     "slide": 5,
+     "text": "GPT è decoder autoregressivo per generare."
+    },
+    {
+     "t0": 297.43,
+     "t1": 300.55,
+     "slide": 5,
+     "text": "T5 è encoder-decoder testo-testo, versatile."
+    },
+    {
+     "t0": 300.8,
+     "t1": 309.87,
+     "slide": 5,
+     "text": "Il pre-training insegna la lingua una volta sola, il fine-tuning adatta al compito, il transfer learning rende tutto efficiente."
+    },
+    {
+     "t0": 310.12,
+     "t1": 316.71,
+     "slide": 5,
+     "text": "Memorizzate questa tabella a tre righe e metà delle domande del capitolo saranno già risolte."
+    }
+   ]
+  },
+  "ch3-training": {
+   "audio": "audio/ch3-training.mp3",
+   "duration": 293.95,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 5.72,
+     "slide": 0,
+     "text": "Benvenuti al terzo capitolo della guida, quello dedicato al training e al fine-tuning."
+    },
+    {
+     "t0": 5.97,
+     "t1": 20.61,
+     "slide": 0,
+     "text": "Se i primi due capitoli ci hanno insegnato come sono fatti i modelli, ora impariamo come si adattano al mondo reale, perche un modello pre-addestrato, per quanto potente, e come un laureato brillante ma senza esperienza."
+    },
+    {
+     "t0": 20.86,
+     "t1": 24.38,
+     "slide": 0,
+     "text": "Conosce la lingua, ma non conosce il vostro mestiere."
+    },
+    {
+     "t0": 24.63,
+     "t1": 28.29,
+     "slide": 0,
+     "text": "Il fine-tuning e la sua formazione professionalizzante."
+    },
+    {
+     "t0": 28.54,
+     "t1": 31.47,
+     "slide": 0,
+     "text": "La strada piu diretta e il full fine-tuning."
+    },
+    {
+     "t0": 31.72,
+     "t1": 36.11,
+     "slide": 0,
+     "text": "Si aggiornano tutti i parametri del modello sul dataset specifico."
+    },
+    {
+     "t0": 36.36,
+     "t1": 40.69,
+     "slide": 0,
+     "text": "Il risultato e il massimo delle prestazioni, ma il prezzo e alto."
+    },
+    {
+     "t0": 40.94,
+     "t1": 45.53,
+     "slide": 0,
+     "text": "Servono moltissima memoria GPU, molto tempo e molti dati etichettati."
+    },
+    {
+     "t0": 45.78,
+     "t1": 51.03,
+     "slide": 0,
+     "text": "Per modelli da miliardi di parametri, e un lusso che pochi possono permettersi."
+    },
+    {
+     "t0": 51.28,
+     "t1": 59.93,
+     "slide": 1,
+     "text": "Ed e qui che entrano in scena le tecniche di parameter-efficient fine-tuning, il cosiddetto PEFT, tra i temi piu caldi dell'esame."
+    },
+    {
+     "t0": 60.18,
+     "t1": 62.04,
+     "slide": 1,
+     "text": "L'idea e semplice e geniale."
+    },
+    {
+     "t0": 62.29,
+     "t1": 69.81,
+     "slide": 1,
+     "text": "Invece di aggiornare tutto il modello, aggiorniamo solo una piccola parte aggiuntiva, tenendo congelato il resto."
+    },
+    {
+     "t0": 70.06,
+     "t1": 74.19,
+     "slide": 1,
+     "text": "La tecnica piu famosa e LoRA, acronimo di Low-Rank Adaptation."
+    },
+    {
+     "t0": 74.44,
+     "t1": 81.49,
+     "slide": 1,
+     "text": "LoRA affianca ai pesi originali due piccole matrici il cui prodotto approssima l'aggiornamento desiderato."
+    },
+    {
+     "t0": 81.74,
+     "t1": 93.32,
+     "slide": 1,
+     "text": "Poiche il rango di queste matrici e basso, i parametri da addestrare crollano, a volte a meno dell'uno per cento del totale, con prestazioni paragonabili al full fine-tuning."
+    },
+    {
+     "t0": 93.57,
+     "t1": 112.06,
+     "slide": 1,
+     "text": "Accanto a LoRA esistono gli adapter, piccoli moduli inseriti tra i layer del Transformer che vengono addestrati da soli, e il prompt tuning, che invece di toccare i pesi ottimizza direttamente il prompt di input, imparando i vettori di embedding migliori per guidare il modello."
+    },
+    {
+     "t0": 112.31,
+     "t1": 114.57,
+     "slide": 1,
+     "text": "Memorizzate bene il punto d'esame."
+    },
+    {
+     "t0": 114.82,
+     "t1": 125.33,
+     "slide": 1,
+     "text": "Il vantaggio del PEFT e la riduzione dei requisiti computazionali a parita di prestazioni, non una maggiore accuratezza ne una maggiore velocita di inferenza."
+    },
+    {
+     "t0": 125.58,
+     "t1": 134.17,
+     "slide": 2,
+     "text": "Prima ancora di addestrare, pero, c'e un passo che l'esame considera essenziale, la exploratory data analysis, la cosiddetta EDA."
+    },
+    {
+     "t0": 134.42,
+     "t1": 148.19,
+     "slide": 2,
+     "text": "Analizzare la distribuzione dei dati, la lunghezza dei testi, il vocabolario, la distribuzione delle etichette e la qualita complessiva serve a scoprire pattern, anomalie e bias prima che diventino problemi."
+    },
+    {
+     "t0": 148.44,
+     "t1": 156.69,
+     "slide": 2,
+     "text": "Un dataset sbilanciato o sporco addestra un modello sbilanciato, e nessuna tecnica di ottimizzazione rimedia a dati cattivi."
+    },
+    {
+     "t0": 156.94,
+     "t1": 162.33,
+     "slide": 3,
+     "text": "Durante il fine-tuning si nasconde un'insidia famosa, il catastrophic forgetting."
+    },
+    {
+     "t0": 162.58,
+     "t1": 174.89,
+     "slide": 3,
+     "text": "Quando adattiamo il modello a un nuovo compito, rischiamo che perda parte della conoscenza appresa nel pre-training, come uno studente che studiando una materia dimentica la precedente."
+    },
+    {
+     "t0": 175.14,
+     "t1": 181.59,
+     "slide": 3,
+     "text": "Il PEFT aiuta anche qui, perche toccando pochi parametri preserva meglio la conoscenza originale."
+    },
+    {
+     "t0": 181.84,
+     "t1": 185.76,
+     "slide": 3,
+     "text": "A proteggere il training ci sono poi le tecniche classiche."
+    },
+    {
+     "t0": 186.01,
+     "t1": 197.19,
+     "slide": 3,
+     "text": "Il dropout spegne casualmente una percentuale di neuroni durante l'addestramento, impedendo al modello di dipendere troppo da singoli neuroni e riducendo l'overfitting."
+    },
+    {
+     "t0": 197.44,
+     "t1": 211.94,
+     "slide": 4,
+     "text": "La gradient accumulation permette di simulare batch di grandi dimensioni anche con poca memoria, accumulando i gradienti di piu mini-batch prima di aggiornare i parametri, una tecnica preziosa nel training distribuito."
+    },
+    {
+     "t0": 212.19,
+     "t1": 226.76,
+     "slide": 4,
+     "text": "Il learning rate warm-up aumenta gradualmente il tasso di apprendimento nelle prime fasi, evitando aggiornamenti bruschi quando i pesi sono ancora inizializzati a caso e stabilizzando l'addestramento dei modelli grandi."
+    },
+    {
+     "t0": 227.01,
+     "t1": 246.37,
+     "slide": 4,
+     "text": "Citiamo anche il teacher forcing, che in addestramento alimenta al modello i token corretti invece delle sue stesse previsioni, e la knowledge distillation, che trasferisce la conoscenza da un modello grande insegnante a un modello piccolo studente, comprimendo il modello per la produzione."
+    },
+    {
+     "t0": 246.62,
+     "t1": 252.08,
+     "slide": 5,
+     "text": "E quando il modello e pronto, come decidiamo se e davvero migliore del precedente?"
+    },
+    {
+     "t0": 252.33,
+     "t1": 253.53,
+     "slide": 5,
+     "text": "Con l'A B testing."
+    },
+    {
+     "t0": 253.78,
+     "t1": 255.97,
+     "slide": 5,
+     "text": "La pratica raccomandata e chiara."
+    },
+    {
+     "t0": 256.22,
+     "t1": 270.0,
+     "slide": 5,
+     "text": "Si mettono in produzione entrambi i modelli contemporaneamente e si divide il traffico in parti uguali, cinquanta e cinquanta, monitorando le metriche chiave fino a raggiungere la significativita statistica."
+    },
+    {
+     "t0": 270.25,
+     "t1": 273.11,
+     "slide": 5,
+     "text": "Solo cosi il confronto e equo e affidabile."
+    },
+    {
+     "t0": 273.36,
+     "t1": 274.29,
+     "slide": 5,
+     "text": "Ricapitolando."
+    },
+    {
+     "t0": 274.54,
+     "t1": 278.6,
+     "slide": 5,
+     "text": "Full fine-tuning per le massime prestazioni al costo massimo."
+    },
+    {
+     "t0": 278.85,
+     "t1": 281.97,
+     "slide": 5,
+     "text": "LoRA, adapter e prompt tuning per l'efficienza."
+    },
+    {
+     "t0": 282.22,
+     "t1": 283.49,
+     "slide": 5,
+     "text": "EDA prima di tutto."
+    },
+    {
+     "t0": 283.74,
+     "t1": 288.06,
+     "slide": 5,
+     "text": "Dropout, gradient accumulation e warm-up per un training stabile."
+    },
+    {
+     "t0": 288.31,
+     "t1": 290.17,
+     "slide": 5,
+     "text": "Distillation per comprimere."
+    },
+    {
+     "t0": 290.42,
+     "t1": 293.95,
+     "slide": 5,
+     "text": "E A B testing fifty-fifty per decidere in produzione."
+    }
+   ]
+  },
+  "ch4-nvidia-tools": {
+   "audio": "audio/ch4-nvidia-tools.mp3",
+   "duration": 322.02,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 3.54,
+     "slide": 0,
+     "text": "Benvenuti al capitolo quattro: gli strumenti NVIDIA."
+    },
+    {
+     "t0": 3.79,
+     "t1": 9.17,
+     "slide": 0,
+     "text": "Finora abbiamo parlato di architetture, modelli e training in termini generali."
+    },
+    {
+     "t0": 9.42,
+     "t1": 20.32,
+     "slide": 0,
+     "text": "Adesso entriamo nell'ecosistema concreto in cui questi modelli vivono davvero: le GPU NVIDIA, i framework per svilupparli e i server per servirli in produzione."
+    },
+    {
+     "t0": 20.57,
+     "t1": 27.38,
+     "slide": 0,
+     "text": "All'esame troverete diverse domande su questi tool, e la trappola più comune è confonderli tra loro."
+    },
+    {
+     "t0": 27.63,
+     "t1": 38.05,
+     "slide": 0,
+     "text": "Quindi fissiamo subito la mappa mentale: NeMo sviluppa, TensorRT ottimizza, Triton serve, DGX è l'hardware, ONNX è il formato che li fa parlare tra loro."
+    },
+    {
+     "t0": 38.3,
+     "t1": 39.46,
+     "slide": 0,
+     "text": "Partiamo da NeMo."
+    },
+    {
+     "t0": 39.71,
+     "t1": 47.2,
+     "slide": 0,
+     "text": "Il NeMo Framework è un framework open-source di NVIDIA per costruire applicazioni di intelligenza artificiale."
+    },
+    {
+     "t0": 47.45,
+     "t1": 59.71,
+     "slide": 0,
+     "text": "Il suo punto di forza è il Model Zoo: una collezione di modelli pre-trained per task di NLP, speech recognition e computer vision, pronti da usare e da rifinire con il fine-tuning."
+    },
+    {
+     "t0": 59.96,
+     "t1": 69.22,
+     "slide": 0,
+     "text": "NeMo ha un'architettura modulare che rende facile la customization e supporta nativamente il distributed training su più GPU e più nodi."
+    },
+    {
+     "t0": 69.47,
+     "t1": 76.42,
+     "slide": 0,
+     "text": "Quando all'esame leggete pre-trained models per NLP, speech e vision, la risposta è quasi sempre NeMo."
+    },
+    {
+     "t0": 76.67,
+     "t1": 78.03,
+     "slide": 1,
+     "text": "Passiamo a TensorRT."
+    },
+    {
+     "t0": 78.28,
+     "t1": 83.86,
+     "slide": 1,
+     "text": "TensorRT è la libreria di ottimizzazione di NVIDIA per la deep learning inference."
+    },
+    {
+     "t0": 84.11,
+     "t1": 89.97,
+     "slide": 1,
+     "text": "Prende un modello già addestrato e lo rende più veloce e più leggero sulle GPU NVIDIA."
+    },
+    {
+     "t0": 90.22,
+     "t1": 91.24,
+     "slide": 1,
+     "text": "Come ci riesce?"
+    },
+    {
+     "t0": 91.49,
+     "t1": 94.08,
+     "slide": 1,
+     "text": "Con tre tecniche che dovete ricordare."
+    },
+    {
+     "t0": 94.33,
+     "t1": 102.3,
+     "slide": 1,
+     "text": "Primo, la layer fusion: fonde più operazioni della rete in un unico kernel, eliminando passaggi intermedi di memoria."
+    },
+    {
+     "t0": 102.55,
+     "t1": 114.95,
+     "slide": 1,
+     "text": "Secondo, la precision calibration: riduce la precisione dei pesi e delle attivazioni, passando per esempio da FP32 a FP16 o addirittura a INT8, con una tecnica chiamata quantization."
+    },
+    {
+     "t0": 115.2,
+     "t1": 123.23,
+     "slide": 1,
+     "text": "Terzo, il kernel auto-tuning: seleziona automaticamente i kernel più efficienti per lo specifico hardware su cui gira."
+    },
+    {
+     "t0": 123.48,
+     "t1": 128.86,
+     "slide": 1,
+     "text": "Il risultato è minore latenza, maggiore throughput e minore consumo di memoria."
+    },
+    {
+     "t0": 129.11,
+     "t1": 132.11,
+     "slide": 1,
+     "text": "Terzo protagonista: Triton Inference Server."
+    },
+    {
+     "t0": 132.36,
+     "t1": 136.72,
+     "slide": 1,
+     "text": "Se TensorRT ottimizza il modello, Triton lo serve in produzione."
+    },
+    {
+     "t0": 136.97,
+     "t1": 146.57,
+     "slide": 1,
+     "text": "È un inference server ad alte prestazioni che supporta modelli provenienti da framework diversi: TensorFlow, PyTorch, ONNX e TensorRT stesso."
+    },
+    {
+     "t0": 146.82,
+     "t1": 150.36,
+     "slide": 1,
+     "text": "Le sue funzionalità chiave sono il dynamic batching,"
+    },
+    {
+     "t0": 150.61,
+     "t1": 156.81,
+     "slide": 1,
+     "text": "che combina automaticamente le richieste in arrivo in batch per massimizzare il throughput,"
+    },
+    {
+     "t0": 157.06,
+     "t1": 158.29,
+     "slide": 1,
+     "text": "il model ensemble,"
+    },
+    {
+     "t0": 158.54,
+     "t1": 162.42,
+     "slide": 1,
+     "text": "che permette di servire pipeline composte da più modelli,"
+    },
+    {
+     "t0": 162.67,
+     "t1": 164.03,
+     "slide": 1,
+     "text": "il model versioning,"
+    },
+    {
+     "t0": 164.28,
+     "t1": 167.89,
+     "slide": 1,
+     "text": "che consente aggiornamenti e rollback senza downtime,"
+    },
+    {
+     "t0": 168.14,
+     "t1": 170.73,
+     "slide": 1,
+     "text": "e un sistema di metriche e monitoring."
+    },
+    {
+     "t0": 170.98,
+     "t1": 175.54,
+     "slide": 2,
+     "text": "Ricordate la distinzione d'esame: Triton serve, TensorRT ottimizza."
+    },
+    {
+     "t0": 175.79,
+     "t1": 178.11,
+     "slide": 2,
+     "text": "Due concetti collegati ma diversi."
+    },
+    {
+     "t0": 178.36,
+     "t1": 189.87,
+     "slide": 3,
+     "text": "Poi abbiamo i DGX Systems: sono infrastrutture purpose-built di NVIDIA, server ottimizzati per i workload di training e inference AI, con software stack pre-configurato."
+    },
+    {
+     "t0": 190.12,
+     "t1": 195.77,
+     "slide": 3,
+     "text": "Quando la domanda parla di infrastruttura hardware dedicata all'AI, pensate ai DGX."
+    },
+    {
+     "t0": 196.02,
+     "t1": 203.72,
+     "slide": 3,
+     "text": "Infine ONNX, l'Open Neural Network Exchange: uno standard aperto per rappresentare i modelli di machine learning."
+    },
+    {
+     "t0": 203.97,
+     "t1": 212.07,
+     "slide": 3,
+     "text": "Il suo valore è la portabilità: addestrate in PyTorch, esportate in ONNX, ottimizzate con TensorRT, servite con Triton."
+    },
+    {
+     "t0": 212.32,
+     "t1": 217.29,
+     "slide": 3,
+     "text": "Questa pipeline è esattamente il flusso di lavoro moderno del deployment."
+    },
+    {
+     "t0": 217.54,
+     "t1": 220.74,
+     "slide": 4,
+     "text": "Chiudiamo con un consiglio pratico per l'esame."
+    },
+    {
+     "t0": 220.99,
+     "t1": 239.25,
+     "slide": 4,
+     "text": "Quando vedete una domanda su quale tool usare, cercate le parole chiave: high-performance model serving significa Triton; inference optimization significa TensorRT; pre-trained models per costruire applicazioni significa NeMo; portabilità tra framework significa ONNX."
+    },
+    {
+     "t0": 239.5,
+     "t1": 244.67,
+     "slide": 4,
+     "text": "Memorizzate queste quattro associazioni e avrete già in tasca diversi punti."
+    },
+    {
+     "t0": 244.92,
+     "t1": 249.89,
+     "slide": 4,
+     "text": "Aggiungiamo ancora qualche dettaglio utile che l'esame potrebbe chiedere."
+    },
+    {
+     "t0": 250.14,
+     "t1": 265.81,
+     "slide": 4,
+     "text": "Il dynamic batching di Triton merita un'attenzione particolare: invece di processare ogni richiesta appena arriva, il server le accumula per brevissimi intervalli e le combina in batch, saturando la GPU e aumentando il throughput."
+    },
+    {
+     "t0": 266.06,
+     "t1": 274.03,
+     "slide": 4,
+     "text": "Il prezzo è un lieve aumento della latenza per la singola richiesta, ma il guadagno in richieste al secondo è enorme."
+    },
+    {
+     "t0": 274.28,
+     "t1": 288.44,
+     "slide": 4,
+     "text": "Altro concetto da fissare è il model ensemble: Triton può servire un'intera pipeline, per esempio un modello di preprocessing seguito dal modello principale e da un postprocessing, come un'unica unità logica."
+    },
+    {
+     "t0": 288.69,
+     "t1": 304.63,
+     "slide": 4,
+     "text": "E sul fronte TensorRT, ricordate che i formati di input supportati includono ONNX, TensorFlow e PyTorch: la domanda che chiede quali formati supporta TensorRT ha come risposta i formati multipli incluso ONNX, non un singolo framework."
+    },
+    {
+     "t0": 304.88,
+     "t1": 316.8,
+     "slide": 4,
+     "text": "Infine, il model versioning: Triton permette di tenere in serving più versioni dello stesso modello, di confrontarle e di tornare indietro in caso di problemi, senza downtime."
+    },
+    {
+     "t0": 317.05,
+     "t1": 322.02,
+     "slide": 4,
+     "text": "Ecco il quadro completo dell'ecosistema NVIDIA per il deployment moderno."
+    }
+   ]
+  },
+  "ch5-nlp": {
+   "audio": "audio/ch5-nlp.mp3",
+   "duration": 274.83,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 5.21,
+     "slide": 0,
+     "text": "Benvenuti al capitolo cinque: le applicazioni del Natural Language Processing."
+    },
+    {
+     "t0": 5.46,
+     "t1": 13.67,
+     "slide": 0,
+     "text": "Dopo gli strumenti NVIDIA, torniamo ai task linguistici veri e propri, quelli che l'esame testa con domande molto concrete."
+    },
+    {
+     "t0": 13.92,
+     "t1": 23.27,
+     "slide": 0,
+     "text": "L'idea guida è semplice: ogni task ha il suo modello ideale e la sua metrica di valutazione, e confonderli è uno degli errori più frequenti."
+    },
+    {
+     "t0": 23.52,
+     "t1": 26.86,
+     "slide": 0,
+     "text": "Cominciamo dalla Named Entity Recognition, la NER."
+    },
+    {
+     "t0": 27.11,
+     "t1": 34.39,
+     "slide": 0,
+     "text": "Il compito è identificare e classificare le entità nominate nel testo: persone, organizzazioni, luoghi, date."
+    },
+    {
+     "t0": 34.64,
+     "t1": 44.12,
+     "slide": 0,
+     "text": "Pensate a una frase come Maria lavora in Google a Milano: la NER etichetta Maria come PERSON, Google come ORGANIZATION e Milano come LOCATION."
+    },
+    {
+     "t0": 44.37,
+     "t1": 57.66,
+     "slide": 0,
+     "text": "Le applicazioni sono l'information extraction, la categorizzazione dei contenuti, il miglioramento della ricerca e la protezione della privacy, per esempio oscurando automaticamente i dati sensibili."
+    },
+    {
+     "t0": 57.91,
+     "t1": 66.26,
+     "slide": 0,
+     "text": "La valutazione avviene con precision, recall e F1-score a livello di entità, con distinzione tra exact match e partial match."
+    },
+    {
+     "t0": 66.51,
+     "t1": 69.12,
+     "slide": 1,
+     "text": "Secondo blocco: la text classification."
+    },
+    {
+     "t0": 69.37,
+     "t1": 72.57,
+     "slide": 1,
+     "text": "Qui il modello assegna un testo a una categoria."
+    },
+    {
+     "t0": 72.82,
+     "t1": 91.12,
+     "slide": 1,
+     "text": "I tre casi classici sono la sentiment analysis, che distingue positivo, negativo e neutro; la topic classification, che assegna il soggetto del contenuto; e la intent classification, che capisce l'intenzione dell'utente, fondamentale nei chatbot e negli assistenti virtuali."
+    },
+    {
+     "t0": 91.37,
+     "t1": 100.12,
+     "slide": 1,
+     "text": "Gli approcci tradizionali usano TF-IDF con machine learning classico, quelli moderni usano modelli Transformer come BERT e RoBERTa."
+    },
+    {
+     "t0": 100.37,
+     "t1": 102.77,
+     "slide": 2,
+     "text": "Terzo blocco: il question answering."
+    },
+    {
+     "t0": 103.02,
+     "t1": 105.83,
+     "slide": 2,
+     "text": "Esistono tre varianti da distinguere bene."
+    },
+    {
+     "t0": 106.08,
+     "t1": 114.69,
+     "slide": 2,
+     "text": "Nel QA estrattivo la risposta esiste già nel passaggio e il modello ne estrae lo span esatto, come evidenziare una riga di testo."
+    },
+    {
+     "t0": 114.94,
+     "t1": 120.42,
+     "slide": 2,
+     "text": "Nel QA generativo il modello crea una risposta nuova, magari combinando più fonti."
+    },
+    {
+     "t0": 120.67,
+     "t1": 131.89,
+     "slide": 2,
+     "text": "Nel QA open-domain la risposta arriva da una grande knowledge base, ed è qui che entrano in gioco le architetture di retrieval come RAG, che vedremo nel capitolo sette."
+    },
+    {
+     "t0": 132.14,
+     "t1": 139.48,
+     "slide": 2,
+     "text": "I dataset di riferimento sono SQuAD, Natural Questions e MS MARCO: se li vedete tra le opzioni, pensate al QA."
+    },
+    {
+     "t0": 139.73,
+     "t1": 143.94,
+     "slide": 3,
+     "text": "Quarto punto: le fondamenta che rendono tutto questo possibile."
+    },
+    {
+     "t0": 144.19,
+     "t1": 157.88,
+     "slide": 3,
+     "text": "La subword tokenization, con algoritmi come BPE e WordPiece, scompone le parole in unità più piccole, così il modello gestisce anche parole mai viste combinando pezzi noti, e il vocabolario resta compatto."
+    },
+    {
+     "t0": 158.13,
+     "t1": 169.55,
+     "slide": 3,
+     "text": "I pre-trained embedding, come Word2Vec e GloVe, catturano le relazioni semantiche tra parole apprese da enormi corpora: parole con significato simile hanno vettori simili."
+    },
+    {
+     "t0": 169.8,
+     "t1": 178.62,
+     "slide": 3,
+     "text": "E il few-shot learning permette agli LLM di svolgere nuovi task mostrando solo pochi esempi nel prompt, senza ulteriore fine-tuning."
+    },
+    {
+     "t0": 178.87,
+     "t1": 196.63,
+     "slide": 4,
+     "text": "Per l'esame, memorizzate queste associazioni: NER uguale persone, organizzazioni e luoghi; sentiment uguale positivo, negativo, neutro; QA estrattivo uguale span estratto, generativo uguale testo nuovo; summarization uguale ROUGE, come vedremo nel prossimo capitolo."
+    },
+    {
+     "t0": 196.88,
+     "t1": 201.22,
+     "slide": 4,
+     "text": "Con queste ancore, le domande applicative diventano punti sicuri."
+    },
+    {
+     "t0": 201.47,
+     "t1": 205.28,
+     "slide": 4,
+     "text": "Approfondiamo ancora due aspetti che l'esame ama testare."
+    },
+    {
+     "t0": 205.53,
+     "t1": 222.42,
+     "slide": 4,
+     "text": "Primo, la valutazione della NER: precision, recall e F1 si calcolano a livello di entità, non di singolo token, e si distingue tra exact match, dove l'intera entità deve coincidere perfettamente, e partial match, dove basta una sovrapposizione parziale."
+    },
+    {
+     "t0": 222.67,
+     "t1": 230.15,
+     "slide": 4,
+     "text": "Un modello che trova Milano ma sbaglia i confini dell'entità ottiene credito parziale solo con il partial match."
+    },
+    {
+     "t0": 230.4,
+     "t1": 246.3,
+     "slide": 4,
+     "text": "Secondo, il legame tra task e architetture: i modelli encoder-only e bidirezionali come BERT eccellono nei task di comprensione come classificazione e NER, mentre i modelli decoder-only autoregressivi come GPT eccellono nella generazione."
+    },
+    {
+     "t0": 246.55,
+     "t1": 256.03,
+     "slide": 4,
+     "text": "Questa distinzione spiega perché per la sentiment analysis si sceglie tipicamente un BERT, mentre per un chatbot generativo si sceglie un GPT."
+    },
+    {
+     "t0": 256.28,
+     "t1": 267.37,
+     "slide": 4,
+     "text": "Tenete a mente anche i dataset: SQuAD per il QA estrattivo su passaggi, Natural Questions per domande reali da ricerche web, MS MARCO per ranking e QA su larga scala."
+    },
+    {
+     "t0": 267.62,
+     "t1": 274.83,
+     "slide": 4,
+     "text": "Se una domanda cita uno di questi nomi, il contesto è quasi certamente il question answering o il retrieval."
+    }
+   ]
+  },
+  "ch6-metrics": {
+   "audio": "audio/ch6-metrics.mp3",
+   "duration": 284.48,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 4.04,
+     "slide": 0,
+     "text": "Benvenuti al capitolo sei: valutazione dei modelli e metriche."
+    },
+    {
+     "t0": 4.29,
+     "t1": 14.86,
+     "slide": 0,
+     "text": "Questo è uno dei capitoli a più alta priorità per l'esame, perché BLEU, ROUGE e quantization compaiono in continuazione, spesso con trabocchetti studiati apposta."
+    },
+    {
+     "t0": 15.11,
+     "t1": 19.03,
+     "slide": 0,
+     "text": "Partiamo dal BLEU score, il Bilingual Evaluation Understudy."
+    },
+    {
+     "t0": 19.28,
+     "t1": 33.56,
+     "slide": 0,
+     "text": "È la metrica nata per valutare la traduzione automatica: confronta il testo generato dal modello con uno o più testi di riferimento e misura la n-gram precision, cioè quanti frammenti di una, due, tre parole coincidono."
+    },
+    {
+     "t0": 33.81,
+     "t1": 42.49,
+     "slide": 0,
+     "text": "C'è anche una brevity penalty che penalizza gli output troppo corti, per evitare che risposte brevissime ottengano punteggi gonfiati."
+    },
+    {
+     "t0": 42.74,
+     "t1": 46.0,
+     "slide": 0,
+     "text": "Il range va da zero a uno, e più è alto, meglio è."
+    },
+    {
+     "t0": 46.25,
+     "t1": 54.21,
+     "slide": 0,
+     "text": "Ma attenzione al trabocchetto più famoso dell'esame: un BLEU alto significa solo che il testo è più simile al riferimento."
+    },
+    {
+     "t0": 54.46,
+     "t1": 62.15,
+     "slide": 0,
+     "text": "Non significa vocabolario più ampio, non significa comprensione più profonda, non significa efficienza computazionale."
+    },
+    {
+     "t0": 62.4,
+     "t1": 65.14,
+     "slide": 0,
+     "text": "È una somiglianza lessicale di superficie."
+    },
+    {
+     "t0": 65.39,
+     "t1": 70.35,
+     "slide": 0,
+     "text": "Fissatevelo bene, perché troverete queste opzioni sbagliate quasi di sicuro."
+    },
+    {
+     "t0": 70.6,
+     "t1": 75.69,
+     "slide": 1,
+     "text": "Passiamo al ROUGE score, il Recall-Oriented Understudy for Gisting Evaluation."
+    },
+    {
+     "t0": 75.94,
+     "t1": 84.88,
+     "slide": 1,
+     "text": "Mentre BLEU nasce per la traduzione ed è orientato alla precision, ROUGE nasce per la valutazione dei riassunti ed è orientato al recall."
+    },
+    {
+     "t0": 85.13,
+     "t1": 94.13,
+     "slide": 1,
+     "text": "Le varianti da ricordare sono ROUGE-N per l'overlap di n-gram, ROUGE-L per la longest common subsequence e ROUGE-W per la versione pesata."
+    },
+    {
+     "t0": 94.38,
+     "t1": 99.99,
+     "slide": 1,
+     "text": "La regola d'esame è semplicissima: summarization uguale ROUGE, traduzione uguale BLEU."
+    },
+    {
+     "t0": 100.24,
+     "t1": 102.06,
+     "slide": 2,
+     "text": "Terzo tema: la quantization."
+    },
+    {
+     "t0": 102.31,
+     "t1": 109.49,
+     "slide": 2,
+     "text": "È una tecnica di ottimizzazione che riduce la precisione numerica dei pesi, per esempio da FP32 a INT8 o FP16."
+    },
+    {
+     "t0": 109.74,
+     "t1": 119.39,
+     "slide": 2,
+     "text": "I benefici sono quattro e vanno memorizzati: minore uso di memoria, inference più veloce, minore consumo energetico e minori costi infrastrutturali."
+    },
+    {
+     "t0": 119.64,
+     "t1": 122.84,
+     "slide": 2,
+     "text": "Il tradeoff è una piccola perdita di accuratezza."
+    },
+    {
+     "t0": 123.09,
+     "t1": 129.68,
+     "slide": 2,
+     "text": "Le tecniche includono post-training quantization, quantization-aware training e dynamic quantization."
+    },
+    {
+     "t0": 129.93,
+     "t1": 138.86,
+     "slide": 2,
+     "text": "Il trabocchetto qui è pensare che la quantization migliori l'accuratezza o aumenti la dimensione del modello: è esattamente il contrario."
+    },
+    {
+     "t0": 139.11,
+     "t1": 155.88,
+     "slide": 3,
+     "text": "Accanto alla quantization, ricordate altre due tecniche di compressione: la knowledge distillation, in cui un modello student piccolo imita un teacher grande apprendendo dalle sue distribuzioni di probabilità, e il pruning, che rimuove pesi poco importanti."
+    },
+    {
+     "t0": 156.13,
+     "t1": 157.95,
+     "slide": 4,
+     "text": "Chiudiamo con il deployment."
+    },
+    {
+     "t0": 158.2,
+     "t1": 167.73,
+     "slide": 4,
+     "text": "L'A/B testing per i modelli in produzione prevede il deploy simultaneo di entrambi i modelli con traffico diviso equamente, cinquanta e cinquanta."
+    },
+    {
+     "t0": 167.98,
+     "t1": 172.02,
+     "slide": 4,
+     "text": "Solo così il confronto è equo e statisticamente significativo."
+    },
+    {
+     "t0": 172.27,
+     "t1": 176.77,
+     "slide": 4,
+     "text": "Il model versioning abilita rollback sicuri e confronto tra versioni."
+    },
+    {
+     "t0": 177.02,
+     "t1": 189.48,
+     "slide": 4,
+     "text": "E ricordate due metriche di contorno: F1-score come media armonica di precision e recall per la classificazione, e la perplexity per il language modeling, dove valori più bassi sono migliori."
+    },
+    {
+     "t0": 189.73,
+     "t1": 201.93,
+     "slide": 4,
+     "text": "Per l'esame, le tre frasi da non sbagliare mai: BLEU alto uguale simile al riferimento; quantization uguale meno memoria e meno latenza; A/B testing uguale traffico cinquanta e cinquanta."
+    },
+    {
+     "t0": 202.18,
+     "t1": 204.92,
+     "slide": 4,
+     "text": "Aggiungiamo gli ultimi dettagli operativi."
+    },
+    {
+     "t0": 205.17,
+     "t1": 215.22,
+     "slide": 4,
+     "text": "La perplexity è la metrica del language modeling: misura quanto il modello è sorpreso dal testo, e valori più bassi indicano migliore capacità predittiva."
+    },
+    {
+     "t0": 215.47,
+     "t1": 224.79,
+     "slide": 4,
+     "text": "Non confondetela con BLEU e ROUGE, che confrontano con un riferimento, mentre la perplexity valuta la probabilità assegnata dal modello stesso."
+    },
+    {
+     "t0": 225.04,
+     "t1": 242.13,
+     "slide": 4,
+     "text": "Sul fronte compressione, oltre a quantization, distillation e pruning, ricordate il gradient accumulation per il training distribuito: accumula i gradienti su più mini-batch prima dell'aggiornamento dei parametri, simulando batch più grandi con memoria limitata."
+    },
+    {
+     "t0": 242.38,
+     "t1": 256.02,
+     "slide": 4,
+     "text": "E per il deployment, la metrica F1 come media armonica di precision e recall è lo standard per i task di classificazione su dataset sbilanciati: bilancia i falsi positivi e i falsi negativi in un unico numero."
+    },
+    {
+     "t0": 256.27,
+     "t1": 261.42,
+     "slide": 4,
+     "text": "Con queste tessere il quadro della valutazione è completo e pronto per l'esame."
+    },
+    {
+     "t0": 261.67,
+     "t1": 274.85,
+     "slide": 4,
+     "text": "Un ultimo promemoria operativo: quando leggete le opzioni, diffidate di qualunque risposta che attribuisce a BLEU o ROUGE proprietà che non hanno, come misurare la creatività o la comprensione profonda."
+    },
+    {
+     "t0": 275.1,
+     "t1": 277.84,
+     "slide": 4,
+     "text": "Sono metriche di overlap lessicale, punto."
+    },
+    {
+     "t0": 278.09,
+     "t1": 284.48,
+     "slide": 4,
+     "text": "E sulla quantization, se un'opzione parla di modelli più grandi o più accurati, scartatela subito."
+    }
+   ]
+  },
+  "ch7-applications": {
+   "audio": "audio/ch7-applications.mp3",
+   "duration": 309.58,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 4.17,
+     "slide": 0,
+     "text": "Benvenuti al capitolo sette: le applicazioni reali degli LLM."
+    },
+    {
+     "t0": 4.42,
+     "t1": 14.28,
+     "slide": 0,
+     "text": "Dopo aver studiato architetture, training, strumenti e metriche, vediamo come tutto questo si traduce in sistemi che funzionano nel mondo reale."
+    },
+    {
+     "t0": 14.53,
+     "t1": 23.15,
+     "slide": 0,
+     "text": "Il protagonista assoluto di questo capitolo è RAG, la Retrieval-Augmented Generation, uno dei concetti più testati dell'esame."
+    },
+    {
+     "t0": 23.4,
+     "t1": 33.32,
+     "slide": 0,
+     "text": "L'idea di RAG è elegante: invece di chiedere al modello di ricordare tutto dai pesi del training, gli diamo accesso a una knowledge base esterna."
+    },
+    {
+     "t0": 33.57,
+     "t1": 36.24,
+     "slide": 0,
+     "text": "L'architettura procede in quattro fasi."
+    },
+    {
+     "t0": 36.49,
+     "t1": 40.87,
+     "slide": 0,
+     "text": "Primo, query processing: la domanda dell'utente viene elaborata."
+    },
+    {
+     "t0": 41.12,
+     "t1": 47.42,
+     "slide": 0,
+     "text": "Secondo, document retrieval: il sistema recupera i documenti rilevanti dalla knowledge base."
+    },
+    {
+     "t0": 47.67,
+     "t1": 53.28,
+     "slide": 0,
+     "text": "Terzo, context integration: i documenti vengono inseriti nel contesto del modello."
+    },
+    {
+     "t0": 53.53,
+     "t1": 59.41,
+     "slide": 0,
+     "text": "Quarto, response generation: il modello genera la risposta basandosi su quel contesto."
+    },
+    {
+     "t0": 59.66,
+     "t1": 62.67,
+     "slide": 0,
+     "text": "I benefici sono quattro e vanno memorizzati:"
+    },
+    {
+     "t0": 62.92,
+     "t1": 67.1,
+     "slide": 0,
+     "text": "accesso a informazioni aggiornate oltre la data del training,"
+    },
+    {
+     "t0": 67.35,
+     "t1": 72.89,
+     "slide": 0,
+     "text": "riduzione delle hallucination perché le risposte sono ancorate a documenti reali,"
+    },
+    {
+     "t0": 73.14,
+     "t1": 76.97,
+     "slide": 0,
+     "text": "risposte più spiegabili dato che si può citare la fonte,"
+    },
+    {
+     "t0": 77.22,
+     "t1": 82.49,
+     "slide": 0,
+     "text": "e integrazione di conoscenza dominio-specifica senza riaddestrare il modello."
+    },
+    {
+     "t0": 82.74,
+     "t1": 88.01,
+     "slide": 0,
+     "text": "Quando all'esame vedete combinare retrieval e generazione, la risposta è RAG."
+    },
+    {
+     "t0": 88.26,
+     "t1": 91.13,
+     "slide": 1,
+     "text": "Secondo tema: le applicazioni per dominio."
+    },
+    {
+     "t0": 91.38,
+     "t1": 100.48,
+     "slide": 1,
+     "text": "In healthcare gli LLM servono per analisi di documenti medici, supporto alle decisioni cliniche e accelerazione della drug discovery."
+    },
+    {
+     "t0": 100.73,
+     "t1": 106.41,
+     "slide": 1,
+     "text": "In finance per risk assessment, fraud detection e generazione automatica di report."
+    },
+    {
+     "t0": 106.66,
+     "t1": 115.49,
+     "slide": 1,
+     "text": "In ambito legale per contract analysis, ricerca giuridica e compliance monitoring, dove accuratezza e spiegabilità sono critiche."
+    },
+    {
+     "t0": 115.74,
+     "t1": 122.79,
+     "slide": 1,
+     "text": "Nel customer service per chatbot e assistenti virtuali, ticket routing automatico e sentiment analysis."
+    },
+    {
+     "t0": 123.04,
+     "t1": 125.71,
+     "slide": 2,
+     "text": "Terzo tema: le tecniche di generazione."
+    },
+    {
+     "t0": 125.96,
+     "t1": 137.25,
+     "slide": 2,
+     "text": "La beam search mantiene più sequenze candidate in parallelo ed esplora percorsi diversi, producendo output migliori della greedy search al costo di più computazione."
+    },
+    {
+     "t0": 137.5,
+     "t1": 149.54,
+     "slide": 2,
+     "text": "Il nucleus sampling, o top-p, campiona dal più piccolo insieme di token la cui probabilità cumulata supera una soglia p, bilanciando diversità e qualità meglio del top-k fisso."
+    },
+    {
+     "t0": 149.79,
+     "t1": 166.83,
+     "slide": 3,
+     "text": "I diffusion models funzionano in due fasi: il forward process aggiunge gradualmente rumore ai dati fino a rumore puro, il reverse process impara a rimuovere il rumore, modellando così la distribuzione dei dati per la generazione di immagini e testo."
+    },
+    {
+     "t0": 167.08,
+     "t1": 169.95,
+     "slide": 4,
+     "text": "Chiudiamo con il deployment in produzione."
+    },
+    {
+     "t0": 170.2,
+     "t1": 178.28,
+     "slide": 4,
+     "text": "La regola d'oro è bilanciare performance, latenza e costi computazionali: raramente si massimizza una sola dimensione."
+    },
+    {
+     "t0": 178.53,
+     "t1": 190.91,
+     "slide": 4,
+     "text": "Le tecniche di quantization e ottimizzazione con TensorRT riducono i requisiti di risorse per inference, e l'A/B testing con traffico cinquanta e cinquanta valida le nuove versioni."
+    },
+    {
+     "t0": 191.16,
+     "t1": 202.25,
+     "slide": 4,
+     "text": "E ricordate il few-shot learning: mostrare pochi esempi nel prompt per nuovi task senza fine-tuning è spesso il modo più economico di prototipare un'applicazione."
+    },
+    {
+     "t0": 202.5,
+     "t1": 219.81,
+     "slide": 4,
+     "text": "Per l'esame, le ancore sono: RAG uguale retrieval più generazione contro le hallucination; beam search uguale più candidati in parallelo; top-p uguale campionamento dalla massa di probabilità; deployment uguale tradeoff tra performance, latenza e costi."
+    },
+    {
+     "t0": 220.06,
+     "t1": 224.44,
+     "slide": 4,
+     "text": "Un ultimo blocco di concetti collega questo capitolo agli altri."
+    },
+    {
+     "t0": 224.69,
+     "t1": 240.02,
+     "slide": 4,
+     "text": "Il teacher forcing, usato nel training dei modelli sequenziali, alimenta i token corretti a ogni passo invece delle predizioni del modello: stabilizza il training ma crea il cosiddetto exposure bias tra training e inference."
+    },
+    {
+     "t0": 240.27,
+     "t1": 248.14,
+     "slide": 4,
+     "text": "Le segment embedding di BERT distinguono frasi diverse nei task a coppie di frasi come il Next Sentence Prediction."
+    },
+    {
+     "t0": 248.39,
+     "t1": 260.91,
+     "slide": 4,
+     "text": "E il warm-up del learning rate aumenta gradualmente il tasso di apprendimento nelle prime fasi per stabilizzare il training dei modelli grandi con parametri inizializzati casualmente."
+    },
+    {
+     "t0": 261.16,
+     "t1": 274.5,
+     "slide": 4,
+     "text": "Sul fronte costi, la regola operativa è che quantization e ottimizzazione riducono i requisiti fondamentali per inference, mentre batch size e GPU aggiuntive aumentano solo capacità e throughput."
+    },
+    {
+     "t0": 274.75,
+     "t1": 277.7,
+     "slide": 4,
+     "text": "L'ottimizzazione conviene sempre per prima."
+    },
+    {
+     "t0": 277.95,
+     "t1": 288.07,
+     "slide": 4,
+     "text": "Con questo, l'intero percorso dal Transformer alle applicazioni reali è completo: siete pronti per il ripasso finale e per il mock exam sotto tempo."
+    },
+    {
+     "t0": 288.32,
+     "t1": 301.32,
+     "slide": 4,
+     "text": "Un ultimo consiglio trasversale: molte domande mescolano questi temi, per esempio chiedendo quale tecnica riduce i costi di inference oppure quale architettura serve per risposte aggiornate."
+    },
+    {
+     "t0": 301.57,
+     "t1": 309.58,
+     "slide": 4,
+     "text": "Leggete sempre l'ultima riga della domanda per prima: è lì che si capisce se cercano RAG, quantization o beam search."
+    }
+   ]
+  },
+  "quick-ref": {
+   "audio": "audio/quick-ref.mp3",
+   "duration": 149.98,
+   "sentences": [
+    {
+     "t0": 0.0,
+     "t1": 4.17,
+     "slide": 0,
+     "text": "Ripasso last-minute per la certificazione NVIDIA NCA-GENL."
+    },
+    {
+     "t0": 4.42,
+     "t1": 15.49,
+     "slide": 0,
+     "text": "Cinquanta domande, sessanta minuti, poco più di un minuto per domanda: gestite il tempo con una prima passata veloce e una seconda per le domande marcate."
+    },
+    {
+     "t0": 15.74,
+     "t1": 18.61,
+     "slide": 1,
+     "text": "Partiamo dalle sette frasi di emergenza."
+    },
+    {
+     "t0": 18.86,
+     "t1": 26.62,
+     "slide": 1,
+     "text": "Uno: BLEU alto significa testo più simile al riferimento, mai vocabolario più ampio o comprensione profonda."
+    },
+    {
+     "t0": 26.87,
+     "t1": 34.63,
+     "slide": 1,
+     "text": "Due: la matrice Query cerca informazioni, la Value contiene le informazioni, la Key misura la compatibilità."
+    },
+    {
+     "t0": 34.88,
+     "t1": 40.78,
+     "slide": 1,
+     "text": "Tre: Triton serve i modelli in produzione, TensorRT li ottimizza per la inference."
+    },
+    {
+     "t0": 41.03,
+     "t1": 47.13,
+     "slide": 1,
+     "text": "Quattro: l'A/B testing usa traffico equo cinquanta e cinquanta con deploy simultaneo."
+    },
+    {
+     "t0": 47.38,
+     "t1": 52.92,
+     "slide": 1,
+     "text": "Cinque: la quantization riduce memoria e latenza, non migliora l'accuratezza."
+    },
+    {
+     "t0": 53.17,
+     "t1": 58.05,
+     "slide": 1,
+     "text": "Sei: l'EDA scopre pattern e anomalie nei dati prima del fine-tuning."
+    },
+    {
+     "t0": 58.3,
+     "t1": 66.07,
+     "slide": 1,
+     "text": "Sette: il positional encoding aggiunge l'ordine delle sequenze perché i Transformer processano in parallelo."
+    },
+    {
+     "t0": 66.32,
+     "t1": 68.83,
+     "slide": 2,
+     "text": "Aggiungiamo le associazioni rapide:"
+    },
+    {
+     "t0": 69.08,
+     "t1": 70.66,
+     "slide": 2,
+     "text": "ROUGE per i riassunti,"
+    },
+    {
+     "t0": 70.91,
+     "t1": 72.57,
+     "slide": 2,
+     "text": "BLEU per la traduzione;"
+    },
+    {
+     "t0": 72.82,
+     "t1": 75.55,
+     "slide": 2,
+     "text": "BERT encoder-only per la comprensione,"
+    },
+    {
+     "t0": 75.8,
+     "t1": 78.38,
+     "slide": 2,
+     "text": "GPT decoder-only per la generazione;"
+    },
+    {
+     "t0": 78.63,
+     "t1": 80.93,
+     "slide": 2,
+     "text": "NeMo per costruire applicazioni,"
+    },
+    {
+     "t0": 81.18,
+     "t1": 82.91,
+     "slide": 2,
+     "text": "ONNX per la portabilità;"
+    },
+    {
+     "t0": 83.16,
+     "t1": 86.03,
+     "slide": 2,
+     "text": "beam search per esplorare più candidati,"
+    },
+    {
+     "t0": 86.28,
+     "t1": 89.73,
+     "slide": 2,
+     "text": "top-p per campionare dalla massa di probabilità;"
+    },
+    {
+     "t0": 89.98,
+     "t1": 94.15,
+     "slide": 2,
+     "text": "RAG contro le hallucination con retrieval più generazione."
+    },
+    {
+     "t0": 94.4,
+     "t1": 109.28,
+     "slide": 3,
+     "text": "Checklist finale prima di entrare: componenti del Transformer, formule di attention e layer norm, differenze BLEU e ROUGE, benefici della quantization, i quattro tool NVIDIA, A/B testing e transfer learning."
+    },
+    {
+     "t0": 109.53,
+     "t1": 118.15,
+     "slide": 4,
+     "text": "Eliminate prima le risposte ovviamente sbagliate, cercate la terminologia specifica NVIDIA e fidatevi del primo istinto."
+    },
+    {
+     "t0": 118.4,
+     "t1": 126.88,
+     "slide": 4,
+     "text": "Ricordate anche la gestione dell'ansia: avete sessanta minuti per cinquanta domande, un ritmo assolutamente gestibile."
+    },
+    {
+     "t0": 127.13,
+     "t1": 137.33,
+     "slide": 4,
+     "text": "Se una domanda vi blocca per più di un minuto, marcatela e andate avanti: spesso la risposta vi verrà in mente mentre risolvete le successive."
+    },
+    {
+     "t0": 137.58,
+     "t1": 147.5,
+     "slide": 4,
+     "text": "E ripassate un'ultima volta le formule chiave, attention con Q, K e V, layer norm con gamma e beta, positional encoding con seno e coseno."
+    },
+    {
+     "t0": 147.75,
+     "t1": 149.98,
+     "slide": 4,
+     "text": "In bocca al lupo, ce la farete."
+    }
+   ]
+  }
+ }
+}

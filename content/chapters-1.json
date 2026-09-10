@@ -1,0 +1,633 @@
+[
+ {
+  "area": "fondamenti",
+  "id": "ch1-transformer",
+  "keywords": [
+   {
+    "def": "Meccanismo che permette a ogni token di pesare l'importanza di tutti gli altri token della sequenza per costruire la propria rappresentazione contestuale.",
+    "term": "self-attention"
+   },
+   {
+    "def": "Matrice che rappresenta il token che sta cercando informazioni dagli altri token della sequenza: è la domanda 'cosa sto cercando?'.",
+    "term": "Query (Q)"
+   },
+   {
+    "def": "Matrice usata per calcolare la compatibilità di ogni token con la Query: è la risposta a 'cosa ho da offrire?'.",
+    "term": "Key (K)"
+   },
+   {
+    "def": "Matrice che contiene il contenuto informativo effettivo da recuperare, pesato poi dai punteggi di attention.",
+    "term": "Value (V)"
+   },
+   {
+    "def": "Esecuzione parallela di più meccanismi di attention, ognuno focalizzato su tipi diversi di relazioni (sintattiche, semantiche). Gli output vengono concatenati e proiettati. Formula: MultiHead(Q,K,V) = Concat(head₁,…,headₕ)W^O.",
+    "term": "multi-head attention"
+   },
+   {
+    "def": "Informazione iniettata negli embedding per indicare l'ordine dei token, necessaria perché il Transformer elabora tutto in parallelo senza ordine intrinseco. Formula sinusoidale: PE(pos,2i) = sin(pos/10000^(2i/d)), PE(pos,2i+1) = cos(pos/10000^(2i/d)).",
+    "term": "positional encoding"
+   },
+   {
+    "def": "Tecnica che normalizza gli input di ogni layer (media e varianza), stabilizzando il training e permettendo reti molto profonde.",
+    "term": "layer normalization"
+   },
+   {
+    "def": "Connessioni che sommano l'input di ogni sotto-layer al suo output (operazioni Add and Norm), garantendo il flusso del gradiente nelle reti profonde.",
+    "term": "residual connections"
+   },
+   {
+    "def": "Rete applicata indipendentemente a ogni posizione dopo l'attention, tipicamente due layer lineari con attivazione non lineare, che aggiunge capacità modellante.",
+    "term": "feed-forward network"
+   },
+   {
+    "def": "Funzione che normalizza i punteggi grezzi di attention in una distribuzione di probabilità la cui somma è 1, producendo i pesi finali. Formula: σ(z)ᵢ = e^zᵢ/Σⱼe^zⱼ, con somma dei pesi uguale a 1.",
+    "term": "softmax"
+   },
+   {
+    "def": "Formula Attention(Q,K,V) uguale alla softmax delle Query per le Key trasposte diviso radice di d k, moltiplicata per le Value; la divisione stabilizza i gradienti. Formula: Attention(Q,K,V) = softmax(QKᵀ/√dₖ)V.",
+    "term": "scaled dot-product attention"
+   },
+   {
+    "def": "Maschera che impedisce ai token di prestare attenzione ai token di padding o, nei decoder autoregressivi, ai token futuri durante il training.",
+    "term": "attention mask"
+   }
+  ],
+  "prereq": [],
+  "quiz": [
+   {
+    "answer": 1,
+    "explain": "Il Transformer elabora tutti i token in parallelo, a differenza delle reti ricorrenti, quindi perde l'informazione sull'ordine; il positional encoding la reinietta.",
+    "options": [
+     "Ridurre la complessità computazionale",
+     "Fornire informazioni sull'ordine dei token nella sequenza",
+     "Comprimere le rappresentazioni di input",
+     "Gestire sequenze di lunghezza variabile"
+    ],
+    "q": "Qual è lo scopo principale del positional encoding nei modelli Transformer?"
+   },
+   {
+    "answer": 2,
+    "explain": "La Query rappresenta il token che chiede informazioni; la Key serve a calcolare la compatibilità e la Value contiene il contenuto da recuperare.",
+    "options": [
+     "Key (K)",
+     "Value (V)",
+     "Query (Q)",
+     "Output (O)"
+    ],
+    "q": "Nel meccanismo di self-attention, quale matrice rappresenta il token che cerca informazioni rilevanti?"
+   },
+   {
+    "answer": 1,
+    "explain": "Ogni head impara pattern di attention diversi: una può cogliere relazioni sintattiche, un'altra somiglianze semantiche, arricchendo la rappresentazione.",
+    "options": [
+     "Ridurre il costo computazionale",
+     "Focalizzarsi simultaneamente su diversi tipi di relazioni",
+     "Gestire sequenze più lunghe",
+     "Migliorare l'efficienza di memoria"
+    ],
+    "q": "Nella multi-head attention, perché si usano più head di attention?"
+   },
+   {
+    "answer": 2,
+    "explain": "Le residual connection sommano input e output di ogni sotto-layer, permettendo al gradiente di fluire anche in reti molto profonde ed evitando il vanishing gradient.",
+    "options": [
+     "Solo i meccanismi di attention",
+     "Solo le reti feed-forward",
+     "Le residual connection",
+     "I layer di pooling"
+    ],
+    "q": "Nell'architettura Transformer, cosa collega i diversi layer tra loro?"
+   },
+   {
+    "answer": 1,
+    "explain": "La softmax converte i punteggi grezzi in una distribuzione di probabilità che somma a 1, così l'output è una media pesata e il training resta stabile.",
+    "options": [
+     "Aumentare la velocità computazionale",
+     "Normalizzare i pesi di attention in modo che sommino a 1",
+     "Ridurre l'uso di memoria",
+     "Gestire i valori negativi"
+    ],
+    "q": "Qual è lo scopo della funzione softmax nel calcolo dell'attention?"
+   },
+   {
+    "answer": 1,
+    "explain": "Senza la divisione per radice di d k, i prodotti scalari crescerebbero troppo e la softmax avrebbe gradienti quasi nulli, destabilizzando il training.",
+    "options": [
+     "La lunghezza della sequenza",
+     "La radice quadrata della dimensione delle Key",
+     "Il numero di head",
+     "La dimensione del batch"
+    ],
+    "q": "Nella scaled dot-product attention, per cosa si dividono i punteggi di attention?"
+   },
+   {
+    "q": "Cosa rappresentano rispettivamente Query, Key e Value nella self-attention?",
+    "options": [
+     "La Query cerca informazioni, la Key misura la compatibilità, la Value contiene il contenuto",
+     "La Query contiene il contenuto, la Key cerca, la Value normalizza",
+     "Query, Key e Value sono la stessa matrice con nomi diversi",
+     "La Query è l'output finale, la Key l'input, la Value la loss"
+    ],
+    "answer": 0,
+    "explain": "Fonte: comprehensive-study-guide sezione Transformer, domanda 2. La guida usa la metafora: Q è 'cosa sto cercando?', K è 'cosa ho?', V è 'il contenuto vero'."
+   }
+  ],
+  "script": "Benvenuti al primo capitolo della guida NVIDIA NCA-GENL, dedicato all'architettura Transformer e ai meccanismi di attention. Partiamo da una domanda fondamentale. Prima del duemiladiciassette, i modelli di linguaggio erano basati su reti ricorrenti, le cosiddette RNN, che leggevano il testo una parola alla volta, in sequenza, come facciamo noi quando leggiamo. Poi è arrivato l'articolo Attention Is All You Need, che ha cambiato tutto. L'idea rivoluzionaria è questa. Anziché leggere in sequenza, il Transformer guarda l'intera frase in parallelo, tutta insieme, e per ogni parola decide a quali altre parole prestare attenzione. È come se, leggendo una frase, potessi vedere contemporaneamente ogni parola e capire al volo quali sono collegate tra loro. Questo parallelismo è il motivo per cui i Transformer si addestrano molto più in fretta sulle GPU moderne, che sono fatte apposta per il calcolo parallelo. Ma attenzione, c'è un prezzo da pagare. Se guardi tutto in parallelo, perdi l'ordine delle parole. 'Il cane morde l'uomo' e 'L'uomo morde il cane' contengono le stesse parole, ma significano cose opposte. Per questo esiste il positional encoding, un'informazione sulla posizione che viene sommata alla rappresentazione di ogni parola, usando funzioni sinusoidali o rappresentazioni apprese. È come numerare i posti a sedere in un teatro. Senza numeri, sai chi c'è ma non dove è seduto. Veniamo ora al cuore di tutto, la self-attention. Immaginate una riunione in cui ogni partecipante pone una domanda. Nel nostro meccanismo ci sono tre protagonisti, Query, Key e Value. La Query è la domanda. 'Cosa sto cercando?'. La Key è come il cartellino di ogni partecipante. 'Ecco cosa ho da offrire'. La Value è il contenuto vero e proprio che quel partecipante può dare. Il procedimento è semplice da descrivere. Ogni Query viene confrontata con tutte le Key, si calcolano dei punteggi di compatibilità, questi punteggi vengono normalizzati con la funzione softmax in modo che sommino a uno, e infine si fa una media pesata delle Value. In formule si dice, l'attention è uguale alla softmax delle Query per le Key trasposte diviso radice di d k, il tutto moltiplicato per le Value. Quella divisione per la radice della dimensione delle Key non è un dettaglio. Serve a evitare che i punteggi diventino enormi e che i gradienti si azzerino, bloccando l'apprendimento. La multi-head attention porta tutto questo a un livello superiore. Invece di un singolo meccanismo di attenzione, ne eseguiamo tanti in parallelo, le cosiddette head. Ogni head può specializzarsi. Una impara le relazioni grammaticali, come soggetto e verbo. Un'altra coglie somiglianze di significato. Un'altra ancora segue i riferimenti tra pronomi e nomi. Alla fine gli output vengono concatenati e proiettati. Attorno all'attention, ogni layer del Transformer ha altri componenti essenziali. La feed-forward network applica trasformazioni non lineari a ogni posizione, aggiungendo capacità di modellazione. La layer normalization stabilizza l'addestramento normalizzando gli input di ogni layer, ed è ciò che permette di impilare decine di layer senza che il training diverga. Le residual connection, infine, sommano l'input all'output di ogni sotto-layer, le famose operazioni Add and Norm, garantendo che il gradiente fluisca anche nelle reti più profonde. E non dimentichiamo l'attention mask, che nei modelli generativi impedisce ai token di sbirciare le parole future durante l'addestramento, preservando la proprietà autoregressiva. Ricapitolando per l'esame. Il Transformer vince sulle reti ricorrenti grazie all'elaborazione parallela. La Query cerca, la Key misura la compatibilità, la Value fornisce il contenuto. Il positional encoding restituisce l'ordine. La softmax normalizza i pesi. E la divisione per radice di d k mantiene stabile il training. Con queste idee chiare in testa, il resto della guida sarà molto più semplice. Tenete infine a mente che ogni domanda d'esame su Query, Key e Value si risolve ricordando chi cerca, chi confronta e chi fornisce il contenuto informativo.",
+  "slides": [
+   {
+    "bullets": [
+     "Architettura introdotta nel 2017 con 'Attention Is All You Need'",
+     "Elaborazione parallela delle sequenze, a differenza delle RNN sequenziali",
+     "Fondamento dei moderni LLM: GPT, BERT, T5",
+     "Basata sul meccanismo di self-attention"
+    ],
+    "title": "Il Transformer in sintesi"
+   },
+   {
+    "bullets": [
+     "Query (Q): il token che cerca informazioni, 'cosa sto cercando?'",
+     "Key (K): misura la compatibilità con gli altri token, 'cosa ho da offrire?'",
+     "Value (V): il contenuto informativo effettivo da recuperare",
+     "La softmax delle Query per le Key diviso radice di d k, per le Value",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>Attention</mi><mo>(</mo><mi>Q</mi><mo>,</mo><mi>K</mi><mo>,</mo><mi>V</mi><mo>)</mo><mo>=</mo><mi>softmax</mi><mo>(</mo><mfrac><mrow><mi>Q</mi><msup><mi>K</mi><mi>T</mi></msup></mrow><msqrt><msub><mi>d</mi><mi>k</mi></msub></msqrt></mfrac><mo>)</mo><mi>V</mi></mrow></math>",
+      "formula_fb": "Attention(Q,K,V) = softmax(QKᵀ/√dₖ)V",
+      "caption": "Q = Query (\"cosa sto cercando?\"), K = Key (\"cosa ho da offrire?\"), V = Value (il contenuto); √dₖ è la radice della dimensione delle Key e funge da fattore di scala per tenere stabili i gradienti.",
+      "kind": "formula"
+     },
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>&#x03C3;</mi><mi>i</mi></msub><mo>(</mo><mi>z</mi><mo>)</mo><mo>=</mo><mfrac><msup><mi>e</mi><msub><mi>z</mi><mi>i</mi></msub></msup><mrow><munder><mo>&#x2211;</mo><mi>j</mi></munder><msup><mi>e</mi><msub><mi>z</mi><mi>j</mi></msub></msup></mrow></mfrac></mrow></math>",
+      "formula_fb": "σ(z)ᵢ = e^zᵢ/Σⱼe^zⱼ",
+      "caption": "Converte i punteggi grezzi QKᵀ/√dₖ in pesi che sommano a 1: una media pesata delle Value.",
+      "kind": "formula"
+     }
+    ],
+    "title": "Self-attention: Query, Key, Value"
+   },
+   {
+    "bullets": [
+     "Più meccanismi di attention eseguiti in parallelo",
+     "Ogni head coglie tipi diversi di relazioni (sintattiche, semantiche)",
+     "Gli output delle head vengono concatenati e proiettati",
+     "Rappresentazioni più ricche rispetto a una singola attention",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mi>MultiHead</mi><mo>(</mo><mi>Q</mi><mo>,</mo><mi>K</mi><mo>,</mo><mi>V</mi><mo>)</mo><mo>=</mo><mi>Concat</mi><mo>(</mo><msub><mi>head</mi><mn>1</mn></msub><mo>,</mo><mo>&#x2026;</mo><mo>,</mo><msub><mi>head</mi><mi>h</mi></msub><mo>)</mo><msup><mi>W</mi><mi>O</mi></msup></mrow><mo>,</mo><mo>&#x2003;</mo><mrow><msub><mi>head</mi><mi>i</mi></msub><mo>=</mo><mi>Attention</mi><mo>(</mo><mrow><mi>Q</mi><msubsup><mi>W</mi><mi>i</mi><mi>Q</mi></msubsup></mrow><mo>,</mo><mrow><mi>K</mi><msubsup><mi>W</mi><mi>i</mi><mi>K</mi></msubsup></mrow><mo>,</mo><mrow><mi>V</mi><msubsup><mi>W</mi><mi>i</mi><mi>V</mi></msubsup></mrow><mo>)</mo></mrow></mrow></math>",
+      "formula_fb": "MultiHead(Q,K,V) = Concat(head₁,…,headₕ)W^O, con headᵢ = Attention(QWᵢ^Q, KWᵢ^K, VWᵢ^V)",
+      "caption": "Ogni head ha le sue proiezioni apprese (Wᵢ^Q, Wᵢ^K, Wᵢ^V); gli output concatenati vengono riproiettati con W^O.",
+      "kind": "formula"
+     }
+    ],
+    "title": "Multi-head attention"
+   },
+   {
+    "bullets": [
+     "Il Transformer elabora in parallelo e perde l'ordine intrinseco",
+     "Il positional encoding inietta l'informazione sulla posizione",
+     "Tipi: sinusoidale con seno e coseno, embedding appresi, posizioni relative",
+     "Senza di esso, frasi con stesse parole ma ordine diverso sarebbero identiche",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mi>PE</mi><mo>(</mo><mi>pos</mi><mo>,</mo><mrow><mn>2</mn><mi>i</mi></mrow><mo>)</mo><mo>=</mo><mi>sin</mi><mo>(</mo><mfrac><mi>pos</mi><msup><mn>10000</mn><mfrac><mrow><mn>2</mn><mi>i</mi></mrow><mi>d</mi></mfrac></msup></mfrac><mo>)</mo></mrow><mo>,</mo><mo>&#x2003;</mo><mrow><mi>PE</mi><mo>(</mo><mi>pos</mi><mo>,</mo><mrow><mn>2</mn><mi>i</mi><mo>+</mo><mn>1</mn></mrow><mo>)</mo><mo>=</mo><mi>cos</mi><mo>(</mo><mfrac><mi>pos</mi><msup><mn>10000</mn><mfrac><mrow><mn>2</mn><mi>i</mi></mrow><mi>d</mi></mfrac></msup></mfrac><mo>)</mo></mrow></mrow></math>",
+      "formula_fb": "PE(pos,2i) = sin(pos/10000^(2i/d)), PE(pos,2i+1) = cos(pos/10000^(2i/d))",
+      "caption": "pos è la posizione del token, i la dimensione: ogni posizione ha una \"firma\" sinusoidale unica sommata agli embedding.",
+      "kind": "formula"
+     }
+    ],
+    "title": "Positional encoding"
+   },
+   {
+    "bullets": [
+     "Feed-forward network: trasformazioni non lineari per ogni posizione",
+     "Layer normalization: stabilizza il training, reti più profonde",
+     "Residual connection: operazioni Add and Norm, flusso del gradiente",
+     "Attention mask: blocca padding e token futuri nei decoder"
+    ],
+    "title": "Gli altri componenti del layer"
+   },
+   {
+    "bullets": [
+     "Trappola esame: la Query cerca, la Value contiene, mai invertirle",
+     "La divisione per radice di d k evita gradienti nulli nella softmax",
+     "Parallelo batte sequenziale: questa è l'innovazione sulle RNN",
+     "BERT è bidirezionale, GPT è autoregressivo con masking"
+    ],
+    "title": "Punti chiave per l'esame"
+   }
+  ],
+  "summary": "Il capitolo introduce l'architettura Transformer, fondamento di tutti i moderni large language model, pubblicata nel 2017 con l'articolo Attention Is All You Need. A differenza delle reti ricorrenti che elaborano il testo in sequenza, il Transformer processa tutti i token in parallelo, sfruttando al massimo le GPU. Il cuore dell'architettura è il meccanismo di self-attention, descritto dalla formula basata su Query, Key e Value: la Query rappresenta il token che cerca informazioni, la Key misura la compatibilità e la Value fornisce il contenuto. La multi-head attention esegue più meccanismi in parallelo per cogliere diversi tipi di relazioni. Poiché l'elaborazione parallela perde l'ordine delle parole, il positional encoding reinietta l'informazione sulla posizione. Completano ogni layer la feed-forward network, la layer normalization che stabilizza il training, le residual connection che preservano il flusso del gradiente e l'attention mask che impedisce di guardare i token futuri nei modelli generativi. Particolare attenzione e dedicata alle trappole d'esame piu frequenti, come non confondere i ruoli di Query e Value, e ricordare che la divisione per radice di d k serve a mantenere gradienti stabili dopo la softmax. Formule chiave: Attention(Q,K,V) = softmax(QKᵀ/√dₖ)V con Q Query, K Key, V Value e fattore di scala √dₖ; softmax σ(z)ᵢ = e^zᵢ/Σⱼe^zⱼ che normalizza i pesi a somma 1; multi-head come MultiHead(Q,K,V) = Concat(head₁,…,headₕ)W^O; positional encoding sinusoidale PE(pos,2i) = sin(pos/10000^(2i/d)), PE(pos,2i+1) = cos(pos/10000^(2i/d)).",
+  "title": "Architettura Transformer e Attention"
+ },
+ {
+  "area": "fondamenti",
+  "id": "ch2-llm",
+  "keywords": [
+   {
+    "def": "Modello di grandi dimensioni addestrato su enormi corpora di testo, capace di essere adattato a molti task: la base di BERT, GPT e T5.",
+    "term": "foundation model"
+   },
+   {
+    "def": "Modello encoder-only bidirezionale, addestrato con masked language modeling: eccelle nei task di comprensione come classificazione e question answering estrattivo.",
+    "term": "BERT"
+   },
+   {
+    "def": "Modello decoder-only autoregressivo che genera testo da sinistra a destra, prevedendo il token successivo: il riferimento per generazione e few-shot learning.",
+    "term": "GPT"
+   },
+   {
+    "def": "Modello encoder-decoder che riformula ogni task come generazione testo-testo: versatile su molti task di NLP.",
+    "term": "T5"
+   },
+   {
+    "def": "Fase di apprendimento non supervisionato su enormi corpora, che costruisce una volta sola le rappresentazioni linguistiche generali del modello.",
+    "term": "pre-training"
+   },
+   {
+    "def": "Adattamento di un modello pre-addestrato a un task specifico con dataset etichettati più piccoli: molto più efficiente che addestrare da zero.",
+    "term": "fine-tuning"
+   },
+   {
+    "def": "Paradigma che riusa la conoscenza appresa nel pre-training, riducendo tempi e costi computazionali e abilitando few-shot e zero-shot learning.",
+    "term": "transfer learning"
+   },
+   {
+    "def": "Modello che predice il token successivo dati i precedenti, generando testo da sinistra a destra come GPT.",
+    "term": "autoregressive model"
+   },
+   {
+    "def": "Obiettivo di training di BERT: prevede token mascherati usando il contesto bidirezionale, passato e futuro.",
+    "term": "masked language modeling (MLM)"
+   },
+   {
+    "def": "Capacità di svolgere un nuovo task fornendo solo pochi esempi nel prompt, senza ulteriore addestramento.",
+    "term": "few-shot learning"
+   },
+   {
+    "def": "Suddivisione del testo in sotto-parole (BPE, WordPiece) che permette di gestire parole mai viste combinando pezzi noti, contenendo il vocabolario.",
+    "term": "subword tokenization"
+   },
+   {
+    "def": "Fenomeno per cui il modello genera informazioni plausibili ma fattualmente errate, non avendo vera comprensione dei fatti appresi.",
+    "term": "hallucination"
+   }
+  ],
+  "prereq": [
+   "ch1-transformer"
+  ],
+  "quiz": [
+   {
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 12. GPT usa solo la parte decoder del Transformer, con attention mascherata che impedisce di guardare i token futuri.",
+    "options": [
+     "Encoder-only Transformer",
+     "Decoder-only Transformer",
+     "Encoder-decoder Transformer",
+     "Rete neurale ricorrente"
+    ],
+    "q": "Su quale tipo di architettura è basato GPT?"
+   },
+   {
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 13. BERT predice token mascherati con contesto bidirezionale, GPT predice il token successivo: da qui comprensione contro generazione.",
+    "options": [
+     "BERT è autoregressivo, GPT usa masked language modeling",
+     "BERT usa masked language modeling, GPT è autoregressivo",
+     "Usano lo stesso obiettivo di training",
+     "BERT è supervisionato, GPT non supervisionato"
+    ],
+    "q": "Qual è la differenza chiave tra gli obiettivi di training di BERT e GPT?"
+   },
+   {
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 28. Il pre-training apprende rappresentazioni generali da testi non etichettati con obiettivi auto-supervisionati, una sola volta.",
+    "options": [
+     "Supervised learning",
+     "Pre-training",
+     "Fine-tuning",
+     "Transfer learning"
+    ],
+    "q": "Quale paradigma prevede l'apprendimento da enormi corpora di testo non etichettato?"
+   },
+   {
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 32. Bastano due o tre esempi nel prompt, senza riaddestrare nulla: è una capacità emergente dei grandi modelli generativi.",
+    "options": [
+     "Addestrare con pochissimi parametri",
+     "Imparare nuovi task con pochi esempi nel prompt",
+     "Inferenza particolarmente veloce",
+     "Elaborare sequenze molto corte"
+    ],
+    "q": "Nel contesto degli LLM, cosa si intende per few-shot learning?"
+   },
+   {
+    "answer": 2,
+    "explain": "Fonte: mock-exam-1 domanda 37. I modelli autoregressivi come GPT generano sequenza per sequenza, quelli autoencoding come BERT comprendono il contesto bidirezionale.",
+    "options": [
+     "La dimensione del modello",
+     "I dati di training richiesti",
+     "Il focus su generazione contro comprensione",
+     "La complessità computazionale"
+    ],
+    "q": "Qual è la differenza principale tra language model autoregressivi e autoencoding?"
+   },
+   {
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 48. La tokenizzazione in sotto-parole scompone le parole rare in pezzi noti, gestendo l'out-of-vocabulary senza vocabolari infiniti.",
+    "options": [
+     "Solo tokenizzazione a livello di parola",
+     "Tokenizzazione in sotto-parole come BPE e WordPiece",
+     "Solo elaborazione a caratteri",
+     "Lookup su dizionario"
+    ],
+    "q": "Quale tecnica gestisce le parole fuori vocabolario nella NLP moderna?"
+   }
+  ],
+  "script": "Benvenuti al secondo capitolo, dedicato ai large language model, i cosiddetti LLM. Nel capitolo uno abbiamo studiato il motore, il Transformer. Ora vediamo le automobili costruite attorno a quel motore. I tre modelli che dovete conoscere benissimo per l'esame sono BERT, GPT e T5, e la cosa più importante è distinguerli per architettura e obiettivo di training. Partiamo da BERT, acronimo di Bidirectional Encoder Representations from Transformers. BERT usa solo l'encoder del Transformer e si allena con il masked language modeling. Cosa significa? Durante l'addestramento prendiamo una frase, ne nascondiamo alcune parole con una maschera, e chiediamo al modello di indovinarle guardando tutto il resto della frase, sia ciò che viene prima sia ciò che viene dopo. È come un esercizio di completamento a scuola, ma potendo sbirciare sia a destra sia a sinistra. Questa bidirezionalità rende BERT fortissimo nei task di comprensione. Classificazione del testo, riconoscimento di entità, domande con risposta estratta dal testo. Ma c'è un rovescio della medaglia. Proprio perché guarda in entrambe le direzioni, BERT non può generare testo parola dopo parola, e quindi non è un modello generativo. Passiamo a GPT, il Generative Pre-trained Transformer. GPT fa l'opposto. Usa solo il decoder, con l'attention mascherata che impedisce di guardare le parole future, e si allena in modo autoregressivo. Prevede ogni parola guardando solo quelle precedenti, da sinistra a destra, esattamente come noi quando parliamo o scriviamo. Questa è la chiave della generazione di testo, del completamento e del few-shot learning. Il few-shot learning merita un approfondimento perché è un concetto d'esame. Significa che il modello impara a svolgere un compito nuovo vedendo solo pochi esempi dentro il prompt, senza alcun riaddestramento. Gli mostrate due o tre recensioni etichettate come positive o negative, e lui classifica la quarta. Sembra magia, ma è una conseguenza della scala del pre-training. Terzo modello, T5, il Text-to-Text Transfer Transformer. T5 usa l'architettura encoder-decoder completa e riformula ogni problema come generazione di testo. Classificare? Genera l'etichetta come testo. Tradurre? Genera la traduzione. Riassumere? Genera il riassunto. Un unico formato per tutto, il che lo rende versatile su molti task. Ora parliamo di come questi modelli nascono, perché pre-training, fine-tuning e transfer learning sono tra i concetti più testati. Il pre-training è la fase iniziale, costosissima, eseguita una sola volta. Il modello legge enormi quantità di testo non etichettato, pagine web, libri, e impara le rappresentazioni generali della lingua con obiettivi auto-supervisionati, come prevedere parole mascherate o successive. Il fine-tuning viene dopo. Prendiamo il modello pre-addestrato e lo adattiamo a un compito specifico con un dataset etichettato molto più piccolo. È come assumere un laureato in lettere e formarlo per un ruolo specifico in azienda. Non gli insegnate l'italiano da zero, gli insegnate il mestiere. Il transfer learning è il paradigma generale dietro tutto questo. Riusare la conoscenza appresa su larga scala riduce drasticamente tempi e costi computazionali e abilita il few-shot e lo zero-shot learning. Attenzione però alle trappole d'esame. Il transfer learning non elimina del tutto il bisogno di dati etichettati, non garantisce prestazioni migliori e non rimuove i bias del modello originale. Due concetti ancora, entrambi probabili all'esame. La subword tokenization, con algoritmi come BPE e WordPiece, scompone le parole in sotto-unità. Così il modello gestisce parole mai viste combinando pezzi noti, senza vocabolari infiniti. E le hallucination, quando il modello genera informazioni plausibili ma false. Succede perché il modello impara pattern statistici dai dati senza vera comprensione dei fatti, ed è uno dei motivi per cui esistono tecniche come la retrieval-augmented generation, che vedremo più avanti. Ricapitolando. BERT è encoder bidirezionale per comprendere. GPT è decoder autoregressivo per generare. T5 è encoder-decoder testo-testo, versatile. Il pre-training insegna la lingua una volta sola, il fine-tuning adatta al compito, il transfer learning rende tutto efficiente. Memorizzate questa tabella a tre righe e metà delle domande del capitolo saranno già risolte.",
+  "slides": [
+   {
+    "bullets": [
+     "Foundation model: pre-addestrato su enormi corpora, adattabile a molti task",
+     "Tre protagonisti: BERT, GPT, T5 con architetture diverse",
+     "Architettura determina i punti di forza: comprensione o generazione",
+     "Obiettivo di training diverso per ciascuno"
+    ],
+    "title": "I tre grandi LLM a confronto"
+   },
+   {
+    "bullets": [
+     "Architettura encoder-only, bidirezionale",
+     "Training con masked language modeling più next sentence prediction",
+     "Punti di forza: classificazione, NER, question answering",
+     "Non genera testo: guarda passato e futuro insieme"
+    ],
+    "title": "BERT: comprendere il testo"
+   },
+   {
+    "bullets": [
+     "Architettura decoder-only, unidirezionale",
+     "Training autoregressivo: prevede il token successivo",
+     "Punti di forza: generazione, completamento, few-shot learning",
+     "Attention mascherata: mai guardare i token futuri",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>L</mi><mo>=</mo><mo>&#x2212;</mo><mrow><munder><mo>&#x2211;</mo><mi>j</mi></munder><mrow><mi>y</mi><mo>&#x22C5;</mo><mi>log</mi><mo>(</mo><mover><mi>y</mi><mo>&#x02C6;</mo></mover><mo>)</mo></mrow></mrow></mrow></math>",
+      "formula_fb": "L = −Σ y·log(ŷ)",
+      "caption": "Loss del training autoregressivo: y è il token vero (1 sul token corretto, 0 altrove), ŷ la probabilità predetta; penalizza le previsioni sbagliate e sicure.",
+      "kind": "formula"
+     },
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>PPL</mi><mo>=</mo><msup><mi>e</mi><mi>L</mi></msup><mo>,</mo><mo>&#x2003;</mo><msup><mn>2</mn><mi>L</mi></msup><mo> </mo><mtext>(log in base 2)</mtext></mrow></math>",
+      "formula_fb": "PPL = e^L (2^L se il log è in base 2)",
+      "caption": "e elevato alla loss media: valori bassi indicano un modello più sicuro nelle previsioni; è la metrica principe dei language model.",
+      "kind": "formula"
+     },
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>p</mi><mi>i</mi></msub><mo>=</mo><mfrac><msup><mi>e</mi><mfrac><msub><mi>z</mi><mi>i</mi></msub><mi>T</mi></mfrac></msup><mrow><munder><mo>&#x2211;</mo><mi>j</mi></munder><msup><mi>e</mi><mfrac><msub><mi>z</mi><mi>j</mi></msub><mi>T</mi></mfrac></msup></mrow></mfrac></mrow></math>",
+      "formula_fb": "pᵢ = e^(zᵢ/T)/Σⱼe^(zⱼ/T)",
+      "caption": "T bassa (→0) rende l’output deterministico sul token più probabile, T alta (→1 e oltre) lo rende più vario e creativo in generazione.",
+      "kind": "formula"
+     }
+    ],
+    "title": "GPT: generare il testo"
+   },
+   {
+    "bullets": [
+     "Architettura encoder-decoder completa",
+     "Ogni task riformulato come generazione testo-testo",
+     "Versatile su molti task di NLP con un unico formato",
+     "Esempio: la classificazione diventa generazione dell'etichetta"
+    ],
+    "title": "T5: tutto è testo-testo"
+   },
+   {
+    "bullets": [
+     "Pre-training: costoso, una volta sola, su testi non etichettati",
+     "Fine-tuning: economico, specifico, su dataset etichettati piccoli",
+     "Transfer learning: riusa la conoscenza, abilita few-shot e zero-shot",
+     "Trappola: non elimina i dati etichettati né i bias"
+    ],
+    "title": "Pre-training, fine-tuning, transfer learning"
+   },
+   {
+    "bullets": [
+     "Few-shot learning: pochi esempi nel prompt, nessun riaddestramento",
+     "Subword tokenization (BPE, WordPiece) contro parole fuori vocabolario",
+     "Hallucination: testo plausibile ma falso, senza vera comprensione",
+     "Segment embedding di BERT distinguono le frasi nelle coppie"
+    ],
+    "title": "Concetti chiave da memorizzare"
+   }
+  ],
+  "summary": "Il capitolo presenta i large language model costruiti sull'architettura Transformer. BERT è un modello encoder-only bidirezionale, addestrato con masked language modeling a indovinare parole nascoste guardando il contesto in entrambe le direzioni: eccelle nei task di comprensione ma non genera testo. GPT è un modello decoder-only autoregressivo che prevede ogni token guardando solo i precedenti, con attention mascherata: è il riferimento per generazione, completamento e few-shot learning, cioè la capacità di svolgere task nuovi con pochi esempi nel prompt senza riaddestramento. T5 adotta l'architettura encoder-decoder completa e riformula ogni task come generazione testo-testo. Il capitolo copre poi i paradigmi di training: il pre-training apprende una volta sola rappresentazioni generali da enormi corpora non etichettati, il fine-tuning adatta il modello a task specifici in modo efficiente, e il transfer learning riduce tempi e costi abilitando few-shot e zero-shot. Completano il quadro subword tokenization, hallucination e segment embedding. Il confronto diretto tra i tre modelli e i paradigmi di addestramento fornisce la mappa concettuale per rispondere alle domande d'esame su architetture e obiettivi di training. Formule chiave: loss di cross-entropy L = −Σ y·log(ŷ) usata nel training autoregressivo; perplexity PPL = e^L (log naturale; 2^L con log in base 2) come metrica dei language model; softmax con temperatura pᵢ = e^(zᵢ/T)/Σⱼe^(zⱼ/T) che regola determinismo contro creatività in generazione.",
+  "title": "Large Language Model: BERT, GPT, T5"
+ },
+ {
+  "id": "ch3-training",
+  "area": "mlops",
+  "title": "Training, Fine-tuning e Deployment",
+  "prereq": [
+   "ch2-llm"
+  ],
+  "summary": "Il capitolo e dedicato al training e al fine-tuning dei modelli, la fase in cui un foundation model diventa utile per un'applicazione concreta. Il full fine-tuning aggiorna tutti i parametri e offre le migliori prestazioni, ma richiede risorse computazionali notevoli. Le tecniche di parameter-efficient fine-tuning, come LoRA che aggiunge piccole matrici addestrabili, gli adapter inseriti tra i layer e il prompt tuning che ottimizza i prompt invece dei pesi, riducono drasticamente memoria e costi con prestazioni paragonabili. Prima di addestrare, l'exploratory data analysis e essenziale per scoprire distribuzioni, bias e anomalie nei dati e scegliere un preprocessing adeguato. Il capitolo tratta poi il catastrophic forgetting, la perdita di conoscenza pre-addestrata durante l'adattamento, la regolarizzazione con il dropout, i trucchi di ottimizzazione tra cui gradient accumulation e learning rate warm-up, la knowledge distillation per comprimere modelli grandi in modelli piccoli, e l'A/B testing con distribuzione equa del traffico per confrontare modelli in produzione con significativita statistica. Formule chiave: gradient descent θ ← θ − η·∇L, dove η è il learning rate (troppo grande diverge, troppo piccolo rallenta; Adam lo adatta per-parametro); diagnosi via loss: training che scende con validazione che risale indica overfitting, entrambe alte indicano underfitting.",
+  "keywords": [
+   {
+    "term": "full fine-tuning",
+    "def": "Aggiornamento di tutti i parametri del modello sul task specifico: massime prestazioni ma costi computazionali e di memoria elevatissimi."
+   },
+   {
+    "term": "PEFT",
+    "def": "Parameter-efficient fine-tuning: famiglia di tecniche che addestra solo una piccola parte di parametri, con prestazioni paragonabili al full fine-tuning."
+   },
+   {
+    "term": "LoRA",
+    "def": "Low-Rank Adaptation: aggiunge ai pesi congelati due piccole matrici il cui prodotto approssima l'aggiornamento, crollando i parametri da addestrare."
+   },
+   {
+    "term": "adapters",
+    "def": "Piccoli moduli inseriti tra i layer del Transformer, addestrati da soli mentre il resto del modello resta congelato."
+   },
+   {
+    "term": "prompt tuning",
+    "def": "Tecnica PEFT che invece di modificare i pesi ottimizza i vettori di embedding del prompt di input per guidare il modello."
+   },
+   {
+    "term": "EDA",
+    "def": "Exploratory data analysis: analisi di distribuzioni, lunghezze, vocabolario ed etichette per scoprire bias e anomalie prima del fine-tuning."
+   },
+   {
+    "term": "catastrophic forgetting",
+    "def": "Perdita della conoscenza appresa nel pre-training quando il modello viene adattato a un nuovo compito specifico."
+   },
+   {
+    "term": "dropout",
+    "def": "Regolarizzazione che spegne casualmente una percentuale di neuroni in training, riducendo overfitting e dipendenza da singoli neuroni. Diagnosi collegata: overfitting = loss di training che scende mentre la loss di validazione risale."
+   },
+   {
+    "term": "gradient accumulation",
+    "def": "Accumulo dei gradienti di piu mini-batch prima dell'aggiornamento, per simulare batch grandi con memoria limitata nel training distribuito."
+   },
+   {
+    "term": "learning rate warm-up",
+    "def": "Aumento graduale del tasso di apprendimento nelle prime fasi del training, per stabilizzare l'addestramento dei modelli grandi. Il learning rate η è il passo dell’update θ ← θ − η·∇L: il warm-up lo fa partire piccolo per poi crescerlo gradualmente."
+   },
+   {
+    "term": "knowledge distillation",
+    "def": "Trasferimento della conoscenza da un modello grande insegnante a un modello piccolo studente, per comprimere il modello in produzione."
+   },
+   {
+    "term": "A/B testing",
+    "def": "Confronto di due modelli in produzione servendo il traffico in parti uguali, fifty-fifty, fino a significativita statistica."
+   }
+  ],
+  "slides": [
+   {
+    "title": "Full fine-tuning contro PEFT",
+    "bullets": [
+     "Full fine-tuning: aggiorna tutti i parametri, top prestazioni, costi altissimi",
+     "PEFT: addestra una piccola parte, prestazioni paragonabili, costi ridotti",
+     "Per modelli da miliardi di parametri il full fine-tuning e un lusso raro",
+     "Domanda tipica: il vantaggio del PEFT e l'efficienza, non l'accuratezza"
+    ]
+   },
+   {
+    "title": "LoRA, adapter e prompt tuning",
+    "bullets": [
+     "LoRA aggiunge due piccole matrici a basso rango ai pesi congelati",
+     "Adapter: moduli compatti tra i layer, solo quelli vengono addestrati",
+     "Prompt tuning: ottimizza gli embedding del prompt, pesi intoccati",
+     "Trappola: il PEFT non velocizza l'inferenza ne elimina i dati etichettati"
+    ]
+   },
+   {
+    "title": "EDA prima di addestrare",
+    "bullets": [
+     "Distribuzione dati, lunghezze testi, vocabolario, distribuzione etichette",
+     "Scopre pattern, anomalie, bias e problemi di qualita",
+     "Guida le scelte di preprocessing per un fine-tuning di successo",
+     "Dati cattivi non si rimediano con l'ottimizzazione"
+    ]
+   },
+   {
+    "title": "Catastrophic forgetting e regolarizzazione",
+    "bullets": [
+     "Adattarsi al nuovo compito puo far perdere la conoscenza pre-addestrata",
+     "Il PEFT preserva meglio la conoscenza toccando pochi parametri",
+     "Dropout: spegne neuroni a caso in training contro l'overfitting",
+     "Learning rate bassi e scheduling attento mitigano il problema",
+     {
+      "kind": "diagnosis",
+      "title": "Diagnosi loss train vs val",
+      "text": "Loss di training che scende mentre la loss di validazione risale = overfitting (il modello memorizza, non generalizza); entrambe alte = underfitting (modello troppo semplice o training insufficiente)."
+     }
+    ]
+   },
+   {
+    "title": "Trucchi di ottimizzazione",
+    "bullets": [
+     "Gradient accumulation: simula batch grandi con poca memoria",
+     "Learning rate warm-up: crescita graduale all'inizio per training stabili",
+     "Teacher forcing: in training alimenta i token corretti invece delle previsioni",
+     "Beam search e nucleus sampling entrano in gioco in generazione",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>&#x03B8;</mi><mo>&#x2190;</mo><mi>&#x03B8;</mi><mo>&#x2212;</mo><mi>&#x03B7;</mi><mo>&#x22C5;</mo><mi>&#x2207;</mi><mi>L</mi></mrow></math>",
+      "formula_fb": "θ ← θ − η·∇L",
+      "caption": "θ sono i parametri, ∇L il gradiente della loss, η (eta) il learning rate: a ogni passo i pesi si spostano contro il gradiente di un passo lungo η.",
+      "kind": "formula"
+     },
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>&#x03B7;</mi><mo>:</mo><mo> </mo><mtext>troppo grande &#x2192; divergenza; troppo piccolo &#x2192; training lentissimo</mtext></mrow></math>",
+      "formula_fb": "η: troppo grande fa divergere, troppo piccolo rallenta",
+      "caption": "Warm-up e scheduling regolano η nel tempo; Adam lo adatta per-parametro in automatico (ottimizzatore adattivo, da preferire di default nei Transformer).",
+      "kind": "formula"
+     }
+    ]
+   },
+   {
+    "title": "Distillation e A/B testing",
+    "bullets": [
+     "Knowledge distillation: studente piccolo imita l'insegnante grande",
+     "Riduce costi di inferenza in produzione preservando qualita",
+     "A/B testing: entrambi i modelli live, traffico fifty-fifty",
+     "Si decide solo con metriche monitorate e significativita statistica"
+    ]
+   }
+  ],
+  "script": "Benvenuti al terzo capitolo della guida, quello dedicato al training e al fine-tuning. Se i primi due capitoli ci hanno insegnato come sono fatti i modelli, ora impariamo come si adattano al mondo reale, perche un modello pre-addestrato, per quanto potente, e come un laureato brillante ma senza esperienza. Conosce la lingua, ma non conosce il vostro mestiere. Il fine-tuning e la sua formazione professionalizzante. La strada piu diretta e il full fine-tuning. Si aggiornano tutti i parametri del modello sul dataset specifico. Il risultato e il massimo delle prestazioni, ma il prezzo e alto. Servono moltissima memoria GPU, molto tempo e molti dati etichettati. Per modelli da miliardi di parametri, e un lusso che pochi possono permettersi. Ed e qui che entrano in scena le tecniche di parameter-efficient fine-tuning, il cosiddetto PEFT, tra i temi piu caldi dell'esame. L'idea e semplice e geniale. Invece di aggiornare tutto il modello, aggiorniamo solo una piccola parte aggiuntiva, tenendo congelato il resto. La tecnica piu famosa e LoRA, acronimo di Low-Rank Adaptation. LoRA affianca ai pesi originali due piccole matrici il cui prodotto approssima l'aggiornamento desiderato. Poiche il rango di queste matrici e basso, i parametri da addestrare crollano, a volte a meno dell'uno per cento del totale, con prestazioni paragonabili al full fine-tuning. Accanto a LoRA esistono gli adapter, piccoli moduli inseriti tra i layer del Transformer che vengono addestrati da soli, e il prompt tuning, che invece di toccare i pesi ottimizza direttamente il prompt di input, imparando i vettori di embedding migliori per guidare il modello. Memorizzate bene il punto d'esame. Il vantaggio del PEFT e la riduzione dei requisiti computazionali a parita di prestazioni, non una maggiore accuratezza ne una maggiore velocita di inferenza. Prima ancora di addestrare, pero, c'e un passo che l'esame considera essenziale, la exploratory data analysis, la cosiddetta EDA. Analizzare la distribuzione dei dati, la lunghezza dei testi, il vocabolario, la distribuzione delle etichette e la qualita complessiva serve a scoprire pattern, anomalie e bias prima che diventino problemi. Un dataset sbilanciato o sporco addestra un modello sbilanciato, e nessuna tecnica di ottimizzazione rimedia a dati cattivi. Durante il fine-tuning si nasconde un'insidia famosa, il catastrophic forgetting. Quando adattiamo il modello a un nuovo compito, rischiamo che perda parte della conoscenza appresa nel pre-training, come uno studente che studiando una materia dimentica la precedente. Il PEFT aiuta anche qui, perche toccando pochi parametri preserva meglio la conoscenza originale. A proteggere il training ci sono poi le tecniche classiche. Il dropout spegne casualmente una percentuale di neuroni durante l'addestramento, impedendo al modello di dipendere troppo da singoli neuroni e riducendo l'overfitting. La gradient accumulation permette di simulare batch di grandi dimensioni anche con poca memoria, accumulando i gradienti di piu mini-batch prima di aggiornare i parametri, una tecnica preziosa nel training distribuito. Il learning rate warm-up aumenta gradualmente il tasso di apprendimento nelle prime fasi, evitando aggiornamenti bruschi quando i pesi sono ancora inizializzati a caso e stabilizzando l'addestramento dei modelli grandi. Citiamo anche il teacher forcing, che in addestramento alimenta al modello i token corretti invece delle sue stesse previsioni, e la knowledge distillation, che trasferisce la conoscenza da un modello grande insegnante a un modello piccolo studente, comprimendo il modello per la produzione. E quando il modello e pronto, come decidiamo se e davvero migliore del precedente? Con l'A B testing. La pratica raccomandata e chiara. Si mettono in produzione entrambi i modelli contemporaneamente e si divide il traffico in parti uguali, cinquanta e cinquanta, monitorando le metriche chiave fino a raggiungere la significativita statistica. Solo cosi il confronto e equo e affidabile. Ricapitolando. Full fine-tuning per le massime prestazioni al costo massimo. LoRA, adapter e prompt tuning per l'efficienza. EDA prima di tutto. Dropout, gradient accumulation e warm-up per un training stabile. Distillation per comprimere. E A B testing fifty-fifty per decidere in produzione.",
+  "quiz": [
+   {
+    "q": "Qual e il vantaggio principale del transfer learning nello sviluppo di LLM?",
+    "options": [
+     "Elimina il bisogno di dati etichettati",
+     "Riduce tempi di training e requisiti computazionali",
+     "Garantisce prestazioni migliori",
+     "Rimuove tutti i bias del modello"
+    ],
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 7 e topic question 7. Riusa la conoscenza del pre-training su larga scala, ma non elimina i dati etichettati ne garantisce risultati."
+   },
+   {
+    "q": "Perche la Exploratory Data Analysis (EDA) e essenziale nel fine-tuning?",
+    "options": [
+     "Aumenta i parametri del modello",
+     "Scopre pattern e anomalie nel dataset",
+     "Riduce i tempi di training",
+     "Elimina il bisogno di pre-training"
+    ],
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 10 e topic question 8. EDA rivela distribuzioni, bias e qualita dei dati, guidando il preprocessing per un adattamento di successo."
+   },
+   {
+    "q": "Qual e il vantaggio principale del PEFT, ad esempio LoRA, rispetto al full fine-tuning?",
+    "options": [
+     "Accuratezza superiore al full fine-tuning",
+     "Riduce i requisiti computazionali mantenendo le prestazioni",
+     "Elimina i modelli pre-addestrati",
+     "Inferenza piu veloce"
+    ],
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 21. LoRA addestra una frazione minima di parametri con performance comparabili; non aumenta accuratezza ne velocita di inferenza."
+   },
+   {
+    "q": "Cosa si intende per catastrophic forgetting nel fine-tuning?",
+    "options": [
+     "Il modello perde la conoscenza pre-addestrata durante l'adattamento",
+     "Il modello dimentica il task corrente",
+     "Overflow di memoria durante il training",
+     "Esplosione del gradiente"
+    ],
+    "answer": 0,
+    "explain": "Fonte: mock-exam-1 domanda 42 e topic question 9. L'adattamento al nuovo compito puo cancellare la conoscenza appresa nel pre-training."
+   },
+   {
+    "q": "Nell'A/B testing per il deployment di LLM, come va distribuito il traffico?",
+    "options": [
+     "Tutto sul nuovo modello subito",
+     "Equamente tra i due modelli, fifty-fifty",
+     "Solo testing interno",
+     "Aumento graduale over mesi"
+    ],
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 6 e topic question 13. La divisione 50/50 garantisce confronto equo e significativita statistica."
+   },
+   {
+    "q": "A cosa serve la gradient accumulation nel training distribuito?",
+    "options": [
+     "Velocizzare il training",
+     "Simulare batch piu grandi con memoria limitata",
+     "Migliorare l'accuratezza",
+     "Ridurre la comunicazione tra nodi"
+    ],
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 36. Accumula i gradienti di piu mini-batch prima dell'update, simulando un batch grande."
+   },
+   {
+    "q": "Qual e lo scopo del warm-up nel learning rate scheduling?",
+    "options": [
+     "Velocizzare il training",
+     "Aumentare gradualmente il learning rate a inizio training",
+     "Ridurre l'uso di memoria",
+     "Prevenire l'overfitting"
+    ],
+    "answer": 1,
+    "explain": "Fonte: mock-exam-1 domanda 49. Evita update bruschi con pesi ancora casuali, stabilizzando l'addestramento dei modelli grandi."
+   }
+  ]
+ }
+]

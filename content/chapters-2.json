@@ -1,0 +1,838 @@
+[
+ {
+  "area": "mlops",
+  "id": "ch4-nvidia-tools",
+  "keywords": [
+   {
+    "def": "Framework open-source NVIDIA per costruire applicazioni AI con modelli pre-trained, ideale per NLP, speech e vision. Offre Model Zoo, distributed training e facile customization.",
+    "term": "NeMo Framework"
+   },
+   {
+    "def": "Inference server NVIDIA ad alte prestazioni per servire modelli in produzione. Supporta multi-framework, dynamic batching, model ensemble e versioning.",
+    "term": "Triton Inference Server"
+   },
+   {
+    "def": "Libreria NVIDIA di ottimizzazione per la inference su GPU. Riduce latenza e aumenta throughput con tecniche dedicate all'hardware NVIDIA.",
+    "term": "TensorRT"
+   },
+   {
+    "def": "Tecnica di Triton che combina automaticamente richieste in arrivo in batch per massimizzare l’utilizzo della GPU e il throughput complessivo. Il throughput si misura come richieste completate / secondi.",
+    "term": "Dynamic batching"
+   },
+   {
+    "def": "Ottimizzazione di TensorRT che fonde più operazioni in un unico kernel, riducendo overhead di memoria e latenza di esecuzione.",
+    "term": "Layer fusion"
+   },
+   {
+    "def": "Riduzione della precisione numerica dei pesi, per esempio da FP32 a FP16 o INT8. Riduce memoria e latenza con minima perdita di accuratezza. Nella quantizzazione INT8 ogni valore si mappa come x_q = round(x / s) + z, dove s è la scala e z lo zero-point.",
+    "term": "Precision calibration"
+   },
+   {
+    "def": "Standard aperto per rappresentare modelli di machine learning. Permette di spostare un modello tra framework diversi e verso runtime ottimizzati come TensorRT.",
+    "term": "ONNX"
+   },
+   {
+    "def": "Sistemi infrastrutturali purpose-built di NVIDIA, ottimizzati per training e inference AI con software stack pre-configurato.",
+    "term": "DGX Systems"
+   },
+   {
+    "def": "Capacità di Triton di servire più versioni dello stesso modello e aggiornarle senza downtime. Permette rollback sicuri e confronto tra versioni.",
+    "term": "Model versioning"
+   },
+   {
+    "def": "Combinazione di più modelli in un'unica pipeline di inference servita da Triton, per esempio preprocessing più modello più postprocessing.",
+    "term": "Model ensemble"
+   }
+  ],
+  "prereq": [
+   "ch3-training"
+  ],
+  "quiz": [
+   {
+    "answer": 2,
+    "explain": "Triton Inference Server è la piattaforma NVIDIA dedicata al serving dei modelli in produzione, con dynamic batching, supporto multi-framework, model versioning e monitoring. TensorRT ottimizza, NeMo sviluppa, CUDA è programmazione low-level.",
+    "options": [
+     "NeMo Framework",
+     "CUDA Toolkit",
+     "Triton Inference Server",
+     "TensorRT"
+    ],
+    "q": "Quale tool NVIDIA è progettato specificamente per il serving di modelli in produzione ad alte prestazioni?"
+   },
+   {
+    "answer": 1,
+    "explain": "TensorRT è la libreria di ottimizzazione per la inference: layer fusion, precision calibration con INT8 e FP16, kernel auto-tuning. Non serve per il training, che resta compito di framework come PyTorch o NeMo.",
+    "options": [
+     "Addestrare large language models",
+     "Ottimizzare i modelli per le prestazioni di inference",
+     "Preprocessing e data augmentation",
+     "Coordinare il distributed training"
+    ],
+    "q": "Qual è lo scopo principale di TensorRT?"
+   },
+   {
+    "answer": 2,
+    "explain": "NeMo fornisce modelli pre-trained e strumenti per costruire applicazioni AI in ambito NLP, speech e vision, con customization facile e supporto al distributed training. Triton serve i modelli, TensorRT li ottimizza, CUDA è low-level.",
+    "options": [
+     "Triton",
+     "TensorRT",
+     "NeMo",
+     "CUDA"
+    ],
+    "q": "Quale framework NVIDIA fornisce modelli pre-trained per task di NLP?"
+   },
+   {
+    "answer": 1,
+    "explain": "Il dynamic batching combina automaticamente le richieste in arrivo in batch per massimizzare l'utilizzo della GPU e il throughput. La latenza del singolo request può crescere leggermente, ma il sistema gestisce molte più richieste al secondo.",
+    "options": [
+     "Riduce la dimensione del modello",
+     "Ottimizza il throughput combinando le richieste",
+     "Migliora l'accuratezza del modello",
+     "Riduce la latenza di ogni singola richiesta"
+    ],
+    "q": "Qual è il beneficio chiave del dynamic batching in Triton Inference Server?"
+   },
+   {
+    "answer": 2,
+    "explain": "ONNX è il formato standard che permette di addestrare un modello in un framework come PyTorch o TensorFlow e distribuirlo in un altro framework o runtime. Questa portabilità semplifica il deployment e abilita tool di ottimizzazione come TensorRT.",
+    "options": [
+     "Migliore accuratezza",
+     "Training più veloce",
+     "Portabilità dei modelli tra framework diversi",
+     "Modelli di dimensione ridotta"
+    ],
+    "q": "Qual è il vantaggio principale del formato ONNX?"
+   },
+   {
+    "answer": 1,
+    "explain": "La precision calibration riduce la precisione dei pesi, per esempio da FP32 a INT8 o FP16, con layer fusion e kernel auto-tuning. Il risultato è minore latenza e maggiore throughput sulle GPU NVIDIA.",
+    "options": [
+     "Aumenta la precisione numerica dei pesi",
+     "Riduce latenza e aumenta throughput sulle GPU NVIDIA",
+     "Serve modelli via HTTP in produzione",
+     "Fornisce modelli pre-trained per NLP"
+    ],
+    "q": "TensorRT usa layer fusion e precision calibration. Cosa ottiene con queste tecniche?"
+   }
+  ],
+  "script": "Benvenuti al capitolo quattro: gli strumenti NVIDIA. Finora abbiamo parlato di architetture, modelli e training in termini generali. Adesso entriamo nell'ecosistema concreto in cui questi modelli vivono davvero: le GPU NVIDIA, i framework per svilupparli e i server per servirli in produzione. All'esame troverete diverse domande su questi tool, e la trappola più comune è confonderli tra loro. Quindi fissiamo subito la mappa mentale: NeMo sviluppa, TensorRT ottimizza, Triton serve, DGX è l'hardware, ONNX è il formato che li fa parlare tra loro. Partiamo da NeMo. Il NeMo Framework è un framework open-source di NVIDIA per costruire applicazioni di intelligenza artificiale. Il suo punto di forza è il Model Zoo: una collezione di modelli pre-trained per task di NLP, speech recognition e computer vision, pronti da usare e da rifinire con il fine-tuning. NeMo ha un'architettura modulare che rende facile la customization e supporta nativamente il distributed training su più GPU e più nodi. Quando all'esame leggete pre-trained models per NLP, speech e vision, la risposta è quasi sempre NeMo. Passiamo a TensorRT. TensorRT è la libreria di ottimizzazione di NVIDIA per la deep learning inference. Prende un modello già addestrato e lo rende più veloce e più leggero sulle GPU NVIDIA. Come ci riesce? Con tre tecniche che dovete ricordare. Primo, la layer fusion: fonde più operazioni della rete in un unico kernel, eliminando passaggi intermedi di memoria. Secondo, la precision calibration: riduce la precisione dei pesi e delle attivazioni, passando per esempio da FP32 a FP16 o addirittura a INT8, con una tecnica chiamata quantization. Terzo, il kernel auto-tuning: seleziona automaticamente i kernel più efficienti per lo specifico hardware su cui gira. Il risultato è minore latenza, maggiore throughput e minore consumo di memoria. Terzo protagonista: Triton Inference Server. Se TensorRT ottimizza il modello, Triton lo serve in produzione. È un inference server ad alte prestazioni che supporta modelli provenienti da framework diversi: TensorFlow, PyTorch, ONNX e TensorRT stesso. Le sue funzionalità chiave sono il dynamic batching, che combina automaticamente le richieste in arrivo in batch per massimizzare il throughput, il model ensemble, che permette di servire pipeline composte da più modelli, il model versioning, che consente aggiornamenti e rollback senza downtime, e un sistema di metriche e monitoring. Ricordate la distinzione d'esame: Triton serve, TensorRT ottimizza. Due concetti collegati ma diversi. Poi abbiamo i DGX Systems: sono infrastrutture purpose-built di NVIDIA, server ottimizzati per i workload di training e inference AI, con software stack pre-configurato. Quando la domanda parla di infrastruttura hardware dedicata all'AI, pensate ai DGX. Infine ONNX, l'Open Neural Network Exchange: uno standard aperto per rappresentare i modelli di machine learning. Il suo valore è la portabilità: addestrate in PyTorch, esportate in ONNX, ottimizzate con TensorRT, servite con Triton. Questa pipeline è esattamente il flusso di lavoro moderno del deployment. Chiudiamo con un consiglio pratico per l'esame. Quando vedete una domanda su quale tool usare, cercate le parole chiave: high-performance model serving significa Triton; inference optimization significa TensorRT; pre-trained models per costruire applicazioni significa NeMo; portabilità tra framework significa ONNX. Memorizzate queste quattro associazioni e avrete già in tasca diversi punti. Aggiungiamo ancora qualche dettaglio utile che l'esame potrebbe chiedere. Il dynamic batching di Triton merita un'attenzione particolare: invece di processare ogni richiesta appena arriva, il server le accumula per brevissimi intervalli e le combina in batch, saturando la GPU e aumentando il throughput. Il prezzo è un lieve aumento della latenza per la singola richiesta, ma il guadagno in richieste al secondo è enorme. Altro concetto da fissare è il model ensemble: Triton può servire un'intera pipeline, per esempio un modello di preprocessing seguito dal modello principale e da un postprocessing, come un'unica unità logica. E sul fronte TensorRT, ricordate che i formati di input supportati includono ONNX, TensorFlow e PyTorch: la domanda che chiede quali formati supporta TensorRT ha come risposta i formati multipli incluso ONNX, non un singolo framework. Infine, il model versioning: Triton permette di tenere in serving più versioni dello stesso modello, di confrontarle e di tornare indietro in caso di problemi, senza downtime. Ecco il quadro completo dell'ecosistema NVIDIA per il deployment moderno.",
+  "slides": [
+   {
+    "bullets": [
+     "Framework open-source per costruire applicazioni AI",
+     "Model Zoo con modelli pre-trained per NLP, speech e vision",
+     "Distributed training multi-GPU e multi-nodo",
+     "Architettura modulare per facile customization"
+    ],
+    "title": "NeMo Framework: sviluppare applicazioni AI"
+   },
+   {
+    "bullets": [
+     "Inference server ad alte prestazioni per la produzione",
+     "Supporto multi-framework: TensorFlow, PyTorch, ONNX, TensorRT",
+     "Dynamic batching per massimizzare il throughput",
+     "Model ensemble, versioning, metriche e monitoring",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>throughput</mi><mo>=</mo><mfrac><mtext>richieste</mtext><mtext>secondi</mtext></mfrac></mrow></math>",
+      "formula_fb": "throughput = richieste completate / secondi",
+      "caption": "Es. 500 richieste in 10 s → 50 richieste/s; il dynamic batching alza il throughput a costo di un lieve aumento della latenza della singola richiesta.",
+      "kind": "formula"
+     }
+    ],
+    "title": "Triton Inference Server: servire modelli in produzione"
+   },
+   {
+    "bullets": [
+     "Libreria di ottimizzazione per la inference su GPU NVIDIA",
+     "Layer fusion: fonde operazioni in un unico kernel",
+     "Precision calibration: quantization a FP16 e INT8",
+     "Kernel auto-tuning specifico per l'hardware",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mi>speedup</mi><mo>=</mo><mfrac><msub><mi>t</mi><mtext>base</mtext></msub><msub><mi>t</mi><mtext>ott</mtext></msub></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><msub><mtext>latenza</mtext><mtext>media</mtext></msub><mo>=</mo><mfrac><mrow><mo>&#x2211;</mo><mtext>tempi</mtext></mrow><mi>n</mi></mfrac></mrow></mrow></math>",
+      "formula_fb": "speedup = t_base / t_ottimizzato; latenza media = Σ tempi / n",
+      "caption": "Es. da 200 ms a 50 ms → speedup 4×; latenza media = somma dei tempi di risposta / numero di richieste.",
+      "kind": "formula"
+     },
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>x</mi><mi>q</mi></msub><mo>=</mo><mtext>round</mtext><mo>(</mo><mfrac><mi>x</mi><mi>s</mi></mfrac><mo>)</mo><mo>+</mo><mi>z</mi></mrow></math>",
+      "formula_fb": "x_q = round(x / s) + z",
+      "caption": "Quantizzazione INT8 con scala s (passo di scala: quanto vale ogni livello intero) e zero-point z (sposta lo zero); passare da FP32 a INT8 riduce di circa 4× la memoria dei pesi.",
+      "kind": "formula"
+     }
+    ],
+    "title": "TensorRT: ottimizzare la inference"
+   },
+   {
+    "bullets": [
+     "DGX Systems: infrastruttura hardware purpose-built per AI",
+     "Software stack pre-configurato per training e inference",
+     "ONNX: standard aperto per la portabilità dei modelli",
+     "Pipeline tipica: training, export ONNX, ottimizzazione TensorRT, serving Triton"
+    ],
+    "title": "DGX e ONNX: hardware e portabilità"
+   },
+   {
+    "bullets": [
+     "Serving ad alte prestazioni uguale Triton",
+     "Ottimizzazione della inference uguale TensorRT",
+     "Modelli pre-trained uguale NeMo",
+     "Portabilità tra framework uguale ONNX"
+    ],
+    "title": "Mappa d'esame: quale tool quando"
+   }
+  ],
+  "summary": "Questo capitolo presenta l'ecosistema di strumenti NVIDIA rilevante per l'esame NCA-GENL. Il NeMo Framework è il framework open-source per costruire applicazioni AI con modelli pre-trained per NLP, speech e vision, con Model Zoo, distributed training e architettura modulare. Triton Inference Server è la piattaforma di serving ad alte prestazioni: supporta modelli TensorFlow, PyTorch, ONNX e TensorRT, con dynamic batching per il throughput, model ensemble, versioning e monitoring. TensorRT è la libreria di ottimizzazione per la inference su GPU NVIDIA, basata su layer fusion, precision calibration con quantization a FP16 e INT8, e kernel auto-tuning. I DGX Systems sono l'infrastruttura hardware purpose-built per training e inference. ONNX è lo standard aperto che garantisce la portabilità dei modelli tra framework e abilita la pipeline moderna: training, export ONNX, ottimizzazione con TensorRT, serving con Triton. La distinzione chiave da memorizzare è che Triton serve i modelli mentre TensorRT li ottimizza. Il capitolo chiude con la mappa operativa per l'esame: associare ogni domanda alla parola chiave giusta tra serving ad alte prestazioni, ottimizzazione della inference, modelli pre-trained per costruire app e portabilità tra framework diversi. Formule chiave: speedup = t_base / t_ottimizzato per misurare l’accelerazione, throughput = richieste completate / secondi per la portata del serving, latenza media come media dei tempi di risposta, e quantizzazione INT8 come x_q = round(x / s) + z con scala s e zero-point z per stimare il risparmio di memoria GPU al crescere del batch.",
+  "title": "Strumenti NVIDIA: NeMo, Triton, TensorRT"
+ },
+ {
+  "area": "applicazioni",
+  "id": "ch5-nlp",
+  "keywords": [
+   {
+    "def": "Task di information extraction che identifica e classifica entità nominate nel testo: PERSON, ORGANIZATION, LOCATION, DATE. Valutato con precision, recall e F1 a livello di entità.",
+    "term": "NER (Named Entity Recognition)"
+   },
+   {
+    "def": "Classificazione del testo in positivo, negativo o neutro. Caso particolare di text classification, usata in customer service e analisi delle recensioni.",
+    "term": "Sentiment analysis"
+   },
+   {
+    "def": "Assegnazione di un testo a categorie tematiche. Approcci tradizionali con TF-IDF e ML classico, moderni con modelli Transformer come BERT e RoBERTa.",
+    "term": "Topic classification"
+   },
+   {
+    "def": "Comprensione dell'intento dell'utente, per esempio in assistenti virtuali e chatbot. Determina quale azione il sistema deve eseguire.",
+    "term": "Intent classification"
+   },
+   {
+    "def": "La risposta esiste già nel passaggio e il modello ne estrae lo span esatto, come evidenziare una porzione di testo.",
+    "term": "Extractive QA"
+   },
+   {
+    "def": "Il modello genera una risposta nuova, eventualmente combinando informazioni da più fonti o parafrasando il contenuto.",
+    "term": "Generative QA"
+   },
+   {
+    "def": "Risposta a domande attingendo a una grande knowledge base, spesso combinata con retrieval in architetture RAG.",
+    "term": "Open-domain QA"
+   },
+   {
+    "def": "Stanford Question Answering Dataset: benchmark di riferimento per il question answering, insieme a Natural Questions e MS MARCO.",
+    "term": "SQuAD"
+   },
+   {
+    "def": "Tecnica di tokenization che scompone le parole in unità subword come BPE e WordPiece. Gestisce parole mai viste e riduce la dimensione del vocabolario.",
+    "term": "Subword tokenization"
+   },
+   {
+    "def": "Rappresentazioni vettoriali pre-addestrate che catturano relazioni semantiche tra parole apprese da grandi corpora. Migliorano i task a valle con pochi dati. Due embedding si confrontano con la similarità coseno cos(a, b) = (a·b) / (‖a‖ ‖b‖): più è vicina a 1, più i significati sono simili.",
+    "term": "Pre-trained embeddings"
+   }
+  ],
+  "prereq": [
+   "ch1-transformer"
+  ],
+  "quiz": [
+   {
+    "answer": 2,
+    "explain": "La NER identifica e classifica entità nominate come PERSON, ORGANIZATION, LOCATION e DATE. È un task di information extraction usato in ricerca, content analysis e privacy protection, non di sentiment né di grammatica.",
+    "options": [
+     "La polarità del sentiment",
+     "Le categorie tematiche",
+     "Nomi di persone, organizzazioni e luoghi",
+     "Le strutture grammaticali"
+    ],
+    "q": "Nella Named Entity Recognition, che tipo di informazione viene tipicamente estratta?"
+   },
+   {
+    "answer": 1,
+    "explain": "Il QA estrattivo trova e restituisce lo span di testo esatto che contiene la risposta, mentre il QA generativo produce un testo nuovo, eventualmente combinando più fonti. La distinzione riguarda la strategia di output, non l'architettura.",
+    "options": [
+     "L'architettura del modello usata",
+     "Se le risposte sono estratte dal testo oppure generate",
+     "I requisiti di dati di training",
+     "La complessità computazionale"
+    ],
+    "q": "Nei task di question answering, cosa distingue l'approccio estrattivo da quello generativo?"
+   },
+   {
+    "answer": 1,
+    "explain": "La subword tokenization con BPE o WordPiece scompone le parole in unità subword note, così le parole mai viste si gestiscono combinando pezzi conosciuti. Riduce il vocabolario mantenendo il significato semantico.",
+    "options": [
+     "Solo tokenization a livello di parola",
+     "Subword tokenization con BPE e WordPiece",
+     "Solo elaborazione a livello di carattere",
+     "Lookup su dizionario"
+    ],
+    "q": "Quale tecnica gestisce comunemente le parole fuori vocabolario nel NLP moderno?"
+   },
+   {
+    "answer": 2,
+    "explain": "ROUGE è progettato per valutare la qualità dei riassunti misurando l'overlap tra riassunto generato e di riferimento. BLEU è per la traduzione, perplexity per il language modeling, F1 per la classificazione.",
+    "options": [
+     "BLEU",
+     "Perplexity",
+     "ROUGE",
+     "F1-Score"
+    ],
+    "q": "Quale metrica è più appropriata per valutare task di text summarization?"
+   },
+   {
+    "answer": 1,
+    "explain": "Gli embedding pre-trained come Word2Vec e GloVe catturano relazioni semantiche tra parole apprese da grandi corpora: parole simili hanno vettori simili. Forniscono rappresentazioni ricche che migliorano i task a valle con pochi dati.",
+    "options": [
+     "Solo maggiore velocità di training",
+     "Catturare relazioni semantiche apprese da grandi corpora",
+     "Minore uso di memoria",
+     "Migliore interpretabilità"
+    ],
+    "q": "Qual è il vantaggio principale degli embedding pre-trained?"
+   },
+   {
+    "answer": 1,
+    "explain": "Il few-shot learning permette agli LLM di svolgere nuovi task fornendo pochi esempi nel prompt, senza ulteriore training. Per esempio mostrare due o tre esempi di classificazione per classificare un testo nuovo.",
+    "options": [
+     "Addestrare modelli con pochissimi parametri",
+     "Svolgere nuovi task con pochi esempi nel prompt",
+     "Velocità di inference elevata",
+     "Elaborazione di sequenze brevi"
+    ],
+    "q": "Nel contesto degli LLM, cosa significa few-shot learning?"
+   }
+  ],
+  "script": "Benvenuti al capitolo cinque: le applicazioni del Natural Language Processing. Dopo gli strumenti NVIDIA, torniamo ai task linguistici veri e propri, quelli che l'esame testa con domande molto concrete. L'idea guida è semplice: ogni task ha il suo modello ideale e la sua metrica di valutazione, e confonderli è uno degli errori più frequenti. Cominciamo dalla Named Entity Recognition, la NER. Il compito è identificare e classificare le entità nominate nel testo: persone, organizzazioni, luoghi, date. Pensate a una frase come Maria lavora in Google a Milano: la NER etichetta Maria come PERSON, Google come ORGANIZATION e Milano come LOCATION. Le applicazioni sono l'information extraction, la categorizzazione dei contenuti, il miglioramento della ricerca e la protezione della privacy, per esempio oscurando automaticamente i dati sensibili. La valutazione avviene con precision, recall e F1-score a livello di entità, con distinzione tra exact match e partial match. Secondo blocco: la text classification. Qui il modello assegna un testo a una categoria. I tre casi classici sono la sentiment analysis, che distingue positivo, negativo e neutro; la topic classification, che assegna il soggetto del contenuto; e la intent classification, che capisce l'intenzione dell'utente, fondamentale nei chatbot e negli assistenti virtuali. Gli approcci tradizionali usano TF-IDF con machine learning classico, quelli moderni usano modelli Transformer come BERT e RoBERTa. Terzo blocco: il question answering. Esistono tre varianti da distinguere bene. Nel QA estrattivo la risposta esiste già nel passaggio e il modello ne estrae lo span esatto, come evidenziare una riga di testo. Nel QA generativo il modello crea una risposta nuova, magari combinando più fonti. Nel QA open-domain la risposta arriva da una grande knowledge base, ed è qui che entrano in gioco le architetture di retrieval come RAG, che vedremo nel capitolo sette. I dataset di riferimento sono SQuAD, Natural Questions e MS MARCO: se li vedete tra le opzioni, pensate al QA. Quarto punto: le fondamenta che rendono tutto questo possibile. La subword tokenization, con algoritmi come BPE e WordPiece, scompone le parole in unità più piccole, così il modello gestisce anche parole mai viste combinando pezzi noti, e il vocabolario resta compatto. I pre-trained embedding, come Word2Vec e GloVe, catturano le relazioni semantiche tra parole apprese da enormi corpora: parole con significato simile hanno vettori simili. E il few-shot learning permette agli LLM di svolgere nuovi task mostrando solo pochi esempi nel prompt, senza ulteriore fine-tuning. Per l'esame, memorizzate queste associazioni: NER uguale persone, organizzazioni e luoghi; sentiment uguale positivo, negativo, neutro; QA estrattivo uguale span estratto, generativo uguale testo nuovo; summarization uguale ROUGE, come vedremo nel prossimo capitolo. Con queste ancore, le domande applicative diventano punti sicuri. Approfondiamo ancora due aspetti che l'esame ama testare. Primo, la valutazione della NER: precision, recall e F1 si calcolano a livello di entità, non di singolo token, e si distingue tra exact match, dove l'intera entità deve coincidere perfettamente, e partial match, dove basta una sovrapposizione parziale. Un modello che trova Milano ma sbaglia i confini dell'entità ottiene credito parziale solo con il partial match. Secondo, il legame tra task e architetture: i modelli encoder-only e bidirezionali come BERT eccellono nei task di comprensione come classificazione e NER, mentre i modelli decoder-only autoregressivi come GPT eccellono nella generazione. Questa distinzione spiega perché per la sentiment analysis si sceglie tipicamente un BERT, mentre per un chatbot generativo si sceglie un GPT. Tenete a mente anche i dataset: SQuAD per il QA estrattivo su passaggi, Natural Questions per domande reali da ricerche web, MS MARCO per ranking e QA su larga scala. Se una domanda cita uno di questi nomi, il contesto è quasi certamente il question answering o il retrieval.",
+  "slides": [
+   {
+    "bullets": [
+     "Identifica e classifica entità: PERSON, ORGANIZATION, LOCATION, DATE",
+     "Applicazioni: information extraction, ricerca, privacy protection",
+     "Valutazione con precision, recall e F1 a livello di entità",
+     "Exact match contro partial match"
+    ],
+    "title": "NER: riconoscere le entità nel testo"
+   },
+   {
+    "bullets": [
+     "Sentiment analysis: positivo, negativo, neutro",
+     "Topic classification: assegnare il soggetto del contenuto",
+     "Intent classification: capire l'intenzione dell'utente nei chatbot",
+     "Approcci: TF-IDF con ML classico, BERT e RoBERTa con Transformer"
+    ],
+    "title": "Text classification: sentiment, topic, intent"
+   },
+   {
+    "bullets": [
+     "Extractive QA: estrae lo span esatto dal passaggio",
+     "Generative QA: genera una risposta nuova, anche da più fonti",
+     "Open-domain QA: risponde da una grande knowledge base",
+     "Dataset di riferimento: SQuAD, Natural Questions, MS MARCO"
+    ],
+    "title": "Question answering: tre varianti"
+   },
+   {
+    "bullets": [
+     "Subword tokenization con BPE e WordPiece per parole mai viste",
+     "Pre-trained embedding che catturano relazioni semantiche",
+     "Few-shot learning: nuovi task con pochi esempi nel prompt",
+     "Vocabolario compatto senza perdere significato",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>cos</mtext><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>a</mi><mo>&#x22C5;</mo><mi>b</mi></mrow><mrow><mo>&#x2016;</mo><mi>a</mi><mo>&#x2016;</mo><mo>&#x2009;</mo><mo>&#x2016;</mo><mi>b</mi><mo>&#x2016;</mo></mrow></mfrac></mrow></math>",
+      "formula_fb": "cos(a, b) = (a·b) / (‖a‖ ‖b‖)",
+      "caption": "a·b è il prodotto scalare (somma dei prodotti elemento per elemento), ‖a‖ la norma (lunghezza) del vettore; vale 1 se puntano nella stessa direzione, 0 se ortogonali, −1 se opposti; confronta embedding e ordina i documenti nel retrieval.",
+      "kind": "formula"
+     }
+    ],
+    "title": "Fondamenta: tokenization, embedding, few-shot"
+   },
+   {
+    "bullets": [
+     "NER uguale persone, organizzazioni, luoghi",
+     "QA estrattivo uguale span estratto, generativo uguale testo nuovo",
+     "Summarization uguale ROUGE, traduzione uguale BLEU",
+     "Dataset QA: SQuAD, Natural Questions, MS MARCO"
+    ],
+    "title": "Mappa d'esame: associazioni chiave"
+   }
+  ],
+  "summary": "Questo capitolo copre le principali applicazioni di Natural Language Processing testate dall'esame. La Named Entity Recognition identifica e classifica entità come PERSON, ORGANIZATION, LOCATION e DATE, con applicazioni in information extraction, ricerca e privacy, valutata con precision, recall e F1 a livello di entità. La text classification comprende sentiment analysis con polarità positiva, negativa o neutra, topic classification per soggetto e intent classification per le intenzioni dell'utente, con approcci da TF-IDF classico a BERT e RoBERTa. La valutazione della NER usa precision, recall e F1 a livello di entità con exact e partial match, e la scelta dell'architettura segue il task: encoder bidirezionali per comprensione, decoder autoregressivi per generazione. Il question answering si divide in estrattivo con estrazione dello span esatto, generativo con creazione di testo nuovo e open-domain da grandi knowledge base, con dataset SQuAD, Natural Questions e MS MARCO. Le fondamenta includono subword tokenization con BPE e WordPiece per le parole fuori vocabolario, pre-trained embedding che catturano relazioni semantiche e few-shot learning per nuovi task con pochi esempi nel prompt. Formula chiave: la similarità coseno cos(a, b) = (a·b) / (‖a‖ ‖b‖) misura l’angolo tra due embedding e serve a confrontare significati e a ordinare i documenti nel retrieval.",
+  "title": "Applicazioni NLP: NER, classificazione, QA"
+ },
+ {
+  "area": "mlops",
+  "id": "ch6-metrics",
+  "keywords": [
+   {
+    "def": "Bilingual Evaluation Understudy: metrica per la traduzione automatica basata su n-gram precision con brevity penalty. Range da 0 a 1, valori alti indicano somiglianza al riferimento.",
+    "term": "BLEU score"
+   },
+   {
+    "def": "Recall-Oriented Understudy for Gisting Evaluation: metrica orientata al recall per la valutazione dei riassunti. Varianti ROUGE-N, ROUGE-L e ROUGE-W.",
+    "term": "ROUGE score"
+   },
+   {
+    "def": "Penalità applicata al BLEU quando il testo generato è più corto del riferimento. Evita che output brevissimi ottengano punteggi gonfiati.",
+    "term": "Brevity penalty"
+   },
+   {
+    "def": "Media armonica di precision e recall: F1 = 2·P·R / (P + R), con precision P = TP / (TP + FP) e recall R = TP / (TP + FN). La matrice di confusione conta veri positivi (TP), falsi positivi (FP), veri negativi (TN) e falsi negativi (FN). Bilancia i due aspetti in un’unica metrica, utile per dataset sbilanciati e task di classificazione.",
+    "term": "F1-score"
+   },
+   {
+    "def": "Metrica del language modeling che misura quanto il modello è sorpreso dal testo. Valori più bassi indicano migliore capacità predittiva.",
+    "term": "Perplexity"
+   },
+   {
+    "def": "Riduzione della precisione numerica da FP32 a INT8 o FP16. Riduce memoria e latenza di inference con piccola perdita di accuratezza.",
+    "term": "Quantization"
+   },
+   {
+    "def": "Tecnica di compressione in cui un modello student compatto imita un modello teacher grande, apprendendo dalle sue distribuzioni di probabilità.",
+    "term": "Knowledge distillation"
+   },
+   {
+    "def": "Rimozione di pesi o connessioni poco importanti dalla rete per ridurre dimensione e costo computazionale mantenendo le prestazioni.",
+    "term": "Pruning"
+   },
+   {
+    "def": "Test con deployment simultaneo di due modelli e traffico diviso 50 e 50. Permette confronto equo e test di significatività statistica.",
+    "term": "A/B testing"
+   },
+   {
+    "def": "Gestione delle versioni dei modelli in produzione. Abilita rollback sicuri, confronto tra versioni e deployment graduali senza downtime.",
+    "term": "Model versioning"
+   },
+   {
+    "def": "Generazione di informazioni plausibili ma fattualmente scorrette da parte degli LLM. Tra le motivazioni chiave dell'uso di RAG.",
+    "term": "Hallucination"
+   },
+   {
+    "def": "Situazione in cui il traffico di un test A/B non è distribuito equamente, producendo confronti distorti tra modelli.",
+    "term": "Traffic bias"
+   }
+  ],
+  "prereq": [
+   "ch5-nlp"
+  ],
+  "quiz": [
+   {
+    "answer": 2,
+    "explain": "BLEU misura l'n-gram overlap tra testo generato e riferimento: un punteggio alto indica maggiore somiglianza lessicale al riferimento, non vocabolario più ampio né comprensione più profonda. È una metrica di superficie.",
+    "options": [
+     "Il modello ha un vocabolario più ampio",
+     "Il modello capisce meglio le strutture complesse",
+     "Il modello produce testo più simile al riferimento",
+     "Il modello è computazionalmente più efficiente"
+    ],
+    "q": "Confrontando due LLM con la metrica BLEU, un punteggio più alto indica che...?"
+   },
+   {
+    "answer": 1,
+    "explain": "La quantization riduce la precisione numerica da FP32 a INT8, riducendo memoria e velocizzando la inference, con piccolo tradeoff di accuratezza. Non aumenta accuratezza né interpretabilità.",
+    "options": [
+     "Aumentare accuratezza e ridurre il training time",
+     "Ridurre memoria e latenza di inference",
+     "Migliorare interpretabilità e spiegabilità",
+     "Aumentare stabilità e convergenza del training"
+    ],
+    "q": "Quali sono i benefici principali della quantization?"
+   },
+   {
+    "answer": 2,
+    "explain": "BLEU nasce per la traduzione automatica e misura la n-gram precision rispetto alle traduzioni di riferimento. ROUGE è per i riassunti, F1 per la classificazione, perplexity per il language modeling.",
+    "options": [
+     "ROUGE",
+     "F1-score",
+     "BLEU",
+     "Perplexity"
+    ],
+    "q": "Quale metrica è più appropriata per valutare la qualità della traduzione automatica?"
+   },
+   {
+    "answer": 2,
+    "explain": "F1 è la media armonica di precision e recall: bilancia i corretti tra i predetti positivi e i trovati tra i positivi reali. È la metrica standard per dataset sbilanciati.",
+    "options": [
+     "Solo la precision",
+     "Solo la recall",
+     "La media armonica di precision e recall",
+     "La media aritmetica di precision e recall"
+    ],
+    "q": "Nei task di classificazione, cosa misura F1-score?"
+   },
+   {
+    "answer": 3,
+    "explain": "La knowledge distillation addestra un modello student compatto a imitare un teacher grande, apprendendo dalle sue distribuzioni di probabilità invece che dalle sole etichette. Produce modelli piccoli con prestazioni migliori del training da zero.",
+    "options": [
+     "Aumentare la velocità di training",
+     "Gestire sequenze più lunghe",
+     "Ridurre la latenza di inference",
+     "Trasferire conoscenza da modelli grandi a modelli piccoli"
+    ],
+    "q": "Qual è lo scopo principale della knowledge distillation?"
+   },
+   {
+    "answer": 1,
+    "explain": "Il traffico equo 50 e 50 garantisce confronto imparziale e misurazioni statisticamente significative. È la best practice raccomandata: deploy simultaneo di entrambi i modelli e monitoraggio delle metriche chiave.",
+    "options": [
+     "Mandare tutto il traffico al modello nuovo",
+     "Deploy di entrambi i modelli con traffico equo",
+     "Solo testing con team interni",
+     "Aumentare gradualmente il traffico per mesi"
+    ],
+    "q": "Nell'A/B testing per il deployment di LLM, qual è l'approccio raccomandato per il traffico?"
+   }
+  ],
+  "script": "Benvenuti al capitolo sei: valutazione dei modelli e metriche. Questo è uno dei capitoli a più alta priorità per l'esame, perché BLEU, ROUGE e quantization compaiono in continuazione, spesso con trabocchetti studiati apposta. Partiamo dal BLEU score, il Bilingual Evaluation Understudy. È la metrica nata per valutare la traduzione automatica: confronta il testo generato dal modello con uno o più testi di riferimento e misura la n-gram precision, cioè quanti frammenti di una, due, tre parole coincidono. C'è anche una brevity penalty che penalizza gli output troppo corti, per evitare che risposte brevissime ottengano punteggi gonfiati. Il range va da zero a uno, e più è alto, meglio è. Ma attenzione al trabocchetto più famoso dell'esame: un BLEU alto significa solo che il testo è più simile al riferimento. Non significa vocabolario più ampio, non significa comprensione più profonda, non significa efficienza computazionale. È una somiglianza lessicale di superficie. Fissatevelo bene, perché troverete queste opzioni sbagliate quasi di sicuro. Passiamo al ROUGE score, il Recall-Oriented Understudy for Gisting Evaluation. Mentre BLEU nasce per la traduzione ed è orientato alla precision, ROUGE nasce per la valutazione dei riassunti ed è orientato al recall. Le varianti da ricordare sono ROUGE-N per l'overlap di n-gram, ROUGE-L per la longest common subsequence e ROUGE-W per la versione pesata. La regola d'esame è semplicissima: summarization uguale ROUGE, traduzione uguale BLEU. Terzo tema: la quantization. È una tecnica di ottimizzazione che riduce la precisione numerica dei pesi, per esempio da FP32 a INT8 o FP16. I benefici sono quattro e vanno memorizzati: minore uso di memoria, inference più veloce, minore consumo energetico e minori costi infrastrutturali. Il tradeoff è una piccola perdita di accuratezza. Le tecniche includono post-training quantization, quantization-aware training e dynamic quantization. Il trabocchetto qui è pensare che la quantization migliori l'accuratezza o aumenti la dimensione del modello: è esattamente il contrario. Accanto alla quantization, ricordate altre due tecniche di compressione: la knowledge distillation, in cui un modello student piccolo imita un teacher grande apprendendo dalle sue distribuzioni di probabilità, e il pruning, che rimuove pesi poco importanti. Chiudiamo con il deployment. L'A/B testing per i modelli in produzione prevede il deploy simultaneo di entrambi i modelli con traffico diviso equamente, cinquanta e cinquanta. Solo così il confronto è equo e statisticamente significativo. Il model versioning abilita rollback sicuri e confronto tra versioni. E ricordate due metriche di contorno: F1-score come media armonica di precision e recall per la classificazione, e la perplexity per il language modeling, dove valori più bassi sono migliori. Per l'esame, le tre frasi da non sbagliare mai: BLEU alto uguale simile al riferimento; quantization uguale meno memoria e meno latenza; A/B testing uguale traffico cinquanta e cinquanta. Aggiungiamo gli ultimi dettagli operativi. La perplexity è la metrica del language modeling: misura quanto il modello è sorpreso dal testo, e valori più bassi indicano migliore capacità predittiva. Non confondetela con BLEU e ROUGE, che confrontano con un riferimento, mentre la perplexity valuta la probabilità assegnata dal modello stesso. Sul fronte compressione, oltre a quantization, distillation e pruning, ricordate il gradient accumulation per il training distribuito: accumula i gradienti su più mini-batch prima dell'aggiornamento dei parametri, simulando batch più grandi con memoria limitata. E per il deployment, la metrica F1 come media armonica di precision e recall è lo standard per i task di classificazione su dataset sbilanciati: bilancia i falsi positivi e i falsi negativi in un unico numero. Con queste tessere il quadro della valutazione è completo e pronto per l'esame. Un ultimo promemoria operativo: quando leggete le opzioni, diffidate di qualunque risposta che attribuisce a BLEU o ROUGE proprietà che non hanno, come misurare la creatività o la comprensione profonda. Sono metriche di overlap lessicale, punto. E sulla quantization, se un'opzione parla di modelli più grandi o più accurati, scartatela subito.",
+  "slides": [
+   {
+    "bullets": [
+     "Bilingual Evaluation Understudy per la traduzione automatica",
+     "N-gram precision con brevity penalty contro output troppo corti",
+     "Range da 0 a 1, valori alti uguale meglio",
+     "BLEU alto significa simile al riferimento, nient'altro"
+    ],
+    "title": "BLEU: somiglianza al riferimento"
+   },
+   {
+    "bullets": [
+     "Recall-Oriented Understudy per la valutazione dei riassunti",
+     "Varianti ROUGE-N, ROUGE-L e ROUGE-W",
+     "Summarization uguale ROUGE, traduzione uguale BLEU",
+     "F1-score come media armonica di precision e recall",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mtext>accuracy</mtext><mo>=</mo><mfrac><mtext>corrette</mtext><mtext>totale</mtext></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><mi>P</mi><mo>=</mo><mfrac><mi>TP</mi><mrow><mi>TP</mi><mo>+</mo><mi>FP</mi></mrow></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><mi>R</mi><mo>=</mo><mfrac><mi>TP</mi><mrow><mi>TP</mi><mo>+</mo><mi>FN</mi></mrow></mfrac></mrow></mrow></math>",
+      "formula_fb": "accuracy = corrette / totale; P = TP/(TP+FP); R = TP/(TP+FN)",
+      "caption": "TP = veri positivi, FP = falsi positivi, FN = falsi negativi.",
+      "kind": "formula"
+     },
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mi>F1</mi><mo>=</mo><mfrac><mrow><mn>2</mn><mo>&#x22C5;</mo><mi>P</mi><mo>&#x22C5;</mo><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow></math>",
+      "formula_fb": "F1 = 2·P·R / (P + R)",
+      "caption": "Media armonica di precision e recall; utile su dataset sbilanciati.",
+      "kind": "formula"
+     }
+    ],
+    "title": "ROUGE e F1: riassunti e classificazione"
+   },
+   {
+    "bullets": [
+     "Riduce la precisione da FP32 a INT8 o FP16",
+     "Quattro benefici: memoria, velocità, energia, costi",
+     "Piccolo tradeoff di accuratezza accettabile",
+     "Tecniche: post-training, quantization-aware, dynamic"
+    ],
+    "title": "Quantization: modelli più leggeri e veloci"
+   },
+   {
+    "bullets": [
+     "Knowledge distillation: student piccolo imita teacher grande",
+     "Pruning: rimuove pesi poco importanti",
+     "Perplexity per il language modeling, meglio se bassa",
+     "Hallucination come motivazione per RAG e valutazione umana",
+     "Curva ROC e AUC (descrittivo, senza formula): la curva ROC mostra il tradeoff tra veri positivi e falsi positivi al variare della soglia; AUC è l’area sottesa, vale 1 per un classificatore perfetto e 0,5 per il caso"
+    ],
+    "title": "Distillation, pruning e altre metriche"
+   },
+   {
+    "bullets": [
+     "Deploy simultaneo con traffico diviso 50 e 50",
+     "Confronto equo e significatività statistica",
+     "Model versioning per rollback e confronto",
+     "Bilanciare performance, latenza e costi in produzione"
+    ],
+    "title": "A/B testing e deployment in produzione"
+   }
+  ],
+  "summary": "Questo capitolo ad alta priorità copre valutazione e metriche per l'esame NCA-GENL. Il BLEU score valuta la traduzione automatica con n-gram precision e brevity penalty in un range da 0 a 1: un punteggio alto indica testo più simile al riferimento, non vocabolario più ampio né comprensione profonda. Il ROUGE score valuta i riassunti con orientamento al recall nelle varianti ROUGE-N, ROUGE-L e ROUGE-W, mentre F1-score è la media armonica di precision e recall per la classificazione. La quantization riduce la precisione da FP32 a INT8 o FP16 con quattro benefici: meno memoria, inference più veloce, meno energia e minori costi, a fronte di piccola perdita di accuratezza. Knowledge distillation e pruning completano le tecniche di compressione, con perplexity come metrica del language modeling dove valori più bassi sono migliori. L'A/B testing richiede deploy simultaneo con traffico equo 50 e 50 per confronti statisticamente significativi, con model versioning per rollback sicuri e bilanciamento di performance, latenza e costi in produzione. Formule chiave: accuracy = predizioni corrette / totale, precision P = TP / (TP + FP), recall R = TP / (TP + FN) e F1 = 2·P·R / (P + R) dalla matrice di confusione con veri positivi (TP), falsi positivi (FP), veri negativi (TN) e falsi negativi (FN); la curva ROC con la sua area AUC descrive il tradeoff tra veri e falsi positivi al variare della soglia.",
+  "title": "Valutazione: BLEU, ROUGE, quantization"
+ },
+ {
+  "area": "applicazioni",
+  "id": "ch7-applications",
+  "keywords": [
+   {
+    "def": "Retrieval-Augmented Generation: combina retrieval da una knowledge base con generazione. Riduce hallucination e dà accesso a informazioni aggiornate e dominio-specifiche. Il retrieval ordina i documenti con la similarità coseno cos(q, d) = (q·d) / (‖q‖ ‖d‖) tra embedding della query e dei documenti, restituendo i top-k.",
+    "term": "RAG"
+   },
+   {
+    "def": "Pipeline RAG in quattro fasi: query processing, document retrieval, context integration e response generation.",
+    "term": "Architettura RAG"
+   },
+   {
+    "def": "Fenomeno per cui gli LLM generano informazioni plausibili ma false. RAG lo contrasta ancorando le risposte a documenti recuperati.",
+    "term": "Hallucination"
+   },
+   {
+    "def": "Apprendimento di nuovi task con pochi esempi nel prompt, senza fine-tuning. Abilita prototipazione rapida e personalizzazione leggera.",
+    "term": "Few-shot learning"
+   },
+   {
+    "def": "Strategia di decoding che mantiene k sequenze candidate e le esplora in parallelo. Qualità superiore alla greedy search a costo computazionale maggiore.",
+    "term": "Beam search"
+   },
+   {
+    "def": "Strategia di campionamento che pesca dal più piccolo insieme di token con probabilità cumulata oltre p. Bilancia diversità e qualità meglio del top-k fisso.",
+    "term": "Nucleus sampling (top-p)"
+   },
+   {
+    "def": "Modelli generativi in cui il forward process aggiunge rumore e il reverse process impara a rimuoverlo. Usati per immagini e testo.",
+    "term": "Diffusion models"
+   },
+   {
+    "def": "Analisi di documenti medici, supporto alle decisioni cliniche e accelerazione della drug discovery con LLM dominio-specifici.",
+    "term": "Applicazioni healthcare"
+   },
+   {
+    "def": "Risk assessment, fraud detection e generazione automatica di report con modelli applicati a dati finanziari.",
+    "term": "Applicazioni finance"
+   },
+   {
+    "def": "Contract analysis, ricerca legale e compliance monitoring. Richiedono alta accuratezza e spiegabilità delle risposte.",
+    "term": "Applicazioni legali"
+   },
+   {
+    "def": "Chatbot, assistenti virtuali, ticket routing automatico e sentiment analysis per il servizio clienti su larga scala.",
+    "term": "Customer service"
+   },
+   {
+    "def": "In produzione conta il tradeoff tra accuratezza, latenza e costi computazionali. Raramente si massimizza una sola dimensione.",
+    "term": "Bilanciamento costi-prestazioni"
+   }
+  ],
+  "prereq": [
+   "ch1-transformer",
+   "ch2-llm"
+  ],
+  "quiz": [
+   {
+    "answer": 1,
+    "explain": "RAG combina un sistema di retrieval con un modello generativo: prima recupera documenti rilevanti da una knowledge base, poi li usa come contesto per generare risposte più accurate e aggiornate, riducendo hallucination.",
+    "options": [
+     "Una tecnica di training per convergenza veloce",
+     "Un metodo che combina retrieval e generazione",
+     "Una tecnica di compressione dei modelli",
+     "Una metrica di valutazione"
+    ],
+    "q": "Cos'è la Retrieval-Augmented Generation (RAG)?"
+   },
+   {
+    "answer": 1,
+    "explain": "Recuperando contesto da una knowledge base esterna, RAG ancora le risposte a informazioni verificabili e aggiornate, oltre i dati di training. Così riduce le hallucination e rende le risposte più spiegabili.",
+    "options": [
+     "Aumenta la velocità di training",
+     "Riduce hallucination con accesso a conoscenza esterna",
+     "Comprime il modello per la inference",
+     "Migliora la quantization"
+    ],
+    "q": "Perché RAG riduce le hallucination?"
+   },
+   {
+    "answer": 1,
+    "explain": "La beam search mantiene più sequenze candidate in parallelo ed esplora percorsi diversi, trovando output di qualità superiore alla greedy search. Il costo è computazionale, non un risparmio di memoria o velocità.",
+    "options": [
+     "Velocizzare la generazione",
+     "Esplorare più sequenze candidate in parallelo",
+     "Ridurre l'uso di memoria",
+     "Gestire input più lunghi"
+    ],
+    "q": "Qual è lo scopo della beam search nella generazione di sequenze?"
+   },
+   {
+    "answer": 1,
+    "explain": "Il nucleus sampling campiona dal più piccolo insieme di token con probabilità cumulata oltre p, adattando dinamicamente il pool dei candidati. Bilancia diversità e qualità meglio del top-k a cardinalità fissa.",
+    "options": [
+     "Velocizzare la generazione",
+     "Controllare la randomicità campionando dal top probability mass",
+     "Ridurre l'uso di memoria",
+     "Gestire sequenze più lunghe"
+    ],
+    "q": "Cosa fa il nucleus sampling top-p nella generazione di testo?"
+   },
+   {
+    "answer": 0,
+    "explain": "Nel forward diffusion si aggiunge gradualmente rumore fino a rumore puro; nel reverse si impara a rimuovere il rumore, modellando la distribuzione dei dati per la generazione. È il principio dei modelli di diffusione per immagini e testo.",
+    "options": [
+     "Il forward aggiunge rumore, il reverse impara a rimuoverlo",
+     "Il forward genera immagini, il reverse valuta la qualità",
+     "Il forward gestisce testo, il reverse gestisce immagini",
+     "Il forward è per il training, il reverse per la inference"
+    ],
+    "q": "Nei diffusion models, qual è la differenza tra forward e reverse process?"
+   },
+   {
+    "answer": 1,
+    "explain": "Il deployment produttivo richiede di bilanciare accuratezza, latenza e costi: raramente si massimizza una sola dimensione. Il modello più grande non è sempre la scelta giusta se viola latenza o budget.",
+    "options": [
+     "Solo l'accuratezza del modello",
+     "Bilanciare performance, latenza e costi computazionali",
+     "Usare il modello più grande disponibile",
+     "Massima throughput a qualsiasi costo"
+    ],
+    "q": "Nel deployment produttivo di LLM, qual è la considerazione più critica per ottimizzare i costi?"
+   }
+  ],
+  "script": "Benvenuti al capitolo sette: le applicazioni reali degli LLM. Dopo aver studiato architetture, training, strumenti e metriche, vediamo come tutto questo si traduce in sistemi che funzionano nel mondo reale. Il protagonista assoluto di questo capitolo è RAG, la Retrieval-Augmented Generation, uno dei concetti più testati dell'esame. L'idea di RAG è elegante: invece di chiedere al modello di ricordare tutto dai pesi del training, gli diamo accesso a una knowledge base esterna. L'architettura procede in quattro fasi. Primo, query processing: la domanda dell'utente viene elaborata. Secondo, document retrieval: il sistema recupera i documenti rilevanti dalla knowledge base. Terzo, context integration: i documenti vengono inseriti nel contesto del modello. Quarto, response generation: il modello genera la risposta basandosi su quel contesto. I benefici sono quattro e vanno memorizzati: accesso a informazioni aggiornate oltre la data del training, riduzione delle hallucination perché le risposte sono ancorate a documenti reali, risposte più spiegabili dato che si può citare la fonte, e integrazione di conoscenza dominio-specifica senza riaddestrare il modello. Quando all'esame vedete combinare retrieval e generazione, la risposta è RAG. Secondo tema: le applicazioni per dominio. In healthcare gli LLM servono per analisi di documenti medici, supporto alle decisioni cliniche e accelerazione della drug discovery. In finance per risk assessment, fraud detection e generazione automatica di report. In ambito legale per contract analysis, ricerca giuridica e compliance monitoring, dove accuratezza e spiegabilità sono critiche. Nel customer service per chatbot e assistenti virtuali, ticket routing automatico e sentiment analysis. Terzo tema: le tecniche di generazione. La beam search mantiene più sequenze candidate in parallelo ed esplora percorsi diversi, producendo output migliori della greedy search al costo di più computazione. Il nucleus sampling, o top-p, campiona dal più piccolo insieme di token la cui probabilità cumulata supera una soglia p, bilanciando diversità e qualità meglio del top-k fisso. I diffusion models funzionano in due fasi: il forward process aggiunge gradualmente rumore ai dati fino a rumore puro, il reverse process impara a rimuovere il rumore, modellando così la distribuzione dei dati per la generazione di immagini e testo. Chiudiamo con il deployment in produzione. La regola d'oro è bilanciare performance, latenza e costi computazionali: raramente si massimizza una sola dimensione. Le tecniche di quantization e ottimizzazione con TensorRT riducono i requisiti di risorse per inference, e l'A/B testing con traffico cinquanta e cinquanta valida le nuove versioni. E ricordate il few-shot learning: mostrare pochi esempi nel prompt per nuovi task senza fine-tuning è spesso il modo più economico di prototipare un'applicazione. Per l'esame, le ancore sono: RAG uguale retrieval più generazione contro le hallucination; beam search uguale più candidati in parallelo; top-p uguale campionamento dalla massa di probabilità; deployment uguale tradeoff tra performance, latenza e costi. Un ultimo blocco di concetti collega questo capitolo agli altri. Il teacher forcing, usato nel training dei modelli sequenziali, alimenta i token corretti a ogni passo invece delle predizioni del modello: stabilizza il training ma crea il cosiddetto exposure bias tra training e inference. Le segment embedding di BERT distinguono frasi diverse nei task a coppie di frasi come il Next Sentence Prediction. E il warm-up del learning rate aumenta gradualmente il tasso di apprendimento nelle prime fasi per stabilizzare il training dei modelli grandi con parametri inizializzati casualmente. Sul fronte costi, la regola operativa è che quantization e ottimizzazione riducono i requisiti fondamentali per inference, mentre batch size e GPU aggiuntive aumentano solo capacità e throughput. L'ottimizzazione conviene sempre per prima. Con questo, l'intero percorso dal Transformer alle applicazioni reali è completo: siete pronti per il ripasso finale e per il mock exam sotto tempo. Un ultimo consiglio trasversale: molte domande mescolano questi temi, per esempio chiedendo quale tecnica riduce i costi di inference oppure quale architettura serve per risposte aggiornate. Leggete sempre l'ultima riga della domanda per prima: è lì che si capisce se cercano RAG, quantization o beam search.",
+  "slides": [
+   {
+    "bullets": [
+     "Combina retrieval da knowledge base con generazione di testo",
+     "Quattro fasi: query, retrieval, integrazione contesto, generazione",
+     "Accesso a informazioni aggiornate oltre il training",
+     "Riduce hallucination e rende le risposte spiegabili",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mtext>cos</mtext><mo>(</mo><mi>q</mi><mo>,</mo><mi>d</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>q</mi><mo>&#x22C5;</mo><mi>d</mi></mrow><mrow><mo>&#x2016;</mo><mi>q</mi><mo>&#x2016;</mo><mo>&#x2009;</mo><mo>&#x2016;</mo><mi>d</mi><mo>&#x2016;</mo></mrow></mfrac></mrow></math>",
+      "formula_fb": "cos(q, d) = (q·d) / (‖q‖ ‖d‖)",
+      "caption": "Retrieval top-k: q è l’embedding della query, d quello del documento; il sistema restituisce i k documenti col punteggio più alto.",
+      "kind": "formula"
+     },
+     "Chunking e overlap (descrittivo): i documenti sono divisi in chunk, per esempio da 300-500 token, con overlap di qualche decina di token tra chunk adiacenti per non spezzare il contesto; chunk troppo grandi diluiscono il retrieval, troppo piccoli perdono contesto",
+     "Faithfulness e groundedness (descrittivo): la risposta è fedele (faithful) se ogni affermazione è supportata dai documenti recuperati; la groundedness misura quanto la risposta è ancorata al contesto fornito, e si valuta con giudizio umano o LLM-as-judge"
+    ],
+    "title": "RAG: retrieval più generazione"
+   },
+   {
+    "bullets": [
+     "Healthcare: documenti medici, decisioni cliniche, drug discovery",
+     "Finance: risk assessment, fraud detection, report automatici",
+     "Legale: contratti, ricerca giuridica, compliance",
+     "Customer service: chatbot, ticket routing, sentiment analysis"
+    ],
+    "title": "Applicazioni per dominio"
+   },
+   {
+    "bullets": [
+     "Beam search: più sequenze candidate esplorate in parallelo",
+     "Qualità superiore alla greedy search, costo maggiore",
+     "Nucleus sampling top-p: campiona dalla massa di probabilità",
+     "Bilancia diversità e qualità meglio del top-k fisso"
+    ],
+    "title": "Tecniche di generazione: beam search e top-p"
+   },
+   {
+    "bullets": [
+     "Forward process: aggiunge gradualmente rumore ai dati",
+     "Reverse process: impara a rimuovere il rumore",
+     "Modella la distribuzione dei dati per generare immagini e testo",
+     "Few-shot learning per prototipare senza fine-tuning"
+    ],
+    "title": "Diffusion models e few-shot"
+   },
+   {
+    "bullets": [
+     "Bilanciare performance, latenza e costi computazionali",
+     "Quantization e TensorRT riducono i requisiti per inference",
+     "A/B testing 50 e 50 per validare nuove versioni",
+     "Il modello più grande non è sempre la scelta giusta"
+    ],
+    "title": "Deployment in produzione"
+   }
+  ],
+  "summary": "Questo capitolo presenta le applicazioni reali degli LLM testate dall'esame. La Retrieval-Augmented Generation combina retrieval da una knowledge base con generazione in quattro fasi: query processing, document retrieval, context integration e response generation, con benefici di informazioni aggiornate, riduzione delle hallucination, risposte spiegabili e conoscenza dominio-specifica. Le applicazioni per dominio includono healthcare con documenti medici e drug discovery, finance con risk e fraud detection, legale con contratti e compliance, customer service con chatbot e ticket routing. Le tecniche di generazione comprendono beam search con più candidate in parallelo, nucleus sampling top-p dalla massa di probabilità e diffusion models con forward di aggiunta rumore e reverse di denoising. Il deployment in produzione richiede il bilanciamento di performance, latenza e costi, con quantization, TensorRT e A/B testing come strumenti operativi. Completano il quadro teacher forcing, segment embedding e warm-up del learning rate come concetti di training collegati alle applicazioni reali in produzione d'esame. Formule e criteri chiave: il retrieval ordina i documenti con la similarità coseno cos(q, d) = (q·d) / (‖q‖ ‖d‖) e restituisce i top-k; i documenti si preparano in chunk con overlap per non spezzare il contesto; la qualità si valuta con faithfulness e groundedness, cioè quanto ogni affermazione è supportata dai documenti recuperati.",
+  "title": "Applicazioni reali: RAG e casi d'uso"
+ },
+ {
+  "area": "applicazioni",
+  "id": "quick-ref",
+  "keywords": [
+   {
+    "def": "BLEU alto significa solo testo più simile al riferimento. Le opzioni su vocabolario più ampio o comprensione profonda sono sempre sbagliate.",
+    "term": "Trappola: BLEU e vocabolario"
+   },
+   {
+    "def": "Query cerca informazioni, Key misura compatibilità, Value contiene le informazioni. Le opzioni invertite sono il distrattore classico.",
+    "term": "Trappola: matrici Q, K, V"
+   },
+   {
+    "def": "La quantization riduce memoria e latenza, non aumenta accuratezza né dimensione. Le opzioni su training accuracy sono trappole.",
+    "term": "Trappola: benefici quantization"
+   },
+   {
+    "def": "Triton serve i modelli in produzione, TensorRT li ottimizza. NeMo fornisce pre-trained per costruire app, ONNX dà portabilità.",
+    "term": "Trappola: Triton contro TensorRT"
+   },
+   {
+    "def": "Deploy simultaneo con traffico 50 e 50 per confronto equo e significatività statistica. Mai tutto il traffico subito al nuovo modello.",
+    "term": "Trappola: A/B testing"
+   },
+   {
+    "def": "Summarization uguale ROUGE, traduzione uguale BLEU. Invertirli è uno degli errori più frequenti all'esame.",
+    "term": "Trappola: ROUGE contro BLEU"
+   },
+   {
+    "def": "Il positional encoding aggiunge informazione sull'ordine perché i Transformer processano in parallelo senza ordine intrinseco.",
+    "term": "Trappola: positional encoding"
+   },
+   {
+    "def": "BERT è encoder-only bidirezionale per comprensione, GPT è decoder-only autoregressivo per generazione. Non invertirli.",
+    "term": "Trappola: BERT contro GPT"
+   },
+   {
+    "def": "QA estrattivo estrae lo span esatto, QA generativo crea testo nuovo. RAG combina retrieval e generazione contro le hallucination.",
+    "term": "Trappola: QA e RAG"
+   }
+  ],
+  "prereq": [],
+  "quiz": [],
+  "script": "Ripasso last-minute per la certificazione NVIDIA NCA-GENL. Cinquanta domande, sessanta minuti, poco più di un minuto per domanda: gestite il tempo con una prima passata veloce e una seconda per le domande marcate. Partiamo dalle sette frasi di emergenza. Uno: BLEU alto significa testo più simile al riferimento, mai vocabolario più ampio o comprensione profonda. Due: la matrice Query cerca informazioni, la Value contiene le informazioni, la Key misura la compatibilità. Tre: Triton serve i modelli in produzione, TensorRT li ottimizza per la inference. Quattro: l'A/B testing usa traffico equo cinquanta e cinquanta con deploy simultaneo. Cinque: la quantization riduce memoria e latenza, non migliora l'accuratezza. Sei: l'EDA scopre pattern e anomalie nei dati prima del fine-tuning. Sette: il positional encoding aggiunge l'ordine delle sequenze perché i Transformer processano in parallelo. Aggiungiamo le associazioni rapide: ROUGE per i riassunti, BLEU per la traduzione; BERT encoder-only per la comprensione, GPT decoder-only per la generazione; NeMo per costruire applicazioni, ONNX per la portabilità; beam search per esplorare più candidati, top-p per campionare dalla massa di probabilità; RAG contro le hallucination con retrieval più generazione. Checklist finale prima di entrare: componenti del Transformer, formule di attention e layer norm, differenze BLEU e ROUGE, benefici della quantization, i quattro tool NVIDIA, A/B testing e transfer learning. Eliminate prima le risposte ovviamente sbagliate, cercate la terminologia specifica NVIDIA e fidatevi del primo istinto. Ricordate anche la gestione dell'ansia: avete sessanta minuti per cinquanta domande, un ritmo assolutamente gestibile. Se una domanda vi blocca per più di un minuto, marcatela e andate avanti: spesso la risposta vi verrà in mente mentre risolvete le successive. E ripassate un'ultima volta le formule chiave, attention con Q, K e V, layer norm con gamma e beta, positional encoding con seno e coseno. In bocca al lupo, ce la farete.",
+  "slides": [
+   {
+    "bullets": [
+     "50-51 domande, 60 minuti, circa 1,2 minuti per domanda",
+     "Prima passata 30-35 minuti sulle domande sicure",
+     "Seconda passata 20-25 minuti sulle domande marcate",
+     "Check finale di 5 minuti sulla scheda risposte"
+    ],
+    "title": "Checklist: formato e tempo"
+   },
+   {
+    "bullets": [
+     "BLEU alto uguale simile al riferimento",
+     "Query cerca, Value contiene, Key compatibilità",
+     "Triton serve, TensorRT ottimizza",
+     "A/B testing con traffico 50 e 50"
+    ],
+    "title": "Checklist: le quattro ancore"
+   },
+   {
+    "bullets": [
+     "ROUGE per riassunti, BLEU per traduzione",
+     "BERT comprensione, GPT generazione",
+     "NeMo per costruire, ONNX per portare",
+     "RAG contro hallucination"
+    ],
+    "title": "Checklist: associazioni rapide"
+   },
+   {
+    "bullets": [
+     "Componenti Transformer e formule chiave",
+     "Quantization: meno memoria e meno latenza",
+     "EDA per pattern e anomalie pre fine-tuning",
+     "Positional encoding per l'ordine in parallelo",
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mi>speedup</mi><mo>=</mo><mfrac><msub><mi>t</mi><mtext>base</mtext></msub><msub><mi>t</mi><mtext>ott</mtext></msub></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><mi>throughput</mi><mo>=</mo><mfrac><mtext>richieste</mtext><mtext>secondi</mtext></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><msub><mtext>latenza</mtext><mtext>media</mtext></msub><mo>=</mo><mfrac><mrow><mo>&#x2211;</mo><mtext>tempi</mtext></mrow><mi>n</mi></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><msub><mi>x</mi><mi>q</mi></msub><mo>=</mo><mtext>round</mtext><mo>(</mo><mfrac><mi>x</mi><mi>s</mi></mfrac><mo>)</mo><mo>+</mo><mi>z</mi></mrow></mrow></math>",
+      "formula_fb": "speedup = t_base/t_ott; throughput = richieste/secondi; latenza media = Σ tempi/n; INT8: x_q = round(x/s)+z",
+      "caption": "Cheat-sheet prestazioni: formule compatte da rileggere prima dell’esame.",
+      "kind": "formula"
+     },
+     {
+      "formula_mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mtext>accuracy</mtext><mo>=</mo><mfrac><mtext>corrette</mtext><mtext>totale</mtext></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><mi>P</mi><mo>=</mo><mfrac><mi>TP</mi><mrow><mi>TP</mi><mo>+</mo><mi>FP</mi></mrow></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><mi>R</mi><mo>=</mo><mfrac><mi>TP</mi><mrow><mi>TP</mi><mo>+</mo><mi>FN</mi></mrow></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><mi>F1</mi><mo>=</mo><mfrac><mrow><mn>2</mn><mo>&#x22C5;</mo><mi>P</mi><mo>&#x22C5;</mo><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow><mo>;</mo><mo>&#x2003;</mo><mrow><mtext>cos</mtext><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>a</mi><mo>&#x22C5;</mo><mi>b</mi></mrow><mrow><mo>&#x2016;</mo><mi>a</mi><mo>&#x2016;</mo><mo>&#x2009;</mo><mo>&#x2016;</mo><mi>b</mi><mo>&#x2016;</mo></mrow></mfrac></mrow></mrow></math>",
+      "formula_fb": "accuracy; P; R; F1 = 2PR/(P+R); cos(a,b) = (a·b)/(‖a‖‖b‖)",
+      "caption": "Cheat-sheet metriche e retrieval: formule compatte da rileggere prima dell’esame.",
+      "kind": "formula"
+     }
+    ],
+    "title": "Checklist: concetti tecnici"
+   },
+   {
+    "bullets": [
+     "Eliminare prima le opzioni ovviamente sbagliate",
+     "Cercare terminologia specifica NVIDIA nel testo",
+     "Parole come primary e best guidano la scelta",
+     "Fidarsi del primo istinto sulle domande marcate"
+    ],
+    "title": "Checklist: strategia di risposta"
+   }
+  ],
+  "summary": "Sezione di ripasso last-minute per l'esame NCA-GENL basata sul quick reference sheet. Istruzioni operative: prima passata di 30-35 minuti sulle domande sicure marcando le incerte, seconda passata di 20-25 minuti con strategia di eliminazione, check finale di 5 minuti. Le sette frasi di emergenza da memorizzare: BLEU misura somiglianza al riferimento, Query cerca e Value contiene, Triton serve e TensorRT ottimizza, A/B testing con traffico equo, quantization riduce memoria e latenza, EDA scopre pattern e anomalie, positional encoding aggiunge l'ordine. Associazioni rapide ROUGE-riassunti, BLEU-traduzione, BERT-comprensione, GPT-generazione, NeMo-costruzione, ONNX-portabilità, RAG contro hallucination. Strategia di risposta: eliminare gli ovvi errori, cercare terminologia NVIDIA, fidarsi del primo istinto. Formule da ripasso: speedup = t_base / t_ottimizzato, throughput = richieste / secondi, latenza media = somma dei tempi / numero di richieste, quantizzazione INT8 come x_q = round(x / s) + z, similarità coseno cos(a, b) = (a·b) / (‖a‖ ‖b‖) per embedding e retrieval top-k, accuracy = corrette / totale, precision P = TP / (TP + FP), recall R = TP / (TP + FN), F1 = 2·P·R / (P + R), con matrice di confusione TP/FP/TN/FN e ROC-AUC come area sotto la curva del tradeoff veri/falsi positivi.",
+  "title": "Ripasso rapido pre-esame"
+ }
+]
