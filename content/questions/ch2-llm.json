@@ -852,5 +852,691 @@
    "bert",
    "masked language modeling"
   ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il greedy decoding sceglie a ogni passo il token con probabilità più alta, senza campionamento: equivale a temperatura zero ed è la scelta standard quando serve riproducibilità.",
+  "id": "ch2-ext01",
+  "options": [
+   "Il token con la probabilità più alta a ogni passo",
+   "Un token pescato a caso dall'intero vocabolario disponibile",
+   "Il token più raro per rendere il testo più creativo",
+   "Sempre il primo token in ordine alfabetico nel testo"
+  ],
+  "origin": "esterna",
+  "q": "Nel greedy decoding, quale token viene scelto a ogni passo di generazione?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "decoding",
+   "greedy"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "La temperatura rimodella la distribuzione di probabilità prima del campionamento: valori bassi la rendono più appuntita e deterministica, valori alti più piatta e creativa.",
+  "id": "ch2-ext02",
+  "options": [
+   "Il numero massimo di token generabili in output dal modello",
+   "La casualità della distribuzione di probabilità",
+   "La dimensione del vocabolario usato dal modello base",
+   "La lunghezza totale della context window in uso"
+  ],
+  "origin": "esterna",
+  "q": "Cosa controlla il parametro temperature nella generazione di un LLM?",
+  "source": "Adattata da PrepBolt (NCA-GENL)",
+  "tags": [
+   "temperature",
+   "sampling"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Con top-p (nucleus sampling) si considera solo il nucleo di token la cui probabilità cumulata raggiunge p: con p pari a 0,9 si campiona dentro il 90 percento della massa di probabilità.",
+  "id": "ch2-ext03",
+  "options": [
+   "I token con esattamente il 90% di probabilità singola",
+   "Solo il singolo token più probabile in assoluto",
+   "Il nucleo di token che copre il 90% della massa",
+   "Tutti i token tranne il 90% più probabile"
+  ],
+  "origin": "esterna",
+  "q": "Con top-p pari a 0,9, da quale insieme viene campionato il token successivo?",
+  "source": "Adattata da CramTick (NCA-GENL)",
+  "tags": [
+   "top-p",
+   "sampling"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il top-k tronca il vocabolario ai k token più probabili e campiona solo tra quelli: con k uguale a 1 si ricade nel greedy decoding deterministico.",
+  "id": "ch2-ext04",
+  "options": [
+   "Genera esattamente k risposte alternative complete",
+   "Moltiplica per k le probabilità di tutti i token",
+   "Limita il vocabolario ai token speciali di controllo",
+   "Campiona solo tra i k token più probabili"
+  ],
+  "origin": "esterna",
+  "q": "Cosa fa il parametro top-k durante il campionamento?",
+  "source": "Adattata da P2PExams (NCA-GENL)",
+  "tags": [
+   "top-k",
+   "sampling"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il beam search mantiene più ipotesi parziali in parallelo e le espande a ogni passo: con ampiezza 1 coincide con il greedy, con ampiezze maggiori esplora più sequenze candidate.",
+  "id": "ch2-ext05",
+  "options": [
+   "Più ipotesi di sequenza valutate in parallelo",
+   "Un singolo token generato per l'intera risposta",
+   "La traduzione simultanea in più lingue diverse",
+   "La compressione del prompt in poche parole"
+  ],
+  "origin": "esterna",
+  "q": "Cosa mantiene il beam search durante la generazione rispetto al greedy decoding?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "beam search",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il few-shot mostra al modello alcuni esempi di input e output desiderato dentro il prompt: il modello imita il pattern senza aggiornare i pesi.",
+  "id": "ch2-ext06",
+  "options": [
+   "Il riaddestramento dei pesi su migliaia di esempi",
+   "Alcuni esempi di input e output dentro il prompt",
+   "La disattivazione completa del campionamento",
+   "Un vocabolario ridotto ai soli termini noti"
+  ],
+  "origin": "esterna",
+  "q": "Cosa distingue un prompt few-shot da uno zero-shot?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "few-shot",
+   "prompting"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il Chain-of-Thought chiede al modello di esplicitare i passaggi intermedi di ragionamento prima della risposta finale, migliorando le prestazioni su problemi di logica e matematica.",
+  "id": "ch2-ext07",
+  "options": [
+   "La traduzione del prompt in più lingue possibili",
+   "La riduzione del numero di token dentro il prompt",
+   "I passaggi di ragionamento prima della risposta",
+   "La cifratura dell'output per motivi di sicurezza extra"
+  ],
+  "origin": "esterna",
+  "q": "Cosa chiede al modello la tecnica Chain-of-Thought?",
+  "source": "Adattata da blog Medium di chi ha passato NCA-GENL",
+  "tags": [
+   "chain-of-thought",
+   "prompting"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "La stop sequence è una stringa che interrompe la generazione appena prodotta: serve a delimitare la risposta, ad esempio per fermarsi prima di inventare turni successivi di dialogo.",
+  "id": "ch2-ext08",
+  "options": [
+   "La prima parola del prompt di sistema",
+   "Il numero di layer del modello usato",
+   "La temperatura minima consentita in produzione",
+   "Una stringa che interrompe la generazione"
+  ],
+  "origin": "esterna",
+  "q": "A cosa serve una stop sequence nei parametri di inferenza?",
+  "source": "Adattata da Whizlabs (NCA-GENL)",
+  "tags": [
+   "stop sequence",
+   "inferenza"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il parametro max_tokens pone un tetto alla lunghezza della risposta generata: raggiunto il limite, la generazione si interrompe anche a metà frase.",
+  "id": "ch2-ext09",
+  "options": [
+   "La lunghezza massima della risposta generata",
+   "La dimensione minima del training set originale",
+   "Il numero di lingue supportate dal modello base",
+   "La quantità di GPU usate in fase di addestramento"
+  ],
+  "origin": "esterna",
+  "q": "Cosa limita il parametro max_tokens?",
+  "source": "Adattata da Whizlabs (NCA-GENL)",
+  "tags": [
+   "max_tokens",
+   "inferenza"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Gli elementi citati sono la struttura canonica del prompt testata all'esame: istruzione chiara, contesto rilevante, dati di input ed esempio o indicatore del formato di output atteso.",
+  "id": "ch2-ext10",
+  "options": [
+   "Solo il nome del modello con la sua versione esatta",
+   "Istruzione, contesto, input ed esempio di output",
+   "Solo la temperatura con il numero di token limite",
+   "Solo la lista dei pesi interni del modello usato"
+  ],
+  "origin": "esterna",
+  "q": "Quali sono i componenti chiave di un prompt efficace per un LLM?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "prompting",
+   "struttura"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "La causa di base è statistica: il modello predice la continuazione più plausibile senza ancoraggio ai fatti, quindi può produrre con sicurezza contenuti falsi ma verosimili.",
+  "id": "ch2-ext11",
+  "options": [
+   "L'eccesso di memoria RAM sulla macchina locale usata",
+   "La mancanza di una scheda grafica dedicata al task",
+   "Previsioni plausibili senza ancoraggio ai fatti",
+   "L'uso di un monitor a bassa risoluzione grafica"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la causa di base delle allucinazioni in un LLM?",
+  "source": "Adattata da TutorialDojo (NCA-GENL)",
+  "tags": [
+   "allucinazioni",
+   "limiti"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Temperatura zero equivale al greedy decoding: a ogni passo vince il token più probabile, quindi a parità di prompt l'output è deterministico e riproducibile.",
+  "id": "ch2-ext12",
+  "options": [
+   "Un campionamento molto più creativo e vario nel testo",
+   "Un aumento automatico della context window totale",
+   "Una traduzione implicita del testo in lingua inglese",
+   "L'output più deterministico e riproducibile"
+  ],
+  "origin": "esterna",
+  "q": "Cosa succede impostando temperature pari a 0?",
+  "source": "Adattata da PrepBolt (NCA-GENL)",
+  "tags": [
+   "temperature",
+   "greedy"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "La temperatura riscalda l'intera distribuzione (la appiattisce o la appuntisce), mentre il top-p taglia la coda dei token poco probabili prima di campionare: agiscono in due punti diversi del processo.",
+  "id": "ch2-ext13",
+  "options": [
+   "La temperatura rimodella la distribuzione, il top-p filtra i token",
+   "Il top-p cambia i pesi del modello mentre la temperatura li congela",
+   "Sono due nomi diversi per lo stesso identico parametro interno",
+   "La temperatura conta i token e il top-p conta i parametri totali"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la differenza tra temperature e top-p?",
+  "source": "Adattata da CramTick (NCA-GENL)",
+  "tags": [
+   "temperature",
+   "top-p"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Per risposte fattuali e riproducibili conviene la configurazione deterministica: bassa temperatura con top-p restrittivo, così il modello resta ancorato ai token più probabili.",
+  "id": "ch2-ext14",
+  "options": [
+   "Temperatura alta con top-p molto ampio",
+   "Temperatura bassa con top-p restrittivo",
+   "Temperatura massima con top-k illimitato",
+   "Campionamento casuale senza alcun filtro"
+  ],
+  "origin": "esterna",
+  "q": "Quale configurazione conviene per un sistema di domande e risposte fattuali in produzione?",
+  "source": "Adattata da P2PExams (NCA-GENL)",
+  "tags": [
+   "temperature",
+   "top-p",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il beam search massimizza la probabilità complessiva della sequenza ma può produrre testi ripetitivi e generici; il campionamento con temperatura introduce varietà a costo di minore controllo sulla qualità media.",
+  "id": "ch2-ext15",
+  "options": [
+   "Il beam search è sempre più veloce del greedy decoding",
+   "Il campionamento non usa mai le probabilità dei token stimati dal modello",
+   "Il beam search esplora il probabile, il sampling aggiunge varietà",
+   "Il greedy decoding genera testi più creativi del sampling libero"
+  ],
+  "origin": "esterna",
+  "q": "Qual è il compromesso tra beam search e campionamento stocastico?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "beam search",
+   "sampling"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il role prompting assegna al modello un ruolo di esperto nel prompt di sistema: ne orienta tono, lessico e profondità senza modificare alcun peso del modello.",
+  "id": "ch2-ext16",
+  "options": [
+   "Il riaddestramento completo dei pesi su un nuovo dominio",
+   "La potatura dei layer meno usati dentro il modello base",
+   "La quantizzazione dei pesi a precisione numerica ridotta",
+   "L'assegnazione di un ruolo di esperto nel prompt"
+  ],
+  "origin": "esterna",
+  "q": "In cosa consiste il role prompting?",
+  "source": "Adattata da blog Medium di chi ha passato NCA-GENL",
+  "tags": [
+   "prompting",
+   "role"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Lo zero-shot CoT con la frase che invita a ragionare passo passo attiva il ragionamento esplicito senza fornire esempi: è economico in token e spesso migliora i problemi di ragionamento.",
+  "id": "ch2-ext17",
+  "options": [
+   "Aggiungere l'invito a ragionare passo passo senza esempi",
+   "Fornire cento esempi già svolti prima della domanda finale",
+   "Azzerare la temperatura e disattivare il sampling usato",
+   "Riaddestrare il modello intero sullo specifico task dato"
+  ],
+  "origin": "esterna",
+  "q": "Cosa caratterizza lo zero-shot Chain-of-Thought rispetto al few-shot Chain-of-Thought?",
+  "source": "Adattata da blog Medium di chi ha passato NCA-GENL",
+  "tags": [
+   "chain-of-thought",
+   "zero-shot"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Le scaling laws mostrano che la loss migliora in modo prevedibile con parametri, dati e calcolo: il rapporto di Chinchilla indica di scalare dati e parametri in proporzione bilanciata.",
+  "id": "ch2-ext18",
+  "options": [
+   "Raddoppiare solo i layer senza aggiungere alcun dato nuovo",
+   "Scalare dati e parametri in proporzione bilanciata",
+   "Ridurre i dati all'aumentare dei parametri del modello",
+   "Usare sempre e solo dati sintetici generati dal modello"
+  ],
+  "origin": "esterna",
+  "q": "Secondo le scaling laws di Chinchilla, come vanno scalati dati e parametri?",
+  "source": "Adattata da blog Medium – risorse NCA-GENL (scaling laws)",
+  "tags": [
+   "scaling laws",
+   "pre-training"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il pre-training insegna conoscenza generale su corpora enormi non etichettati, mentre l'instruction tuning affina il modello a seguire istruzioni con coppie di istruzioni e risposte curate.",
+  "id": "ch2-ext19",
+  "options": [
+   "Il fine-tuning completo di tutti i pesi del modello base usato",
+   "L'addestramento da zero del modello su un singolo task nuovo",
+   "Pre-training generale e affinamento su istruzioni-risposte",
+   "La compressione del modello per i dispositivi mobili moderni"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la differenza tra pre-training e instruction tuning?",
+  "source": "Adattata da TutorialDojo (NCA-GENL)",
+  "tags": [
+   "pre-training",
+   "instruction tuning"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "La tokenizzazione avviene prima del modello e ne condiziona costi e troncamenti: uno stesso testo produce un numero diverso di token con tokenizer diversi, consumando più o meno context window.",
+  "id": "ch2-ext20",
+  "options": [
+   "Il colore dei grafici dentro la documentazione tecnica",
+   "La velocità della ventola della GPU usata nel server",
+   "Il fuso orario del server di inferenza remota usato",
+   "Il costo, la latenza e l'uso della context window"
+  ],
+  "origin": "esterna",
+  "q": "Perché la tokenizzazione influisce su costo e latenza dell'inferenza?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "inferenza"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il modello stima circa quattro caratteri per token in inglese: una parola come quella citata si frammenta quindi in più token subword invece di occuparne uno solo.",
+  "id": "ch2-ext21",
+  "options": [
+   "In più token subword, circa uno ogni quattro caratteri",
+   "Sempre in un unico token per ciascuna parola intera",
+   "In un token per ogni singola lettera maiuscola usata",
+   "In zero token perché le parole lunghe si saltano sempre"
+  ],
+  "origin": "esterna",
+  "q": "In inglese un token copre circa quattro caratteri: in quanti token si frammenta una parola rara come \"antidisestablishmentarianism\"?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "subword"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "La ripetizione del formato con delimitatori chiari mostra al modello lo schema da replicare: l'ultimo caso senza risposta invita il completamento coerente con gli esempi precedenti.",
+  "id": "ch2-ext22",
+  "options": [
+   "Nascondere gli esempi dentro commenti di codice sorgente del progetto",
+   "Mostrare coppie di esempio con formato costante e chiaro",
+   "Scrivere gli esempi in una lingua del tutto sconosciuta",
+   "Mescolare a caso formati diversi in ogni singolo esempio"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la best practice per scrivere esempi few-shot efficaci?",
+  "source": "Adattata da corso NVIDIA DLI – Generative AI Explained (learn.nvidia.com)",
+  "tags": [
+   "few-shot",
+   "prompting"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il beam search con ampiezza k mantiene le k ipotesi parziali con punteggio cumulato più alto: allarga l'esplorazione rispetto al greedy ma resta una ricerca deterministica, senza campionamento casuale.",
+  "id": "ch2-ext23",
+  "options": [
+   "Campiona k token casuali a ogni singolo passo generativo",
+   "Ignora le probabilità e sceglie le ipotesi del tutto a caso",
+   "Mantiene le k ipotesi parziali con punteggio più alto",
+   "Genera k risposte indipendenti con seed casuali diversi"
+  ],
+  "origin": "esterna",
+  "q": "Come funziona il beam search con ampiezza (beam width) pari a k?",
+  "source": "Adattata da Udemy – sample gratuito NCA-GENL",
+  "tags": [
+   "beam search",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il nucleus sampling dinamico adatta il nucleo a ogni passo: con distribuzioni appuntite bastano pochi token, con distribuzioni piatte il nucleo si allarga, a differenza del top-k che tronca sempre allo stesso numero fisso.",
+  "id": "ch2-ext24",
+  "options": [
+   "Il top-k è dinamico mentre il top-p resta sempre fisso",
+   "Sono identici e intercambiabili in ogni singolo caso d'uso",
+   "Il top-p ignora del tutto le probabilità dei token candidati",
+   "Il top-p adatta il nucleo, il top-k tronca a numero fisso"
+  ],
+  "origin": "esterna",
+  "q": "Perché il top-p è detto campionamento dinamico rispetto al top-k?",
+  "source": "Adattata da CramTick (NCA-GENL)",
+  "tags": [
+   "top-p",
+   "top-k"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "La high temperature appiattisce la distribuzione e dà peso anche alla coda improbabile: su task fattuali questo aumenta direttamente la probabilità di generare contenuti falsi ma fluenti.",
+  "id": "ch2-ext25",
+  "options": [
+   "Alta temperatura su domande fattuali senza verifica",
+   "Temperatura zero su un task di classificazione standard",
+   "Top-k pari a 1 su frammenti di codice da completare",
+   "Stop sequence breve su risposte particolarmente lunghe"
+  ],
+  "origin": "esterna",
+  "q": "Quale scelta di sampling aumenta di più il rischio di allucinazioni?",
+  "source": "Adattata da P2PExams (NCA-GENL)",
+  "tags": [
+   "allucinazioni",
+   "temperature",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il penalty riduce il punteggio dei token già generati e spinge il modello verso alternative nuove: contrasta i loop ripetitivi tipici del greedy decoding su testi lunghi.",
+  "id": "ch2-ext26",
+  "options": [
+   "Aumentare la temperatura al valore massimo possibile oggi",
+   "Penalizzare i token già generati per favorire novità",
+   "Disattivare del tutto la stop sequence usata in output",
+   "Raddoppiare la dimensione del vocabolario del modello"
+  ],
+  "origin": "esterna",
+  "q": "Un modello in greedy decoding ripete la stessa frase in loop. Quale intervento è più mirato?",
+  "source": "Adattata da Whizlabs (NCA-GENL)",
+  "tags": [
+   "decoding",
+   "repetition penalty",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "La prompt injection inserita nei dati recuperati può sovrascrivere le istruzioni originali: delimita istruzioni e dati, diffida del contenuto esterno e valida l'output prima dell'uso.",
+  "id": "ch2-ext27",
+  "options": [
+   "Aumentare i parametri del modello attualmente in uso",
+   "Cambiare il tokenizer per ogni singola richiesta inviata al modello",
+   "Separare istruzioni e dati, diffidando del testo esterno",
+   "Disattivare i log di monitoraggio del sistema in uso"
+  ],
+  "origin": "esterna",
+  "q": "Un assistente RAG segue istruzioni malevole nascoste in una pagina recuperata dal web. Come si previene la prompt injection?",
+  "source": "Adattata da repo GitHub NVIDIA-NCA-GENL-Exam-Prep",
+  "tags": [
+   "prompt injection",
+   "sicurezza",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "La scelta combina ancoraggio alle fonti e determinismo: il recupero riduce le invenzioni ex novo e la bassa temperatura evita divagazioni creative nella formulazione della risposta.",
+  "id": "ch2-ext28",
+  "options": [
+   "Solo temperatura massima senza alcuna fonte esterna",
+   "Solo prompt vago senza esempi né contesto aggiuntivo",
+   "Solo aumento dei parametri del modello base usato",
+   "Recupero da fonti verificate con bassa temperatura"
+  ],
+  "origin": "esterna",
+  "q": "Un team vuole ridurre le allucinazioni nelle risposte su manuali interni. Quale combinazione è più efficace?",
+  "source": "Adattata da corso NVIDIA DLI – Building RAG Agents with LLMs (learn.nvidia.com)",
+  "tags": [
+   "allucinazioni",
+   "rag",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il delimitatore di fine turno impedisce al modello di proseguire oltre il punto previsto: senza stop sequence il modello continuerebbe a generare inventando i turni successivi della conversazione.",
+  "id": "ch2-ext29",
+  "options": [
+   "Una stop sequence sul delimitatore di fine turno",
+   "Una temperatura molto alta per variare lo stile usato",
+   "Un top-k illimitato su tutto il vocabolario del modello",
+   "Un max_tokens pari all'intera context window usata"
+  ],
+  "origin": "esterna",
+  "q": "Un chatbot continua a generare da solo i turni successivi dell'utente. Quale fix è più diretto?",
+  "source": "Adattata da Whizlabs (NCA-GENL)",
+  "tags": [
+   "stop sequence",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il troncamento silenzioso taglia prompt o risposta quando si supera il budget: contare i token prima dell'invio e riservare spazio per l'output evita perdite di istruzioni o finali mozzati.",
+  "id": "ch2-ext30",
+  "options": [
+   "Ignorare il limite e inviare comunque tutto",
+   "Contare i token e riservare budget per l'output",
+   "Aumentare la temperatura per comprimere il testo",
+   "Cambiare lingua del prompt a ogni richiesta"
+  ],
+  "origin": "esterna",
+  "q": "Un prompt lungo più la risposta supera la context window. Qual è la mitigazione corretta?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "context window",
+   "max_tokens",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il self-consistency campiona più catene di ragionamento indipendenti e vota la risposta finale: l'accordo tra percorsi diversi segnala le conclusioni più robuste su problemi di logica.",
+  "id": "ch2-ext31",
+  "options": [
+   "La traduzione del prompt in tre lingue diverse tra loro",
+   "Il riaddestramento su tre dataset differenti tra loro",
+   "Il voto a maggioranza su più catene di ragionamento",
+   "La media aritmetica dei pesi di tre modelli distinti"
+  ],
+  "origin": "esterna",
+  "q": "In cosa consiste la tecnica self-consistency applicata al Chain-of-Thought?",
+  "source": "Adattata da Udemy – sample gratuito NCA-GENL",
+  "tags": [
+   "chain-of-thought",
+   "self-consistency"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "La valutazione con scomposizione in passi permette di localizzare l'errore: il modello può sbagliare un passaggio intermedio pur indovinando il risultato, e solo l'ispezione della catena lo rivela.",
+  "id": "ch2-ext32",
+  "options": [
+   "Il numero di parametri del modello usato nel test",
+   "La velocità di generazione in token al secondo misurata",
+   "Il costo in dollari di ogni singola chiamata al modello",
+   "La correttezza dei passaggi, non solo del risultato"
+  ],
+  "origin": "esterna",
+  "q": "Come si valuta se un Chain-of-Thought è davvero solido?",
+  "source": "Adattata da TutorialDojo (NCA-GENL)",
+  "tags": [
+   "chain-of-thought",
+   "valutazione"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Specificare il formato con un esempio guida il modello verso output parseabili: riduce ambiguità e rende affidabile l'elaborazione automatica a valle.",
+  "id": "ch2-ext33",
+  "options": [
+   "Lasciare il formato completamente libero e implicito sempre",
+   "Mostrare un esempio del formato di output desiderato",
+   "Chiedere risposte sempre più lunghe possibile ogni volta",
+   "Vietare qualsiasi esempio dentro il prompt inviato"
+  ],
+  "origin": "esterna",
+  "q": "Perché conviene specificare il formato di output nel prompt?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "prompting",
+   "output"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il one-shot è il caso intermedio tra zero esempi e pochi esempi: un singolo esempio basta a mostrare formato e stile atteso senza occupare troppo contesto.",
+  "id": "ch2-ext34",
+  "options": [
+   "Un prompt con un singolo esempio dimostrativo",
+   "Un prompt senza alcuna istruzione scritta esplicita",
+   "Un modello addestrato su un solo token iniziale",
+   "Un tokenizer con un solo simbolo nel vocabolario"
+  ],
+  "origin": "esterna",
+  "q": "Cosa significa one-shot learning nel prompting?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "one-shot",
+   "prompting"
+  ]
  }
 ]

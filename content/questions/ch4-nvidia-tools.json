@@ -853,5 +853,705 @@
    "auto-tuning"
   ],
   "source": "docs.nvidia.com TensorRT"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "Un NIM è un container ottimizzato che espone un modello via API; sotto il cofano usa Triton Inference Server e TensorRT-LLM per eseguire l'inference in modo efficiente.",
+  "id": "ch4-ext01",
+  "options": [
+   "Sono tecnologie concorrenti e del tutto indipendenti, senza alcun legame di runtime tra loro",
+   "I NIM usano Triton e TensorRT-LLM come motore di inference interno",
+   "Triton è un plugin che si installa dentro i notebook NeMo Curator",
+   "I NIM sostituiscono le GPU con inference eseguita interamente su CPU senza accelerazione"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la relazione tra un NIM e Triton Inference Server?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "nim",
+   "triton"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "I NIM sono container Docker che richiedono accesso alle GPU, espongono la porta 8000 con API compatibili OpenAI e ricevono la chiave NGC come variabile d'ambiente.",
+  "id": "ch4-ext02",
+  "options": [
+   "pip install nemo-triton seguito da nemo train gpt con flag --serve per l'inference",
+   "ngc registry model download con formato onnx e target cpu per l'esecuzione locale",
+   "docker run --gpus all -e NGC_API_KEY -p 8000:8000 nvcr.io/nim/...",
+   "tritonclient con flag --train, backend python e precisione fp32 per avviare il server"
+  ],
+  "origin": "esterna",
+  "q": "Quale comando avvia in locale un NIM per un LLM scaricato da NGC?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "nim",
+   "docker"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "Il registry nvcr.io è privato: serve docker login con la NGC API key, e la stessa chiave va passata al container per la verifica della licenza e il download dei pesi.",
+  "id": "ch4-ext03",
+  "options": [
+   "La NGC API key, per autenticarsi a nvcr.io e avviare il container",
+   "Una licenza Windows valida installata sul nodo di esecuzione del container",
+   "Un cluster Kubernetes con almeno tre nodi di controllo dedicati al serving",
+   "Un tokenizer proprietario addestrato da zero sul proprio dominio applicativo"
+  ],
+  "origin": "esterna",
+  "q": "Cosa serve prima di poter scaricare ed eseguire un container NIM da nvcr.io?",
+  "source": "Adattata da CramTick (NCA-GENL)",
+  "tags": [
+   "nim",
+   "ngc"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "Ogni NIM espone un endpoint di readiness: una GET su /v1/health/ready restituisce OK quando il modello è caricato e pronto a rispondere.",
+  "id": "ch4-ext04",
+  "options": [
+   "Interrogare il tokenizer con una frase di prova molto lunga e verificarne l'output",
+   "Controllare lo spazio libero su disco del nodo Docker che ospita il container",
+   "Misurare la temperatura della GPU con nvidia-smi durante il caricamento",
+   "Chiamare l'endpoint /v1/health/ready e attendere risposta OK"
+  ],
+  "origin": "esterna",
+  "q": "Hai appena avviato un NIM in locale. Come verifichi che sia pronto a servire richieste?",
+  "source": "Adattata da PrepBolt (NCA-GENL)",
+  "tags": [
+   "nim",
+   "deployment"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "NIM_CACHE_PATH indica la cartella host dove il NIM salva i pesi scaricati, così i riavvii successivi non riscaricano gigabyte di dati da NGC.",
+  "id": "ch4-ext05",
+  "options": [
+   "Il numero massimo di token generabili in una singola risposta del modello",
+   "La cartella di cache dei pesi per non riscaricarli a ogni avvio",
+   "La dimensione del batch dinamico usato da Triton per l'inference concorrente",
+   "Il livello di quantizzazione applicato ai pesi del modello durante il serving"
+  ],
+  "origin": "esterna",
+  "q": "A cosa serve la variabile d'ambiente NIM_CACHE_PATH quando esegui un NIM?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "nim",
+   "cache"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "NeMo Retriever fornisce i microservizi di retrieval per la RAG (embedding, reranking, estrazione), mentre Customizer fa fine-tuning ed Evaluator valuta i modelli.",
+  "id": "ch4-ext06",
+  "options": [
+   "NeMo Customizer, che esegue fine-tuning parametrico-efficiente",
+   "NeMo Evaluator, che misura accuratezza e tossicità sui benchmark",
+   "NeMo Retriever, con NIM di embedding, reranking ed estrazione",
+   "NeMo Guardrails, che filtra i contenuti con input e output rails"
+  ],
+  "origin": "esterna",
+  "q": "In una pipeline RAG sullo stack NVIDIA, quale componente produce embedding e reranking dei chunk?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "nemo",
+   "retriever"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "NeMo Evaluator confronta i modelli su benchmark standard misurando accuratezza, robustezza e tossicità, così da scegliere il candidato migliore prima del deploy.",
+  "id": "ch4-ext07",
+  "options": [
+   "NeMo Evaluator, per confrontare i modelli su benchmark standard",
+   "NeMo Curator, per filtrare e deduplicare i dati di training",
+   "Triton Model Analyzer, per il benchmark delle configurazioni di serving",
+   "NeMo Customizer, per il fine-tuning con LoRA e p-tuning"
+  ],
+  "origin": "esterna",
+  "q": "Prima di mettere in produzione un LLM vuoi confrontare due candidati su accuratezza e tossicità. Quale microservizio NeMo usi?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "nemo",
+   "evaluator"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "Le applicazioni client usano la libreria tritonclient via HTTP o gRPC per inviare tensori di input a Triton e ricevere le risposte di inference.",
+  "id": "ch4-ext08",
+  "options": [
+   "Scrivendo file ONNX direttamente nel model repository",
+   "Riavviando il server a ogni nuova richiesta di inference",
+   "Modificando il config.pbtxt durante l'esecuzione del modello",
+   "Usando la libreria tritonclient via HTTP o gRPC"
+  ],
+  "origin": "esterna",
+  "q": "Come comunica un'applicazione client con Triton Inference Server in produzione?",
+  "source": "Adattata da P2PExams (NCA-GENL)",
+  "tags": [
+   "triton",
+   "client"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "I NIM espongono endpoint REST compatibili con le API OpenAI, quindi basta puntare il client esistente al nuovo base URL senza riscrivere il codice.",
+  "id": "ch4-ext09",
+  "options": [
+   "Riscrivere l'applicazione in CUDA per parlare con la GPU",
+   "Cambiare il base URL del client verso l'endpoint del NIM",
+   "Riesportare tutti i checkpoint nel formato NeMo proprietario",
+   "Sostituire LangChain con script Triton scritti da zero"
+  ],
+  "origin": "esterna",
+  "q": "La tua app usa LangChain con le API OpenAI e vuoi passare a un LLM self-hosted via NIM. Qual è il cambio minimo da fare?",
+  "source": "Adattata da Medium – guida NCA-GENL",
+  "tags": [
+   "nim",
+   "langchain"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "Su build.nvidia.com ogni NIM ha una pagina con comandi di prova via API cloud: si testano prompt e parametri senza possedere una GPU.",
+  "id": "ch4-ext10",
+  "options": [
+   "Acquistare subito una GPU H100 per ogni sviluppatore",
+   "Compilare TensorRT da sorgente sul proprio laptop",
+   "Provare il NIM via API cloud su build.nvidia.com",
+   "Addestrare un modello sostitutivo con NeMo da zero"
+  ],
+  "origin": "esterna",
+  "q": "Vuoi valutare un NIM senza avere GPU disponibili in azienda. Da dove parti?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "nim",
+   "build-nvidia"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "TensorRT salva il modello ottimizzato in un file engine con estensione .plan, che Triton carica tramite il backend TensorRT per servirlo.",
+  "id": "ch4-ext11",
+  "options": [
+   "Un file engine .plan caricato dal backend TensorRT di Triton",
+   "Un notebook Jupyter eseguito da zero a ogni singola richiesta del client",
+   "Un file YAML con i pesi del modello scritti in chiaro riga per riga",
+   "Un container Docker separato dedicato a ogni singolo layer della rete"
+  ],
+  "origin": "esterna",
+  "q": "In che forma arriva a Triton un modello ottimizzato con TensorRT?",
+  "source": "Adattata da CramTick (NCA-GENL)",
+  "tags": [
+   "tensorrt",
+   "triton"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "facile",
+  "explain": "Il CUDA Toolkit include il compilatore nvcc più le librerie accelerate (cuBLAS, cuDNN, cuFFT e simili) su cui si appoggiano training e inference.",
+  "id": "ch4-ext12",
+  "options": [
+   "Solo il driver video per il monitor del server, senza compilatori né librerie",
+   "Solo il browser per accedere al catalogo NGC e scaricare i container",
+   "Solo il client HTTP usato per chiamare gli endpoint dei NIM in produzione",
+   "Compilatore nvcc più librerie accelerate come cuBLAS e cuDNN"
+  ],
+  "origin": "esterna",
+  "q": "Cosa include il CUDA Toolkit oltre al supporto di base per la GPU?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "cuda",
+   "toolkit"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Il NIM Operator installa e gestisce i NIM su Kubernetes con Helm chart, discovery delle GPU e autoscaling orizzontale dei pod al crescere del traffico.",
+  "id": "ch4-ext13",
+  "options": [
+   "Copiare a mano i pesi del modello su ogni nodo del cluster tramite scp",
+   "Usare il NIM Operator con Helm chart e autoscaling dei pod",
+   "Avviare un notebook Jupyter separato per ogni replica del modello servito",
+   "Disabilitare le GPU e servire tutto il traffico di inference da CPU"
+  ],
+  "origin": "esterna",
+  "q": "Devi scalare un NIM su Kubernetes con decine di repliche GPU. Quale approccio è quello raccomandato?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "nim",
+   "kubernetes"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "LoRA aggiunge piccoli adattatori low-rank ai pesi esistenti, il p-tuning ottimizza solo prompt virtuali continui, mentre il full fine-tuning aggiorna tutti i parametri con costi molto maggiori.",
+  "id": "ch4-ext14",
+  "options": [
+   "Sono tre denominazioni diverse del medesimo full fine-tuning classico applicato a tutti i parametri del modello",
+   "LoRA aggiorna tutti i pesi del modello mentre il p-tuning congela per intero il modello base",
+   "LoRA usa adattatori low-rank, il p-tuning prompt virtuali, il full tuning tutti i pesi",
+   "LoRA e p-tuning richiedono sempre più memoria GPU rispetto al full fine-tuning completo"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la differenza pratica tra LoRA, p-tuning e full fine-tuning in NeMo Customizer?",
+  "source": "Adattata da Medium – guida NCA-GENL",
+  "tags": [
+   "nemo",
+   "lora"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "La SFT insegna al modello a seguire istruzioni con esempi supervisionati, mentre RLHF e DPO lo allineano alle preferenze umane usando feedback o coppie di risposte preferite.",
+  "id": "ch4-ext15",
+  "options": [
+   "SFT con esempi supervisionati, poi allineamento alle preferenze con RLHF o DPO",
+   "Solo quantizzazione INT8 del modello, senza alcun addestramento o allineamento aggiuntivo",
+   "Solo aumento della dimensione del batch di inference configurata su Triton",
+   "Sostituzione del solo tokenizer senza modificare in alcun modo i pesi del modello originale"
+  ],
+  "origin": "esterna",
+  "q": "Vuoi prima insegnare a un LLM a seguire istruzioni e poi allinearlo alle preferenze umane. Quale sequenza di NeMo Customizer segui?",
+  "source": "Adattata da Udemy – practice test NCA-GENL",
+  "tags": [
+   "nemo",
+   "alignment"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Lo stack completo prevede ingestion con NeMo Retriever, embedding e reranking via NIM dedicati, generazione con un LLM NIM e filtri di sicurezza con NeMo Guardrails.",
+  "id": "ch4-ext16",
+  "options": [
+   "Triton per il training, NIM per la data curation, Curator per il serving",
+   "Retriever per ingestion, NIM di embedding e rerank, LLM NIM, Guardrails",
+   "Solo TensorRT senza retrieval né filtri di sicurezza",
+   "Solo prompt engineering senza alcun componente NVIDIA"
+  ],
+  "origin": "esterna",
+  "q": "Quale combinazione dello stack NVIDIA realizza una RAG production-ready?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "nemo",
+   "rag"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Oltre agli LLM generativi esistono NIM di embedding e di reranking, pensati per la fase di retrieval: convertono testi in vettori e riordinano i chunk per rilevanza.",
+  "id": "ch4-ext17",
+  "options": [
+   "Solo NIM per la generazione artistica di immagini ad alta risoluzione",
+   "Solo NIM per la trascrizione audio in tempo reale dallo streaming",
+   "Solo NIM per la classificazione di serie temporali multivariate",
+   "NIM di embedding e reranking per la fase di retrieval"
+  ],
+  "origin": "esterna",
+  "q": "I NIM servono solo per LLM generativi, o anche per altre fasi della pipeline?",
+  "source": "Adattata da PrepBolt (NCA-GENL)",
+  "tags": [
+   "nim",
+   "embedding"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Il campo instance_group del config.pbtxt indica quante copie del modello creare e dove eseguirle: KIND_GPU sulla GPU, KIND_CPU sulla CPU, KIND_MODEL sul dispositivo del modello.",
+  "id": "ch4-ext18",
+  "options": [
+   "Il numero di layer della rete fusi da TensorRT durante la fase di build dell'engine",
+   "La dimensione del dataset di calibrazione usato per la quantizzazione INT8 del modello",
+   "Quante istanze creare e se girano su GPU, CPU o dispositivo del modello",
+   "Il numero massimo di token generati dal modello prima di interrompere la risposta"
+  ],
+  "origin": "esterna",
+  "q": "Nel config.pbtxt di Triton, cosa controlla il blocco instance_group?",
+  "source": "Adattata da P2PExams (NCA-GENL)",
+  "tags": [
+   "triton",
+   "config"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Con l'explicit model control abiliti il load e l'unload dei modelli via API di management, così carichi la v2 prima di scaricare la v1 senza riavviare il server.",
+  "id": "ch4-ext19",
+  "options": [
+   "Abilitare il load e unload dei modelli via API senza riavviare il server",
+   "Ricompilare l'intero server Triton dai sorgenti a ogni nuovo deploy di modello",
+   "Cancellare l'intero model repository prima di ogni aggiornamento di versione",
+   "Riavviare forzatamente tutti i client connessi a ogni cambio di versione del modello"
+  ],
+  "origin": "esterna",
+  "q": "Vuoi aggiornare un modello su Triton senza downtime né riavvio del server. Cosa usi?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "triton",
+   "management"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Gli optimization profile dichiarano le dimensioni minime, ottimali e massime degli input dinamici, così TensorRT compila kernel efficienti per tutto l'intervallo.",
+  "id": "ch4-ext20",
+  "options": [
+   "I file di log con lo storico delle richieste HTTP ricevute dai client in produzione",
+   "Le credenziali NGC necessarie per scaricare i container privati dal registry",
+   "I pesi del tokenizer del modello esportati nel formato di interscambio ONNX standard",
+   "Gli intervalli min, ottimale e max delle dimensioni di input dinamiche"
+  ],
+  "origin": "esterna",
+  "q": "Un modello TensorRT deve accettare batch e sequenze di dimensione variabile. Cosa definisci in fase di build?",
+  "source": "Adattata da Udemy – practice test NCA-GENL",
+  "tags": [
+   "tensorrt",
+   "dynamic-shapes"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "SmoothQuant scala le attivazioni per una quantizzazione INT8 accurata, mentre AWQ e GPTQ comprimono solo i pesi a INT4 preservando la qualità dei modelli grandi.",
+  "id": "ch4-ext21",
+  "options": [
+   "Sono tre ottimizzatori di query per database vettoriali e ricerca semantica",
+   "SmoothQuant per INT8 accurato, AWQ e GPTQ per pesi a INT4",
+   "Sono tre backend alternativi e intercambiabili di Triton Inference Server",
+   "Sono tre formati di tokenizer pensati per i modelli multilingua"
+  ],
+  "origin": "esterna",
+  "q": "TensorRT-LLM supporta SmoothQuant, AWQ e GPTQ. A cosa servono queste tecniche?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "tensorrt-llm",
+   "quantization"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Gli input rails filtrano il prompt prima dell'LLM, i dialog rails guidano il flusso di conversazione, gli output rails controllano la risposta prima che arrivi all'utente.",
+  "id": "ch4-ext22",
+  "options": [
+   "Gli input rails controllano e filtrano la risposta finale mostrata all'utente",
+   "Gli output rails scelgono il modello di embedding da usare nella fase di retrieval",
+   "Gli output rails verificano la risposta prima di mostrarla all'utente",
+   "I dialog rails quantizzano i pesi del modello riducendoli al formato INT8 compresso"
+  ],
+  "origin": "esterna",
+  "q": "In NeMo Guardrails, quale rail intercetta la risposta dell'LLM prima che raggiunga l'utente?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "nemo",
+   "guardrails"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "Le canonical form sono rappresentazioni standard degli intenti utente: Guardrails confronta ogni messaggio con queste forme via similarità e attiva i flow Colang corrispondenti.",
+  "id": "ch4-ext23",
+  "options": [
+   "Forme canoniche degli intenti, abbinate ai flow di dialogo",
+   "Checkpoint quantizzati del modello in formato INT4",
+   "Sottocartelle numerate delle versioni nel model repository",
+   "Profili di ottimizzazione per input di dimensione variabile"
+  ],
+  "origin": "esterna",
+  "q": "In Colang, il linguaggio di NeMo Guardrails, cosa sono le canonical form?",
+  "source": "Adattata da CramTick (NCA-GENL)",
+  "tags": [
+   "nemo",
+   "colang"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "media",
+  "explain": "NCCL è la libreria NVIDIA per comunicazioni collettive tra GPU, indispensabile per training distribuito e parallelismo tensoriale su più nodi.",
+  "id": "ch4-ext24",
+  "options": [
+   "Un formato di interscambio modelli tra framework diversi",
+   "Un database vettoriale per la ricerca semantica",
+   "Un tool di data curation per dataset di pre-training",
+   "Una libreria di comunicazione collettiva tra GPU"
+  ],
+  "origin": "esterna",
+  "q": "Nello stack NVIDIA per il multi-GPU, a cosa serve NCCL?",
+  "source": "Adattata da PrepBolt (NCA-GENL)",
+  "tags": [
+   "nccl",
+   "distributed"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "Nella speculative decoding un piccolo draft model genera token candidati e il modello grande li verifica in parallelo, accettando quelli validi e velocizzando la generazione.",
+  "id": "ch4-ext25",
+  "options": [
+   "Addestrare due modelli identici da usare in ridondanza nell'ambiente di produzione",
+   "Eseguire il training distribuito del modello su due cluster GPU completamente separati",
+   "Usare un draft model piccolo per proporre token verificati dal modello grande",
+   "Duplicare ogni singola richiesta su due NIM diversi per confrontarne poi le risposte ottenute"
+  ],
+  "origin": "esterna",
+  "q": "Come accelera la generazione la speculative decoding supportata da TensorRT-LLM?",
+  "source": "Adattata da Udemy – practice test NCA-GENL",
+  "tags": [
+   "tensorrt-llm",
+   "speculative-decoding"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "La KV-cache memorizza chiavi e valori per ogni layer, ogni token e ogni sequenza del batch: cresce con profondità, lunghezza di contesto, batch e byte per elemento.",
+  "id": "ch4-ext26",
+  "options": [
+   "Solo dal numero di parametri interni del tokenizer utilizzato dal modello",
+   "Da numero di layer, lunghezza di contesto, batch size e precisione",
+   "Solo dalla velocità della connessione di rete tra il client e il server",
+   "Solo dal numero di repliche Kubernetes con cui il NIM è servito in produzione"
+  ],
+  "origin": "esterna",
+  "q": "Da quali fattori dipende la memoria occupata dalla KV-cache durante l'inference di un LLM?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "tensorrt-llm",
+   "kv-cache"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "Lo sequence batching usa input di controllo dedicati: CORR_ID lega le richieste alla stessa sequenza, START e END ne segnano i confini, READY indica che lo slot è pronto.",
+  "id": "ch4-ext27",
+  "options": [
+   "START, END e READY misurano la latenza di rete tra il client e il server Triton",
+   "CORR_ID cifra i pesi del modello custoditi nel repository prima del caricamento",
+   "START ed END comprimono la KV-cache del modello riducendola al formato INT4",
+   "CORR_ID, START, END e READY gestiscono gli slot di sequenza stateful"
+  ],
+  "origin": "esterna",
+  "q": "Nello sequence batching di Triton, a cosa servono gli input di controllo CORR_ID, START, END e READY?",
+  "source": "Adattata da P2PExams (NCA-GENL)",
+  "tags": [
+   "triton",
+   "sequence-batching"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "Con il Business Logic Scripting un modello Python in Triton orchestra chiamate ad altri modelli (if, loop, branching), realizzando logiche che un ensemble statico non può esprimere.",
+  "id": "ch4-ext28",
+  "options": [
+   "Logica condizionale tra modelli con un modello Python orchestrante",
+   "Fusione dei layer convoluzionali in un unico kernel CUDA ottimizzato",
+   "Quantizzazione automatica di tutti i pesi a INT8 senza alcuna calibrazione",
+   "Replica sincrona dell'intero model repository su più data center geografici"
+  ],
+  "origin": "esterna",
+  "q": "Un ensemble Triton statico non basta perché la pipeline deve scegliere i modelli in base a condizioni. Quale meccanismo usi?",
+  "source": "Adattata da Medium – guida NCA-GENL",
+  "tags": [
+   "triton",
+   "bls"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "Contro jailbreak e prompt injection Guardrails combina rilevatori dedicati, confronto con canonical form note di attacco e self-check in cui un LLM valuta la sicurezza di prompt e risposte.",
+  "id": "ch4-ext29",
+  "options": [
+   "Aumentando la temperatura di sampling per ottenere risposte più varie e creative",
+   "Disabilitando tutti i rail di sicurezza per non rallentare il dialogo con l'utente",
+   "Con rilevatori di jailbreak, canonical form di attacco e self-check via LLM",
+   "Allungando il contesto della KV-cache ben oltre il limite massimo supportato dal modello"
+  ],
+  "origin": "esterna",
+  "q": "Come protegge NeMo Guardrails un chatbot da jailbreak e prompt injection?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "nemo",
+   "jailbreak"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "trtexec è lo strumento a riga di comando di TensorRT: compila engine da ONNX, misura throughput e latenza e verifica la correttezza numerica prima del deploy.",
+  "id": "ch4-ext30",
+  "options": [
+   "nvidia-smi, che mostra solo l'utilizzo istantaneo della GPU",
+   "trtexec, che compila engine e misura throughput e latenza",
+   "docker login, che autentica solo il registry dei container",
+   "pip install, che scarica solo pacchetti Python generici"
+  ],
+  "origin": "esterna",
+  "q": "Vuoi compilare un engine TensorRT da ONNX e misurarne le prestazioni prima di servirlo. Quale tool usi?",
+  "source": "Adattata da CramTick (NCA-GENL)",
+  "tags": [
+   "tensorrt",
+   "trtexec"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "La calibrazione per-tensore usa un unico fattore di scala, quella per-canale uno per canale di output: la granularità più fine preserva meglio l'accuratezza a parità di formato.",
+  "id": "ch4-ext31",
+  "options": [
+   "Sono due nomi diversi per indicare la stessa identica calibrazione globale del modello",
+   "La calibrazione per-tensore risulta sempre più accurata di quella per-canale in ogni scenario",
+   "La quantizzazione per-canale raddoppia il numero totale di parametri del modello",
+   "La per-tensore usa una scala globale, la per-canale una scala per canale"
+  ],
+  "origin": "esterna",
+  "q": "Nella calibrazione INT8 di TensorRT, che differenza c'è tra quantizzazione per-tensore e per-canale?",
+  "source": "Adattata da Udemy – practice test NCA-GENL",
+  "tags": [
+   "tensorrt",
+   "calibration"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "Gli stream CUDA accodano kernel e copie di memoria in code indipendenti che la GPU esegue in overlap, così comunicazione e calcolo si sovrappongono invece di serializzarsi.",
+  "id": "ch4-ext32",
+  "options": [
+   "Code indipendenti di kernel e trasferimenti eseguiti in overlap sulla GPU",
+   "File di log con lo storico completo delle richieste HTTP ricevute dal server Triton",
+   "Sottocartelle numerate del model repository dedicate alle varie versioni del modello",
+   "Endpoint REST compatibili con le API OpenAI esposti dal server Triton in produzione"
+  ],
+  "origin": "esterna",
+  "q": "Cosa sono gli stream CUDA e perché aiutano le prestazioni di training e inference?",
+  "source": "Adattata da PrepBolt (NCA-GENL)",
+  "tags": [
+   "cuda",
+   "streams"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "DGX Cloud offre accesso on-demand a infrastruttura DGX gestita da NVIDIA, così si addestrano grandi modelli senza acquistare e mantenere cluster propri.",
+  "id": "ch4-ext33",
+  "options": [
+   "Un database vettoriale serverless per la ricerca semantica su larga scala",
+   "Un formato di quantizzazione ancora più spinto e aggressivo rispetto a INT4",
+   "Accesso cloud on-demand a infrastruttura DGX gestita da NVIDIA",
+   "Un backend sperimentale di Triton dedicato all'inference sulle sole CPU"
+  ],
+  "origin": "esterna",
+  "q": "Il team deve addestrare un foundation model ma non può acquistare un cluster DGX. Quale offerta NVIDIA risolve il problema?",
+  "source": "Adattata da Medium – guida NCA-GENL",
+  "tags": [
+   "dgx",
+   "cloud"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "Triton espone metriche in formato Prometheus sull'endpoint /v2/metrics: throughput, latenza, uso GPU e code, ideali per dashboard Grafana e alerting in produzione.",
+  "id": "ch4-ext34",
+  "options": [
+   "Leggendo i pesi del modello direttamente dal file engine .plan compilato",
+   "Raccogliendo le metriche Prometheus da /v2/metrics in Grafana",
+   "Contando a mano le righe dei file di log prodotti dal container Docker",
+   "Misurando solo la temperatura della GPU tramite nvidia-smi in continuo"
+  ],
+  "origin": "esterna",
+  "q": "In produzione vuoi dashboard e alert su latenza, throughput e code di Triton. Come raccogli i dati?",
+  "source": "Adattata da P2PExams (NCA-GENL)",
+  "tags": [
+   "triton",
+   "monitoring"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch4-nvidia-tools",
+  "difficulty": "difficile",
+  "explain": "Il backend TensorRT-LLM di Triton (tensorrtllm) esegue LLM ottimizzati con batching continuo e KV-cache a pagine, esponendo la generazione efficiente dietro gli endpoint standard del server.",
+  "id": "ch4-ext35",
+  "options": [
+   "Il backend tensorrtllm, che serve LLM ottimizzati dietro gli endpoint Triton",
+   "Il backend di data curation, che ripulisce e ricampiona i dataset a ogni singola richiesta",
+   "Il backend di training, che riaddestra il modello da zero a ogni singola inference",
+   "Il backend di rendering, che genera esclusivamente immagini e contenuti video accelerati"
+  ],
+  "origin": "esterna",
+  "q": "Quale backend di Triton serve un LLM ottimizzato con TensorRT-LLM mantenendo gli endpoint standard del server?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "triton",
+   "tensorrt-llm"
+  ]
  }
 ]

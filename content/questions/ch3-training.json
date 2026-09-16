@@ -836,5 +836,687 @@
    "bias"
   ],
   "source": "elaborata su blueprint NCA-GENL"
+ },
+ {
+  "id": "ch3-ext01",
+  "chapter": "ch3-training",
+  "q": "Durante il pre-training di un LLM, quale obiettivo viene ottimizzato?",
+  "options": [
+   "Classificare ogni frase in categorie predefinite assegnate da annotatori umani",
+   "Predire il token successivo dato il contesto precedente",
+   "Ordinare i documenti del corpus in base alla loro data di pubblicazione",
+   "Quantizzare i pesi a 4 bit prima di iniziare l'addestramento"
+  ],
+  "answer": 1,
+  "explain": "Il pre-training usa il causal language modeling: il modello impara a predire il token successivo dato il contesto, senza etichette manuali.",
+  "difficulty": "facile",
+  "tags": [
+   "pre-training",
+   "language modeling"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext02",
+  "chapter": "ch3-training",
+  "q": "Perché il pre-training dei modelli linguistici è detto auto-supervisionato?",
+  "options": [
+   "Non richiede alcuna GPU né calcolo distribuito per l'addestramento",
+   "Un supervisore umano approva ogni singolo aggiornamento dei pesi",
+   "Il modello valuta le risposte senza usare alcuna funzione di loss",
+   "Le etichette derivano dai dati stessi, senza annotazione manuale"
+  ],
+  "answer": 3,
+  "explain": "Nell'auto-supervisione il segnale di training è ricavato dai dati stessi (il token successivo), quindi non servono annotatori umani.",
+  "difficulty": "facile",
+  "tags": [
+   "pre-training",
+   "self-supervised"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da NVIDIA Learn (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext03",
+  "chapter": "ch3-training",
+  "q": "Com'è fatto tipicamente un dataset di supervised fine-tuning (SFT)?",
+  "options": [
+   "Coppie istruzione/risposta che mostrano il comportamento desiderato",
+   "Testo grezzo non strutturato, come quello usato nel pre-training",
+   "Solo etichette numeriche di classe senza alcun testo di esempio",
+   "Coppie di risposte ordinate per preferenza con punteggi di reward"
+  ],
+  "answer": 0,
+  "explain": "Il dataset SFT contiene esempi dimostrativi in formato istruzione/risposta: il modello impara a imitare il comportamento desiderato.",
+  "difficulty": "facile",
+  "tags": [
+   "sft",
+   "dataset"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext04",
+  "chapter": "ch3-training",
+  "q": "Qual è l'effetto principale dell'instruction tuning su un modello base?",
+  "options": [
+   "Riduce i parametri per velocizzare l'inferenza in produzione",
+   "Quantizza i pesi a bassa precisione prima del deployment",
+   "Gli insegna a comprendere ed eseguire le istruzioni ricevute",
+   "Estende in modo permanente la finestra di contesto gestibile"
+  ],
+  "answer": 2,
+  "explain": "L'instruction tuning è un SFT su coppie istruzione/risposta: rende il modello capace di comprendere ed eseguire le istruzioni dell'utente.",
+  "difficulty": "facile",
+  "tags": [
+   "instruction tuning",
+   "sft"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Medium – esperienze d'esame NCA-GENL"
+ },
+ {
+  "id": "ch3-ext05",
+  "chapter": "ch3-training",
+  "q": "Quali sono, nell'ordine corretto, le tre fasi del RLHF?",
+  "options": [
+   "Reward model, pre-training da zero, quantizzazione del modello finale",
+   "SFT, training del reward model, ottimizzazione con RL",
+   "Ottimizzazione con RL, raccolta delle preferenze, SFT conclusivo",
+   "Instruction tuning, pruning dei pesi, distillazione sullo student"
+  ],
+  "answer": 1,
+  "explain": "Il RLHF procede in tre fasi: SFT dimostrativo, training del reward model su risposte ordinate per preferenza, ottimizzazione della policy con reinforcement learning.",
+  "difficulty": "media",
+  "tags": [
+   "rlhf",
+   "allineamento"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext06",
+  "chapter": "ch3-training",
+  "q": "Qual è il ruolo del reward model nel RLHF?",
+  "options": [
+   "Filtrare i duplicati per generare nuovo testo di pre-training",
+   "Sostituire il modello principale in inferenza per ridurre la latenza",
+   "Calcolare il learning rate ottimale a ogni step del training",
+   "Stimare il gradimento umano delle risposte generate dal modello"
+  ],
+  "answer": 3,
+  "explain": "Il reward model impara dai giudizi umani su coppie di risposte e fornisce il segnale di ricompensa usato per ottimizzare la policy.",
+  "difficulty": "media",
+  "tags": [
+   "rlhf",
+   "reward model"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da repo GitHub Awesome-NCA-GENL"
+ },
+ {
+  "id": "ch3-ext07",
+  "chapter": "ch3-training",
+  "q": "Un team ha già fatto SFT ma le risposte restano poco utili e a volte non sicure. Quale passo manca?",
+  "options": [
+   "L'allineamento alle preferenze tramite RLHF o DPO",
+   "La quantizzazione a 4 bit dei pesi del modello SFT",
+   "L'aumento della temperature di sampling in inferenza",
+   "Un nuovo pre-training da zero su un corpus più ampio"
+  ],
+  "answer": 0,
+  "explain": "Il SFT insegna a imitare gli esempi, ma solo l'allineamento su preferenze (RLHF/DPO) orienta il modello verso risposte utili e sicure.",
+  "difficulty": "media",
+  "tags": [
+   "sft",
+   "rlhf"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Medium – esperienze d'esame NCA-GENL"
+ },
+ {
+  "id": "ch3-ext08",
+  "chapter": "ch3-training",
+  "q": "Che ruolo ha il PPO nella pipeline RLHF?",
+  "options": [
+   "Metrica automatica che misura la fluenza del testo generato",
+   "Metodo di quantizzazione che riduce i pesi del reward model",
+   "Algoritmo che ottimizza la policy contro il reward stimato",
+   "Tecnica di data augmentation per le coppie di preferenza"
+  ],
+  "answer": 2,
+  "explain": "Il PPO (Proximal Policy Optimization) aggiorna la policy del modello per massimizzare il reward stimato, con vincoli che evitano deviazioni eccessive.",
+  "difficulty": "difficile",
+  "tags": [
+   "rlhf",
+   "ppo"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Hugging Face docs (TRL)"
+ },
+ {
+  "id": "ch3-ext09",
+  "chapter": "ch3-training",
+  "q": "Cosa distingue il DPO dal RLHF classico?",
+  "options": [
+   "Richiede un dataset dieci volte più grande per convergere",
+   "Allinea il modello senza reward model esplicito né PPO",
+   "Aggiorna solo gli embedding senza toccare l'attenzione",
+   "Funziona unicamente su modelli encoder-only come BERT"
+  ],
+  "answer": 1,
+  "explain": "Il DPO (Direct Preference Optimization) allinea il modello direttamente sulle coppie di preferenze, evitando reward model separato e PPO: è più semplice e stabile.",
+  "difficulty": "difficile",
+  "tags": [
+   "dpo",
+   "allineamento"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Hugging Face docs (TRL)"
+ },
+ {
+  "id": "ch3-ext10",
+  "chapter": "ch3-training",
+  "q": "Cosa significa la sigla RLAIF?",
+  "options": [
+   "Algoritmo di pruning che rimuove i pesi meno importanti",
+   "Metrica automatica che sostituisce BLEU nella valutazione",
+   "Formato di quantizzazione alternativo a NF4 per i pesi",
+   "RLHF in cui il feedback è prodotto da un modello AI"
+  ],
+  "answer": 3,
+  "explain": "Nel RLAIF (RL from AI Feedback) i giudizi di preferenza sono prodotti da un modello AI invece che da annotatori umani, riducendo costi e tempi.",
+  "difficulty": "media",
+  "tags": [
+   "rlaif",
+   "allineamento"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Medium – esperienze d'esame NCA-GENL"
+ },
+ {
+  "id": "ch3-ext11",
+  "chapter": "ch3-training",
+  "q": "Un modello risponde in modo abile ma spesso tossico e ingannevole. Quale obiettivo di training è stato trascurato?",
+  "options": [
+   "L'allineamento a risposte utili, oneste e sicure",
+   "La sincronizzazione dei checkpoint tra le varie epoche",
+   "Il bilanciamento dei batch tra le GPU del cluster",
+   "Il pareggio degli esempi tra le classi del dataset"
+  ],
+  "answer": 0,
+  "explain": "L'allineamento orienta il modello verso risposte utili, oneste e innocue, in linea con le preferenze umane e le policy di sicurezza.",
+  "difficulty": "facile",
+  "tags": [
+   "allineamento",
+   "sicurezza"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da NVIDIA Learn (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext12",
+  "chapter": "ch3-training",
+  "q": "Un assistente deve rispondere con dati aggiornati ogni giorno (prezzi, normative). Quale approccio è più adeguato?",
+  "options": [
+   "Full fine-tuning completo eseguito di nuovo ogni singola notte",
+   "Addestramento da zero ogni settimana sull'intero corpus testuale",
+   "RAG con fonti aggiornate al momento della query",
+   "Temperature di sampling alzata per stimolare la memoria"
+  ],
+  "answer": 2,
+  "explain": "Per conoscenze che cambiano spesso, RAG recupera i fatti aggiornati al momento della query: rifare il fine-tuning ogni giorno sarebbe costoso e fragile.",
+  "difficulty": "media",
+  "tags": [
+   "rag",
+   "fine-tuning",
+   "scenario"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext13",
+  "chapter": "ch3-training",
+  "q": "Quando il fine-tuning è la scelta giusta rispetto al solo prompt engineering?",
+  "options": [
+   "Quando si vuole evitare qualsiasi raccolta di esempi etichettati",
+   "Quando serve un comportamento di dominio stabile e consistente",
+   "Quando le conoscenze richieste cambiano di ora in ora",
+   "Quando non si dispone di alcuna GPU per l'addestramento"
+  ],
+  "answer": 1,
+  "explain": "Il fine-tuning incorpora in modo stabile stile, formato e comportamenti di dominio; il prompt engineering da solo non garantisce la stessa consistenza.",
+  "difficulty": "facile",
+  "tags": [
+   "fine-tuning",
+   "prompt engineering"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da repo GitHub Awesome-NCA-GENL"
+ },
+ {
+  "id": "ch3-ext14",
+  "chapter": "ch3-training",
+  "q": "Perché il prompt engineering si prova di solito prima del fine-tuning?",
+  "options": [
+   "Non tocca i pesi: è economico, rapido e subito reversibile",
+   "Garantisce sempre risultati migliori di qualsiasi fine-tuning",
+   "Elimina alla radice allucinazioni e bias del modello base",
+   "Estende la finestra di contesto del modello in modo permanente"
+  ],
+  "answer": 0,
+  "explain": "Il prompt engineering non aggiorna i pesi e non richiede training: se basta a ottenere il comportamento voluto, evita costi e rischi del fine-tuning.",
+  "difficulty": "facile",
+  "tags": [
+   "prompt engineering",
+   "fine-tuning"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Medium – esperienze d'esame NCA-GENL"
+ },
+ {
+  "id": "ch3-ext15",
+  "chapter": "ch3-training",
+  "q": "A cosa serve la penalità KL nel RLHF con PPO?",
+  "options": [
+   "A dimezzare la batch size per velocizzare i gradienti",
+   "A misurare la fluenza grammaticale delle risposte generate",
+   "A vincolare la policy vicino al modello SFT di partenza",
+   "A quantizzare il reward model per risparmiare memoria"
+  ],
+  "answer": 2,
+  "explain": "La penalità sulla divergenza KL impedisce alla policy di allontanarsi troppo dal modello SFT inseguendo scorciatoie che massimizzano il reward.",
+  "difficulty": "difficile",
+  "tags": [
+   "rlhf",
+   "ppo"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Hugging Face docs (TRL)"
+ },
+ {
+  "id": "ch3-ext16",
+  "chapter": "ch3-training",
+  "q": "Come sono fatti i dati per addestrare un reward model?",
+  "options": [
+   "Testo grezzo prelevato dal web senza alcun filtro",
+   "Frasi etichettate con la classe grammaticale di ogni parola",
+   "Coppie istruzione/risposta singola senza alcun confronto",
+   "Risposte a confronto ordinate per preferenza umana"
+  ],
+  "answer": 3,
+  "explain": "Il reward model impara da confronti: per ogni prompt due risposte ordinate (preferita vs rifiutata) secondo il giudizio umano.",
+  "difficulty": "media",
+  "tags": [
+   "reward model",
+   "preferenze"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext17",
+  "chapter": "ch3-training",
+  "q": "Dopo un adattamento solo su nuovi dati, il modello eccelle sul nuovo task ma crolla sui precedenti. Come si chiama il fenomeno?",
+  "options": [
+   "Perdita dei checkpoint per un guasto al disco di storage",
+   "Oblio catastrofico della conoscenza appresa in precedenza",
+   "Crollo della loss a zero già dopo la primissima epoca",
+   "Azzeramento casuale dei pesi a ogni step di ottimizzazione"
+  ],
+  "answer": 1,
+  "explain": "Addestrando solo su nuovi dati, il modello sovrascrive i pesi utili ai task precedenti e peggiora su di essi: è il catastrophic forgetting.",
+  "difficulty": "facile",
+  "tags": [
+   "catastrophic forgetting"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Quizlet – set NCA-GENL"
+ },
+ {
+  "id": "ch3-ext18",
+  "chapter": "ch3-training",
+  "q": "Cosa significa congelare il backbone durante l'adattamento?",
+  "options": [
+   "Spegnere metà GPU del cluster per risparmiare energia",
+   "Bloccare il learning rate a zero per l'intero training",
+   "Allenare solo i nuovi moduli tenendo fissi i pesi pre-addestrati",
+   "Salvare un checkpoint a ogni singolo step di ottimizzazione"
+  ],
+  "answer": 2,
+  "explain": "Congelare il backbone conserva la conoscenza pre-addestrata: si allenano solo testina o adapter, con meno dati, memoria e rischio di forgetting.",
+  "difficulty": "media",
+  "tags": [
+   "transfer learning",
+   "freezing"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da repo GitHub Awesome-NCA-GENL"
+ },
+ {
+  "id": "ch3-ext19",
+  "chapter": "ch3-training",
+  "q": "Il training converge ma in modo lentissimo, con miglioramenti minimi a ogni epoca. Causa più probabile?",
+  "options": [
+   "Batch size eccessiva che rende i gradienti troppo rumorosi",
+   "Temperature di sampling impostata a un valore troppo elevato",
+   "Learning rate troppo basso, con passi di aggiornamento minuscoli",
+   "Dropout aggressivo applicato erroneamente in fase di inferenza"
+  ],
+  "answer": 2,
+  "explain": "Un learning rate troppo basso fa compiere passi piccolissimi: la loss scende ma lentissimamente, sprecando epoche e calcolo.",
+  "difficulty": "facile",
+  "tags": [
+   "learning rate",
+   "diagnosi"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Quizlet – set NCA-GENL"
+ },
+ {
+  "id": "ch3-ext20",
+  "chapter": "ch3-training",
+  "q": "Quale loss si usa tipicamente per addestrare un modello linguistico?",
+  "options": [
+   "Errore quadratico medio tra embedding di frasi intere",
+   "Cross-entropy tra distribuzione predetta e token corretto",
+   "Distanza euclidea tra i pesi del teacher e dello student",
+   "Similarità coseno calcolata tra prompt e risposta generata"
+  ],
+  "answer": 1,
+  "explain": "Il language modeling è una classificazione sul vocabolario a ogni posizione: la cross-entropy penalizza le probabilità basse sul token corretto.",
+  "difficulty": "media",
+  "tags": [
+   "loss",
+   "training"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da NVIDIA Learn (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext21",
+  "chapter": "ch3-training",
+  "q": "Come si interpreta la perplexity di un modello linguistico?",
+  "options": [
+   "Valori alti indicano risposte più creative e diversificate",
+   "Misura la memoria GPU occupata durante il training distribuito",
+   "Conta il numero di parametri addestrabili presenti nel modello",
+   "Valori bassi indicano migliore capacità predittiva sul testo"
+  ],
+  "answer": 3,
+  "explain": "La perplexity misura l'incertezza media nella predizione del token successivo: più è bassa, meglio il modello prevede il testo.",
+  "difficulty": "media",
+  "tags": [
+   "perplexity",
+   "metriche"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext22",
+  "chapter": "ch3-training",
+  "q": "Un modello ottiene ottime metriche sul test ma delude in produzione. Quale errore di preparazione dati sospetti per primo?",
+  "options": [
+   "Esempi del test finiti nel training, con metriche gonfiate",
+   "Checkpoint salvati su disco senza lo stato dell'ottimizzatore",
+   "Batch size troppo piccola durante le epoche di training",
+   "Connessione interrotta tra i nodi del cluster di calcolo"
+  ],
+  "answer": 0,
+  "explain": "Se esempi del test finiscono nel training (spesso per duplicati), le metriche risultano ottimistiche e non riflettono la generalizzazione reale.",
+  "difficulty": "media",
+  "tags": [
+   "data leakage",
+   "preprocessing"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Medium – esperienze d'esame NCA-GENL"
+ },
+ {
+  "id": "ch3-ext23",
+  "chapter": "ch3-training",
+  "q": "Perché il test set deve restare intoccato fino alla valutazione finale?",
+  "options": [
+   "I dati di test occupano troppa memoria GPU durante il training",
+   "La legge vieta di visualizzare i dati di test prima del deploy",
+   "Ogni uso anticipato lo contamina e rende la stima inaffidabile",
+   "Il test set serve unicamente a inizializzare i pesi del modello"
+  ],
+  "answer": 2,
+  "explain": "Usare il test per tuning o early stopping lo contamina: le decisioni si adattano a esso e la stima finale diventa ottimistica e inaffidabile.",
+  "difficulty": "media",
+  "tags": [
+   "test set",
+   "valutazione"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da repo GitHub Awesome-NCA-GENL"
+ },
+ {
+  "id": "ch3-ext24",
+  "chapter": "ch3-training",
+  "q": "Cosa controlla la temperature nella generazione di testo?",
+  "options": [
+   "Il numero massimo di token generabili in una risposta",
+   "La casualità: bassa più deterministica, alta più varia",
+   "La memoria GPU allocata per mantenere il KV-cache",
+   "Il numero di documenti recuperati dalla vector database"
+  ],
+  "answer": 1,
+  "explain": "La temperature scala i logit prima del sampling: valori bassi rendono l'output deterministico, valori alti più creativo ma meno prevedibile.",
+  "difficulty": "facile",
+  "tags": [
+   "temperature",
+   "sampling"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext25",
+  "chapter": "ch3-training",
+  "q": "Cosa fa il campionamento top-p (nucleus sampling)?",
+  "options": [
+   "Seleziona sempre il token più probabile, senza alcuna casualità",
+   "Ripristina il checkpoint salvato con la loss minima ottenuta",
+   "Fissa il numero di epoche in base alla dimensione del dataset",
+   "Campiona dai token più probabili fino a massa cumulata p"
+  ],
+  "answer": 3,
+  "explain": "Il top-p considera solo i token più probabili la cui massa cumulata raggiunge p, tagliando la coda improbabile ma mantenendo variabilità adattiva.",
+  "difficulty": "difficile",
+  "tags": [
+   "top-p",
+   "sampling"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da NVIDIA Learn (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext26",
+  "chapter": "ch3-training",
+  "q": "Un fine-tuning su un piccolo dataset prosegue per 50 epoche e la train loss arriva quasi a zero. Cosa è accaduto?",
+  "options": [
+   "Il modello ha memorizzato gli esempi invece di generalizzare",
+   "Ha raggiunto un allineamento perfetto alle preferenze umane",
+   "Il learning rate si è auto-azzerato a warm-up completato",
+   "I pesi si sono quantizzati da soli a 4 bit esatti"
+  ],
+  "answer": 0,
+  "explain": "Troppe epoche su pochi dati portano alla memorizzazione: train loss vicina a zero con crollo atteso sulle metriche di validation.",
+  "difficulty": "media",
+  "tags": [
+   "overfitting",
+   "epoche"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Quizlet – set NCA-GENL"
+ },
+ {
+  "id": "ch3-ext27",
+  "chapter": "ch3-training",
+  "q": "Un team vuole adattare un LLM al linguaggio medico prima di istruirlo sui task. Quale fase intermedia conviene?",
+  "options": [
+   "Quantizzare subito il modello finale per il deployment su edge",
+   "Raccogliere preferenze umane per addestrare il reward model",
+   "Proseguire il pre-training su testi del dominio medico",
+   "Ottimizzare gli iperparametri di sampling per l'inferenza"
+  ],
+  "answer": 2,
+  "explain": "Il DAPT prosegue il pre-training auto-supervisionato su un corpus di dominio (medicina, finanza, codice): il modello assorbe terminologia e fatti prima del SFT.",
+  "difficulty": "difficile",
+  "tags": [
+   "pre-training",
+   "dominio"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Medium – esperienze d'esame NCA-GENL"
+ },
+ {
+  "id": "ch3-ext28",
+  "chapter": "ch3-training",
+  "q": "Il few-shot prompting non basta: servirebbero decine di esempi per descrivere il task. Cosa conviene valutare?",
+  "options": [
+   "Alzare la temperature fino a ottenere la risposta per caso",
+   "Incorporare il comportamento nei pesi con il fine-tuning",
+   "Ripetere lo stesso prompt centinaia di volte finché funziona",
+   "Ridurre la finestra di contesto per forzare risposte brevi"
+  ],
+  "answer": 1,
+  "explain": "Quando il task richiede troppi esempi nel prompt (costi, latenza, limite di contesto), il fine-tuning incorpora il comportamento nei pesi in modo stabile.",
+  "difficulty": "difficile",
+  "tags": [
+   "fine-tuning",
+   "few-shot",
+   "scenario"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da ExamTopics (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext29",
+  "chapter": "ch3-training",
+  "q": "Perché la valutazione umana resta importante dopo fine-tuning e RLHF?",
+  "options": [
+   "Le metriche automatiche non misurano utilità e sicurezza percepite",
+   "I valutatori servono ad aumentare la batch size del training",
+   "Senza valutatori il modello non genera alcun testo in inferenza",
+   "La valutazione umana riduce i parametri del modello finale"
+  ],
+  "answer": 0,
+  "explain": "BLEU, ROUGE e perplexity misurano similarità superficiali: solo giudici umani valutano davvero utilità, correttezza, tono e sicurezza delle risposte.",
+  "difficulty": "difficile",
+  "tags": [
+   "valutazione",
+   "human eval"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da NVIDIA Learn (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext30",
+  "chapter": "ch3-training",
+  "q": "Dopo un fine-tuning, il modello migliora sul nuovo task ma peggiora su capacità precedenti. Quale verifica andava prevista?",
+  "options": [
+   "Misurare solo la velocità di generazione in token al secondo",
+   "Contare i parametri totali prima e dopo l'addestramento",
+   "Verificare la latenza media del cluster durante le epoche",
+   "Test di regressione sulle capacità precedenti prima del rilascio"
+  ],
+  "answer": 3,
+  "explain": "Ogni fine-tuning richiede test di regressione sui task precedenti: senza di essi, forgetting e regressioni silenziose arrivano in produzione.",
+  "difficulty": "difficile",
+  "tags": [
+   "regression testing",
+   "catastrophic forgetting"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da repo GitHub Awesome-NCA-GENL"
+ },
+ {
+  "id": "ch3-ext31",
+  "chapter": "ch3-training",
+  "q": "Perché il fine-tuning è inaffidabile per insegnare al modello moltissimi fatti nuovi?",
+  "options": [
+   "Perché estende sempre la finestra di contesto oltre il limite",
+   "Perché memorizza i fatti senza fonti e li ripropone parafrasati",
+   "Perché richiede necessariamente un reward model separato",
+   "Perché i nuovi fatti velocizzano il modello in inferenza"
+  ],
+  "answer": 1,
+  "explain": "Il fine-tuning memorizza i fatti nei pesi senza ancorarli a fonti: su molti fatti nuovi produce allucinazioni sicure di sé. Per fatti verificabili meglio RAG.",
+  "difficulty": "difficile",
+  "tags": [
+   "fine-tuning",
+   "allucinazioni",
+   "rag"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Medium – esperienze d'esame NCA-GENL"
+ },
+ {
+  "id": "ch3-ext32",
+  "chapter": "ch3-training",
+  "q": "Perché Adam è l'ottimizzatore più usato nel training dei Transformer?",
+  "options": [
+   "Azzera da solo i gradienti al termine di ogni epoca",
+   "Congela i layer di attenzione durante il fine-tuning",
+   "Adatta il passo per parametro con momento e varianza",
+   "Quantizza i pesi a 8 bit durante la backward pass"
+  ],
+  "answer": 2,
+  "explain": "Adam combina momento e stime adattive del secondo ordine per ciascun parametro: converge bene su loss rumorose e non richiede tuning estremo del LR.",
+  "difficulty": "difficile",
+  "tags": [
+   "adam",
+   "ottimizzatore"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da NVIDIA Learn (NCA-GENL)"
+ },
+ {
+  "id": "ch3-ext33",
+  "chapter": "ch3-training",
+  "q": "A cosa servono i checkpoint salvati durante il training?",
+  "options": [
+   "A riprendere il training e ripristinare l'epoca migliore",
+   "A generare risposte più creative in fase di inferenza",
+   "A sostituire il validation set nella valutazione finale",
+   "A eliminare i testi duplicati presenti nel dataset"
+  ],
+  "answer": 0,
+  "explain": "I checkpoint salvano pesi e stato dell'ottimizzatore: permettono resume dopo interruzioni, confronto tra epoche e rollback alla versione migliore.",
+  "difficulty": "facile",
+  "tags": [
+   "checkpoint",
+   "training"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Quizlet – set NCA-GENL"
+ },
+ {
+  "id": "ch3-ext34",
+  "chapter": "ch3-training",
+  "q": "Dopo il RLHF le risposte sono lunghe e adulatrici ma vuote: il punteggio sale, la qualità no. Cosa sta succedendo?",
+  "options": [
+   "Furto dei pesi del reward model da parte di un attaccante",
+   "Compressione del reward model per farlo girare su GPU",
+   "Sostituzione del reward model con valutatori umani a ogni step",
+   "La policy sfrutta difetti del reward invece di migliorare davvero"
+  ],
+  "answer": 3,
+  "explain": "È il reward hacking: la policy trova scorciatoie (risposte lunghe, adulatrici, formattate) che ingannano il reward model senza migliorare davvero la qualità.",
+  "difficulty": "difficile",
+  "tags": [
+   "reward hacking",
+   "rlhf"
+  ],
+  "origin": "esterna",
+  "source": "Adattata da Hugging Face docs (TRL)"
  }
 ]

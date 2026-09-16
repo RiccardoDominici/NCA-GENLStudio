@@ -22,6 +22,12 @@
   var PAGE_STEP = 15;             // quante domande in più per click su "Mostra altre"
 
   var DIFF_LABEL = { facile: 'facile', media: 'media', difficile: 'difficile' };
+  var ORIGIN_LABEL = { ai: '🤖 Generate dal sito', esterna: '🌐 Da pratica online' };
+  var ORIGIN_FILTERS = [
+    { id: 'all', label: 'Tutte' },
+    { id: 'ai', label: '🤖 Generate dal sito' },
+    { id: 'esterna', label: '🌐 Da pratica online' }
+  ];
   var STATUS_FILTERS = [
     { id: 'all', label: 'Tutte' },
     { id: 'todo', label: 'Da fare' },
@@ -33,7 +39,7 @@
   /* Stato della vista, non persistito (tranne il capitolo, che sta nell'URL). */
   var view = {
     mode: 'studio',
-    filters: { chapter: 'all', difficulty: 'all', status: 'all', text: '' },
+    filters: { chapter: 'all', difficulty: 'all', status: 'all', text: '', origin: 'all' },
     shuffled: false,
     limit: PAGE_STEP,
     all: [],
@@ -151,6 +157,20 @@
     sRow.appendChild(sGroup);
     host.appendChild(sRow);
 
+    /* Filtro origine: generate dal sito vs adattate da pratica online */
+    var oRow = app.el('div', 'qb-row', '');
+    oRow.appendChild(app.el('span', 'qb-label', 'Origine'));
+    var oGroup = app.el('div', 'chip-group', '');
+    oGroup.setAttribute('role', 'group');
+    oGroup.setAttribute('aria-label', 'Filtra per origine delle domande');
+    ORIGIN_FILTERS.forEach(function (o) {
+      oGroup.appendChild(chip(o.label, view.filters.origin === o.id, function () {
+        setFilter('origin', o.id);
+      }));
+    });
+    oRow.appendChild(oGroup);
+    host.appendChild(oRow);
+
     /* Ricerca testuale + azioni */
     var fRow = app.el('div', 'qb-row', '');
     var lab = app.el('label', 'qb-label', 'Cerca');
@@ -266,6 +286,7 @@
     var chTag = app.el('span', 'qtag area-' + (meta ? meta.area : 'fondamenti'), chapterLabel(q.chapter));
     head.appendChild(chTag);
     head.appendChild(app.el('span', 'qtag diff-' + q.difficulty, DIFF_LABEL[q.difficulty] || q.difficulty));
+    head.appendChild(app.el('span', 'qtag origin-' + (q.origin || 'ai'), ORIGIN_LABEL[q.origin || 'ai'] || q.origin || 'ai'));
     q.tags.slice(0, 3).forEach(function (t) {
       head.appendChild(app.el('span', 'qtag tag', t));
     });

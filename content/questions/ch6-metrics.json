@@ -853,5 +853,716 @@
    "data-drift",
    "rag"
   ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "BLEU è la metrica lessicale standard per la traduzione automatica perché misura la precision degli n-grammi del candidato rispetto ai riferimenti.",
+  "id": "ch6-ext01",
+  "options": [
+   "ROUGE-L, perché la traduzione richiede il recall sulla longest common subsequence",
+   "BLEU, perché misura la precision degli n-grammi del candidato sui riferimenti",
+   "La perplexity, perché la traduzione non ha bisogno di alcun testo di riferimento",
+   "La latenza media, perché la velocità è l'unico criterio per un traduttore"
+  ],
+  "origin": "esterna",
+  "q": "Un team deve valutare un sistema di traduzione automatica inglese-italiano con riferimenti umani disponibili. Quale metrica lessicale è la scelta più naturale?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "bleu",
+   "traduzione-automatica"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "La perplexity si calcola dalle probabilità assegnate dal modello al testo, quindi non richiede alcun riferimento umano ed è ideale per la valutazione intrinseca della fluency.",
+  "id": "ch6-ext02",
+  "options": [
+   "ROUGE-2, che confronta i bigrammi del candidato con un riassunto di riferimento",
+   "BLEU con brevity penalty, che richiede almeno un riferimento umano parallelo",
+   "La perplexity, che usa solo le probabilità del modello e non richiede riferimenti",
+   "L'exact match, che verifica l'identità tra output e risposta attesa parola per parola"
+  ],
+  "origin": "esterna",
+  "q": "Quale metrica permette di valutare la fluency di un modello senza disporre di alcun testo di riferimento?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "perplexity",
+   "reference-free"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "La F1 è la media armonica di precision e recall: penalizza i casi in cui una delle due è bassa, a differenza della media aritmetica che li nasconderebbe.",
+  "id": "ch6-ext03",
+  "options": [
+   "La media armonica di precision e recall, che penalizza uno squilibrio tra le due",
+   "La media aritmetica di accuracy e perplexity calcolata sul test set",
+   "Il rapporto tra veri positivi e falsi negativi osservati in produzione",
+   "La differenza tra il punteggio BLEU e il punteggio ROUGE sullo stesso output"
+  ],
+  "origin": "esterna",
+  "q": "In classificazione, la F1 è definita come cosa?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "f1",
+   "precision",
+   "recall"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "La triade RAG di TruLens valuta l'intera pipeline: retrieval pertinente, risposta ancorata al contesto e risposta pertinente alla domanda.",
+  "id": "ch6-ext04",
+  "options": [
+   "Context relevance, groundedness e answer relevance, che coprono retrieval e generazione",
+   "Precision, recall e F1 calcolate sui token dei documenti indicizzati",
+   "Training loss, validation loss e test loss del modello generativo",
+   "Latenza, throughput e costo per token dell'intera pipeline RAG"
+  ],
+  "origin": "esterna",
+  "q": "Secondo il framework TruLens, da quali tre dimensioni è composta la cosiddetta triade RAG?",
+  "source": "Adattata da TruLens (TruEra)",
+  "tags": [
+   "trulens",
+   "rag",
+   "triade-rag"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "La groundedness verifica che ogni affermazione della risposta sia sostenuta dal contesto recuperato: un punteggio basso segnala allucinazioni anche con risposta pertinente.",
+  "id": "ch6-ext05",
+  "options": [
+   "La velocità con cui il retriever restituisce i chunk dalla base vettoriale",
+   "La groundedness, che verifica il supporto di ogni affermazione nel contesto",
+   "La dimensione media in token dei chunk indicizzati nel database",
+   "Il numero di documenti totali presenti nell'indice vettoriale"
+  ],
+  "origin": "esterna",
+  "q": "In un bot di assistenza RAG, quale feedback di TruLens useresti per rilevare le allucinazioni?",
+  "source": "Adattata da TruLens (TruEra)",
+  "tags": [
+   "trulens",
+   "groundedness",
+   "hallucination"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "RLHF prevede prima il supervised fine-tuning, poi l'addestramento di un reward model sui giudizi umani e infine l'ottimizzazione con RL, spesso PPO.",
+  "id": "ch6-ext06",
+  "options": [
+   "Tokenizzazione, embedding e decoding greedy della risposta finale",
+   "Chunking, retrieval vettoriale e generazione condizionata dal contesto",
+   "Pre-training, quantization a INT8 e deploy su inference server",
+   "Supervised fine-tuning, reward model su preferenze umane e ottimizzazione con RL"
+  ],
+  "origin": "esterna",
+  "q": "Quali sono le tre fasi classiche di RLHF (reinforcement learning from human feedback)?",
+  "source": "Adattata da Medium – report esame NCA-GENL",
+  "tags": [
+   "rlhf",
+   "human-feedback",
+   "allineamento"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "BLEU misura la precision degli n-grammi con valori tra 0 e 1: un punteggio di 0.85 indica un'elevata sovrapposizione lessicale col riferimento.",
+  "id": "ch6-ext07",
+  "options": [
+   "Una pessima qualità, perché BLEU premia solo i punteggi vicini allo zero",
+   "Un'incertezza elevata del modello, equivalente a una perplexity molto alta",
+   "Un'elevata sovrapposizione di n-grammi tra candidato e riferimento",
+   "Un ottimo recall sui riassunti, tipico della metrica ROUGE"
+  ],
+  "origin": "esterna",
+  "q": "Un sistema di traduzione ottiene un BLEU di 0.85 sul test set. Come si interpreta?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "bleu",
+   "interpretazione"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "TruthfulQA è il benchmark progettato per misurare veridicità e tendenza a generare falsità plausibili, complementare ai benchmark di conoscenza come MMLU.",
+  "id": "ch6-ext08",
+  "options": [
+   "Un formato di quantization a 8 bit per accelerare l'inferenza su GPU",
+   "Una tecnica di pruning non strutturato dei pesi del modello",
+   "Un indice vettoriale per il retrieval nei sistemi RAG",
+   "Un benchmark che misura quanto un modello genera affermazioni veritiere"
+  ],
+  "origin": "esterna",
+  "q": "Cosa valuta il benchmark TruthfulQA nel contesto degli LLM?",
+  "source": "Adattata da repo GitHub nca-genl-study-guide",
+  "tags": [
+   "benchmark",
+   "truthfulqa",
+   "hallucination"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "I segnali impliciti ed espliciti degli utenti (pollici, rating, correzioni) sono la fonte più comune di feedback per valutare e migliorare i sistemi RAG in produzione.",
+  "id": "ch6-ext09",
+  "options": [
+   "Pollici su/giù, rating, correzioni e ranking di preferenza espressi dagli utenti",
+   "I log di utilizzo della GPU durante le ore di picco del servizio",
+   "La dimensione del vocabolario del tokenizer usato dal modello",
+   "Il numero di parametri del modello generativo in produzione"
+  ],
+  "origin": "esterna",
+  "q": "In un sistema RAG in produzione, come si raccoglie più comunemente lo human feedback?",
+  "source": "Adattata da TruLens (TruEra)",
+  "tags": [
+   "human-feedback",
+   "rag",
+   "produzione"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "Nel paradigma LLM-as-judge un modello valuta l'output di un altro modello seguendo una rubric, così da cogliere aspetti semantici che BLEU e ROUGE ignorano.",
+  "id": "ch6-ext10",
+  "options": [
+   "Un valutatore umano che assegna un voto da 1 a 5 a ogni risposta",
+   "La media aritmetica di BLEU, ROUGE e METEOR sullo stesso output",
+   "Un modello LLM che valuta l'output seguendo una rubric con criteri definiti",
+   "Un classificatore binario che misura solo la lunghezza della risposta"
+  ],
+  "origin": "esterna",
+  "q": "Cosa si intende per valutazione LLM-as-judge?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "llm-as-judge",
+   "valutazione"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "facile",
+  "explain": "Answer relevance alta con faithfulness bassa significa risposta pertinente ma non ancorata ai documenti: il modello parla del tema giusto inventando i fatti, spesso per retrieval scarso o ignorato.",
+  "id": "ch6-ext11",
+  "options": [
+   "Il sistema è perfetto: entrambe le metriche confermano la qualità del retrieval",
+   "La risposta è pertinente ma allucinata: retrieval scarso o contesto ignorato",
+   "Il retriever funziona bene e il generatore copia esattamente i chunk",
+   "Il prompt di sistema è troppo lungo e va accorciato subito"
+  ],
+  "origin": "esterna",
+  "q": "Un sistema RAG ottiene answer relevance 0.95 ma faithfulness 0.45. Qual è la diagnosi?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "ragas",
+   "faithfulness",
+   "answer-relevance"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "RAGAS scompone la risposta in affermazioni atomiche e conta quante sono supportate dal contesto: 6 su 8 dà faithfulness pari a 0.75.",
+  "id": "ch6-ext12",
+  "options": [
+   "1.0, perché basta che la maggior parte delle affermazioni sia supportata",
+   "0.45, dividendo le affermazioni non supportate per quelle totali",
+   "0.75, cioè 6 affermazioni supportate su 8 totali",
+   "0.25, cioè 2 affermazioni non supportate diviso 8 totali"
+  ],
+  "origin": "esterna",
+  "q": "Una risposta RAG contiene 8 affermazioni atomiche e il giudice ne trova 6 supportate dal contesto. Quanto vale la faithfulness RAGAS?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "ragas",
+   "faithfulness",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "La context precision misura il rapporto segnale-rumore del retriever (i chunk rilevanti stanno in alto?), mentre la context recall misura se tutto il materiale necessario è stato recuperato.",
+  "id": "ch6-ext13",
+  "options": [
+   "La context precision valuta il ranking dei chunk rilevanti, la recall la copertura del materiale",
+   "La context precision misura la fluency, la recall la velocità del retriever",
+   "Sono due nomi diversi per la stessa formula applicata ai chunk recuperati",
+   "La precision vale solo senza ground truth, la recall solo senza contesto"
+  ],
+  "origin": "esterna",
+  "q": "In RAGAS, qual è la differenza tra context precision e context recall?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "ragas",
+   "context-precision",
+   "context-recall"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "Faithfulness e answer relevance sono reference-free e funzionano in produzione senza etichette; context recall e answer correctness richiedono la ground truth annotata.",
+  "id": "ch6-ext14",
+  "options": [
+   "Faithfulness e context recall, entrambe calcolabili dai soli chunk recuperati",
+   "Answer relevance e context precision, che non usano mai la ground truth",
+   "Tutte le metriche RAGAS richiedono sempre una ground truth annotata",
+   "Context recall e answer correctness, che confrontano col ground truth annotato"
+  ],
+  "origin": "esterna",
+  "q": "Quali metriche RAGAS richiedono una ground truth annotata dall'uomo?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "ragas",
+   "ground-truth",
+   "reference-based"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "Senza clipping un candidato come 'the the the' otterrebbe precision perfetta; il conteggio clippato limita ogni n-gramma alle occorrenze nel riferimento e impedisce questo gaming.",
+  "id": "ch6-ext15",
+  "options": [
+   "Per premiare i candidati molto corti che ripetono una sola parola corretta",
+   "Per clippare i conteggi alle occorrenze nel riferimento ed evitare il gaming",
+   "Per eliminare dal calcolo tutti gli unigrammi presenti nel riferimento",
+   "Per convertire la precision in recall quando i riferimenti sono multipli"
+  ],
+  "origin": "esterna",
+  "q": "Perché BLEU usa la modified (clipped) precision invece della precision semplice?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "bleu",
+   "clipped-precision"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "I bigrammi del candidato sono 5 (the-cat, cat-sat, sat-on, on-the, the-mat) e 3 compaiono nel riferimento (the-cat, on-the, the-mat): precision pari a 3/5 = 0.60.",
+  "id": "ch6-ext16",
+  "options": [
+   "5/5 = 1.0, perché le due frasi hanno identico significato complessivo",
+   "4/5 = 0.80, contando anche il bigramma cat-sat come quasi corretto",
+   "3/5 = 0.60, cioè 3 bigrammi del candidato presenti nel riferimento",
+   "2/5 = 0.40, perché gli articoli non vanno mai conteggiati nei bigrammi"
+  ],
+  "origin": "esterna",
+  "q": "Candidato: 'the cat sat on the mat'. Riferimento: 'the cat is on the mat'. Quanto vale la bigram precision?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "bleu",
+   "bigrammi",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "La perplexity dipende dalla tokenizzazione: due modelli con vocabolari diversi definiscono distribuzioni diverse, quindi i valori non sono confrontabili direttamente.",
+  "id": "ch6-ext17",
+  "options": [
+   "No, perché tokenizer diversi definiscono distribuzioni diverse e i valori non sono confrontabili",
+   "Sì, basta confrontare i valori grezzi: il più basso indica sempre il modello migliore",
+   "Sì, perché la perplexity è indipendente dal vocabolario per costruzione matematica",
+   "No, perché la perplexity si può calcolare solo sui modelli della stessa famiglia"
+  ],
+  "origin": "esterna",
+  "q": "Si può confrontare direttamente la perplexity di due modelli con tokenizer diversi?",
+  "source": "Adattata da repo GitHub nca-genl-study-guide",
+  "tags": [
+   "perplexity",
+   "tokenizer",
+   "limiti"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "BLEURT e COMET sono metriche apprese: modelli allenati su giudizi umani che stimano la qualità, catturando sinonimi e parafrasi meglio dell'overlap lessicale di BLEU.",
+  "id": "ch6-ext18",
+  "options": [
+   "Due varianti della brevity penalty per candidati molto più corti del riferimento",
+   "Due benchmark a scelta multipla per la conoscenza enciclopedica dei modelli",
+   "Due tecniche di quantization a basso numero di bit per l'inferenza",
+   "Due metriche apprese da giudizi umani che catturano qualità semantica oltre l'overlap"
+  ],
+  "origin": "esterna",
+  "q": "Cosa sono BLEURT e COMET nel contesto della valutazione della generazione?",
+  "source": "Adattata da Medium – report esame NCA-GENL",
+  "tags": [
+   "bleurt",
+   "comet",
+   "metriche-apprese"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "DPO ottimizza direttamente le preferenze umane senza reward model esplicito né loop RL, risultando più stabile e semplice di PPO.",
+  "id": "ch6-ext19",
+  "options": [
+   "Richiede un reward model più grande e un loop RL più lungo rispetto a PPO",
+   "Ottimizza le preferenze direttamente senza reward model esplicito, in modo più stabile",
+   "Funziona solo per modelli di visione e non per i modelli linguistici",
+   "Aumenta le allucinazioni perché elimina del tutto lo human feedback"
+  ],
+  "origin": "esterna",
+  "q": "Qual è il principale vantaggio di DPO rispetto a PPO nell'allineamento alle preferenze?",
+  "source": "Adattata da Medium – report esame NCA-GENL",
+  "tags": [
+   "dpo",
+   "ppo",
+   "rlhf"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "Il verbosity bias porta il giudice a preferire risposte lunghe a prescindere dalla qualità: la rubric deve premiare concisione e completezza, non la lunghezza.",
+  "id": "ch6-ext20",
+  "options": [
+   "La tendenza a preferire sempre la prima risposta mostrata nella coppia",
+   "La tendenza a rifiutare qualsiasi risposta generata da un modello diverso",
+   "La tendenza a preferire le risposte più lunghe a prescindere dalla qualità",
+   "La tendenza a dare sempre il punteggio massimo per evitare decisioni difficili"
+  ],
+  "origin": "esterna",
+  "q": "Cosa si intende per verbosity bias in un giudice LLM?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "llm-as-judge",
+   "bias",
+   "verbosity-bias"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "Usare un giudice di famiglia diversa dal generatore, temperatura 0 e valutazione cieca riduce self-preference, rumore e bias di posizione nella valutazione automatica.",
+  "id": "ch6-ext21",
+  "options": [
+   "Giudice di famiglia diversa dal generatore, temperatura 0 e confronti in cieco",
+   "Giudice identico al generatore con temperatura alta e prompt senza rubric",
+   "Un solo giudizio per campione senza mai controllare l'accordo tra valutatori",
+   "Valutare solo la lunghezza delle risposte ignorando contenuto e contesto"
+  ],
+  "origin": "esterna",
+  "q": "Quali accorgimenti riducono i bias di un giudice LLM (self-preference, posizione, rumore)?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "llm-as-judge",
+   "bias",
+   "best-practice"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "La ground truth ha 5 affermazioni e 4 sono attribuibili ai contesti: context recall pari a 4/5 = 0.80, mentre un chunk mancante spiega la parte non coperta.",
+  "id": "ch6-ext22",
+  "options": [
+   "1.0, perché il retriever ha comunque restituito almeno un chunk rilevante",
+   "0.80, cioè 4 affermazioni della ground truth su 5 attribuibili ai contesti",
+   "0.50, dividendo i chunk recuperati per quelli totali dell'indice vettoriale",
+   "0.0, perché una sola affermazione mancante azzera sempre il punteggio"
+  ],
+  "origin": "esterna",
+  "q": "La ground truth ha 5 affermazioni e 4 risultano attribuibili ai chunk recuperati. Quanto vale il context recall?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "ragas",
+   "context-recall",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "media",
+  "explain": "F-beta pesa il recall beta volte più della precision: con beta = 2 (F2) i falsi negativi costano di più, giusto quando mancare un positivo è grave, come nello screening medico.",
+  "id": "ch6-ext23",
+  "options": [
+   "La media tra BLEU e ROUGE calcolata sullo stesso insieme di candidati",
+   "Il rapporto tra la latenza di inferenza e il throughput in produzione",
+   "La perplexity misurata solo sui token finali di ogni sequenza generata",
+   "Una F che pesa il recall più della precision, utile quando i falsi negativi costano cari"
+  ],
+  "origin": "esterna",
+  "q": "Cosa misura la F2 (variante F-beta con beta = 2) e quando è appropriata?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "f-beta",
+   "recall",
+   "classi-sbilanciate"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "F1 = 2·P·R/(P+R) = 2·0.8·0.6/1.4 = 0.96/1.4 ≈ 0.69: più vicina al valore minore, come tipico della media armonica.",
+  "id": "ch6-ext24",
+  "options": [
+   "Circa 0.69, cioè 2·0.8·0.6 diviso (0.8+0.6)",
+   "Circa 0.70, cioè la media aritmetica semplice di 0.8 e 0.6",
+   "Circa 0.48, cioè il prodotto diretto di precision e recall",
+   "Circa 1.40, cioè la somma di precision e recall sul test set"
+  ],
+  "origin": "esterna",
+  "q": "Un classificatore ha precision 0.8 e recall 0.6 sulla classe positiva. Quanto vale la F1?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "f1",
+   "calcolo",
+   "precision",
+   "recall"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Il riferimento ha 6 unigrammi e il candidato ne cattura 4 (il, cane, nel, parco): ROUGE-1 recall = 4/6 ≈ 0.67.",
+  "id": "ch6-ext25",
+  "options": [
+   "5/6 ≈ 0.83, perché quasi tutti i token del riferimento sono coperti",
+   "4/6 ≈ 0.67, cioè 4 unigrammi del riferimento catturati su 6",
+   "4/5 = 0.80, dividendo per i token del candidato invece che del riferimento",
+   "1.0, perché le due frasi descrivono la stessa scena del parco"
+  ],
+  "origin": "esterna",
+  "q": "Riferimento: 'il cane abbaia forte nel parco' (6 token). Candidato: 'il cane corre nel parco' (5 token). Quanto vale ROUGE-1 recall?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "rouge",
+   "recall",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Perplexity = exp della negative log-likelihood media: exp(1.5) ≈ 4.48, quindi il modello è mediamente incerto tra circa 4-5 token.",
+  "id": "ch6-ext26",
+  "options": [
+   "1.5, perché la perplexity coincide sempre con la loss media",
+   "Circa 2.72, cioè la costante di Eulero elevata alla loss dimezzata",
+   "Circa 4.48, cioè exp(1.5) della negative log-likelihood media",
+   "Circa 0.22, cioè l'inverso della negative log-likelihood media"
+  ],
+  "origin": "esterna",
+  "q": "Un modello ha negative log-likelihood media di 1.5 sul test set. Quanto vale la perplexity?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "perplexity",
+   "calcolo",
+   "loss"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Con c = 8 < r = 10 la brevity penalty vale exp(1 − 10/8) = exp(−0.25) ≈ 0.78: penalità moderata per un candidato più corto del 20%.",
+  "id": "ch6-ext27",
+  "options": [
+   "1.0, perché la penalty si applica solo ai candidati più lunghi del riferimento",
+   "0.0, perché qualsiasi candidato più corto viene azzerato per definizione",
+   "0.50 esatto, valore fisso per ogni candidato sotto la lunghezza di riferimento",
+   "Circa 0.78, cioè exp(1 − 10/8) perché il candidato è più corto del riferimento"
+  ],
+  "origin": "esterna",
+  "q": "Nella formula BLEU, un candidato di 8 token ha riferimento efficace di 10 token. Quanto vale la brevity penalty?",
+  "source": "Adattata da repo GitHub nca-genl-study-guide",
+  "tags": [
+   "bleu",
+   "brevity-penalty",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Overlap di 4 token su 4 del candidato (precision 1.0) e su 5 del riferimento (recall 0.8): F1 token-level = 2·1·0.8/1.8 ≈ 0.89.",
+  "id": "ch6-ext28",
+  "options": [
+   "Circa 0.89, con precision 1.0 sul candidato e recall 0.80 sul riferimento",
+   "1.0 pieno, perché exact match e F1 coincidono sempre in QA",
+   "0.0, perché le due frasi hanno ordine delle parole diverso",
+   "Circa 0.50, cioè la media tra la lunghezza del candidato e del riferimento"
+  ],
+  "origin": "esterna",
+  "q": "Riferimento: 'Canberra è la capitale dell'Australia'. Candidato: 'la capitale è Canberra'. Quanto vale la F1 token-level?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "f1",
+   "qa",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Il macro-average media le F1 per classe con peso uguale: (0.9+0.6+0.3)/3 = 0.60, senza farsi dominare dalle classi frequenti.",
+  "id": "ch6-ext29",
+  "options": [
+   "0.90, cioè la F1 della classe migliore che rappresenta l'intero modello",
+   "0.60, cioè la media non pesata delle tre F1 di classe",
+   "0.30, cioè la F1 della classe peggiore che azzera le altre",
+   "0.75, cioè la media tra la classe migliore e quella peggiore"
+  ],
+  "origin": "esterna",
+  "q": "Tre classi hanno F1 pari a 0.9, 0.6 e 0.3. Quanto vale la macro-F1?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "f1",
+   "macro-average",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "MRR media i reciproci dei ranghi del primo risultato rilevante: (1 + 1/3 + 1/2)/3 ≈ 0.61.",
+  "id": "ch6-ext30",
+  "options": [
+   "1.0, perché almeno una query ha il rilevante in prima posizione",
+   "0.33, cioè l'inverso del numero di query valutate nel test",
+   "Circa 0.61, cioè la media di 1, 1/3 e 1/2 sui ranghi osservati",
+   "2.0, cioè la somma dei ranghi dei primi risultati rilevanti"
+  ],
+  "origin": "esterna",
+  "q": "Tre query hanno il primo documento rilevante ai ranghi 1, 3 e 2. Quanto vale il Mean Reciprocal Rank?",
+  "source": "Adattata da repo GitHub nca-genl-study-guide",
+  "tags": [
+   "mrr",
+   "retrieval",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Il confronto pairwise in cieco con rating Elo aggrega molte preferenze binarie in un ranking stabile, mitigando verbosity e position bias meglio dei punteggi assoluti.",
+  "id": "ch6-ext31",
+  "options": [
+   "Assegnare a ogni risposta un voto assoluto da 1 a 10 senza confronti",
+   "Usare sempre lo stesso ordine di presentazione per tutte le coppie",
+   "Valutare solo con BLEU perché i giudici LLM sono troppo rumorosi",
+   "Confronti pairwise in cieco aggregati con rating Elo su molti giudizi"
+  ],
+  "origin": "esterna",
+  "q": "Quale protocollo rende più affidabile la valutazione comparativa tra due LLM con un giudice automatico?",
+  "source": "Adattata da documentazione RAGAS (ragas.io)",
+  "tags": [
+   "llm-as-judge",
+   "pairwise",
+   "elo"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Il kappa di Cohen misura l'accordo tra annotatori oltre il caso: valori bassi indicano linee guida ambigue e giudizi umani poco affidabili come gold standard.",
+  "id": "ch6-ext32",
+  "options": [
+   "Il kappa di Cohen tra annotatori: se è basso, le linee guida sono ambigue",
+   "La brevity penalty media delle risposte valutate dagli annotatori",
+   "La perplexity del modello giudice misurata sulle risposte umane",
+   "Il numero totale di annotatori diviso per il numero di prompt"
+  ],
+  "origin": "esterna",
+  "q": "Due annotatori valutano 100 risposte ma concordano poco. Quale misura diagnostica il problema?",
+  "source": "Adattata da Medium – report esame NCA-GENL",
+  "tags": [
+   "human-feedback",
+   "inter-annotator-agreement",
+   "kappa"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "Se i dati di benchmark sono finiti nel training, i punteggi sono gonfiati: servono benchmark freschi o tenuti nascosti e reportistica sulla decontaminazione.",
+  "id": "ch6-ext33",
+  "options": [
+   "Aumentare la temperatura del modello per rendere i punteggi più creativi",
+   "Contaminazione del training: servono benchmark freschi e decontaminazione",
+   "La brevity penalty di BLEU va ricalibrata su ogni nuovo benchmark",
+   "I benchmark vanno abbandonati perché la valutazione umana basta sempre"
+  ],
+  "origin": "esterna",
+  "q": "Un modello ottiene punteggi record sui benchmark pubblici ma delude su domande nuove. Qual è la spiegazione più probabile?",
+  "source": "Adattata da repo GitHub nca-genl-study-guide",
+  "tags": [
+   "benchmark",
+   "contaminazione",
+   "limiti"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch6-metrics",
+  "difficulty": "difficile",
+  "explain": "In produzione spesso mancano risposte gold, quindi si monitorano metriche reference-free (faithfulness, answer relevance) e si riservano quelle con ground truth ai cicli di valutazione offline.",
+  "id": "ch6-ext34",
+  "options": [
+   "Usare solo BLEU e ROUGE perché non richiedono mai alcun riferimento",
+   "Raccogliere ground truth per ogni query di produzione prima di rispondere",
+   "Abbandonare la valutazione in produzione perché è impossibile senza etichette",
+   "Monitorare metriche reference-free in produzione e usare la ground truth offline"
+  ],
+  "origin": "esterna",
+  "q": "Come si progetta la valutazione RAG quando in produzione non esistono risposte gold?",
+  "source": "Adattata da TruLens (TruEra)",
+  "tags": [
+   "rag",
+   "reference-free",
+   "produzione",
+   "ragas"
+  ]
  }
 ]

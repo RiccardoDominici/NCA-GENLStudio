@@ -853,5 +853,688 @@
    "masking",
    "scenario"
   ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "La Query rappresenta ciò che il token sta cercando: viene confrontata con tutte le Key per decidere a quali token prestare attenzione. Il contenuto vero e proprio da aggregare è invece nella Value.",
+  "id": "ch1-ext01",
+  "options": [
+   "A trasportare il contenuto informativo aggregato in media pesata dai pesi",
+   "A rappresentare ciò che il token cerca, confrontata con le Key",
+   "A codificare la posizione assoluta del token nella sequenza",
+   "A contenere l'output finale del layer prima della FFN"
+  ],
+  "origin": "esterna",
+  "q": "Nella self-attention, qual è il ruolo del vettore Query di un token?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "self-attention",
+   "query"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "Il softmax normalizza i punteggi di un token verso tutti gli altri, quindi la somma vale sempre 1: i pesi formano una distribuzione di probabilità sull'intera sequenza.",
+  "id": "ch1-ext02",
+  "options": [
+   "Vale d_k, la dimensione delle Key usata per lo scaling dei punteggi",
+   "Vale il numero di head della multi-head attention",
+   "Vale 1, come una distribuzione di probabilità sulla sequenza",
+   "Vale 0, perché le mask azzerano tutti i punteggi"
+  ],
+  "origin": "esterna",
+  "q": "Dopo il softmax, quanto vale la somma dei pesi di attention di un token verso tutti gli altri?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "self-attention",
+   "softmax"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "La tokenizzazione subword scompone le parole rare o mai viste in pezzi noti (prefissi, radici, suffissi), così il modello gestisce qualsiasi testo con un vocabolario di dimensioni contenute.",
+  "id": "ch1-ext03",
+  "options": [
+   "Compone parole rare o mai viste da pezzi noti, con vocabolario compatto",
+   "Richiede che ogni parola resti sempre un token intero e indivisibile nel testo",
+   "Elimina la necessità del positional encoding nelle sequenze lunghe",
+   "Rende la complessità della self-attention lineare sulla sequenza"
+  ],
+  "origin": "esterna",
+  "q": "Perché i Transformer usano la tokenizzazione subword invece di un token per parola?",
+  "source": "Adattata da guide-candidati Medium (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "subword"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "BPE parte dai singoli caratteri e fonde a ogni passo la coppia adiacente più frequente, fino a raggiungere la dimensione di vocabolario desiderata. È il metodo usato dalla famiglia GPT.",
+  "id": "ch1-ext04",
+  "options": [
+   "Maschera il 15% dei token come nel pre-training di BERT",
+   "Assegna un vettore appreso a ogni posizione della sequenza",
+   "Ruota Query e Key in funzione della distanza tra token",
+   "Parte dai caratteri e fonde le coppie adiacenti più frequenti"
+  ],
+  "origin": "esterna",
+  "q": "Come costruisce il proprio vocabolario il Byte Pair Encoding (BPE)?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "bpe"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "BPE fonde le coppie più frequenti, mentre WordPiece sceglie le fusioni che massimizzano la verosimiglianza e marca le continuazioni con ## (es. un + ##believ + ##able). Entrambi risolvono il problema delle parole fuori vocabolario.",
+  "id": "ch1-ext05",
+  "options": [
+   "Sono lo stesso algoritmo con due nomi diversi e identico vocabolario finale",
+   "WordPiece marca le continuazioni con ## e fonde per verosimiglianza",
+   "BPE usa il prefisso ## mentre WordPiece lavora solo a livello di parola",
+   "WordPiece non gestisce parole mai viste, BPE invece le scarta del tutto"
+  ],
+  "origin": "esterna",
+  "q": "Quale affermazione distingue WordPiece (BERT) dal BPE?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "tokenizzazione",
+   "wordpiece",
+   "bpe"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "Un vocabolario piccolo frammenta ogni parola in molti pezzi e allunga le sequenze; uno enorme gonfia la matrice di embedding e lascia i token rari quasi mai allenati. La scelta è un compromesso tra lunghezza e copertura.",
+  "id": "ch1-ext06",
+  "options": [
+   "Piccolo allunga le sequenze, grande gonfia gli embedding e lascia token rari",
+   "La dimensione del vocabolario non influenza né le sequenze né i parametri appresi",
+   "Un vocabolario più grande è sempre meglio, senza alcun contro o costo",
+   "Un vocabolario più piccolo è sempre meglio, senza alcun contro o costo"
+  ],
+  "origin": "esterna",
+  "q": "Cosa comporta un vocabolario di tokenizzazione troppo piccolo o troppo grande?",
+  "source": "Adattata da community ExamTopics (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "vocabolario"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "I token speciali danno struttura alla sequenza: [CLS] raccoglie la rappresentazione per la classificazione, [SEP] separa le frasi, [PAD] riempie il batch e [EOS] segnala la fine della generazione.",
+  "id": "ch1-ext07",
+  "options": [
+   "Aumentano la dimensione d_model per accogliere sequenze più lunghe in input",
+   "Sostituiscono le matrici Query, Key e Value nella attention",
+   "Segnalano struttura: classificazione, separazione, riempimento, fine testo",
+   "Codificano i pesi del modello in formato leggibile dal tokenizzatore"
+  ],
+  "origin": "esterna",
+  "q": "A cosa servono token speciali come [CLS], [SEP], [PAD] e [EOS]?",
+  "source": "Adattata da repo GitHub community (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "token-speciali"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Unigram parte da un vocabolario sovrabbondante e lo pota tenendo i pezzi più utili secondo un modello probabilistico; SentencePiece evita la pre-tokenizzazione per spazi e tratta il testo come flusso grezzo, ideale per lingue senza spazi.",
+  "id": "ch1-ext08",
+  "options": [
+   "Fondono sempre e solo le coppie di caratteri più frequenti del corpus",
+   "Mascherano token casuali per il masked language modeling",
+   "Assegnano a ogni parola intera un token unico e indivisibile",
+   "Potano un vocabolario iniziale in modo probabilistico, senza pre-divisione per spazi"
+  ],
+  "origin": "esterna",
+  "q": "Come si differenziano Unigram e SentencePiece (T5, LLaMA) dal BPE classico?",
+  "source": "Adattata da guide-candidati Medium (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "sentencepiece"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "L'encoder non usa causal mask: ogni token attende sia a sinistra sia a destra, costruendo rappresentazioni che incorporano l'intero contesto della frase in entrambe le direzioni.",
+  "id": "ch1-ext09",
+  "options": [
+   "Ogni token attende a sinistra e a destra, senza causal mask sul futuro",
+   "Ogni token attende solo al passato come in un decoder autoregressivo causale",
+   "Usa cross-attention verso un secondo encoder di supporto esterno",
+   "Elabora un token alla volta in sequenza come una RNN classica"
+  ],
+  "origin": "esterna",
+  "q": "Perché l'encoder del Transformer è detto bidirezionale?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "encoder",
+   "bidirezionale"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "Generare testo token dopo token richiede solo un decoder causale: non esiste un input separato da codificare. L'encoder completo serve quando input e output sono testi distinti, come in traduzione e riassunti.",
+  "id": "ch1-ext10",
+  "options": [
+   "Perché il decoder da solo non può usare la self-attention causale in generazione",
+   "La generazione autoregressiva richiede solo il decoder, senza input separato",
+   "Perché l'encoder è troppo lento e non gira sulle GPU moderne",
+   "Perché i decoder hanno più parametri degli encoder a parità di layer"
+  ],
+  "origin": "esterna",
+  "q": "Perché quasi tutti i LLM moderni (GPT, LLaMA) sono modelli decoder-only?",
+  "source": "Adattata da guide-candidati Medium (NCA-GENL)",
+  "tags": [
+   "decoder",
+   "llm",
+   "architettura"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "T5 e BART mantengono encoder e decoder completi collegati da cross-attention: l'encoder codifica il documento, il decoder genera il riassunto o la traduzione consultandolo passo dopo passo.",
+  "id": "ch1-ext11",
+  "options": [
+   "Sono decoder-only puri ottimizzati per chatbot a singola risposta breve",
+   "Sono encoder-only con classificazione sopra il token [CLS] finale",
+   "Sono encoder-decoder completi, ideali per riassunti e traduzioni",
+   "Non usano attention ma solo reti feed-forward molto profonde"
+  ],
+  "origin": "esterna",
+  "q": "T5 e BART usano quale architettura, e per quali compiti è pensata?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "encoder-decoder",
+   "t5-bart"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Nell'image captioning un encoder visivo produce le feature dell'immagine e il decoder testuale le interroga: le Query nascono dal testo in generazione, Key e Value dalle regioni dell'immagine codificata.",
+  "id": "ch1-ext12",
+  "options": [
+   "Query, Key e Value provengono tutte dai pixel dell'immagine originale",
+   "La cross-attention non si usa nei modelli multimodali moderni",
+   "Query e Key dall'immagine e Value dal testo generato finora",
+   "Query dal decoder testuale, Key e Value dalle feature visive codificate"
+  ],
+  "origin": "esterna",
+  "q": "In un modello di image captioning, come si distribuiscono Query, Key e Value nella cross-attention?",
+  "source": "Adattata da community ExamTopics (NCA-GENL)",
+  "tags": [
+   "cross-attention",
+   "multimodale"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "Ogni head proietta lo stesso input con tre matrici apprese diverse (W_Q, W_K, W_V): da un'unica sequenza nascono così tre viste differenti, una per cercare, una per farsi trovare e una per trasportare contenuto.",
+  "id": "ch1-ext13",
+  "options": [
+   "Da proiezioni apprese dell'input, con matrici W_Q, W_K e W_V per head",
+   "Da tre sequenze di input diverse fornite separatamente al modello insieme",
+   "Da vettori casuali fissi che restano invariati durante l'addestramento",
+   "Dalla scomposizione del positional encoding in tre componenti uguali"
+  ],
+  "origin": "esterna",
+  "q": "Da dove nascono Q, K e V all'interno di una head di attention?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "self-attention",
+   "proiezioni"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "Proiezioni indipendenti permettono a ciascuna head di specializzarsi: una può seguire le relazioni sintattiche, un'altra le coreferenze tra pronomi e nomi, un'altra ancora le dipendenze a lunga distanza.",
+  "id": "ch1-ext14",
+  "options": [
+   "Per raddoppiare i parametri senza cambiare il comportamento del modello",
+   "Per elaborare batch diversi in parallelo sulla stessa GPU",
+   "Così ogni head osserva un sottospazio diverso e può specializzarsi",
+   "Per rendere la complessità lineare sulla lunghezza della sequenza"
+  ],
+  "origin": "esterna",
+  "q": "Perché ogni head di attention ha le proprie matrici di proiezione indipendenti?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "multi-head",
+   "specializzazione"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "L'attention dropout azzera casualmente alcuni pesi dopo il softmax durante l'addestramento: impedisce alle head di co-adattarsi e di dipendere sempre dagli stessi token, migliorando la generalizzazione.",
+  "id": "ch1-ext15",
+  "options": [
+   "A velocizzare l'inferenza saltando il calcolo del softmax finale in ogni head",
+   "A regolarizzare azzerando casualmente alcuni pesi in addestramento",
+   "A mascherare i token di padding nei batch di lunghezza mista",
+   "A impedire al decoder di osservare i token futuri in generazione"
+  ],
+  "origin": "esterna",
+  "q": "A cosa serve l'attention dropout nel Transformer?",
+  "source": "Adattata da community ExamTopics (NCA-GENL)",
+  "tags": [
+   "dropout",
+   "regolarizzazione"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Gli embedding appresi hanno scala diversa dai vettori sinusoidali: moltiplicarli per radice di d_model li porta su un ordine di grandezza confrontabile, così la somma non è dominata da una sola delle due componenti.",
+  "id": "ch1-ext16",
+  "options": [
+   "A ridurre i parametri della matrice di embedding di un fattore d_model intero",
+   "A rendere la attention lineare invece che quadratica sulla sequenza",
+   "A sostituire la LayerNorm all'interno di ogni blocco encoder",
+   "A portare embedding e positional su scale confrontabili prima della somma"
+  ],
+  "origin": "esterna",
+  "q": "Nel paper originale gli embedding di input sono moltiplicati per la radice di d_model. Perché?",
+  "source": "Adattata da repo GitHub community (NCA-GENL)",
+  "tags": [
+   "embedding",
+   "positional encoding"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "Il positional encoding originale alterna seno sulle dimensioni pari e coseno sulle dispari, con frequenze decrescenti secondo il denominatore 10000 elevato a 2i/d_model. È fisso e deterministico per ogni posizione.",
+  "id": "ch1-ext17",
+  "options": [
+   "Seno sulle pari e coseno sulle dispari, con frequenze decrescenti",
+   "Sigmoide su tutte le dimensioni con la stessa identica frequenza",
+   "Vettori casuali appresi diversi a ogni epoca di addestramento del modello",
+   "ReLU applicata alla posizione assoluta divisa per d_model"
+  ],
+  "origin": "esterna",
+  "q": "Quali funzioni usa il positional encoding sinusoidale del paper originale?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "positional encoding",
+   "sinusoidale"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "Le lunghezze d'onda in progressione geometrica da 2π a 10000·2π assegnano a ogni posizione un'impronta unica: le alte frequenze distinguono posizioni vicine, le basse frequenze permettono di cogliere distanze e spostamenti relativi.",
+  "id": "ch1-ext18",
+  "options": [
+   "Per ridurre il numero di parametri rispetto agli embedding appresi",
+   "Per rendere il modello invariante all'ordine dei token in input",
+   "Per dare a ogni posizione un'impronta unica e cogliere distanze relative",
+   "Per azzerare i gradienti delle posizioni oltre i 512 token"
+  ],
+  "origin": "esterna",
+  "q": "Perché le sinusoidi del positional encoding usano frequenze diverse per dimensione?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "positional encoding",
+   "frequenze"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "ALiBi non somma alcun vettore posizionale: sottrae dai punteggi di attention una penalità proporzionale alla distanza tra token, con pendenze diverse per head. Essendo una regola e non una tabella, funziona anche oltre la lunghezza di training.",
+  "id": "ch1-ext19",
+  "options": [
+   "Somma sinusoidi fisse agli embedding come nel Transformer originale del 2017",
+   "Penalizza i punteggi in base alla distanza, senza vettori posizionali",
+   "Apprende un vettore distinto per ogni posizione come fa BERT",
+   "Concatena la posizione assoluta prima della FFN di ogni layer"
+  ],
+  "origin": "esterna",
+  "q": "Come funziona ALiBi come alternativa al positional encoding classico?",
+  "source": "Adattata da guide-candidati Medium (NCA-GENL)",
+  "tags": [
+   "positional encoding",
+   "alibi"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Con smoothing 0.1 il target non è più one-hot ma distribuisce una piccola probabilità sulle classi sbagliate: il modello resta meno sicuro di sé, migliora BLEU e calibrazione, anche se la perplexity sul training peggiora leggermente.",
+  "id": "ch1-ext20",
+  "options": [
+   "A congelare i primi layer per accelerare il fine-tuning successivo",
+   "A mascherare il padding senza usare una attention mask esplicita",
+   "A dimezzare il learning rate quando la loss di validazione si appiattisce",
+   "A evitare previsioni troppo sicure, distribuendo probabilità sulle altre classi"
+  ],
+  "origin": "esterna",
+  "q": "Il paper originale addestra con label smoothing 0.1. Che effetto ha?",
+  "source": "Adattata da repo GitHub community (NCA-GENL)",
+  "tags": [
+   "training",
+   "label-smoothing"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "Il greedy sceglie il token più probabile a ogni singolo passo e può cadere in ottimi locali; la beam search mantiene le k sequenze parziali migliori e spesso trova una frase complessivamente più probabile, al costo di più calcolo.",
+  "id": "ch1-ext21",
+  "options": [
+   "Greedy prende il miglior token a ogni passo, beam tiene le k sequenze migliori",
+   "Beam search è deterministica mentre greedy è sempre stocastica e variabile a ogni run",
+   "Greedy richiede più memoria della beam search a parità di modello",
+   "Sono identiche quando la temperatura di campionamento vale 1"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la differenza tra greedy decoding e beam search in generazione?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "decoding",
+   "beam-search"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "La temperatura divide i logit prima del softmax: valori alti appiattiscono la distribuzione e rendono l'output più vario e creativo, valori bassi la concentrano sui token migliori; al limite di temperatura zero si ottiene il greedy.",
+  "id": "ch1-ext22",
+  "options": [
+   "Conta il numero di token generati prima dello stop automatico della sequenza generata",
+   "Alta appiattisce la distribuzione e aumenta la varietà, bassa la concentra",
+   "Moltiplica il numero di head di attention durante l'inferenza",
+   "Normalizza i gradienti per evitare l'esplosione in addestramento"
+  ],
+  "origin": "esterna",
+  "q": "Cosa controlla la temperatura nel campionamento da un LLM?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "decoding",
+   "temperatura"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Top-k tronca a un numero fisso di candidati, rigido quando la distribuzione è piatta o appuntita; top-p seleziona il gruppo più piccolo che copre probabilità p, adattando il numero di candidati alla forma della distribuzione passo dopo passo.",
+  "id": "ch1-ext23",
+  "options": [
+   "Top-k ordina per posizione, top-p ordina per frequenza nel training",
+   "Top-p esiste solo in addestramento, top-k solo in inferenza",
+   "Top-k tiene un numero fisso di token, top-p il gruppo minimo che copre probabilità p",
+   "Top-k aumenta la temperatura, top-p aumenta la lunghezza massima"
+  ],
+  "origin": "esterna",
+  "q": "Qual è la differenza tra campionamento top-k e top-p (nucleus)?",
+  "source": "Adattata da community ExamTopics (NCA-GENL)",
+  "tags": [
+   "decoding",
+   "top-p"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Con pesi casuali i primi gradienti sono rumorosi e un learning rate alto farebbe divergere il modello; il warmup parte da valori piccoli e cresce linearmente, per poi decadere e rifinire la convergenza.",
+  "id": "ch1-ext24",
+  "options": [
+   "A mantenere costante il learning rate per tutte le epoche di training",
+   "A congelare l'encoder mentre si allena solo il decoder traduttore",
+   "A raddoppiare il batch a ogni epoca per saturare le GPU disponibili in training",
+   "A partire piano con pesi rumorosi per evitare divergenza, poi rifinire"
+  ],
+  "origin": "esterna",
+  "q": "Perché il paper originale usa un warmup del learning rate con l'ottimizzatore Adam?",
+  "source": "Adattata da repo GitHub community (NCA-GENL)",
+  "tags": [
+   "training",
+   "learning-rate"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "Il Transformer base impila 6 layer di encoder e 6 di decoder; la versione big mantiene 6 layer ma con dimensioni maggiori (d_model 1024, 16 head). La profondità a 6 è lo standard del paper del 2017.",
+  "id": "ch1-ext25",
+  "options": [
+   "6 layer di encoder e 6 di decoder impilati in profondità",
+   "12 layer di encoder e 12 di decoder già nella versione base",
+   "1 solo layer di encoder e 1 di decoder molto larghi",
+   "96 layer di encoder senza alcun blocco decoder"
+  ],
+  "origin": "esterna",
+  "q": "Quanti layer ha il Transformer base del paper originale?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "architettura",
+   "iperparametri"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "La FFN contiene due grandi matrici dense (d_model×d_ff e ritorno) per ogni layer: circa due terzi dei parametri del modello vivono qui, non nelle matrici di attention. Per questo la FFN è anche vista come memoria distribuita.",
+  "id": "ch1-ext26",
+  "options": [
+   "Nelle matrici Query, Key e Value della self-attention di ogni layer profondo",
+   "Nella FFN, con le due matrici dense di espansione e proiezione",
+   "Nel positional encoding sinusoidale fisso del primo layer",
+   "Nella matrice di embedding del token di padding"
+  ],
+  "origin": "esterna",
+  "q": "Dove si trova la maggior parte dei parametri di un layer Transformer?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "feed-forward",
+   "parametri"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Condividere una sola Key/Value tra tutte le Query-head (MQA) o tra gruppi di head (GQA) riduce drasticamente la KV-cache e accelera l'inferenza, con un calo di qualità minimo rispetto alla multi-head classica.",
+  "id": "ch1-ext27",
+  "options": [
+   "Aumentano le head per catturare più sottospazi in parallelo",
+   "Rimuovono la FFN per alleggerire i layer più profondi",
+   "Condividono Key e Value tra più Query-head per ridurre la KV-cache",
+   "Sostituiscono il softmax con una sigmoide più economica"
+  ],
+  "origin": "esterna",
+  "q": "Cosa fanno Multi-Query Attention (MQA) e Grouped-Query Attention (GQA)?",
+  "source": "Adattata da guide-candidati Medium (NCA-GENL)",
+  "tags": [
+   "inferenza",
+   "gqa",
+   "efficienza"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "Ogni token generato aggiunge le proprie Key e Value in ogni layer, quindi la cache cresce linearmente con la lunghezza; il fattore dominante in memoria è il prodotto tra numero di layer, lunghezza e dimensione delle head.",
+  "id": "ch1-ext28",
+  "options": [
+   "Resta costante perché i token vecchi vengono sovrascritti dai nuovi",
+   "Decresce perché i primi token vengono compressi progressivamente",
+   "Cresce in modo quadratico ricalcolando tutto a ogni passo",
+   "Cresce linearmente: ogni token aggiunge una coppia K/V per layer"
+  ],
+  "origin": "esterna",
+  "q": "Come cresce la memoria della KV-cache con la lunghezza della sequenza generata?",
+  "source": "Adattata da community ExamTopics (NCA-GENL)",
+  "tags": [
+   "inferenza",
+   "kv-cache"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "Con positional embedding appresi esistono solo le posizioni viste in training: oltre il massimo addestrato il modello non ha riferimenti posizionali e la qualità crolla. Servono troncamento, finestre scorrevoli o tecniche di estrapolazione.",
+  "id": "ch1-ext29",
+  "options": [
+   "Incontra posizioni mai viste e degrada: servono troncamento o estrapolazione",
+   "Continua a funzionare perfettamente fino a lunghezza infinita senza limiti",
+   "Si blocca con errore perché la attention richiede sequenze corte",
+   "Migliora automaticamente perché una finestra più ampia aiuta sempre il modello in ogni caso"
+  ],
+  "origin": "esterna",
+  "q": "Cosa succede se in inferenza si supera la lunghezza massima vista in addestramento?",
+  "source": "Adattata da ExamTopics (NCA-GENL)",
+  "tags": [
+   "context window",
+   "estrapolazione"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "Senza informazione posizionale la attention dipende solo dal contenuto: permutando i token in input, output e pesi si permutano di conseguenza. L'ordine diventa invisibile e frasi anagrammate risultano identiche.",
+  "id": "ch1-ext30",
+  "options": [
+   "I pesi di attention diventano tutti nulli e l'output è zero",
+   "La complessità passa da quadratica a cubica sulla sequenza",
+   "Permutando l'input l'output si permuta allo stesso modo: l'ordine è invisibile",
+   "Ogni token può attendere solo a sé stesso e a nessun altro"
+  ],
+  "origin": "esterna",
+  "q": "La self-attention senza positional encoding è permutazione-equivariante. Cosa significa in pratica?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "self-attention",
+   "positional encoding"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "Pesi alti indicano dove il modello ha guardato, non perché ha deciso: head diverse raccontano storie diverse e piccole perturbazioni cambiano i pesi senza cambiare l'output. L'interpretabilità richiede metodi dedicati oltre l'ispezione visiva.",
+  "id": "ch1-ext31",
+  "options": [
+   "Sì, sempre: il peso più alto indica la causa della decisione del modello",
+   "Solo con cautela: i pesi mostrano dove guarda, non perché decide",
+   "No, mai: i pesi di attention sono numeri casuali senza significato",
+   "Sì, ma solo per l'ultima head dell'ultimo layer del decoder"
+  ],
+  "origin": "esterna",
+  "q": "Si possono usare i pesi di attention come spiegazione delle decisioni del modello?",
+  "source": "Adattata da guide-candidati Medium (NCA-GENL)",
+  "tags": [
+   "interpretabilità",
+   "attention"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch1-transformer",
+  "difficulty": "difficile",
+  "explain": "FlashAttention riorganizza il calcolo in blocchi che stanno nella SRAM veloce e usa un softmax online, riducendo gli accessi alla memoria HBM lenta: il risultato matematico è identico, ma l'esecuzione è molto più rapida ed efficiente.",
+  "id": "ch1-ext32",
+  "options": [
+   "Approssima il softmax con una sigmoide per risparmiare calcolo",
+   "Riduce il numero di layer dimezzando la profondità complessiva del modello allenato",
+   "Elimina il positional encoding nelle sequenze oltre 4096 token",
+   "Riorganizza il calcolo in blocchi in SRAM, con meno accessi HBM, stesso risultato"
+  ],
+  "origin": "esterna",
+  "q": "Qual è l'idea chiave di FlashAttention?",
+  "source": "Adattata da repo GitHub community (NCA-GENL)",
+  "tags": [
+   "efficienza",
+   "flashattention"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch1-transformer",
+  "difficulty": "facile",
+  "explain": "I tokenizzatori BPE sono allenati su corpora dominati dall'inglese: le altre lingue si spezzano in più frammenti per la stessa frase. Questa maggiore fertilità allunga le sequenze e aumenta costi e latenza per i testi non inglesi.",
+  "id": "ch1-ext33",
+  "options": [
+   "I tokenizzatori vedono soprattutto inglese e frammentano di più le altre lingue",
+   "L'italiano ha parole intrinsecamente più lunghe di qualsiasi altra lingua esistente",
+   "Il positional encoding funziona solo con testi in lingua inglese",
+   "La attention maschera automaticamente i token non inglesi in input"
+  ],
+  "origin": "esterna",
+  "q": "Perché la stessa frase in italiano può usare più token che in inglese?",
+  "source": "Adattata da guide-candidati Medium (NCA-GENL)",
+  "tags": [
+   "tokenizzazione",
+   "multilingua"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch1-transformer",
+  "difficulty": "media",
+  "explain": "Ogni layer trasforma le rappresentazioni del precedente: i primi colgono sintassi locale, quelli profondi semantica e relazioni astratte. Le connessioni residuali rendono ottimizzabile questa profondità, cosa impossibile per un singolo layer largo.",
+  "id": "ch1-ext34",
+  "options": [
+   "Per aumentare il batch size distribuito su più GPU moderne",
+   "Per ridurre la memoria occupata dalla KV-cache in inferenza",
+   "Per comporre rappresentazioni via via più astratte, rese ottimizzabili dalle residuali",
+   "Per eliminare la necessità di normalizzazione tra i blocchi"
+  ],
+  "origin": "esterna",
+  "q": "Perché impilare molti layer identici invece di usare un singolo layer molto largo?",
+  "source": "Adattata da Quizlet – set NCA-GENL",
+  "tags": [
+   "architettura",
+   "profondità"
+  ]
  }
 ]

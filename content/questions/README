@@ -31,7 +31,8 @@ Array JSON di oggetti domanda:
   "explain": "Perché la risposta è corretta (1-3 frasi).",
   "difficulty": "media",
   "tags": ["self-attention", "softmax"],
-  "source": "elaborata su blueprint NCA-GENL"
+  "source": "elaborata su blueprint NCA-GENL",
+  "origin": "ai"
 }
 ```
 
@@ -44,6 +45,10 @@ Array JSON di oggetti domanda:
 - `difficulty`: `facile` | `media` | `difficile` (default `media` se assente).
 - `tags`: array di stringhe minuscole; alimenta la ricerca testuale.
 - `source`: provenienza dello spunto, mostrata sotto la spiegazione.
+- `origin`: `ai` (generate per questo sito, default se assente) oppure
+  `esterna` (adattate da materiale di pratica trovato online, riscritte in
+  italiano — mai copiate alla lettera). Alimenta il filtro "Origine" in
+  `domande.html` e il badge su ogni scheda domanda.
 - Niente HTML: il frontend usa `textContent`, i tag resterebbero visibili.
 - Testo in italiano; termini tecnici in inglese (self-attention, dynamic
   batching, …).

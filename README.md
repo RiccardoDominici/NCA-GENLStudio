@@ -19,7 +19,7 @@ Appunti e sito web a cura di Riccardo Dominici.
 
 Ogni capitolo ha 4 schede: **Lezione guidata** (audio + slide + trascrizione karaoke), **Riassunto**, **Parole chiave**, **Quiz**.
 
-In più, un **banco di 315 domande** d'esame (45 per capitolo) filtrabile e con simulazione a tempo.
+In più, un **banco di 554 domande** d'esame (79-80 per capitolo) filtrabile e con simulazione a tempo.
 
 ## Caratteristiche
 
@@ -30,8 +30,9 @@ In più, un **banco di 315 domande** d'esame (45 per capitolo) filtrabile e con 
 - **Trascrizione karaoke**: highlight in tempo reale, auto-scroll, click sulla frase = seek
 - **Formule** composte in MathML nativo (offline, zero CDN), con fallback Unicode
 - **Quiz** di fine capitolo + **tracker** dei progressi in `localStorage`
-- **Banco domande** (`domande.html`): 315 domande filtrabili per capitolo, difficoltà,
-  stato (da fare / sbagliate / corrette / segnate ★) e ricerca testuale, con feedback
+- **Banco domande** (`domande.html`): 554 domande filtrabili per capitolo, difficoltà,
+  stato (da fare / sbagliate / corrette / segnate ★), origine (🤖 generate dal sito /
+  🌐 adattate da pratica online) e ricerca testuale, con feedback
   immediato e spiegazione; **simulazione d'esame** a tempo con punteggio e correzione
 - 100% statico, zero build, zero dipendenze: funziona su qualsiasi hosting statico
 
@@ -90,9 +91,9 @@ durata ripartita in proporzione ai caratteri. Dettagli nel docstring di `tools/m
 
 ## Banco domande
 
-315 domande in stile NCA-GENL (45 per capitolo) in `content/questions/<capitolo>.json`,
+554 domande in stile NCA-GENL (79-80 per capitolo) in `content/questions/<capitolo>.json`,
 una per file secondo il contratto in `content/questions/README`. La pagina
-`domande.html` le filtra per capitolo, difficoltà, stato e testo libero; le
+`domande.html` le filtra per capitolo, difficoltà, stato, origine e testo libero; le
 pagine capitolo linkano il proprio sottoinsieme con `domande.html?ch=<id>`.
 Risposte e domande segnate stanno in `localStorage` (chiave `nca-domande`,
 separata dai progressi del corso).

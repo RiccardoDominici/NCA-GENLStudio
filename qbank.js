@@ -5,7 +5,10 @@
  *    fa con i due chapters-*.json): se un file manca il capitolo risulta
  *    semplicemente senza domande, senza rompere la pagina;
  *  - valida e normalizza ogni domanda scartando le voci malformate;
- *  - filtra per capitolo / difficoltà / stato / testo libero;
+ *  - filtra per capitolo / difficoltà / stato / testo libero / origine
+ *    (origine: 'ai' = generate per questo sito, 'esterna' = adattate da
+ *    pratica trovata online; le domande vecchie senza campo origin
+ *    contano come 'ai');
  *  - persiste le risposte date in localStorage (chiave nca-domande), separata
  *    da nca-progress di tracker.js per non interferire con i progressi corso.
  *
@@ -36,6 +39,7 @@
   /** Riempie i campi opzionali con default sensati e forza i tipi. */
   function normalize(o, chapterId, index) {
     var diff = String(o.difficulty || 'media').toLowerCase();
+    var origin = String(o.origin || 'ai').toLowerCase();
     return {
       id: typeof o.id === 'string' && o.id ? o.id : chapterId + '-q' + (index + 1),
       chapter: chapterId,
@@ -45,7 +49,8 @@
       explain: String(o.explain || ''),
       difficulty: DIFFICULTIES.indexOf(diff) !== -1 ? diff : 'media',
       tags: Array.isArray(o.tags) ? o.tags.map(function (t) { return String(t).toLowerCase(); }) : [],
-      source: String(o.source || '')
+      source: String(o.source || ''),
+      origin: origin === 'esterna' ? 'esterna' : 'ai'
     };
   }
 
@@ -204,11 +209,12 @@
   /**
    * Filtra le domande.
    * @param {Array} questions
-   * @param {{chapter:string, difficulty:string, status:string, text:string}} f
+   * @param {{chapter:string, difficulty:string, status:string, text:string, origin:string}} f
    *        chapter: id capitolo o 'all'
    *        difficulty: 'facile'|'media'|'difficile'|'all'
    *        status: 'all'|'todo'|'wrong'|'correct'|'starred'
    *        text: ricerca libera su domanda, opzioni e tag
+   *        origin: 'all'|'ai'|'esterna' (fonte della domanda)
    */
   function filter(questions, f) {
     var data = readAll();
@@ -217,6 +223,7 @@
     return questions.filter(function (q) {
       if (f.chapter && f.chapter !== 'all' && q.chapter !== f.chapter) return false;
       if (f.difficulty && f.difficulty !== 'all' && q.difficulty !== f.difficulty) return false;
+      if (f.origin && f.origin !== 'all' && (q.origin || 'ai') !== f.origin) return false;
 
       if (f.status && f.status !== 'all') {
         var e = entryOf(data, q.id);

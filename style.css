@@ -550,6 +550,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .qtag.diff-media { background: rgba(250, 225, 90, 0.35); }
 .qtag.diff-difficile { border-color: var(--penna-rossa); color: var(--penna-rossa); font-weight: 700; }
 .qtag.tag { opacity: 0.75; font-style: italic; }
+.qtag.origin-ai { border-style: dotted; }
+.qtag.origin-esterna { background: rgba(144, 199, 255, 0.35); font-weight: 700; }
 
 .star {
   margin-left: auto;
