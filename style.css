@@ -533,26 +533,6 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   color: var(--inchiostro-blu);
   font-size: 0.95rem;
 }
-.qtag {
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  padding: 2px 8px;
-  border: 1px solid var(--inchiostro);
-  border-radius: var(--radius);
-  color: var(--inchiostro);
-  background: #fdf8ea;
-  white-space: nowrap;
-}
-.qtag.area-fondamenti { border-color: var(--penna-blu); color: var(--penna-blu); }
-.qtag.area-mlops { border-color: #b07d10; color: #8a610c; }
-.qtag.area-applicazioni { border-color: var(--penna-verde); color: var(--penna-verde); }
-.qtag.diff-facile { border-style: dashed; color: #5a5a5a; }
-.qtag.diff-media { background: rgba(250, 225, 90, 0.35); }
-.qtag.diff-difficile { border-color: var(--penna-rossa); color: var(--penna-rossa); font-weight: 700; }
-.qtag.tag { opacity: 0.75; font-style: italic; }
-.qtag.origin-ai { border-style: dotted; }
-.qtag.origin-esterna { background: rgba(144, 199, 255, 0.35); font-weight: 700; }
-
 .star {
   margin-left: auto;
   background: transparent;

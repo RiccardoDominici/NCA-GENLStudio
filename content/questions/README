@@ -48,7 +48,7 @@ Array JSON di oggetti domanda:
 - `origin`: `ai` (generate per questo sito, default se assente) oppure
   `esterna` (adattate da materiale di pratica trovato online, riscritte in
   italiano — mai copiate alla lettera). Alimenta il filtro "Origine" in
-  `domande.html` e il badge su ogni scheda domanda.
+  `domande.html` (le schede domanda non mostrano badge, per non dare indizi).
 - Niente HTML: il frontend usa `textContent`, i tag resterebbero visibili.
 - Testo in italiano; termini tecnici in inglese (self-attention, dynamic
   batching, …).

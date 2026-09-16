@@ -209,29 +209,54 @@
   /**
    * Filtra le domande.
    * @param {Array} questions
-   * @param {{chapter:string, difficulty:string, status:string, text:string, origin:string}} f
-   *        chapter: id capitolo o 'all'
-   *        difficulty: 'facile'|'media'|'difficile'|'all'
-   *        status: 'all'|'todo'|'wrong'|'correct'|'starred'
-   *        text: ricerca libera su domanda, opzioni e tag
-   *        origin: 'all'|'ai'|'esterna' (fonte della domanda)
+   * @param {{chapters:Array, difficulties:Array, statuses:Array, text:string, origins:Array}} f
+   *        chapters: array di id capitolo (vuoto = tutti)
+   *        difficulties: sottoinsieme di ['facile','media','difficile'] (vuoto = tutte)
+   *        statuses: sottoinsieme di ['todo','wrong','correct','starred'] (vuoto = tutti;
+   *          OR tra stati: la domanda passa se ALMENO uno matcha)
+   *        text: ricerca libera su domanda, opzioni, tag e spiegazione
+   *        origins: sottoinsieme di ['ai','esterna'] (vuoto = tutte)
+   *        Per retrocompatibilità accetta anche il vecchio formato a stringa
+   *        singola ({chapter, difficulty, status, origin} con 'all' = nessuna
+   *        restrizione): viene convertito nel formato ad array.
    */
   function filter(questions, f) {
     var data = readAll();
     var needle = String(f.text || '').trim().toLowerCase();
 
-    return questions.filter(function (q) {
-      if (f.chapter && f.chapter !== 'all' && q.chapter !== f.chapter) return false;
-      if (f.difficulty && f.difficulty !== 'all' && q.difficulty !== f.difficulty) return false;
-      if (f.origin && f.origin !== 'all' && (q.origin || 'ai') !== f.origin) return false;
+    /* Singolo valore (o 'all'/assente) -> array; array già pronto passa com'è. */
+    function toList(v) {
+      if (Array.isArray(v)) return v;
+      if (v === undefined || v === null || v === 'all') return [];
+      return [v];
+    }
 
-      if (f.status && f.status !== 'all') {
+    var chapters = toList(f.chapters !== undefined ? f.chapters : f.chapter);
+    var difficulties = toList(f.difficulties !== undefined ? f.difficulties : f.difficulty);
+    var statuses = toList(f.statuses !== undefined ? f.statuses : f.status);
+    var origins = toList(f.origins !== undefined ? f.origins : f.origin);
+
+    /* Vero se lo stato persistente della domanda matcha almeno uno stato selezionato. */
+    function statusMatch(e, answered) {
+      for (var i = 0; i < statuses.length; i++) {
+        var s = statuses[i];
+        if (s === 'todo' && !answered) return true;
+        if (s === 'wrong' && answered && !e.ok) return true;
+        if (s === 'correct' && answered && e.ok) return true;
+        if (s === 'starred' && e.starred) return true;
+      }
+      return false;
+    }
+
+    return questions.filter(function (q) {
+      if (chapters.length && chapters.indexOf(q.chapter) === -1) return false;
+      if (difficulties.length && difficulties.indexOf(q.difficulty) === -1) return false;
+      if (origins.length && origins.indexOf(q.origin || 'ai') === -1) return false;
+
+      if (statuses.length) {
         var e = entryOf(data, q.id);
         var answered = e.given !== null && e.given !== undefined;
-        if (f.status === 'todo' && answered) return false;
-        if (f.status === 'wrong' && !(answered && !e.ok)) return false;
-        if (f.status === 'correct' && !(answered && e.ok)) return false;
-        if (f.status === 'starred' && !e.starred) return false;
+        if (!statusMatch(e, answered)) return false;
       }
 
       if (needle) {

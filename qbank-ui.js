@@ -6,9 +6,11 @@
  *  - Simulazione: N domande pescate dal set filtrato, timer, nessun feedback
  *    finché non si consegna, poi punteggio e correzione completa.
  *
- * I filtri (capitolo / difficoltà / stato / testo) vivono qui; la logica di
- * dati e persistenza sta in qbank.js (NCA.qbank). Il capitolo selezionato è
- * sincronizzato con il query param ?ch= così le pagine capitolo possono
+ * I filtri (capitolo / difficoltà / stato / origine / testo) sono a
+ * multi-selezione per riga: OR dentro la riga, AND tra righe diverse.
+ * La logica di dati e persistenza sta in qbank.js (NCA.qbank).
+ * Il capitolo selezionato è sincronizzato con il query param ?ch=
+ * (solo con un capitolo singolo) così le pagine capitolo possono
  * linkare direttamente il proprio sottoinsieme di domande.
  *
  * Espone NCA.qbankUI.init(rootElement). */
@@ -21,25 +23,26 @@
   var PASS_PCT = 70;              // soglia indicativa di superamento
   var PAGE_STEP = 15;             // quante domande in più per click su "Mostra altre"
 
-  var DIFF_LABEL = { facile: 'facile', media: 'media', difficile: 'difficile' };
-  var ORIGIN_LABEL = { ai: '🤖 Generate dal sito', esterna: '🌐 Da pratica online' };
+  var DIFF_FILTERS = [
+    { id: 'facile', label: 'facile' },
+    { id: 'media', label: 'media' },
+    { id: 'difficile', label: 'difficile' }
+  ];
   var ORIGIN_FILTERS = [
-    { id: 'all', label: 'Tutte' },
     { id: 'ai', label: '🤖 Generate dal sito' },
     { id: 'esterna', label: '🌐 Da pratica online' }
   ];
   var STATUS_FILTERS = [
-    { id: 'all', label: 'Tutte' },
     { id: 'todo', label: 'Da fare' },
     { id: 'wrong', label: 'Sbagliate' },
     { id: 'correct', label: 'Corrette' },
     { id: 'starred', label: '★ Da rivedere' }
   ];
 
-  /* Stato della vista, non persistito (tranne il capitolo, che sta nell'URL). */
+  /* Stato della vista, non persistito (tranne il capitolo singolo, che sta nell'URL). */
   var view = {
     mode: 'studio',
-    filters: { chapter: 'all', difficulty: 'all', status: 'all', text: '', origin: 'all' },
+    filters: { chapters: [], difficulties: [], statuses: [], text: '', origins: [] },
     shuffled: false,
     limit: PAGE_STEP,
     all: [],
@@ -70,16 +73,44 @@
     return b;
   }
 
-  /** Scrive il capitolo corrente nell'URL senza ricaricare la pagina. */
+  /** Scrive il capitolo corrente nell'URL senza ricaricare la pagina.
+   * Solo con un capitolo singolo: ?ch=<id>, altrimenti nessun param. */
   function syncUrl() {
     try {
       var url = new URL(window.location.href);
-      if (view.filters.chapter === 'all') url.searchParams.delete('ch');
-      else url.searchParams.set('ch', view.filters.chapter);
+      if (view.filters.chapters.length === 1) url.searchParams.set('ch', view.filters.chapters[0]);
+      else url.searchParams.delete('ch');
       history.replaceState(null, '', url.toString());
     } catch (err) {
       console.warn('[qbank-ui] impossibile aggiornare URL:', err);
     }
+  }
+
+  /**
+   * Riga filtro a multi-selezione: chip "Tutti/Tutte" (svuota l'array,
+   * attiva quando è vuoto) + un chip per valore che fa toggle.
+   * OR dentro la riga, AND tra righe (logica in qbank.filter).
+   */
+  function filterRow(host, key, labelText, ariaText, allLabel, values) {
+    var row = app.el('div', 'qb-row', '');
+    row.appendChild(app.el('span', 'qb-label', labelText));
+    var group = app.el('div', 'chip-group', '');
+    group.setAttribute('role', 'group');
+    group.setAttribute('aria-label', ariaText);
+    group.appendChild(chip(allLabel, view.filters[key].length === 0, function () {
+      clearFilter(key);
+    }));
+    values.forEach(function (v) {
+      var active = view.filters[key].indexOf(v.id) !== -1;
+      var b = chip(v.label, active, function () {
+        toggleFilter(key, v.id);
+      });
+      if (v.disabled) b.disabled = true;
+      if (v.area) b.classList.add('area-' + v.area);
+      group.appendChild(b);
+    });
+    row.appendChild(group);
+    host.appendChild(row);
   }
 
   /* ---------- Toolbar: modalità + filtri ---------- */
@@ -105,71 +136,26 @@
     modeRow.appendChild(modeGroup);
     host.appendChild(modeRow);
 
-    /* Filtro capitolo: il filtro principale richiesto */
-    var chRow = app.el('div', 'qb-row', '');
-    chRow.appendChild(app.el('span', 'qb-label', 'Capitolo'));
-    var chGroup = app.el('div', 'chip-group', '');
-    chGroup.setAttribute('role', 'group');
-    chGroup.setAttribute('aria-label', 'Filtra per capitolo');
-    chGroup.appendChild(chip('Tutti (' + view.all.length + ')', view.filters.chapter === 'all', function () {
-      setFilter('chapter', 'all');
-    }));
-    app.CHAPTERS.forEach(function (c) {
-      var n = (view.byChapter[c.id] || []).length;
-      var b = chip(c.n + '. ' + c.short + ' (' + n + ')', view.filters.chapter === c.id, function () {
-        setFilter('chapter', c.id);
-      });
-      b.classList.add('area-' + c.area);
-      if (!n) b.disabled = true;
-      chGroup.appendChild(b);
-    });
-    chRow.appendChild(chGroup);
-    host.appendChild(chRow);
-
-    /* Filtro difficoltà */
-    var dRow = app.el('div', 'qb-row', '');
-    dRow.appendChild(app.el('span', 'qb-label', 'Difficoltà'));
-    var dGroup = app.el('div', 'chip-group', '');
-    dGroup.setAttribute('role', 'group');
-    dGroup.setAttribute('aria-label', 'Filtra per difficoltà');
-    dGroup.appendChild(chip('Tutte', view.filters.difficulty === 'all', function () {
-      setFilter('difficulty', 'all');
-    }));
-    qbank.DIFFICULTIES.forEach(function (d) {
-      dGroup.appendChild(chip(DIFF_LABEL[d], view.filters.difficulty === d, function () {
-        setFilter('difficulty', d);
+    /* Filtro capitolo: il filtro principale richiesto (multi-selezione) */
+    filterRow(host, 'chapters', 'Capitolo', 'Filtra per capitolo',
+      'Tutti (' + view.all.length + ')',
+      app.CHAPTERS.map(function (c) {
+        return {
+          id: c.id,
+          label: c.n + '. ' + c.short + ' (' + (view.byChapter[c.id] || []).length + ')',
+          area: c.area,
+          disabled: !(view.byChapter[c.id] || []).length
+        };
       }));
-    });
-    dRow.appendChild(dGroup);
-    host.appendChild(dRow);
 
-    /* Filtro stato di avanzamento */
-    var sRow = app.el('div', 'qb-row', '');
-    sRow.appendChild(app.el('span', 'qb-label', 'Stato'));
-    var sGroup = app.el('div', 'chip-group', '');
-    sGroup.setAttribute('role', 'group');
-    sGroup.setAttribute('aria-label', 'Filtra per stato');
-    STATUS_FILTERS.forEach(function (s) {
-      sGroup.appendChild(chip(s.label, view.filters.status === s.id, function () {
-        setFilter('status', s.id);
-      }));
-    });
-    sRow.appendChild(sGroup);
-    host.appendChild(sRow);
+    /* Filtro difficoltà (multi-selezione) */
+    filterRow(host, 'difficulties', 'Difficoltà', 'Filtra per difficoltà', 'Tutte', DIFF_FILTERS);
 
-    /* Filtro origine: generate dal sito vs adattate da pratica online */
-    var oRow = app.el('div', 'qb-row', '');
-    oRow.appendChild(app.el('span', 'qb-label', 'Origine'));
-    var oGroup = app.el('div', 'chip-group', '');
-    oGroup.setAttribute('role', 'group');
-    oGroup.setAttribute('aria-label', 'Filtra per origine delle domande');
-    ORIGIN_FILTERS.forEach(function (o) {
-      oGroup.appendChild(chip(o.label, view.filters.origin === o.id, function () {
-        setFilter('origin', o.id);
-      }));
-    });
-    oRow.appendChild(oGroup);
-    host.appendChild(oRow);
+    /* Filtro stato di avanzamento (multi-selezione, OR tra stati) */
+    filterRow(host, 'statuses', 'Stato', 'Filtra per stato', 'Tutte', STATUS_FILTERS);
+
+    /* Filtro origine: generate dal sito vs adattate da pratica online (multi-selezione) */
+    filterRow(host, 'origins', 'Origine', 'Filtra per origine delle domande', 'Tutte', ORIGIN_FILTERS);
 
     /* Ricerca testuale + azioni */
     var fRow = app.el('div', 'qb-row', '');
@@ -219,11 +205,25 @@
     host.appendChild(fRow);
   }
 
-  /** Cambia un filtro e ridisegna il necessario. */
-  function setFilter(name, value) {
-    view.filters[name] = value;
+  /** Aggiunge/toglie un valore da una riga filtro e ridisegna il necessario. */
+  function toggleFilter(name, value) {
+    var list = view.filters[name];
+    var i = list.indexOf(value);
+    if (i === -1) list.push(value);
+    else list.splice(i, 1);
     view.limit = PAGE_STEP;
-    if (name === 'chapter') syncUrl();
+    if (name === 'chapters') syncUrl();
+    applyFilters();
+    renderToolbar(nodes.toolbar);
+    renderStats();
+    renderBody();
+  }
+
+  /** Svuota una riga filtro (= "Tutti/Tutte") e ridisegna il necessario. */
+  function clearFilter(name) {
+    view.filters[name] = [];
+    view.limit = PAGE_STEP;
+    if (name === 'chapters') syncUrl();
     applyFilters();
     renderToolbar(nodes.toolbar);
     renderStats();
@@ -279,17 +279,11 @@
     var card = app.el('article', 'qcard', '');
     card.dataset.qid = q.id;
 
-    /* Intestazione: numero, capitolo, difficoltà, stellina */
+    /* Intestazione: solo numero + stellina "da rivedere".
+       Niente badge di capitolo/difficoltà/origine/tag: rivelerebbero
+       indizi utili a indovinare (i filtri in toolbar restano visibili). */
     var head = app.el('div', 'qcard-head', '');
     head.appendChild(app.el('span', 'qnum', 'D' + num));
-    var meta = app.byId(q.chapter);
-    var chTag = app.el('span', 'qtag area-' + (meta ? meta.area : 'fondamenti'), chapterLabel(q.chapter));
-    head.appendChild(chTag);
-    head.appendChild(app.el('span', 'qtag diff-' + q.difficulty, DIFF_LABEL[q.difficulty] || q.difficulty));
-    head.appendChild(app.el('span', 'qtag origin-' + (q.origin || 'ai'), ORIGIN_LABEL[q.origin || 'ai'] || q.origin || 'ai'));
-    q.tags.slice(0, 3).forEach(function (t) {
-      head.appendChild(app.el('span', 'qtag tag', t));
-    });
 
     var starred = qbank.state.get(q.id).starred;
     var star = app.el('button', 'star' + (starred ? ' on' : ''), starred ? '★' : '☆');
@@ -648,7 +642,7 @@
 
     /* Capitolo preselezionato via ?ch= (link dalle pagine capitolo). */
     var pre = app.getQueryParam('ch');
-    if (pre && app.byId(pre)) view.filters.chapter = pre;
+    if (pre && app.byId(pre)) view.filters.chapters = [pre];
 
     var ids = app.CHAPTERS.map(function (c) { return c.id; });
     qbank.load(ids).then(function (res) {

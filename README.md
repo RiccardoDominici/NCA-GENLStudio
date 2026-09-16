@@ -32,7 +32,8 @@ In più, un **banco di 554 domande** d'esame (79-80 per capitolo) filtrabile e c
 - **Quiz** di fine capitolo + **tracker** dei progressi in `localStorage`
 - **Banco domande** (`domande.html`): 554 domande filtrabili per capitolo, difficoltà,
   stato (da fare / sbagliate / corrette / segnate ★), origine (🤖 generate dal sito /
-  🌐 adattate da pratica online) e ricerca testuale, con feedback
+  🌐 adattate da pratica online) e ricerca testuale, con selezione multipla
+  per ogni riga di filtro, feedback
   immediato e spiegazione; **simulazione d'esame** a tempo con punteggio e correzione
 - 100% statico, zero build, zero dipendenze: funziona su qualsiasi hosting statico
 
@@ -93,7 +94,8 @@ durata ripartita in proporzione ai caratteri. Dettagli nel docstring di `tools/m
 
 554 domande in stile NCA-GENL (79-80 per capitolo) in `content/questions/<capitolo>.json`,
 una per file secondo il contratto in `content/questions/README`. La pagina
-`domande.html` le filtra per capitolo, difficoltà, stato, origine e testo libero; le
+`domande.html` le filtra per capitolo, difficoltà, stato, origine e testo libero
+(con selezione multipla per riga: OR dentro la riga, AND tra righe); le
 pagine capitolo linkano il proprio sottoinsieme con `domande.html?ch=<id>`.
 Risposte e domande segnate stanno in `localStorage` (chiave `nca-domande`,
 separata dai progressi del corso).
