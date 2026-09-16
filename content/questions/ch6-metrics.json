@@ -1,1568 +1,1350 @@
 [
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La brevity penalty vale 1 quando il candidato è lungo almeno quanto il riferimento e penalizza solo gli output più corti, che potrebbero barare sulla precision con poche parole corrette.",
-  "id": "ch6-q01",
-  "options": [
-   "Penalizzare i candidati più corti del riferimento, che avrebbero una precision gonfiata",
-   "Penalizzare i candidati troppo lunghi e prolissi, che abbassano il recall sul riferimento",
-   "Premiare i candidati con vocabolario ampio e vario, anche se assente dal riferimento",
-   "Normalizzare il punteggio sul numero di riferimenti disponibili per ogni frase candidata"
-  ],
-  "q": "Qual è lo scopo della brevity penalty nella metrica BLEU?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "bleu",
-   "brevity-penalty"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "ROUGE è recall-oriented: misura quanta parte del riferimento è stata catturata dal riassunto generato, ed è la metrica standard per la summarization.",
-  "id": "ch6-q02",
-  "options": [
-   "La precision degli n-grammi del candidato, misurata esattamente come fa la metrica BLEU in traduzione",
-   "Il recall degli n-grammi, cioè quanta parte del riferimento è coperta dal riassunto",
-   "La perplexity del modello sul testo riassunto, come nel language modeling standard",
-   "La latenza di generazione del riassunto misurata in token al secondo in produzione"
-  ],
-  "q": "A differenza di BLEU, la metrica ROUGE è orientata principalmente a cosa?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "rouge",
-   "summarization"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "ROUGE-L usa la longest common subsequence tra candidato e riferimento, catturando così anche l'ordine delle parole a livello di frase.",
-  "id": "ch6-q03",
-  "options": [
-   "La media uniforme di precision su unigrammi e bigrammi estratti dal testo candidato",
-   "Il conteggio di skip-bigrammi convalidati uno a uno da valutatori umani esperti",
-   "La longest common subsequence tra candidato e riferimento, sensibile all'ordine",
-   "La loss di cross-entropy calcolata sul testo riassunto rispetto al riferimento dato"
-  ],
-  "q": "Su cosa si basa la variante ROUGE-L?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "rouge",
-   "rouge-l"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La perplexity misura l'incertezza del modello nel predire il token successivo: valori più bassi indicano predizioni più sicure e fluenti.",
-  "id": "ch6-q04",
-  "options": [
-   "Più alta è meglio, perché un valore alto segnala maggiore creatività e ricchezza del modello",
-   "Più alta è meglio, perché indica che il modello esplora un vocabolario più ampio",
-   "Deve restare sempre pari a 1, unico valore compatibile con un modello ben allenato",
-   "Più bassa è meglio, perché indica minore incertezza nel predire il token successivo"
-  ],
-  "q": "Nel language modeling, come si interpreta la perplexity?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "perplexity",
-   "language-modeling"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Perplexity = exp della loss media di negative log-likelihood: se la loss scende con il fine-tuning, anche la perplexity scende.",
-  "id": "ch6-q05",
-  "options": [
-   "La perplexity diminuisce, perché è l'esponenziale della loss media sul test set",
-   "La perplexity aumenta, perché dopo il fine-tuning il modello resta più sorpreso",
-   "La perplexity resta invariata, perché non dipende in alcun modo dalla loss media",
-   "La perplexity diventa negativa, scendendo sotto lo zero come la loss logaritmica"
-  ],
-  "q": "Un modello ha una loss media di negative log-likelihood di 2.7 sul test set; dopo il fine-tuning la loss scende a 2.0. Cosa accade alla perplexity?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "perplexity",
-   "loss"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La quantization rappresenta pesi e attivazioni con meno bit (da FP32 a FP16/INT8/FP8), riducendo memoria occupata e costo computazionale.",
-  "id": "ch6-q06",
-  "options": [
-   "Aumentare il numero di parametri del modello per migliorarne la capacità espressiva",
-   "Rappresentare pesi e attivazioni con meno bit rispetto alla precisione FP32",
-   "Rimuovere interi layer dal modello per ridurne la profondità e la memoria occupata",
-   "Addestrare il modello su più GPU in parallelo per accelerare la convergenza iniziale"
-  ],
-  "q": "Cosa fa la quantization a livello di rappresentazione numerica?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "quantization"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La PTQ converte un modello già addestrato senza riaddestrarlo, mentre la QAT simula gli effetti della quantizzazione durante il training per preservare meglio l'accuratezza.",
-  "id": "ch6-q07",
-  "options": [
-   "La PTQ richiede sempre un riaddestramento completo, mentre la QAT non lo richiede mai davvero",
-   "La PTQ vale solo per la precisione FP16 e la QAT solo per la precisione INT8 su TPU",
-   "La PTQ quantizza un modello addestrato senza riaddestrarlo, la QAT la simula in training",
-   "Sono due nomi diversi per la stessa identica tecnica di compressione post-training"
-  ],
-  "q": "Qual è la differenza tra post-training quantization (PTQ) e quantization-aware training (QAT)?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "quantization",
-   "ptq",
-   "qat"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Il pruning elimina pesi, neuroni o canali ritenuti poco importanti, rendendo il modello più piccolo e sparso.",
-  "id": "ch6-q08",
-  "options": [
-   "Aggiungere nuovi layer al modello per aumentarne la capacità rappresentativa totale",
-   "Aumentare la precisione dei pesi riportandoli da INT8 a FP32 su ogni singolo layer",
-   "Comprimere il dataset di training rimuovendo gli esempi ritenuti meno informativi",
-   "Rimuovere pesi, neuroni o canali poco importanti per rendere il modello più piccolo"
-  ],
-  "q": "Cosa fa il pruning in un modello neurale?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "pruning"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Lo structured pruning rimuove intere strutture (canali, filtri, layer) ed è hardware-friendly; quello unstructured rimuove singoli pesi, creando sparsità che richiede supporto hardware specifico.",
-  "id": "ch6-q09",
-  "options": [
-   "Lo structured rimuove interi canali ed è hardware-friendly, l'unstructured singoli pesi",
-   "Non esiste alcuna differenza pratica tra i due approcci in termini di sparsità prodotta mai",
-   "Lo structured aumenta sempre la dimensione del modello, mentre l'unstructured la riduce",
-   "L'unstructured vale solo per i transformer e lo structured solo per le reti convolutive"
-  ],
-  "q": "Qual è la differenza tra structured e unstructured pruning?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "pruning"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Nella distillation uno student piccolo e veloce impara a imitare le distribuzioni di output (soft label) di un teacher grande, così da offrire inference economica con qualità vicina a quella del teacher.",
-  "id": "ch6-q10",
-  "options": [
-   "Un modello grande che imita un modello piccolo per aumentarne la capacità complessiva",
-   "Un modello student piccolo che impara a imitare le predizioni di un teacher grande",
-   "Un modello che viene potato progressivamente dopo ogni singola epoca di training",
-   "Un modello i cui pesi sono quantizzati dinamicamente a ogni batch in fase di inferenza"
-  ],
-  "q": "In un setup teacher-student di knowledge distillation, quale affermazione è corretta?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "distillation"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Il data drift è il cambiamento della distribuzione dei dati in produzione rispetto al training; il monitoring continuo serve a rilevarlo prima che degradi le performance.",
-  "id": "ch6-q11",
-  "options": [
-   "L'aumento della latenza di risposta dovuto alla congestione della rete in produzione",
-   "La perdita irreversibile dei pesi del modello verificatasi dopo il deploy in produzione",
-   "Il cambiamento della distribuzione dei dati in produzione rispetto ai dati di training",
-   "L'aumento dei costi di storage legato alla conservazione dei log di inferenza storici"
-  ],
-  "q": "Nel monitoring di un LLM in produzione, cosa si intende per data drift?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "monitoring",
-   "data-drift"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Versionare i modelli permette di confrontare le versioni tra loro e di tornare rapidamente a una versione precedente stabile in caso di regressioni.",
-  "id": "ch6-q12",
-  "options": [
-   "Ridurre la dimensione dei pesi del modello a ogni nuova release messa in produzione",
-   "Aumentare automaticamente l'accuratezza del modello a ogni release senza valutarla",
-   "Evitare del tutto la valutazione, sostituita dal semplice conteggio delle release prodotte",
-   "Tracciare le versioni del modello per consentire confronti diretti e rollback rapidi"
-  ],
-  "q": "Perché il model versioning è importante nel deployment di LLM?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "versioning",
-   "deployment"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "BLEU e ROUGE misurano overlap lessicale con un riferimento e non rilevano factual errors né allucinazioni: serve la valutazione umana o giudici specializzati per la factual correctness.",
-  "id": "ch6-q13",
-  "options": [
-   "Perché metriche come BLEU e ROUGE non rilevano errori fattuali e allucinazioni",
-   "Perché le metriche automatiche sono troppo costose da calcolare su grandi volumi",
-   "Perché la valutazione umana aumenta sempre e comunque il punteggio BLEU ottenuto",
-   "Perché i benchmark pubblici sono vietati nei pipeline di valutazione in produzione"
-  ],
-  "q": "Perché la valutazione umana resta necessaria anche quando si usano metriche automatiche?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "valutazione-umana",
-   "hallucination"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "METEOR estende BLEU gestendo stemming, sinonimi e un migliore allineamento, con una correlazione superiore al giudizio umano rispetto al BLEU puro.",
-  "id": "ch6-q14",
-  "options": [
-   "Misura soltanto la latenza di inferenza, ignorando del tutto la qualità del testo",
-   "Considera stemming, sinonimi e allineamento, correlando meglio col giudizio umano che BLEU",
-   "Richiede sempre un giudice umano in-the-loop per valutare ogni singola frase generata dal modello",
-   "Funziona solo per il retrieval di documenti e non valuta mai la traduzione automatica"
-  ],
-  "q": "Quale caratteristica distingue la metrica METEOR da BLEU?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "meteor",
-   "metriche"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "L'exact match richiede identità esatta di stringa e penalizza risposte corrette ma parafrasate; per la QA generativa lo si affianca alla F1 token-level, che dà credito parziale all'overlap.",
-  "id": "ch6-q15",
-  "options": [
-   "Il sistema ha fallito del tutto, perché un EM pari a 0 indica sempre una risposta inutilizzabile",
-   "Bisogna abbandonare EM e usare solo la perplexity per valutare ogni risposta generativa prodotta",
-   "EM è troppo rigido qui: la risposta è giusta ma non identica, va affiancata la F1 token-level",
-   "Va eliminato il riferimento e accettata qualsiasi risposta che menzioni la parola Parigi"
-  ],
-  "q": "Un sistema di QA genera 'Parigi è la capitale francese' mentre il riferimento è 'Parigi': l'exact match vale 0. Cosa conclude un valutatore esperto?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "exact-match",
-   "f1"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "BLEU calcola la precision modificata degli n-grammi (quanti n-grammi del candidato compaiono nei riferimenti, con conteggi clippati) e non il recall.",
-  "id": "ch6-q16",
-  "options": [
-   "Il recall degli n-grammi del riferimento, cioè quanta parte è coperta dal candidato",
-   "La negative log-likelihood media del modello sul corpus di traduzione parallela",
-   "La similarità semantica tra embedding contestuali di candidato e riferimento tradotto dal modello",
-   "La precision modificata degli n-grammi del candidato rispetto ai riferimenti disponibili"
-  ],
-  "q": "BLEU misura fondamentalmente cosa?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "bleu",
-   "n-gram"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Il BLEU varia da 0 a 1 (spesso riportato 0-100): 1 indica corrispondenza perfetta con il riferimento, 0 nessuna sovrapposizione.",
-  "id": "ch6-q17",
-  "options": [
-   "Da 0 a 1 (o 0-100), dove 1 indica corrispondenza perfetta con il riferimento",
-   "Da -1 a 1, dove 0 è il miglior risultato possibile e 1 indica totale disaccordo",
-   "Da 0 a infinito, senza alcun limite superiore al crescere degli n-grammi uguali",
-   "Sempre tra 0 e 0.5 per costruzione matematica, senza mai raggiungere il massimo"
-  ],
-  "q": "Qual è il range del punteggio BLEU e come si interpreta l'estremo superiore?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "bleu"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "BLEU richiede match esatto degli n-grammi: una parafrasi corretta ma con parole diverse ottiene un punteggio basso, quindi non coglie sinonimi e parafrasi.",
-  "id": "ch6-q18",
-  "options": [
-   "Tende a premiare troppo i sinonimi creativi, assegnando loro sempre un peso eccessivo",
-   "Non coglie sinonimi e parafrasi, perché richiede il match esatto degli n-grammi",
-   "Misura sempre perfettamente la comprensione profonda del testo tradotto dal modello",
-   "È del tutto indipendente dalla lunghezza del riferimento usato per il confronto finale"
-  ],
-  "q": "Un candidato traduce correttamente ma usando sinonimi mai presenti nel riferimento: quale limite di BLEU emerge?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "bleu",
-   "limiti"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "ROUGE-N conta l'overlap di n-grammi di ordine N (ROUGE-1 unigrammi, ROUGE-2 bigrammi), mentre ROUGE-L valuta la longest common subsequence, sensibile all'ordine a livello di frase.",
-  "id": "ch6-q19",
-  "options": [
-   "ROUGE-N misura la perplexity del testo, mentre ROUGE-L ne misura la latenza media",
-   "ROUGE-N e ROUGE-L sono due nomi diversi assegnati alla stessa identica formula matematica di base",
-   "ROUGE-N misura l'overlap di n-grammi di ordine N, ROUGE-L usa la longest common subsequence",
-   "ROUGE-N vale solo per la traduzione automatica e ROUGE-L solo per il retrieval testuale"
-  ],
-  "q": "Qual è la differenza tra ROUGE-N e ROUGE-L?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "rouge",
-   "rouge-l"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "ROUGE-W pesa la longest common subsequence dando più credito ai match consecutivi, premiando così la fluenza e l'ordine corretto delle parole.",
-  "id": "ch6-q20",
-  "options": [
-   "Una variante che calcola l'overlap usando soltanto le stopword del testo candidato",
-   "Una metrica di compressione che misura la riduzione dei pesi del modello in memoria",
-   "Una variante della perplexity progettata specificamente per i testi molto lunghi",
-   "Una variante che pesa la longest common subsequence premiando i match consecutivi"
-  ],
-  "q": "Cosa caratterizza la variante ROUGE-W?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "rouge",
-   "rouge-w"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Con classi sbilanciate l'accuracy è dominata dalla classe maggioritaria; una F1 bassa sulla classe rara rivela che il modello la ignora quasi del tutto.",
-  "id": "ch6-q21",
-  "options": [
-   "Il modello va bene sulla classe maggioritaria ma fallisce sulla rara: l'accuracy da sola inganna",
-   "Il modello è ottimo su tutte le classi, perché un'accuracy di 0.90 garantisce F1 alte ovunque",
-   "La F1 è calcolata male, perché con accuracy 0.90 è impossibile ottenere una F1 di 0.30",
-   "Il modello è da scartare per overfitting, perché ogni divario tra accuracy e F1 indica overfitting"
-  ],
-  "q": "Un modello su classi sbilanciate ha accuracy 0.90 ma F1 di 0.30 sulla classe rara. Come si interpreta il risultato?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "f1",
-   "accuracy",
-   "classi-sbilanciate"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La precision indica, tra gli elementi predetti positivi, quanti sono davvero positivi; il recall indica, tra tutti i positivi reali, quanti sono stati trovati.",
-  "id": "ch6-q22",
-  "options": [
-   "Sono due nomi diversi per la stessa identica misura di qualità del classificatore",
-   "La precision misura i veri positivi sui predetti positivi, il recall quelli reali recuperati",
-   "La precision conta i veri positivi su tutti i positivi reali, il recall sui predetti positivi",
-   "La precision vale solo per il retrieval di documenti, il recall solo per la traduzione"
-  ],
-  "q": "In un task di classificazione, qual è la differenza tra precision e recall?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "precision",
-   "recall"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Con classi sbilanciate, un modello banale che predice sempre la classe maggioritaria ottiene accuracy alta ma F1 basso sulla classe rara: l'accuracy da sola è fuorviante.",
-  "id": "ch6-q23",
-  "options": [
-   "L'accuracy è sempre e comunque la metrica migliore da usare in ogni scenario possibile",
-   "Con classi sbilanciate bisogna abbandonare F1 e usare soltanto la metrica BLEU per tutto",
-   "Accuracy alta col predittore sempre-maggioranza non significa nulla: servono precision, recall e F1",
-   "La confusion matrix non serve mai e può essere ignorata del tutto in questi casi pratici"
-  ],
-  "q": "Un dataset ha il 95% di esempi negativi. Un modello che predice sempre negativo ottiene accuracy 0.95. Cosa conclude un ingegnere ML esperto?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "accuracy",
-   "classi-sbilanciate"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La confusion matrix tabula veri/falsi positivi e negativi, da cui derivano precision, recall, F1 e accuracy: è lo strumento diagnostico di base.",
-  "id": "ch6-q24",
-  "options": [
-   "Il numero totale di parametri del modello rappresentato in forma tabellare compatta",
-   "La curva della training loss tracciata epoca per epoca durante l'intero addestramento svolto",
-   "Il tempo medio di inferenza per batch misurato sull'hardware di produzione utilizzato",
-   "I conteggi di veri e falsi positivi e negativi, da cui derivare precision, recall e F1"
-  ],
-  "q": "Cosa mostra una confusion matrix per un classificatore binario?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "confusion-matrix"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Il macro-average media le metriche per classe dando ugual peso a ogni classe; il micro-average aggrega tutti i conteggi, dando più peso alle classi frequenti.",
-  "id": "ch6-q25",
-  "options": [
-   "Il macro-average dà peso uguale a ogni classe, il micro aggrega i conteggi e premia le frequenti",
-   "Sono identici in tutti i casi possibili e producono sempre esattamente lo stesso valore",
-   "Il macro-average vale solo per la metrica BLEU e il micro-average solo per la metrica ROUGE in pratica",
-   "Il micro-average ignora sempre del tutto la classe maggioritaria presente nel dataset"
-  ],
-  "q": "Qual è la differenza tra macro-average e micro-average di F1 in classificazione multiclasse?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "f1",
-   "macro-micro"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La perplexity è monotonicamente legata alla loss: passare da 15 a 8 significa predizioni molto più sicure, un miglioramento netto della modellazione linguistica.",
-  "id": "ch6-q26",
-  "options": [
-   "Il modello è peggiorato e ora risulta molto più incerto nelle sue predizioni finali",
-   "Il modello è nettamente migliorato: predice i token del test set con minore incertezza",
-   "Non è cambiato nulla di rilevante, perché la perplexity non misura la qualità reale",
-   "Il modello ora allucina di più, perché una perplexity bassa causa sempre più allucinazioni"
-  ],
-  "q": "La perplexity di un LLM sul test set passa da 15 a 8 dopo il fine-tuning. Come si interpreta il risultato?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "perplexity"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "MRR premia il rango del primo risultato rilevante (1/rango), nDCG valuta la qualità graduata di tutta la lista con sconto logaritmico per posizione: sono le metriche standard del ranking nel retrieval.",
-  "id": "ch6-q27",
-  "options": [
-   "Il tempo di indicizzazione dei documenti nella collezione usata dal sistema di retrieval vettoriale",
-   "La dimensione totale dell'indice vettoriale costruito con gli embedding dei documenti",
-   "La qualità del ranking: MRR guarda il rango del primo rilevante, nDCG l'intera lista graduata",
-   "La perplexity del retriever calcolata sui documenti recuperati per ogni interrogazione"
-  ],
-  "q": "In un sistema RAG, cosa misurano MRR e nDCG nella fase di retrieval?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "mrr",
-   "ndcg",
-   "retrieval"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La curva ROC mette in relazione true positive rate e false positive rate al variare della soglia; l'AUC (0.5 casuale, 1.0 perfetto) riassume la capacità discriminativa del classificatore.",
-  "id": "ch6-q28",
-  "options": [
-   "La loss di training tracciata in funzione del numero di epoche di addestramento eseguite",
-   "Il punteggio BLEU tracciato in funzione della lunghezza del testo candidato generato",
-   "La latenza di inferenza tracciata in funzione della dimensione del batch usato in produzione nel test",
-   "Il true positive rate contro il false positive rate al variare della soglia, con AUC riassuntiva"
-  ],
-  "q": "Cosa rappresenta una curva ROC e la relativa AUC?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "roc",
-   "auc"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "BERTScore confronta gli embedding contestuali dei token invece degli n-grammi esatti, riconoscendo sinonimi e parafrasi che BLEU penalizzerebbe.",
-  "id": "ch6-q29",
-  "options": [
-   "BERTScore usa similarità tra embedding contestuali e coglie sinonimi e parafrasi, BLEU no",
-   "BLEU è una metrica semantica profonda mentre BERTScore resta soltanto lessicale e rigido per natura",
-   "Sono entrambe metriche di latenza e non misurano in alcun modo la qualità del testo",
-   "BERTScore misura soltanto la lunghezza del testo senza mai confrontarlo col riferimento"
-  ],
-  "q": "Perché BERTScore è spesso preferito a BLEU per valutare la similarità semantica tra candidato e riferimento?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "bertscore",
-   "bleu"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Nella dynamic quantization i pesi sono quantizzati staticamente mentre le attivazioni vengono quantizzate al volo a ogni inference, senza bisogno di dati di calibrazione né riaddestramento.",
-  "id": "ch6-q30",
-  "options": [
-   "Una tecnica che riaddestra interamente il modello a ogni singola richiesta ricevuta in produzione",
-   "Le attivazioni quantizzate al volo durante l'inferenza, senza calibrazione né riaddestramento",
-   "Un tipo di pruning dinamico che rimuove interi layer del modello durante l'inferenza",
-   "Una forma di distillation online in cui teacher e student si aggiornano a vicenda di continuo"
-  ],
-  "q": "Cosa si intende per dynamic quantization?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "quantization",
-   "dynamic-quantization"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La calibrazione INT8 usa un dataset rappresentativo per stimare scale e zero-point delle attivazioni, così da mappare bene l'intervallo dinamico reale e contenere il calo di accuratezza.",
-  "id": "ch6-q31",
-  "options": [
-   "La regolazione del learning rate eseguita automaticamente dopo ogni singola epoca di training",
-   "Il conteggio preciso dei parametri totali del modello prima della fase di compressione",
-   "La stima di scale e zero-point delle attivazioni su dati reali per mapparne l'intervallo",
-   "La potatura preventiva dei pesi eseguita sempre prima di ogni fase di quantizzazione"
-  ],
-  "q": "Un team applica PTQ a INT8 e usa un campione di dati reali per la calibrazione. A cosa serve questa calibrazione?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "quantization",
-   "ptq",
-   "calibrazione"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "QAT è indicata quando la PTQ degrada troppo l'accuratezza (tipico a bassi bit come INT8/INT4): simulando la quantizzazione in training il modello impara pesi robusti all'errore di quantizzazione.",
-  "id": "ch6-q32",
-  "options": [
-   "Quando si vuole evitare qualsiasi forma di riaddestramento aggiuntivo del modello finale in produzione",
-   "Solo per i modelli già compressi in FP16 e pronti per il deploy su hardware mobile",
-   "Quando il budget di training è zero ma serve comunque la massima accuratezza possibile",
-   "Quando la PTQ degrada troppo l'accuratezza e si può sostenere un ulteriore ciclo di training"
-  ],
-  "q": "In quale situazione è preferibile la quantization-aware training (QAT) rispetto alla sola PTQ?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "quantization",
-   "qat"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La latenza è il tempo per singola richiesta (critica per chat interattiva), il throughput è il numero di richieste completate per unità di tempo (critico per batch offline).",
-  "id": "ch6-q33",
-  "options": [
-   "La latenza è il tempo per singola richiesta, il throughput le richieste servite per unità di tempo",
-   "Sono sinonimi intercambiabili che indicano la stessa identica grandezza misurata sempre in produzione",
-   "La latenza misura solo la fase di training mentre il throughput solo lo storage utilizzato",
-   "Il throughput è sempre uguale all'inverso matematico della perplexity del modello stesso"
-  ],
-  "q": "Nel tradeoff di produzione di un LLM, qual è la differenza tra latency e throughput?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "latency",
-   "throughput"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Un A/B test affidabile richiede un campione sufficiente e un test di significatività: differenze su pochi campioni possono essere puro rumore statistico.",
-  "id": "ch6-q34",
-  "options": [
-   "Basta confrontare le medie aritmetiche calcolate su un campione di circa 20 richieste",
-   "Serve un campione adeguato e un test di significatività che escluda il semplice rumore statistico",
-   "La significatività si ottiene soltanto dividendo il traffico in proporzione fissa 90 a 10",
-   "I test statistici sono del tutto inutili quando si valutano i grandi modelli linguistici moderni in produzione"
-  ],
-  "q": "Il modello B ottiene un punteggio leggermente superiore al modello A su 30 prompt. Perché un ingegnere prudente non dichiara subito B vincitore?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "a/b testing",
-   "significatività"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Se il traffico non è assegnato casualmente (es. utenti premium su un modello e free sull'altro), il confronto è distorto: gli utenti diversi, non i modelli, spiegano la differenza.",
-  "id": "ch6-q35",
-  "options": [
-   "Usare due metriche completamente diverse per valutare i due modelli messi a confronto",
-   "Versionare entrambi i modelli con tag identici così da confonderne i log di inferenza",
-   "Assegnare il traffico in modo non casuale, ad esempio utenti premium su A e gratuiti su B",
-   "Monitorare solo la latenza di entrambi i modelli senza confrontarne mai la qualità generativa"
-  ],
-  "q": "Quale errore introduce un bias di traffico in un A/B test tra due LLM?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "a/b testing",
-   "bias"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Con c=10 e r=12 si ha c < r, quindi BP = exp(1 - 12/10) = exp(-0.2) ≈ 0.82: una penalità moderata per un candidato più corto del 17% circa.",
-  "id": "ch6-q36",
-  "options": [
-   "1, perché la brevity penalty non si applica mai ai candidati più corti del riferimento",
-   "0, perché la brevity penalty annulla il punteggio sotto la lunghezza di riferimento",
-   "0.5 esatto per definizione, qualunque siano le lunghezze di candidato e riferimento usati",
-   "Circa 0.82, cioè exp(1 - 12/10), perché il candidato è più corto del riferimento"
-  ],
-  "q": "Nella formula BLEU, un candidato lungo c=10 token ha un riferimento efficace lungo r=12 token. Quanto vale la brevity penalty?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "bleu",
-   "brevity-penalty"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Il candidato ha 6 unigrammi; 5 compaiono nel riferimento (manca solo 'sat'): precision = 5/6 ≈ 0.83, prima dell'applicazione di brevity penalty e media geometrica.",
-  "id": "ch6-q37",
-  "options": [
-   "5/6, perché 5 dei 6 unigrammi del candidato compaiono anche nel riferimento",
-   "6/6, perché candidato e riferimento hanno lo stesso identico significato complessivo",
-   "4/6, perché gli articoli determinativi non vanno mai conteggiati nella precision",
-   "1/6, perché solo la parola diversa tra i due testi porta informazione davvero utile"
-  ],
-  "q": "Candidato: 'The cat sat on the mat'. Riferimento: 'The cat is on the mat'. Quanto vale la unigram precision (BLEU-1 senza brevity penalty)?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "bleu",
-   "n-gram"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Il riferimento ha 5 unigrammi; il candidato ne cattura 4 (manca solo 'gatto'): recall = 4/5 = 0.80. La precision vale anch'essa 4/5 perché il candidato ha 5 token.",
-  "id": "ch6-q38",
-  "options": [
-   "3/5, pari alla precision del candidato calcolata dividendo per i suoi 5 token totali",
-   "4/5 = 0.80, perché 4 dei 5 unigrammi del riferimento sono catturati dal candidato",
-   "3/4 = 0.75, dividendo i token del candidato per quelli totali del riferimento dato",
-   "1.0 pieno, perché il significato complessivo della frase risulta perfettamente preservato"
-  ],
-  "q": "Riferimento: 'il gatto dorme sul divano' (5 token). Candidato: 'il cane dorme sul divano' (5 token). Quanto vale ROUGE-1 recall?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "rouge",
-   "recall"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Su Hopper/Ada/Blackwell FP8 offre un buon compromesso tra accuratezza e velocità per i transformer; INT8 dà compressione maggiore ma richiede calibrazione attenta, FP16 è il fallback più sicuro.",
-  "id": "ch6-q39",
-  "options": [
-   "Usare sempre FP32 su ogni layer per ottenere la massima velocità di inferenza possibile",
-   "Passare direttamente a INT4 su tutto il modello senza svolgere alcuna valutazione preliminare di accuratezza",
-   "Provare FP8 su TensorRT con fallback a FP16, usando INT8 calibrato solo per massima compressione",
-   "Evitare qualsiasi quantizzazione perché i modelli transformer non la supportano in nessun caso"
-  ],
-  "q": "Un team deve servire un LLM su GPU Hopper con TensorRT, riducendo memoria e latenza con calo di accuratezza minimo. Quale strategia di quantizzazione è più sensata?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "quantization",
-   "tensorrt",
-   "fp8"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "MMLU testa conoscenza e comprensione multitask a scelta multipla, HELM valuta olisticamente accuratezza, robustezza, fairness ed efficienza: sono benchmark di capacità generali, complementari alle metriche generation come BLEU/ROUGE.",
-  "id": "ch6-q40",
-  "options": [
-   "Due metriche di n-gram precision progettate esclusivamente per la traduzione automatica",
-   "Due tecniche di pruning strutturato applicate ai layer dei grandi modelli linguistici",
-   "Due framework di quantization-aware training integrati in TensorRT e NVIDIA ModelOpt per il deploy",
-   "Due suite di benchmark generali: MMLU per conoscenza multitask, HELM per valutazione olistica"
-  ],
-  "q": "Cosa sono MMLU e HELM nel contesto della valutazione degli LLM?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "benchmark",
-   "mmlu",
-   "helm"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Le allucinazioni sono affermazioni fluenti ma false; RAG ancora il modello a documenti recuperati riducendole, e la valutazione deve includere factuality umana perché BLEU/ROUGE non la misurano.",
-  "id": "ch6-q41",
-  "options": [
-   "Le allucinazioni motivano RAG e valutazione di factual correctness oltre a BLEU e ROUGE",
-   "Le allucinazioni si eliminano del tutto aumentando la brevity penalty della metrica BLEU",
-   "RAG aumenta le allucinazioni del modello ma migliora comunque il punteggio ROUGE ottenuto",
-   "Le metriche automatiche rilevano sempre ogni allucinazione senza alcun bisogno di umani"
-  ],
-  "q": "Qual è il legame tra hallucination, RAG e limiti delle metriche automatiche?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "hallucination",
-   "rag",
-   "valutazione"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Una temperatura alta ammorbidisce le soft label del teacher, rivelando le relazioni tra classi (dark knowledge); la loss combina cross-entropy sulle label vere e divergenza verso i soft target.",
-  "id": "ch6-q42",
-  "options": [
-   "La temperatura controlla il calore fisico dissipato dalla GPU durante la fase di training",
-   "T alta ammorbidisce i soft target tra classi e la loss unisce cross-entropy e divergenza",
-   "La distillation usa soltanto hard label e non prevede mai l'uso di alcuna temperatura",
-   "La distillation richiede teacher e student con stessa identica dimensione e architettura"
-  ],
-  "q": "Nella knowledge distillation, che ruolo hanno la temperatura (T) e la loss composta?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "distillation"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "La magnitude pruning rimuove i pesi con valore assoluto minore; dopo la potatura serve quasi sempre un fine-tuning per recuperare l'accuratezza persa.",
-  "id": "ch6-q43",
-  "options": [
-   "Rimuove i pesi con valore assoluto maggiore perché dominano troppo l'output finale del modello in uso",
-   "Rimuove casualmente interi dataset di training per alleggerire il carico computazionale totale",
-   "Rimuove i pesi con valore assoluto minore ed è seguita da fine-tuning per recuperare accuratezza",
-   "Non richiede mai alcun recupero o riaddestramento dopo la potatura eseguita sui pesi"
-  ],
-  "q": "Cosa fa la magnitude pruning e quale passo segue normalmente?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "pruning",
-   "fine-tuning"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Il traffico 50/50 simultaneo con assegnazione casuale garantisce confronto equo; il deploy simultaneo controlla gli effetti temporali e la randomizzazione elimina il bias di selezione.",
-  "id": "ch6-q44",
-  "options": [
-   "Lanciare i due modelli in settimane diverse per confrontarne i trend storici di utilizzo",
-   "Instradare da subito tutto il traffico sul nuovo modello senza mantenere attivo il vecchio",
-   "Usare prompt diversi per ciascun modello così da coprire il maggior numero di scenari",
-   "Servire entrambi i modelli insieme con traffico casuale 50/50 sugli stessi prompt"
-  ],
-  "q": "Per confrontare equamente due versioni di un LLM in produzione evitando bias temporali e di selezione, quale disegno di A/B test è raccomandato?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "a/b testing",
-   "deployment"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Metriche piatte ma feedback negativi crescenti suggeriscono drift semantico o query fuori distribuzione: servono logging delle query, ricalibrazione delle metriche con giudizi umani e possibile aggiornamento di dati o retriever.",
-  "id": "ch6-q45",
-  "options": [
-   "Drift delle query rispetto al training invisibile a BLEU/ROUGE: servono analisi e giudizi umani",
-   "Aumentare semplicemente la brevity penalty della metrica per penalizzare le risposte errate",
-   "Quantizzare ulteriormente il modello a INT4 per velocizzare la generazione delle risposte date in produzione",
-   "Disattivare il monitoring perché la stabilità delle metriche garantisce una qualità adeguata"
-  ],
-  "q": "Dopo il deploy di un assistente RAG, BLEU e ROUGE restano stabili ma crescono i reclami degli utenti per risposte non pertinenti. Qual è la diagnosi più probabile e il passo successivo?",
-  "source": "elaborata su blueprint NCA-GENL",
-  "tags": [
-   "monitoring",
-   "data-drift",
-   "rag"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "BLEU è la metrica lessicale standard per la traduzione automatica perché misura la precision degli n-grammi del candidato rispetto ai riferimenti.",
-  "id": "ch6-ext01",
-  "options": [
-   "ROUGE-L, perché la traduzione richiede il recall sulla longest common subsequence",
-   "BLEU, perché misura la precision degli n-grammi del candidato sui riferimenti",
-   "La perplexity, perché la traduzione non ha bisogno di alcun testo di riferimento",
-   "La latenza media, perché la velocità è l'unico criterio per un traduttore"
-  ],
-  "origin": "esterna",
-  "q": "Un team deve valutare un sistema di traduzione automatica inglese-italiano con riferimenti umani disponibili. Quale metrica lessicale è la scelta più naturale?",
-  "source": "Adattata da ExamTopics (NCA-GENL)",
-  "tags": [
-   "bleu",
-   "traduzione-automatica"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La perplexity si calcola dalle probabilità assegnate dal modello al testo, quindi non richiede alcun riferimento umano ed è ideale per la valutazione intrinseca della fluency.",
-  "id": "ch6-ext02",
-  "options": [
-   "ROUGE-2, che confronta i bigrammi del candidato con un riassunto di riferimento",
-   "BLEU con brevity penalty, che richiede almeno un riferimento umano parallelo",
-   "La perplexity, che usa solo le probabilità del modello e non richiede riferimenti",
-   "L'exact match, che verifica l'identità tra output e risposta attesa parola per parola"
-  ],
-  "origin": "esterna",
-  "q": "Quale metrica permette di valutare la fluency di un modello senza disporre di alcun testo di riferimento?",
-  "source": "Adattata da Quizlet – set NCA-GENL",
-  "tags": [
-   "perplexity",
-   "reference-free"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La F1 è la media armonica di precision e recall: penalizza i casi in cui una delle due è bassa, a differenza della media aritmetica che li nasconderebbe.",
-  "id": "ch6-ext03",
-  "options": [
-   "La media armonica di precision e recall, che penalizza uno squilibrio tra le due",
-   "La media aritmetica di accuracy e perplexity calcolata sul test set",
-   "Il rapporto tra veri positivi e falsi negativi osservati in produzione",
-   "La differenza tra il punteggio BLEU e il punteggio ROUGE sullo stesso output"
-  ],
-  "origin": "esterna",
-  "q": "In classificazione, la F1 è definita come cosa?",
-  "source": "Adattata da ExamTopics (NCA-GENL)",
-  "tags": [
-   "f1",
-   "precision",
-   "recall"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La triade RAG di TruLens valuta l'intera pipeline: retrieval pertinente, risposta ancorata al contesto e risposta pertinente alla domanda.",
-  "id": "ch6-ext04",
-  "options": [
-   "Context relevance, groundedness e answer relevance, che coprono retrieval e generazione",
-   "Precision, recall e F1 calcolate sui token dei documenti indicizzati",
-   "Training loss, validation loss e test loss del modello generativo",
-   "Latenza, throughput e costo per token dell'intera pipeline RAG"
-  ],
-  "origin": "esterna",
-  "q": "Secondo il framework TruLens, da quali tre dimensioni è composta la cosiddetta triade RAG?",
-  "source": "Adattata da TruLens (TruEra)",
-  "tags": [
-   "trulens",
-   "rag",
-   "triade-rag"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "La groundedness verifica che ogni affermazione della risposta sia sostenuta dal contesto recuperato: un punteggio basso segnala allucinazioni anche con risposta pertinente.",
-  "id": "ch6-ext05",
-  "options": [
-   "La velocità con cui il retriever restituisce i chunk dalla base vettoriale",
-   "La groundedness, che verifica il supporto di ogni affermazione nel contesto",
-   "La dimensione media in token dei chunk indicizzati nel database",
-   "Il numero di documenti totali presenti nell'indice vettoriale"
-  ],
-  "origin": "esterna",
-  "q": "In un bot di assistenza RAG, quale feedback di TruLens useresti per rilevare le allucinazioni?",
-  "source": "Adattata da TruLens (TruEra)",
-  "tags": [
-   "trulens",
-   "groundedness",
-   "hallucination"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "RLHF prevede prima il supervised fine-tuning, poi l'addestramento di un reward model sui giudizi umani e infine l'ottimizzazione con RL, spesso PPO.",
-  "id": "ch6-ext06",
-  "options": [
-   "Tokenizzazione, embedding e decoding greedy della risposta finale",
-   "Chunking, retrieval vettoriale e generazione condizionata dal contesto",
-   "Pre-training, quantization a INT8 e deploy su inference server",
-   "Supervised fine-tuning, reward model su preferenze umane e ottimizzazione con RL"
-  ],
-  "origin": "esterna",
-  "q": "Quali sono le tre fasi classiche di RLHF (reinforcement learning from human feedback)?",
-  "source": "Adattata da Medium – report esame NCA-GENL",
-  "tags": [
-   "rlhf",
-   "human-feedback",
-   "allineamento"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "BLEU misura la precision degli n-grammi con valori tra 0 e 1: un punteggio di 0.85 indica un'elevata sovrapposizione lessicale col riferimento.",
-  "id": "ch6-ext07",
-  "options": [
-   "Una pessima qualità, perché BLEU premia solo i punteggi vicini allo zero",
-   "Un'incertezza elevata del modello, equivalente a una perplexity molto alta",
-   "Un'elevata sovrapposizione di n-grammi tra candidato e riferimento",
-   "Un ottimo recall sui riassunti, tipico della metrica ROUGE"
-  ],
-  "origin": "esterna",
-  "q": "Un sistema di traduzione ottiene un BLEU di 0.85 sul test set. Come si interpreta?",
-  "source": "Adattata da Quizlet – set NCA-GENL",
-  "tags": [
-   "bleu",
-   "interpretazione"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "TruthfulQA è il benchmark progettato per misurare veridicità e tendenza a generare falsità plausibili, complementare ai benchmark di conoscenza come MMLU.",
-  "id": "ch6-ext08",
-  "options": [
-   "Un formato di quantization a 8 bit per accelerare l'inferenza su GPU",
-   "Una tecnica di pruning non strutturato dei pesi del modello",
-   "Un indice vettoriale per il retrieval nei sistemi RAG",
-   "Un benchmark che misura quanto un modello genera affermazioni veritiere"
-  ],
-  "origin": "esterna",
-  "q": "Cosa valuta il benchmark TruthfulQA nel contesto degli LLM?",
-  "source": "Adattata da repo GitHub nca-genl-study-guide",
-  "tags": [
-   "benchmark",
-   "truthfulqa",
-   "hallucination"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "I segnali impliciti ed espliciti degli utenti (pollici, rating, correzioni) sono la fonte più comune di feedback per valutare e migliorare i sistemi RAG in produzione.",
-  "id": "ch6-ext09",
-  "options": [
-   "Pollici su/giù, rating, correzioni e ranking di preferenza espressi dagli utenti",
-   "I log di utilizzo della GPU durante le ore di picco del servizio",
-   "La dimensione del vocabolario del tokenizer usato dal modello",
-   "Il numero di parametri del modello generativo in produzione"
-  ],
-  "origin": "esterna",
-  "q": "In un sistema RAG in produzione, come si raccoglie più comunemente lo human feedback?",
-  "source": "Adattata da TruLens (TruEra)",
-  "tags": [
-   "human-feedback",
-   "rag",
-   "produzione"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Nel paradigma LLM-as-judge un modello valuta l'output di un altro modello seguendo una rubric, così da cogliere aspetti semantici che BLEU e ROUGE ignorano.",
-  "id": "ch6-ext10",
-  "options": [
-   "Un valutatore umano che assegna un voto da 1 a 5 a ogni risposta",
-   "La media aritmetica di BLEU, ROUGE e METEOR sullo stesso output",
-   "Un modello LLM che valuta l'output seguendo una rubric con criteri definiti",
-   "Un classificatore binario che misura solo la lunghezza della risposta"
-  ],
-  "origin": "esterna",
-  "q": "Cosa si intende per valutazione LLM-as-judge?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "llm-as-judge",
-   "valutazione"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "facile",
-  "explain": "Answer relevance alta con faithfulness bassa significa risposta pertinente ma non ancorata ai documenti: il modello parla del tema giusto inventando i fatti, spesso per retrieval scarso o ignorato.",
-  "id": "ch6-ext11",
-  "options": [
-   "Il sistema è perfetto: entrambe le metriche confermano la qualità del retrieval",
-   "La risposta è pertinente ma allucinata: retrieval scarso o contesto ignorato",
-   "Il retriever funziona bene e il generatore copia esattamente i chunk",
-   "Il prompt di sistema è troppo lungo e va accorciato subito"
-  ],
-  "origin": "esterna",
-  "q": "Un sistema RAG ottiene answer relevance 0.95 ma faithfulness 0.45. Qual è la diagnosi?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "ragas",
-   "faithfulness",
-   "answer-relevance"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "RAGAS scompone la risposta in affermazioni atomiche e conta quante sono supportate dal contesto: 6 su 8 dà faithfulness pari a 0.75.",
-  "id": "ch6-ext12",
-  "options": [
-   "1.0, perché basta che la maggior parte delle affermazioni sia supportata",
-   "0.45, dividendo le affermazioni non supportate per quelle totali",
-   "0.75, cioè 6 affermazioni supportate su 8 totali",
-   "0.25, cioè 2 affermazioni non supportate diviso 8 totali"
-  ],
-  "origin": "esterna",
-  "q": "Una risposta RAG contiene 8 affermazioni atomiche e il giudice ne trova 6 supportate dal contesto. Quanto vale la faithfulness RAGAS?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "ragas",
-   "faithfulness",
-   "calcolo"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La context precision misura il rapporto segnale-rumore del retriever (i chunk rilevanti stanno in alto?), mentre la context recall misura se tutto il materiale necessario è stato recuperato.",
-  "id": "ch6-ext13",
-  "options": [
-   "La context precision valuta il ranking dei chunk rilevanti, la recall la copertura del materiale",
-   "La context precision misura la fluency, la recall la velocità del retriever",
-   "Sono due nomi diversi per la stessa formula applicata ai chunk recuperati",
-   "La precision vale solo senza ground truth, la recall solo senza contesto"
-  ],
-  "origin": "esterna",
-  "q": "In RAGAS, qual è la differenza tra context precision e context recall?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "ragas",
-   "context-precision",
-   "context-recall"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Faithfulness e answer relevance sono reference-free e funzionano in produzione senza etichette; context recall e answer correctness richiedono la ground truth annotata.",
-  "id": "ch6-ext14",
-  "options": [
-   "Faithfulness e context recall, entrambe calcolabili dai soli chunk recuperati",
-   "Answer relevance e context precision, che non usano mai la ground truth",
-   "Tutte le metriche RAGAS richiedono sempre una ground truth annotata",
-   "Context recall e answer correctness, che confrontano col ground truth annotato"
-  ],
-  "origin": "esterna",
-  "q": "Quali metriche RAGAS richiedono una ground truth annotata dall'uomo?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "ragas",
-   "ground-truth",
-   "reference-based"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Senza clipping un candidato come 'the the the' otterrebbe precision perfetta; il conteggio clippato limita ogni n-gramma alle occorrenze nel riferimento e impedisce questo gaming.",
-  "id": "ch6-ext15",
-  "options": [
-   "Per premiare i candidati molto corti che ripetono una sola parola corretta",
-   "Per clippare i conteggi alle occorrenze nel riferimento ed evitare il gaming",
-   "Per eliminare dal calcolo tutti gli unigrammi presenti nel riferimento",
-   "Per convertire la precision in recall quando i riferimenti sono multipli"
-  ],
-  "origin": "esterna",
-  "q": "Perché BLEU usa la modified (clipped) precision invece della precision semplice?",
-  "source": "Adattata da ExamTopics (NCA-GENL)",
-  "tags": [
-   "bleu",
-   "clipped-precision"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "I bigrammi del candidato sono 5 (the-cat, cat-sat, sat-on, on-the, the-mat) e 3 compaiono nel riferimento (the-cat, on-the, the-mat): precision pari a 3/5 = 0.60.",
-  "id": "ch6-ext16",
-  "options": [
-   "5/5 = 1.0, perché le due frasi hanno identico significato complessivo",
-   "4/5 = 0.80, contando anche il bigramma cat-sat come quasi corretto",
-   "3/5 = 0.60, cioè 3 bigrammi del candidato presenti nel riferimento",
-   "2/5 = 0.40, perché gli articoli non vanno mai conteggiati nei bigrammi"
-  ],
-  "origin": "esterna",
-  "q": "Candidato: 'the cat sat on the mat'. Riferimento: 'the cat is on the mat'. Quanto vale la bigram precision?",
-  "source": "Adattata da Quizlet – set NCA-GENL",
-  "tags": [
-   "bleu",
-   "bigrammi",
-   "calcolo"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La perplexity dipende dalla tokenizzazione: due modelli con vocabolari diversi definiscono distribuzioni diverse, quindi i valori non sono confrontabili direttamente.",
-  "id": "ch6-ext17",
-  "options": [
-   "No, perché tokenizer diversi definiscono distribuzioni diverse e i valori non sono confrontabili",
-   "Sì, basta confrontare i valori grezzi: il più basso indica sempre il modello migliore",
-   "Sì, perché la perplexity è indipendente dal vocabolario per costruzione matematica",
-   "No, perché la perplexity si può calcolare solo sui modelli della stessa famiglia"
-  ],
-  "origin": "esterna",
-  "q": "Si può confrontare direttamente la perplexity di due modelli con tokenizer diversi?",
-  "source": "Adattata da repo GitHub nca-genl-study-guide",
-  "tags": [
-   "perplexity",
-   "tokenizer",
-   "limiti"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "BLEURT e COMET sono metriche apprese: modelli allenati su giudizi umani che stimano la qualità, catturando sinonimi e parafrasi meglio dell'overlap lessicale di BLEU.",
-  "id": "ch6-ext18",
-  "options": [
-   "Due varianti della brevity penalty per candidati molto più corti del riferimento",
-   "Due benchmark a scelta multipla per la conoscenza enciclopedica dei modelli",
-   "Due tecniche di quantization a basso numero di bit per l'inferenza",
-   "Due metriche apprese da giudizi umani che catturano qualità semantica oltre l'overlap"
-  ],
-  "origin": "esterna",
-  "q": "Cosa sono BLEURT e COMET nel contesto della valutazione della generazione?",
-  "source": "Adattata da Medium – report esame NCA-GENL",
-  "tags": [
-   "bleurt",
-   "comet",
-   "metriche-apprese"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "DPO ottimizza direttamente le preferenze umane senza reward model esplicito né loop RL, risultando più stabile e semplice di PPO.",
-  "id": "ch6-ext19",
-  "options": [
-   "Richiede un reward model più grande e un loop RL più lungo rispetto a PPO",
-   "Ottimizza le preferenze direttamente senza reward model esplicito, in modo più stabile",
-   "Funziona solo per modelli di visione e non per i modelli linguistici",
-   "Aumenta le allucinazioni perché elimina del tutto lo human feedback"
-  ],
-  "origin": "esterna",
-  "q": "Qual è il principale vantaggio di DPO rispetto a PPO nell'allineamento alle preferenze?",
-  "source": "Adattata da Medium – report esame NCA-GENL",
-  "tags": [
-   "dpo",
-   "ppo",
-   "rlhf"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Il verbosity bias porta il giudice a preferire risposte lunghe a prescindere dalla qualità: la rubric deve premiare concisione e completezza, non la lunghezza.",
-  "id": "ch6-ext20",
-  "options": [
-   "La tendenza a preferire sempre la prima risposta mostrata nella coppia",
-   "La tendenza a rifiutare qualsiasi risposta generata da un modello diverso",
-   "La tendenza a preferire le risposte più lunghe a prescindere dalla qualità",
-   "La tendenza a dare sempre il punteggio massimo per evitare decisioni difficili"
-  ],
-  "origin": "esterna",
-  "q": "Cosa si intende per verbosity bias in un giudice LLM?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "llm-as-judge",
-   "bias",
-   "verbosity-bias"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "Usare un giudice di famiglia diversa dal generatore, temperatura 0 e valutazione cieca riduce self-preference, rumore e bias di posizione nella valutazione automatica.",
-  "id": "ch6-ext21",
-  "options": [
-   "Giudice di famiglia diversa dal generatore, temperatura 0 e confronti in cieco",
-   "Giudice identico al generatore con temperatura alta e prompt senza rubric",
-   "Un solo giudizio per campione senza mai controllare l'accordo tra valutatori",
-   "Valutare solo la lunghezza delle risposte ignorando contenuto e contesto"
-  ],
-  "origin": "esterna",
-  "q": "Quali accorgimenti riducono i bias di un giudice LLM (self-preference, posizione, rumore)?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "llm-as-judge",
-   "bias",
-   "best-practice"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "La ground truth ha 5 affermazioni e 4 sono attribuibili ai contesti: context recall pari a 4/5 = 0.80, mentre un chunk mancante spiega la parte non coperta.",
-  "id": "ch6-ext22",
-  "options": [
-   "1.0, perché il retriever ha comunque restituito almeno un chunk rilevante",
-   "0.80, cioè 4 affermazioni della ground truth su 5 attribuibili ai contesti",
-   "0.50, dividendo i chunk recuperati per quelli totali dell'indice vettoriale",
-   "0.0, perché una sola affermazione mancante azzera sempre il punteggio"
-  ],
-  "origin": "esterna",
-  "q": "La ground truth ha 5 affermazioni e 4 risultano attribuibili ai chunk recuperati. Quanto vale il context recall?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "ragas",
-   "context-recall",
-   "calcolo"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "media",
-  "explain": "F-beta pesa il recall beta volte più della precision: con beta = 2 (F2) i falsi negativi costano di più, giusto quando mancare un positivo è grave, come nello screening medico.",
-  "id": "ch6-ext23",
-  "options": [
-   "La media tra BLEU e ROUGE calcolata sullo stesso insieme di candidati",
-   "Il rapporto tra la latenza di inferenza e il throughput in produzione",
-   "La perplexity misurata solo sui token finali di ogni sequenza generata",
-   "Una F che pesa il recall più della precision, utile quando i falsi negativi costano cari"
-  ],
-  "origin": "esterna",
-  "q": "Cosa misura la F2 (variante F-beta con beta = 2) e quando è appropriata?",
-  "source": "Adattata da ExamTopics (NCA-GENL)",
-  "tags": [
-   "f-beta",
-   "recall",
-   "classi-sbilanciate"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "F1 = 2·P·R/(P+R) = 2·0.8·0.6/1.4 = 0.96/1.4 ≈ 0.69: più vicina al valore minore, come tipico della media armonica.",
-  "id": "ch6-ext24",
-  "options": [
-   "Circa 0.69, cioè 2·0.8·0.6 diviso (0.8+0.6)",
-   "Circa 0.70, cioè la media aritmetica semplice di 0.8 e 0.6",
-   "Circa 0.48, cioè il prodotto diretto di precision e recall",
-   "Circa 1.40, cioè la somma di precision e recall sul test set"
-  ],
-  "origin": "esterna",
-  "q": "Un classificatore ha precision 0.8 e recall 0.6 sulla classe positiva. Quanto vale la F1?",
-  "source": "Adattata da Quizlet – set NCA-GENL",
-  "tags": [
-   "f1",
-   "calcolo",
-   "precision",
-   "recall"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Il riferimento ha 6 unigrammi e il candidato ne cattura 4 (il, cane, nel, parco): ROUGE-1 recall = 4/6 ≈ 0.67.",
-  "id": "ch6-ext25",
-  "options": [
-   "5/6 ≈ 0.83, perché quasi tutti i token del riferimento sono coperti",
-   "4/6 ≈ 0.67, cioè 4 unigrammi del riferimento catturati su 6",
-   "4/5 = 0.80, dividendo per i token del candidato invece che del riferimento",
-   "1.0, perché le due frasi descrivono la stessa scena del parco"
-  ],
-  "origin": "esterna",
-  "q": "Riferimento: 'il cane abbaia forte nel parco' (6 token). Candidato: 'il cane corre nel parco' (5 token). Quanto vale ROUGE-1 recall?",
-  "source": "Adattata da Quizlet – set NCA-GENL",
-  "tags": [
-   "rouge",
-   "recall",
-   "calcolo"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Perplexity = exp della negative log-likelihood media: exp(1.5) ≈ 4.48, quindi il modello è mediamente incerto tra circa 4-5 token.",
-  "id": "ch6-ext26",
-  "options": [
-   "1.5, perché la perplexity coincide sempre con la loss media",
-   "Circa 2.72, cioè la costante di Eulero elevata alla loss dimezzata",
-   "Circa 4.48, cioè exp(1.5) della negative log-likelihood media",
-   "Circa 0.22, cioè l'inverso della negative log-likelihood media"
-  ],
-  "origin": "esterna",
-  "q": "Un modello ha negative log-likelihood media di 1.5 sul test set. Quanto vale la perplexity?",
-  "source": "Adattata da ExamTopics (NCA-GENL)",
-  "tags": [
-   "perplexity",
-   "calcolo",
-   "loss"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Con c = 8 < r = 10 la brevity penalty vale exp(1 − 10/8) = exp(−0.25) ≈ 0.78: penalità moderata per un candidato più corto del 20%.",
-  "id": "ch6-ext27",
-  "options": [
-   "1.0, perché la penalty si applica solo ai candidati più lunghi del riferimento",
-   "0.0, perché qualsiasi candidato più corto viene azzerato per definizione",
-   "0.50 esatto, valore fisso per ogni candidato sotto la lunghezza di riferimento",
-   "Circa 0.78, cioè exp(1 − 10/8) perché il candidato è più corto del riferimento"
-  ],
-  "origin": "esterna",
-  "q": "Nella formula BLEU, un candidato di 8 token ha riferimento efficace di 10 token. Quanto vale la brevity penalty?",
-  "source": "Adattata da repo GitHub nca-genl-study-guide",
-  "tags": [
-   "bleu",
-   "brevity-penalty",
-   "calcolo"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Overlap di 4 token su 4 del candidato (precision 1.0) e su 5 del riferimento (recall 0.8): F1 token-level = 2·1·0.8/1.8 ≈ 0.89.",
-  "id": "ch6-ext28",
-  "options": [
-   "Circa 0.89, con precision 1.0 sul candidato e recall 0.80 sul riferimento",
-   "1.0 pieno, perché exact match e F1 coincidono sempre in QA",
-   "0.0, perché le due frasi hanno ordine delle parole diverso",
-   "Circa 0.50, cioè la media tra la lunghezza del candidato e del riferimento"
-  ],
-  "origin": "esterna",
-  "q": "Riferimento: 'Canberra è la capitale dell'Australia'. Candidato: 'la capitale è Canberra'. Quanto vale la F1 token-level?",
-  "source": "Adattata da Quizlet – set NCA-GENL",
-  "tags": [
-   "f1",
-   "qa",
-   "calcolo"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Il macro-average media le F1 per classe con peso uguale: (0.9+0.6+0.3)/3 = 0.60, senza farsi dominare dalle classi frequenti.",
-  "id": "ch6-ext29",
-  "options": [
-   "0.90, cioè la F1 della classe migliore che rappresenta l'intero modello",
-   "0.60, cioè la media non pesata delle tre F1 di classe",
-   "0.30, cioè la F1 della classe peggiore che azzera le altre",
-   "0.75, cioè la media tra la classe migliore e quella peggiore"
-  ],
-  "origin": "esterna",
-  "q": "Tre classi hanno F1 pari a 0.9, 0.6 e 0.3. Quanto vale la macro-F1?",
-  "source": "Adattata da ExamTopics (NCA-GENL)",
-  "tags": [
-   "f1",
-   "macro-average",
-   "calcolo"
-  ]
- },
- {
-  "answer": 2,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "MRR media i reciproci dei ranghi del primo risultato rilevante: (1 + 1/3 + 1/2)/3 ≈ 0.61.",
-  "id": "ch6-ext30",
-  "options": [
-   "1.0, perché almeno una query ha il rilevante in prima posizione",
-   "0.33, cioè l'inverso del numero di query valutate nel test",
-   "Circa 0.61, cioè la media di 1, 1/3 e 1/2 sui ranghi osservati",
-   "2.0, cioè la somma dei ranghi dei primi risultati rilevanti"
-  ],
-  "origin": "esterna",
-  "q": "Tre query hanno il primo documento rilevante ai ranghi 1, 3 e 2. Quanto vale il Mean Reciprocal Rank?",
-  "source": "Adattata da repo GitHub nca-genl-study-guide",
-  "tags": [
-   "mrr",
-   "retrieval",
-   "calcolo"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Il confronto pairwise in cieco con rating Elo aggrega molte preferenze binarie in un ranking stabile, mitigando verbosity e position bias meglio dei punteggi assoluti.",
-  "id": "ch6-ext31",
-  "options": [
-   "Assegnare a ogni risposta un voto assoluto da 1 a 10 senza confronti",
-   "Usare sempre lo stesso ordine di presentazione per tutte le coppie",
-   "Valutare solo con BLEU perché i giudici LLM sono troppo rumorosi",
-   "Confronti pairwise in cieco aggregati con rating Elo su molti giudizi"
-  ],
-  "origin": "esterna",
-  "q": "Quale protocollo rende più affidabile la valutazione comparativa tra due LLM con un giudice automatico?",
-  "source": "Adattata da documentazione RAGAS (ragas.io)",
-  "tags": [
-   "llm-as-judge",
-   "pairwise",
-   "elo"
-  ]
- },
- {
-  "answer": 0,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Il kappa di Cohen misura l'accordo tra annotatori oltre il caso: valori bassi indicano linee guida ambigue e giudizi umani poco affidabili come gold standard.",
-  "id": "ch6-ext32",
-  "options": [
-   "Il kappa di Cohen tra annotatori: se è basso, le linee guida sono ambigue",
-   "La brevity penalty media delle risposte valutate dagli annotatori",
-   "La perplexity del modello giudice misurata sulle risposte umane",
-   "Il numero totale di annotatori diviso per il numero di prompt"
-  ],
-  "origin": "esterna",
-  "q": "Due annotatori valutano 100 risposte ma concordano poco. Quale misura diagnostica il problema?",
-  "source": "Adattata da Medium – report esame NCA-GENL",
-  "tags": [
-   "human-feedback",
-   "inter-annotator-agreement",
-   "kappa"
-  ]
- },
- {
-  "answer": 1,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "Se i dati di benchmark sono finiti nel training, i punteggi sono gonfiati: servono benchmark freschi o tenuti nascosti e reportistica sulla decontaminazione.",
-  "id": "ch6-ext33",
-  "options": [
-   "Aumentare la temperatura del modello per rendere i punteggi più creativi",
-   "Contaminazione del training: servono benchmark freschi e decontaminazione",
-   "La brevity penalty di BLEU va ricalibrata su ogni nuovo benchmark",
-   "I benchmark vanno abbandonati perché la valutazione umana basta sempre"
-  ],
-  "origin": "esterna",
-  "q": "Un modello ottiene punteggi record sui benchmark pubblici ma delude su domande nuove. Qual è la spiegazione più probabile?",
-  "source": "Adattata da repo GitHub nca-genl-study-guide",
-  "tags": [
-   "benchmark",
-   "contaminazione",
-   "limiti"
-  ]
- },
- {
-  "answer": 3,
-  "chapter": "ch6-metrics",
-  "difficulty": "difficile",
-  "explain": "In produzione spesso mancano risposte gold, quindi si monitorano metriche reference-free (faithfulness, answer relevance) e si riservano quelle con ground truth ai cicli di valutazione offline.",
-  "id": "ch6-ext34",
-  "options": [
-   "Usare solo BLEU e ROUGE perché non richiedono mai alcun riferimento",
-   "Raccogliere ground truth per ogni query di produzione prima di rispondere",
-   "Abbandonare la valutazione in produzione perché è impossibile senza etichette",
-   "Monitorare metriche reference-free in produzione e usare la ground truth offline"
-  ],
-  "origin": "esterna",
-  "q": "Come si progetta la valutazione RAG quando in produzione non esistono risposte gold?",
-  "source": "Adattata da TruLens (TruEra)",
-  "tags": [
-   "rag",
-   "reference-free",
-   "produzione",
-   "ragas"
-  ]
- }
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "La brevity penalty vale 1 quando il candidato è lungo almeno quanto il riferimento e penalizza solo gli output più corti, che potrebbero barare sulla precision con poche parole corrette.",
+    "id": "ch6-q01",
+    "options": [
+      "Penalizzare i candidati più corti del riferimento, che avrebbero una precision gonfiata",
+      "Penalizzare i candidati troppo lunghi e prolissi, che abbassano il recall sul riferimento",
+      "Premiare i candidati con vocabolario ampio e vario, anche se assente dal riferimento",
+      "Normalizzare il punteggio sul numero di riferimenti disponibili per ogni frase candidata"
+    ],
+    "q": "Qual è lo scopo della brevity penalty nella metrica BLEU?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "bleu",
+      "brevity-penalty"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "ROUGE è recall-oriented: misura quanta parte del riferimento è stata catturata dal riassunto generato, ed è la metrica standard per la summarization.",
+    "id": "ch6-q02",
+    "options": [
+      "La precision degli n-grammi del candidato, misurata esattamente come fa la metrica BLEU in traduzione",
+      "Il recall degli n-grammi, cioè quanta parte del riferimento è coperta dal riassunto",
+      "La perplexity del modello sul testo riassunto, come nel language modeling standard",
+      "La latenza di generazione del riassunto misurata in token al secondo in produzione"
+    ],
+    "q": "A differenza di BLEU, la metrica ROUGE è orientata principalmente a cosa?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "rouge",
+      "summarization"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "ROUGE-L usa la longest common subsequence tra candidato e riferimento, catturando così anche l'ordine delle parole a livello di frase.",
+    "id": "ch6-q03",
+    "options": [
+      "La media uniforme di precision su unigrammi e bigrammi estratti dal testo candidato",
+      "Il conteggio di skip-bigrammi convalidati uno a uno da valutatori umani esperti",
+      "La longest common subsequence tra candidato e riferimento, sensibile all'ordine",
+      "La loss di cross-entropy calcolata sul testo riassunto rispetto al riferimento dato"
+    ],
+    "q": "Su cosa si basa la variante ROUGE-L?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "rouge",
+      "rouge-l"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "La perplexity misura l'incertezza del modello nel predire il token successivo: valori più bassi indicano predizioni più sicure e fluenti.",
+    "id": "ch6-q04",
+    "options": [
+      "Più alta è meglio, perché un valore alto segnala maggiore creatività e ricchezza del modello",
+      "Più alta è meglio, perché indica che il modello esplora un vocabolario più ampio",
+      "Deve restare sempre pari a 1, unico valore compatibile con un modello ben allenato",
+      "Più bassa è meglio, perché indica minore incertezza nel predire il token successivo"
+    ],
+    "q": "Nel language modeling, come si interpreta la perplexity?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "perplexity",
+      "language-modeling"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "Perplexity = exp della loss media di negative log-likelihood: se la loss scende con il fine-tuning, anche la perplexity scende.",
+    "id": "ch6-q05",
+    "options": [
+      "La perplexity diminuisce, perché è l'esponenziale della loss media sul test set",
+      "La perplexity aumenta, perché dopo il fine-tuning il modello resta più sorpreso",
+      "La perplexity resta invariata, perché non dipende in alcun modo dalla loss media",
+      "La perplexity diventa negativa, scendendo sotto lo zero come la loss logaritmica"
+    ],
+    "q": "Un modello ha una loss media di negative log-likelihood di 2.7 sul test set; dopo il fine-tuning la loss scende a 2.0. Cosa accade alla perplexity?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "perplexity",
+      "loss"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "La quantization rappresenta pesi e attivazioni con meno bit (da FP32 a FP16/INT8/FP8), riducendo memoria occupata e costo computazionale.",
+    "id": "ch6-q06",
+    "options": [
+      "Aumentare il numero di parametri del modello per migliorarne la capacità espressiva",
+      "Rappresentare pesi e attivazioni con meno bit rispetto alla precisione FP32",
+      "Rimuovere interi layer dal modello per ridurne la profondità e la memoria occupata",
+      "Addestrare il modello su più GPU in parallelo per accelerare la convergenza iniziale"
+    ],
+    "q": "Cosa fa la quantization a livello di rappresentazione numerica?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "quantization"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "La PTQ converte un modello già addestrato senza riaddestrarlo, mentre la QAT simula gli effetti della quantizzazione durante il training per preservare meglio l'accuratezza.",
+    "id": "ch6-q07",
+    "options": [
+      "La PTQ richiede sempre un riaddestramento completo, mentre la QAT non lo richiede mai davvero",
+      "La PTQ vale solo per la precisione FP16 e la QAT solo per la precisione INT8 su TPU",
+      "La PTQ quantizza un modello addestrato senza riaddestrarlo, la QAT la simula in training",
+      "Sono due nomi diversi per la stessa identica tecnica di compressione post-training"
+    ],
+    "q": "Qual è la differenza tra post-training quantization (PTQ) e quantization-aware training (QAT)?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "quantization",
+      "ptq",
+      "qat"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "Il pruning elimina pesi, neuroni o canali ritenuti poco importanti, rendendo il modello più piccolo e sparso.",
+    "id": "ch6-q08",
+    "options": [
+      "Aggiungere nuovi layer al modello per aumentarne la capacità rappresentativa totale",
+      "Aumentare la precisione dei pesi riportandoli da INT8 a FP32 su ogni singolo layer",
+      "Comprimere il dataset di training rimuovendo gli esempi ritenuti meno informativi",
+      "Rimuovere pesi, neuroni o canali poco importanti per rendere il modello più piccolo"
+    ],
+    "q": "Cosa fa il pruning in un modello neurale?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "pruning"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "Lo structured pruning rimuove intere strutture (canali, filtri, layer) ed è hardware-friendly; quello unstructured rimuove singoli pesi, creando sparsità che richiede supporto hardware specifico.",
+    "id": "ch6-q09",
+    "options": [
+      "Lo structured rimuove interi canali ed è hardware-friendly, l'unstructured singoli pesi",
+      "Non esiste alcuna differenza pratica tra i due approcci in termini di sparsità prodotta mai",
+      "Lo structured aumenta sempre la dimensione del modello, mentre l'unstructured la riduce",
+      "L'unstructured vale solo per i transformer e lo structured solo per le reti convolutive"
+    ],
+    "q": "Qual è la differenza tra structured e unstructured pruning?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "pruning"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "Nella distillation uno student piccolo e veloce impara a imitare le distribuzioni di output (soft label) di un teacher grande, così da offrire inference economica con qualità vicina a quella del teacher.",
+    "id": "ch6-q10",
+    "options": [
+      "Un modello grande che imita un modello piccolo per aumentarne la capacità complessiva",
+      "Un modello student piccolo che impara a imitare le predizioni di un teacher grande",
+      "Un modello che viene potato progressivamente dopo ogni singola epoca di training",
+      "Un modello i cui pesi sono quantizzati dinamicamente a ogni batch in fase di inferenza"
+    ],
+    "q": "In un setup teacher-student di knowledge distillation, quale affermazione è corretta?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "distillation"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "Il data drift è il cambiamento della distribuzione dei dati in produzione rispetto al training; il monitoring continuo serve a rilevarlo prima che degradi le performance.",
+    "id": "ch6-q11",
+    "options": [
+      "L'aumento della latenza di risposta dovuto alla congestione della rete in produzione",
+      "La perdita irreversibile dei pesi del modello verificatasi dopo il deploy in produzione",
+      "Il cambiamento della distribuzione dei dati in produzione rispetto ai dati di training",
+      "L'aumento dei costi di storage legato alla conservazione dei log di inferenza storici"
+    ],
+    "q": "Nel monitoring di un LLM in produzione, cosa si intende per data drift?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "monitoring",
+      "data-drift"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "Versionare i modelli permette di confrontare le versioni tra loro e di tornare rapidamente a una versione precedente stabile in caso di regressioni.",
+    "id": "ch6-q12",
+    "options": [
+      "Ridurre la dimensione dei pesi del modello a ogni nuova release messa in produzione",
+      "Aumentare automaticamente l'accuratezza del modello a ogni release senza valutarla",
+      "Evitare del tutto la valutazione, sostituita dal semplice conteggio delle release prodotte",
+      "Tracciare le versioni del modello per consentire confronti diretti e rollback rapidi"
+    ],
+    "q": "Perché il model versioning è importante nel deployment di LLM?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "versioning",
+      "deployment"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "BLEU e ROUGE misurano overlap lessicale con un riferimento e non rilevano factual errors né allucinazioni: serve la valutazione umana o giudici specializzati per la factual correctness.",
+    "id": "ch6-q13",
+    "options": [
+      "Perché metriche come BLEU e ROUGE non rilevano errori fattuali e allucinazioni",
+      "Perché le metriche automatiche sono troppo costose da calcolare su grandi volumi",
+      "Perché la valutazione umana aumenta sempre e comunque il punteggio BLEU ottenuto",
+      "Perché i benchmark pubblici sono vietati nei pipeline di valutazione in produzione"
+    ],
+    "q": "Perché la valutazione umana resta necessaria anche quando si usano metriche automatiche?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "valutazione-umana",
+      "hallucination"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "METEOR estende BLEU gestendo stemming, sinonimi e un migliore allineamento, con una correlazione superiore al giudizio umano rispetto al BLEU puro.",
+    "id": "ch6-q14",
+    "options": [
+      "Misura soltanto la latenza di inferenza, ignorando del tutto la qualità del testo",
+      "Considera stemming, sinonimi e allineamento, correlando meglio col giudizio umano che BLEU",
+      "Richiede sempre un giudice umano in-the-loop per valutare ogni singola frase generata dal modello",
+      "Funziona solo per il retrieval di documenti e non valuta mai la traduzione automatica"
+    ],
+    "q": "Quale caratteristica distingue la metrica METEOR da BLEU?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "meteor",
+      "metriche"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "L'exact match richiede identità esatta di stringa e penalizza risposte corrette ma parafrasate; per la QA generativa lo si affianca alla F1 token-level, che dà credito parziale all'overlap.",
+    "id": "ch6-q15",
+    "options": [
+      "Il sistema ha fallito del tutto, perché un EM pari a 0 indica sempre una risposta inutilizzabile",
+      "Bisogna abbandonare EM e usare solo la perplexity per valutare ogni risposta generativa prodotta",
+      "EM è troppo rigido qui: la risposta è giusta ma non identica, va affiancata la F1 token-level",
+      "Va eliminato il riferimento e accettata qualsiasi risposta che menzioni la parola Parigi"
+    ],
+    "q": "Un sistema di QA genera 'Parigi è la capitale francese' mentre il riferimento è 'Parigi': l'exact match vale 0. Cosa conclude un valutatore esperto?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "exact-match",
+      "f1"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "BLEU calcola la precision modificata degli n-grammi (quanti n-grammi del candidato compaiono nei riferimenti, con conteggi clippati) e non il recall.",
+    "id": "ch6-q16",
+    "options": [
+      "Il recall degli n-grammi del riferimento, cioè quanta parte è coperta dal candidato",
+      "La negative log-likelihood media del modello sul corpus di traduzione parallela",
+      "La similarità semantica tra embedding contestuali di candidato e riferimento tradotto dal modello",
+      "La precision modificata degli n-grammi del candidato rispetto ai riferimenti disponibili"
+    ],
+    "q": "BLEU misura fondamentalmente cosa?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "bleu",
+      "n-gram"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Il BLEU varia da 0 a 1 (spesso riportato 0-100): 1 indica corrispondenza perfetta con il riferimento, 0 nessuna sovrapposizione.",
+    "id": "ch6-q17",
+    "options": [
+      "Da 0 a 1 (o 0-100), dove 1 indica corrispondenza perfetta con il riferimento",
+      "Da -1 a 1, dove 0 è il miglior risultato possibile e 1 indica totale disaccordo",
+      "Da 0 a infinito, senza alcun limite superiore al crescere degli n-grammi uguali",
+      "Sempre tra 0 e 0.5 per costruzione matematica, senza mai raggiungere il massimo"
+    ],
+    "q": "Qual è il range del punteggio BLEU e come si interpreta l'estremo superiore?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "bleu"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "BLEU richiede match esatto degli n-grammi: una parafrasi corretta ma con parole diverse ottiene un punteggio basso, quindi non coglie sinonimi e parafrasi.",
+    "id": "ch6-q18",
+    "options": [
+      "Tende a premiare troppo i sinonimi creativi, assegnando loro sempre un peso eccessivo",
+      "Non coglie sinonimi e parafrasi, perché richiede il match esatto degli n-grammi",
+      "Misura sempre perfettamente la comprensione profonda del testo tradotto dal modello",
+      "È del tutto indipendente dalla lunghezza del riferimento usato per il confronto finale"
+    ],
+    "q": "Un candidato traduce correttamente ma usando sinonimi mai presenti nel riferimento: quale limite di BLEU emerge?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "bleu",
+      "limiti"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "ROUGE-N conta l'overlap di n-grammi di ordine N (ROUGE-1 unigrammi, ROUGE-2 bigrammi), mentre ROUGE-L valuta la longest common subsequence, sensibile all'ordine a livello di frase.",
+    "id": "ch6-q19",
+    "options": [
+      "ROUGE-N misura la perplexity del testo, mentre ROUGE-L ne misura la latenza media",
+      "ROUGE-N e ROUGE-L sono due nomi diversi assegnati alla stessa identica formula matematica di base",
+      "ROUGE-N misura l'overlap di n-grammi di ordine N, ROUGE-L usa la longest common subsequence",
+      "ROUGE-N vale solo per la traduzione automatica e ROUGE-L solo per il retrieval testuale"
+    ],
+    "q": "Qual è la differenza tra ROUGE-N e ROUGE-L?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "rouge",
+      "rouge-l"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "ROUGE-W pesa la longest common subsequence dando più credito ai match consecutivi, premiando così la fluenza e l'ordine corretto delle parole.",
+    "id": "ch6-q20",
+    "options": [
+      "Una variante che calcola l'overlap usando soltanto le stopword del testo candidato",
+      "Una metrica di compressione che misura la riduzione dei pesi del modello in memoria",
+      "Una variante della perplexity progettata specificamente per i testi molto lunghi",
+      "Una variante che pesa la longest common subsequence premiando i match consecutivi"
+    ],
+    "q": "Cosa caratterizza la variante ROUGE-W?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "rouge",
+      "rouge-w"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Con classi sbilanciate l'accuracy è dominata dalla classe maggioritaria; una F1 bassa sulla classe rara rivela che il modello la ignora quasi del tutto.",
+    "id": "ch6-q21",
+    "options": [
+      "Il modello va bene sulla classe maggioritaria ma fallisce sulla rara: l'accuracy da sola inganna",
+      "Il modello è ottimo su tutte le classi, perché un'accuracy di 0.90 garantisce F1 alte ovunque",
+      "La F1 è calcolata male, perché con accuracy 0.90 è impossibile ottenere una F1 di 0.30",
+      "Il modello è da scartare per overfitting, perché ogni divario tra accuracy e F1 indica overfitting"
+    ],
+    "q": "Un modello su classi sbilanciate ha accuracy 0.90 ma F1 di 0.30 sulla classe rara. Come si interpreta il risultato?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "f1",
+      "accuracy",
+      "classi-sbilanciate"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "La precision indica, tra gli elementi predetti positivi, quanti sono davvero positivi; il recall indica, tra tutti i positivi reali, quanti sono stati trovati.",
+    "id": "ch6-q22",
+    "options": [
+      "Sono due nomi diversi per la stessa identica misura di qualità del classificatore",
+      "La precision misura i veri positivi sui predetti positivi, il recall quelli reali recuperati",
+      "La precision conta i veri positivi su tutti i positivi reali, il recall sui predetti positivi",
+      "La precision vale solo per il retrieval di documenti, il recall solo per la traduzione"
+    ],
+    "q": "In un task di classificazione, qual è la differenza tra precision e recall?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "precision",
+      "recall"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Con classi sbilanciate, un modello banale che predice sempre la classe maggioritaria ottiene accuracy alta ma F1 basso sulla classe rara: l'accuracy da sola è fuorviante.",
+    "id": "ch6-q23",
+    "options": [
+      "L'accuracy è sempre e comunque la metrica migliore da usare in ogni scenario possibile",
+      "Con classi sbilanciate bisogna abbandonare F1 e usare soltanto la metrica BLEU per tutto",
+      "Accuracy alta col predittore sempre-maggioranza non significa nulla: servono precision, recall e F1",
+      "La confusion matrix non serve mai e può essere ignorata del tutto in questi casi pratici"
+    ],
+    "q": "Un dataset ha il 95% di esempi negativi. Un modello che predice sempre negativo ottiene accuracy 0.95. Cosa conclude un ingegnere ML esperto?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "accuracy",
+      "classi-sbilanciate"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "La confusion matrix tabula veri/falsi positivi e negativi, da cui derivano precision, recall, F1 e accuracy: è lo strumento diagnostico di base.",
+    "id": "ch6-q24",
+    "options": [
+      "Il numero totale di parametri del modello rappresentato in forma tabellare compatta",
+      "La curva della training loss tracciata epoca per epoca durante l'intero addestramento svolto",
+      "Il tempo medio di inferenza per batch misurato sull'hardware di produzione utilizzato",
+      "I conteggi di veri e falsi positivi e negativi, da cui derivare precision, recall e F1"
+    ],
+    "q": "Cosa mostra una confusion matrix per un classificatore binario?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "confusion-matrix"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Il macro-average media le metriche per classe dando ugual peso a ogni classe; il micro-average aggrega tutti i conteggi, dando più peso alle classi frequenti.",
+    "id": "ch6-q25",
+    "options": [
+      "Il macro-average dà peso uguale a ogni classe, il micro aggrega i conteggi e premia le frequenti",
+      "Sono identici in tutti i casi possibili e producono sempre esattamente lo stesso valore",
+      "Il macro-average vale solo per la metrica BLEU e il micro-average solo per la metrica ROUGE in pratica",
+      "Il micro-average ignora sempre del tutto la classe maggioritaria presente nel dataset"
+    ],
+    "q": "Qual è la differenza tra macro-average e micro-average di F1 in classificazione multiclasse?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "f1",
+      "macro-micro"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "La perplexity è monotonicamente legata alla loss: passare da 15 a 8 significa predizioni molto più sicure, un miglioramento netto della modellazione linguistica.",
+    "id": "ch6-q26",
+    "options": [
+      "Il modello è peggiorato e ora risulta molto più incerto nelle sue predizioni finali",
+      "Il modello è nettamente migliorato: predice i token del test set con minore incertezza",
+      "Non è cambiato nulla di rilevante, perché la perplexity non misura la qualità reale",
+      "Il modello ora allucina di più, perché una perplexity bassa causa sempre più allucinazioni"
+    ],
+    "q": "La perplexity di un LLM sul test set passa da 15 a 8 dopo il fine-tuning. Come si interpreta il risultato?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "perplexity"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "MRR premia il rango del primo risultato rilevante (1/rango), nDCG valuta la qualità graduata di tutta la lista con sconto logaritmico per posizione: sono le metriche standard del ranking nel retrieval.",
+    "id": "ch6-q27",
+    "options": [
+      "Il tempo di indicizzazione dei documenti nella collezione usata dal sistema di retrieval vettoriale",
+      "La dimensione totale dell'indice vettoriale costruito con gli embedding dei documenti",
+      "La qualità del ranking: MRR guarda il rango del primo rilevante, nDCG l'intera lista graduata",
+      "La perplexity del retriever calcolata sui documenti recuperati per ogni interrogazione"
+    ],
+    "q": "In un sistema RAG, cosa misurano MRR e nDCG nella fase di retrieval?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "mrr",
+      "ndcg",
+      "retrieval"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "La curva ROC mette in relazione true positive rate e false positive rate al variare della soglia; l'AUC (0.5 casuale, 1.0 perfetto) riassume la capacità discriminativa del classificatore.",
+    "id": "ch6-q28",
+    "options": [
+      "La loss di training tracciata in funzione del numero di epoche di addestramento eseguite",
+      "Il punteggio BLEU tracciato in funzione della lunghezza del testo candidato generato",
+      "La latenza di inferenza tracciata in funzione della dimensione del batch usato in produzione nel test",
+      "Il true positive rate contro il false positive rate al variare della soglia, con AUC riassuntiva"
+    ],
+    "q": "Cosa rappresenta una curva ROC e la relativa AUC?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "roc",
+      "auc"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "BERTScore confronta gli embedding contestuali dei token invece degli n-grammi esatti, riconoscendo sinonimi e parafrasi che BLEU penalizzerebbe.",
+    "id": "ch6-q29",
+    "options": [
+      "BERTScore usa similarità tra embedding contestuali e coglie sinonimi e parafrasi, BLEU no",
+      "BLEU è una metrica semantica profonda mentre BERTScore resta soltanto lessicale e rigido per natura",
+      "Sono entrambe metriche di latenza e non misurano in alcun modo la qualità del testo",
+      "BERTScore misura soltanto la lunghezza del testo senza mai confrontarlo col riferimento"
+    ],
+    "q": "Perché BERTScore è spesso preferito a BLEU per valutare la similarità semantica tra candidato e riferimento?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "bertscore",
+      "bleu"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Nella dynamic quantization i pesi sono quantizzati staticamente mentre le attivazioni vengono quantizzate al volo a ogni inference, senza bisogno di dati di calibrazione né riaddestramento.",
+    "id": "ch6-q30",
+    "options": [
+      "Una tecnica che riaddestra interamente il modello a ogni singola richiesta ricevuta in produzione",
+      "Le attivazioni quantizzate al volo durante l'inferenza, senza calibrazione né riaddestramento",
+      "Un tipo di pruning dinamico che rimuove interi layer del modello durante l'inferenza",
+      "Una forma di distillation online in cui teacher e student si aggiornano a vicenda di continuo"
+    ],
+    "q": "Cosa si intende per dynamic quantization?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "quantization",
+      "dynamic-quantization"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "La calibrazione INT8 usa un dataset rappresentativo per stimare scale e zero-point delle attivazioni, così da mappare bene l'intervallo dinamico reale e contenere il calo di accuratezza.",
+    "id": "ch6-q31",
+    "options": [
+      "La regolazione del learning rate eseguita automaticamente dopo ogni singola epoca di training",
+      "Il conteggio preciso dei parametri totali del modello prima della fase di compressione",
+      "La stima di scale e zero-point delle attivazioni su dati reali per mapparne l'intervallo",
+      "La potatura preventiva dei pesi eseguita sempre prima di ogni fase di quantizzazione"
+    ],
+    "q": "Un team applica PTQ a INT8 e usa un campione di dati reali per la calibrazione. A cosa serve questa calibrazione?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "quantization",
+      "ptq",
+      "calibrazione"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "QAT è indicata quando la PTQ degrada troppo l'accuratezza (tipico a bassi bit come INT8/INT4): simulando la quantizzazione in training il modello impara pesi robusti all'errore di quantizzazione.",
+    "id": "ch6-q32",
+    "options": [
+      "Quando si vuole evitare qualsiasi forma di riaddestramento aggiuntivo del modello finale in produzione",
+      "Solo per i modelli già compressi in FP16 e pronti per il deploy su hardware mobile",
+      "Quando il budget di training è zero ma serve comunque la massima accuratezza possibile",
+      "Quando la PTQ degrada troppo l'accuratezza e si può sostenere un ulteriore ciclo di training"
+    ],
+    "q": "In quale situazione è preferibile la quantization-aware training (QAT) rispetto alla sola PTQ?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "quantization",
+      "qat"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "La latenza è il tempo per singola richiesta (critica per chat interattiva), il throughput è il numero di richieste completate per unità di tempo (critico per batch offline).",
+    "id": "ch6-q33",
+    "options": [
+      "La latenza è il tempo per singola richiesta, il throughput le richieste servite per unità di tempo",
+      "Sono sinonimi intercambiabili che indicano la stessa identica grandezza misurata sempre in produzione",
+      "La latenza misura solo la fase di training mentre il throughput solo lo storage utilizzato",
+      "Il throughput è sempre uguale all'inverso matematico della perplexity del modello stesso"
+    ],
+    "q": "Nel tradeoff di produzione di un LLM, qual è la differenza tra latency e throughput?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "latency",
+      "throughput"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Un A/B test affidabile richiede un campione sufficiente e un test di significatività: differenze su pochi campioni possono essere puro rumore statistico.",
+    "id": "ch6-q34",
+    "options": [
+      "Basta confrontare le medie aritmetiche calcolate su un campione di circa 20 richieste",
+      "Serve un campione adeguato e un test di significatività che escluda il semplice rumore statistico",
+      "La significatività si ottiene soltanto dividendo il traffico in proporzione fissa 90 a 10",
+      "I test statistici sono del tutto inutili quando si valutano i grandi modelli linguistici moderni in produzione"
+    ],
+    "q": "Il modello B ottiene un punteggio leggermente superiore al modello A su 30 prompt. Perché un ingegnere prudente non dichiara subito B vincitore?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "a/b testing",
+      "significatività"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Se il traffico non è assegnato casualmente (es. utenti premium su un modello e free sull'altro), il confronto è distorto: gli utenti diversi, non i modelli, spiegano la differenza.",
+    "id": "ch6-q35",
+    "options": [
+      "Usare due metriche completamente diverse per valutare i due modelli messi a confronto",
+      "Versionare entrambi i modelli con tag identici così da confonderne i log di inferenza",
+      "Assegnare il traffico in modo non casuale, ad esempio utenti premium su A e gratuiti su B",
+      "Monitorare solo la latenza di entrambi i modelli senza confrontarne mai la qualità generativa"
+    ],
+    "q": "Quale errore introduce un bias di traffico in un A/B test tra due LLM?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "a/b testing",
+      "bias"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Con c=10 e r=12 si ha c < r, quindi BP = exp(1 - 12/10) = exp(-0.2) ≈ 0.82: una penalità moderata per un candidato più corto del 17% circa.",
+    "id": "ch6-q36",
+    "options": [
+      "1, perché la brevity penalty non si applica mai ai candidati più corti del riferimento",
+      "0, perché la brevity penalty annulla il punteggio sotto la lunghezza di riferimento",
+      "0.5 esatto per definizione, qualunque siano le lunghezze di candidato e riferimento usati",
+      "Circa 0.82, cioè exp(1 - 12/10), perché il candidato è più corto del riferimento"
+    ],
+    "q": "Nella formula BLEU, un candidato lungo c=10 token ha un riferimento efficace lungo r=12 token. Quanto vale la brevity penalty?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "bleu",
+      "brevity-penalty"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Il candidato ha 6 unigrammi; 5 compaiono nel riferimento (manca solo 'sat'): precision = 5/6 ≈ 0.83, prima dell'applicazione di brevity penalty e media geometrica.",
+    "id": "ch6-q37",
+    "options": [
+      "5/6, perché 5 dei 6 unigrammi del candidato compaiono anche nel riferimento",
+      "6/6, perché candidato e riferimento hanno lo stesso identico significato complessivo",
+      "4/6, perché gli articoli determinativi non vanno mai conteggiati nella precision",
+      "1/6, perché solo la parola diversa tra i due testi porta informazione davvero utile"
+    ],
+    "q": "Candidato: 'The cat sat on the mat'. Riferimento: 'The cat is on the mat'. Quanto vale la unigram precision (BLEU-1 senza brevity penalty)?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "bleu",
+      "n-gram"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Il riferimento ha 5 unigrammi; il candidato ne cattura 4 (manca solo 'gatto'): recall = 4/5 = 0.80. La precision vale anch'essa 4/5 perché il candidato ha 5 token.",
+    "id": "ch6-q38",
+    "options": [
+      "3/5, pari alla precision del candidato calcolata dividendo per i suoi 5 token totali",
+      "4/5 = 0.80, perché 4 dei 5 unigrammi del riferimento sono catturati dal candidato",
+      "3/4 = 0.75, dividendo i token del candidato per quelli totali del riferimento dato",
+      "1.0 pieno, perché il significato complessivo della frase risulta perfettamente preservato"
+    ],
+    "q": "Riferimento: 'il gatto dorme sul divano' (5 token). Candidato: 'il cane dorme sul divano' (5 token). Quanto vale ROUGE-1 recall?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "rouge",
+      "recall"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Su Hopper/Ada/Blackwell FP8 offre un buon compromesso tra accuratezza e velocità per i transformer; INT8 dà compressione maggiore ma richiede calibrazione attenta, FP16 è il fallback più sicuro.",
+    "id": "ch6-q39",
+    "options": [
+      "Usare sempre FP32 su ogni layer per ottenere la massima velocità di inferenza possibile",
+      "Passare direttamente a INT4 su tutto il modello senza svolgere alcuna valutazione preliminare di accuratezza",
+      "Provare FP8 su TensorRT con fallback a FP16, usando INT8 calibrato solo per massima compressione",
+      "Evitare qualsiasi quantizzazione perché i modelli transformer non la supportano in nessun caso"
+    ],
+    "q": "Un team deve servire un LLM su GPU Hopper con TensorRT, riducendo memoria e latenza con calo di accuratezza minimo. Quale strategia di quantizzazione è più sensata?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "quantization",
+      "tensorrt",
+      "fp8"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "MMLU testa conoscenza e comprensione multitask a scelta multipla, HELM valuta olisticamente accuratezza, robustezza, fairness ed efficienza: sono benchmark di capacità generali, complementari alle metriche generation come BLEU/ROUGE.",
+    "id": "ch6-q40",
+    "options": [
+      "Due metriche di n-gram precision progettate esclusivamente per la traduzione automatica",
+      "Due tecniche di pruning strutturato applicate ai layer dei grandi modelli linguistici",
+      "Due framework di quantization-aware training integrati in TensorRT e NVIDIA ModelOpt per il deploy",
+      "Due suite di benchmark generali: MMLU per conoscenza multitask, HELM per valutazione olistica"
+    ],
+    "q": "Cosa sono MMLU e HELM nel contesto della valutazione degli LLM?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "benchmark",
+      "mmlu",
+      "helm"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Le allucinazioni sono affermazioni fluenti ma false; RAG ancora il modello a documenti recuperati riducendole, e la valutazione deve includere factuality umana perché BLEU/ROUGE non la misurano.",
+    "id": "ch6-q41",
+    "options": [
+      "Le allucinazioni motivano RAG e valutazione di factual correctness oltre a BLEU e ROUGE",
+      "Le allucinazioni si eliminano del tutto aumentando la brevity penalty della metrica BLEU",
+      "RAG aumenta le allucinazioni del modello ma migliora comunque il punteggio ROUGE ottenuto",
+      "Le metriche automatiche rilevano sempre ogni allucinazione senza alcun bisogno di umani"
+    ],
+    "q": "Qual è il legame tra hallucination, RAG e limiti delle metriche automatiche?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "hallucination",
+      "rag",
+      "valutazione"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Una temperatura alta ammorbidisce le soft label del teacher, rivelando le relazioni tra classi (dark knowledge); la loss combina cross-entropy sulle label vere e divergenza verso i soft target.",
+    "id": "ch6-q42",
+    "options": [
+      "La temperatura controlla il calore fisico dissipato dalla GPU durante la fase di training",
+      "T alta ammorbidisce i soft target tra classi e la loss unisce cross-entropy e divergenza",
+      "La distillation usa soltanto hard label e non prevede mai l'uso di alcuna temperatura",
+      "La distillation richiede teacher e student con stessa identica dimensione e architettura"
+    ],
+    "q": "Nella knowledge distillation, che ruolo hanno la temperatura (T) e la loss composta?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "distillation"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "La magnitude pruning rimuove i pesi con valore assoluto minore; dopo la potatura serve quasi sempre un fine-tuning per recuperare l'accuratezza persa.",
+    "id": "ch6-q43",
+    "options": [
+      "Rimuove i pesi con valore assoluto maggiore perché dominano troppo l'output finale del modello in uso",
+      "Rimuove casualmente interi dataset di training per alleggerire il carico computazionale totale",
+      "Rimuove i pesi con valore assoluto minore ed è seguita da fine-tuning per recuperare accuratezza",
+      "Non richiede mai alcun recupero o riaddestramento dopo la potatura eseguita sui pesi"
+    ],
+    "q": "Cosa fa la magnitude pruning e quale passo segue normalmente?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "pruning",
+      "fine-tuning"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Il traffico 50/50 simultaneo con assegnazione casuale garantisce confronto equo; il deploy simultaneo controlla gli effetti temporali e la randomizzazione elimina il bias di selezione.",
+    "id": "ch6-q44",
+    "options": [
+      "Lanciare i due modelli in settimane diverse per confrontarne i trend storici di utilizzo",
+      "Instradare da subito tutto il traffico sul nuovo modello senza mantenere attivo il vecchio",
+      "Usare prompt diversi per ciascun modello così da coprire il maggior numero di scenari",
+      "Servire entrambi i modelli insieme con traffico casuale 50/50 sugli stessi prompt"
+    ],
+    "q": "Per confrontare equamente due versioni di un LLM in produzione evitando bias temporali e di selezione, quale disegno di A/B test è raccomandato?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "a/b testing",
+      "deployment"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Metriche piatte ma feedback negativi crescenti suggeriscono drift semantico o query fuori distribuzione: servono logging delle query, ricalibrazione delle metriche con giudizi umani e possibile aggiornamento di dati o retriever.",
+    "id": "ch6-q45",
+    "options": [
+      "Drift delle query rispetto al training invisibile a BLEU/ROUGE: servono analisi e giudizi umani",
+      "Aumentare semplicemente la brevity penalty della metrica per penalizzare le risposte errate",
+      "Quantizzare ulteriormente il modello a INT4 per velocizzare la generazione delle risposte date in produzione",
+      "Disattivare il monitoring perché la stabilità delle metriche garantisce una qualità adeguata"
+    ],
+    "q": "Dopo il deploy di un assistente RAG, BLEU e ROUGE restano stabili ma crescono i reclami degli utenti per risposte non pertinenti. Qual è la diagnosi più probabile e il passo successivo?",
+    "source": "elaborata su blueprint NCA-GENL",
+    "tags": [
+      "monitoring",
+      "data-drift",
+      "rag"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "BLEU è la metrica lessicale standard per la traduzione automatica perché misura la precision degli n-grammi del candidato rispetto ai riferimenti.",
+    "id": "ch6-ext01",
+    "options": [
+      "ROUGE-L, perché la traduzione richiede il recall sulla longest common subsequence",
+      "BLEU, perché misura la precision degli n-grammi del candidato sui riferimenti",
+      "La perplexity, perché la traduzione non ha bisogno di alcun testo di riferimento",
+      "La latenza media, perché la velocità è l'unico criterio per un traduttore"
+    ],
+    "origin": "esterna",
+    "q": "Un team deve valutare un sistema di traduzione automatica inglese-italiano con riferimenti umani disponibili. Quale metrica lessicale è la scelta più naturale?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "bleu",
+      "traduzione-automatica"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "La perplexity si calcola dalle probabilità assegnate dal modello al testo, quindi non richiede alcun riferimento umano ed è ideale per la valutazione intrinseca della fluency.",
+    "id": "ch6-ext02",
+    "options": [
+      "ROUGE-2, che confronta i bigrammi del candidato con un riassunto di riferimento",
+      "BLEU con brevity penalty, che richiede almeno un riferimento umano parallelo",
+      "La perplexity, che usa solo le probabilità del modello e non richiede riferimenti",
+      "L'exact match, che verifica l'identità tra output e risposta attesa parola per parola"
+    ],
+    "origin": "esterna",
+    "q": "Quale metrica permette di valutare la fluency di un modello senza disporre di alcun testo di riferimento?",
+    "source": "Adattata da Quizlet – set NCA-GENL",
+    "tags": [
+      "perplexity",
+      "reference-free"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "La F1 è la media armonica di precision e recall: penalizza i casi in cui una delle due è bassa, a differenza della media aritmetica che li nasconderebbe.",
+    "id": "ch6-ext03",
+    "options": [
+      "La media armonica di precision e recall, che penalizza uno squilibrio tra le due",
+      "La media aritmetica di accuracy e perplexity calcolata sul test set",
+      "Il rapporto tra veri positivi e falsi negativi osservati in produzione",
+      "La differenza tra il punteggio BLEU e il punteggio ROUGE sullo stesso output"
+    ],
+    "origin": "esterna",
+    "q": "In classificazione, la F1 è definita come cosa?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "f1",
+      "precision",
+      "recall"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "facile",
+    "explain": "BLEU misura la precision degli n-grammi con valori tra 0 e 1: un punteggio di 0.85 indica un'elevata sovrapposizione lessicale col riferimento.",
+    "id": "ch6-ext07",
+    "options": [
+      "Una pessima qualità, perché BLEU premia solo i punteggi vicini allo zero",
+      "Un'incertezza elevata del modello, equivalente a una perplexity molto alta",
+      "Un'elevata sovrapposizione di n-grammi tra candidato e riferimento",
+      "Un ottimo recall sui riassunti, tipico della metrica ROUGE"
+    ],
+    "origin": "esterna",
+    "q": "Un sistema di traduzione ottiene un BLEU di 0.85 sul test set. Come si interpreta?",
+    "source": "Adattata da Quizlet – set NCA-GENL",
+    "tags": [
+      "bleu",
+      "interpretazione"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "Senza clipping un candidato come 'the the the' otterrebbe precision perfetta; il conteggio clippato limita ogni n-gramma alle occorrenze nel riferimento e impedisce questo gaming.",
+    "id": "ch6-ext15",
+    "options": [
+      "Per premiare i candidati molto corti che ripetono una sola parola corretta",
+      "Per clippare i conteggi alle occorrenze nel riferimento ed evitare il gaming",
+      "Per eliminare dal calcolo tutti gli unigrammi presenti nel riferimento",
+      "Per convertire la precision in recall quando i riferimenti sono multipli"
+    ],
+    "origin": "esterna",
+    "q": "Perché BLEU usa la modified (clipped) precision invece della precision semplice?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "bleu",
+      "clipped-precision"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "I bigrammi del candidato sono 5 (the-cat, cat-sat, sat-on, on-the, the-mat) e 3 compaiono nel riferimento (the-cat, on-the, the-mat): precision pari a 3/5 = 0.60.",
+    "id": "ch6-ext16",
+    "options": [
+      "5/5 = 1.0, perché le due frasi hanno identico significato complessivo",
+      "4/5 = 0.80, contando anche il bigramma cat-sat come quasi corretto",
+      "3/5 = 0.60, cioè 3 bigrammi del candidato presenti nel riferimento",
+      "2/5 = 0.40, perché gli articoli non vanno mai conteggiati nei bigrammi"
+    ],
+    "origin": "esterna",
+    "q": "Candidato: 'the cat sat on the mat'. Riferimento: 'the cat is on the mat'. Quanto vale la bigram precision?",
+    "source": "Adattata da Quizlet – set NCA-GENL",
+    "tags": [
+      "bleu",
+      "bigrammi",
+      "calcolo"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-metrics",
+    "difficulty": "media",
+    "explain": "F-beta pesa il recall beta volte più della precision: con beta = 2 (F2) i falsi negativi costano di più, giusto quando mancare un positivo è grave, come nello screening medico.",
+    "id": "ch6-ext23",
+    "options": [
+      "La media tra BLEU e ROUGE calcolata sullo stesso insieme di candidati",
+      "Il rapporto tra la latenza di inferenza e il throughput in produzione",
+      "La perplexity misurata solo sui token finali di ogni sequenza generata",
+      "Una F che pesa il recall più della precision, utile quando i falsi negativi costano cari"
+    ],
+    "origin": "esterna",
+    "q": "Cosa misura la F2 (variante F-beta con beta = 2) e quando è appropriata?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "f-beta",
+      "recall",
+      "classi-sbilanciate"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "F1 = 2·P·R/(P+R) = 2·0.8·0.6/1.4 = 0.96/1.4 ≈ 0.69: più vicina al valore minore, come tipico della media armonica.",
+    "id": "ch6-ext24",
+    "options": [
+      "Circa 0.69, cioè 2·0.8·0.6 diviso (0.8+0.6)",
+      "Circa 0.70, cioè la media aritmetica semplice di 0.8 e 0.6",
+      "Circa 0.48, cioè il prodotto diretto di precision e recall",
+      "Circa 1.40, cioè la somma di precision e recall sul test set"
+    ],
+    "origin": "esterna",
+    "q": "Un classificatore ha precision 0.8 e recall 0.6 sulla classe positiva. Quanto vale la F1?",
+    "source": "Adattata da Quizlet – set NCA-GENL",
+    "tags": [
+      "f1",
+      "calcolo",
+      "precision",
+      "recall"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Il riferimento ha 6 unigrammi e il candidato ne cattura 4 (il, cane, nel, parco): ROUGE-1 recall = 4/6 ≈ 0.67.",
+    "id": "ch6-ext25",
+    "options": [
+      "5/6 ≈ 0.83, perché quasi tutti i token del riferimento sono coperti",
+      "4/6 ≈ 0.67, cioè 4 unigrammi del riferimento catturati su 6",
+      "4/5 = 0.80, dividendo per i token del candidato invece che del riferimento",
+      "1.0, perché le due frasi descrivono la stessa scena del parco"
+    ],
+    "origin": "esterna",
+    "q": "Riferimento: 'il cane abbaia forte nel parco' (6 token). Candidato: 'il cane corre nel parco' (5 token). Quanto vale ROUGE-1 recall?",
+    "source": "Adattata da Quizlet – set NCA-GENL",
+    "tags": [
+      "rouge",
+      "recall",
+      "calcolo"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Perplexity = exp della negative log-likelihood media: exp(1.5) ≈ 4.48, quindi il modello è mediamente incerto tra circa 4-5 token.",
+    "id": "ch6-ext26",
+    "options": [
+      "1.5, perché la perplexity coincide sempre con la loss media",
+      "Circa 2.72, cioè la costante di Eulero elevata alla loss dimezzata",
+      "Circa 4.48, cioè exp(1.5) della negative log-likelihood media",
+      "Circa 0.22, cioè l'inverso della negative log-likelihood media"
+    ],
+    "origin": "esterna",
+    "q": "Un modello ha negative log-likelihood media di 1.5 sul test set. Quanto vale la perplexity?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "perplexity",
+      "calcolo",
+      "loss"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Overlap di 4 token su 4 del candidato (precision 1.0) e su 5 del riferimento (recall 0.8): F1 token-level = 2·1·0.8/1.8 ≈ 0.89.",
+    "id": "ch6-ext28",
+    "options": [
+      "Circa 0.89, con precision 1.0 sul candidato e recall 0.80 sul riferimento",
+      "1.0 pieno, perché exact match e F1 coincidono sempre in QA",
+      "0.0, perché le due frasi hanno ordine delle parole diverso",
+      "Circa 0.50, cioè la media tra la lunghezza del candidato e del riferimento"
+    ],
+    "origin": "esterna",
+    "q": "Riferimento: 'Canberra è la capitale dell'Australia'. Candidato: 'la capitale è Canberra'. Quanto vale la F1 token-level?",
+    "source": "Adattata da Quizlet – set NCA-GENL",
+    "tags": [
+      "f1",
+      "qa",
+      "calcolo"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-metrics",
+    "difficulty": "difficile",
+    "explain": "Il macro-average media le F1 per classe con peso uguale: (0.9+0.6+0.3)/3 = 0.60, senza farsi dominare dalle classi frequenti.",
+    "id": "ch6-ext29",
+    "options": [
+      "0.90, cioè la F1 della classe migliore che rappresenta l'intero modello",
+      "0.60, cioè la media non pesata delle tre F1 di classe",
+      "0.30, cioè la F1 della classe peggiore che azzera le altre",
+      "0.75, cioè la media tra la classe migliore e quella peggiore"
+    ],
+    "origin": "esterna",
+    "q": "Tre classi hanno F1 pari a 0.9, 0.6 e 0.3. Quanto vale la macro-F1?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "f1",
+      "macro-average",
+      "calcolo"
+    ]
+  },
+  {
+    "answer": 0,
+    "difficulty": "facile",
+    "explain": "La faithfulness misura se la risposta è ancorata al contesto recuperato; un dettaglio inventato è allucinazione.",
+    "options": [
+      "La faithfulness, perché l'affermazione non è supportata dal contesto recuperato",
+      "La fluency, perché la frase contiene un errore grammaticale evidente",
+      "La perplexity, perché la risposta risulta troppo prevedibile",
+      "La context recall, perché manca un documento sul dosaggio"
+    ],
+    "origin": "esterna",
+    "q": "Un sistema RAG risponde: 'Il farmaco X è approvato per i bambini sotto i 5 anni', ma i brani recuperati parlano solo dell'uso negli adulti e non menzionano i bambini. Quale metrica di valutazione segnala il problema?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "faithfulness",
+      "groundedness",
+      "allucinazioni"
+    ],
+    "id": "ch6-ai01",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 1,
+    "difficulty": "facile",
+    "explain": "La answer relevance confronta risposta e domanda: una risposta fuori tema ottiene un punteggio basso anche se fattuale.",
+    "options": [
+      "La context precision, perché i documenti recuperati sono troppo lunghi",
+      "La answer relevance, perché la risposta non affronta la domanda posta",
+      "La faithfulness, perché la risposta cita correttamente il manuale",
+      "La answer correctness, perché la risposta è troppo breve"
+    ],
+    "origin": "esterna",
+    "q": "Un utente chiede: 'Come posso resettare la password del router?'. Il sistema RAG recupera il manuale corretto ma risponde con la storia dell'azienda produttrice. Quale metrica risulta bassa?",
+    "source": "Adattata da Quizlet – set NCA-GENL",
+    "tags": [
+      "answer relevance",
+      "valutazione rag"
+    ],
+    "id": "ch6-ai02",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 2,
+    "difficulty": "media",
+    "explain": "Il documento rilevante è presente (recall ok) ma è sepolto tra molti irrilevanti, quindi la precision è bassa.",
+    "options": [
+      "Alta context recall ma bassa answer correctness",
+      "Alta faithfulness ma bassa answer relevance",
+      "Bassa context precision ma alta context recall",
+      "Alta context relevance ma bassa verbosity"
+    ],
+    "origin": "esterna",
+    "q": "Per la domanda 'Qual è la capitale dell'Australia?' il retrieval restituisce 5 brani: 4 sul turismo a Sydney e 1 che cita Canberra come capitale. Come si descrive questo retrieval?",
+    "source": "Adattata da Udemy – practice test NCA-GENL",
+    "tags": [
+      "context precision",
+      "context recall",
+      "retrieval"
+    ],
+    "id": "ch6-ai03",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 3,
+    "difficulty": "media",
+    "explain": "La answer correctness misura la corrispondenza fattuale con la ground truth, a differenza delle metriche basate solo su contesto o domanda.",
+    "options": [
+      "La context relevance, che confronta domanda e brani recuperati",
+      "La faithfulness, che confronta risposta e contesto recuperato",
+      "La answer relevance, che confronta domanda e risposta generata",
+      "La answer correctness, che confronta risposta generata e ground truth"
+    ],
+    "origin": "esterna",
+    "q": "Un team valuta un sistema RAG su 100 domande con risposte di riferimento (ground truth). Quale metrica misura quanto le risposte generate corrispondono alle risposte attese?",
+    "source": "Adattata da CramTick (NCA-GENL)",
+    "tags": [
+      "answer correctness",
+      "ground truth"
+    ],
+    "id": "ch6-ai04",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 0,
+    "difficulty": "media",
+    "explain": "Precision valuta la qualità del ranking ottenuto, recall valuta la copertura di tutto il materiale rilevante disponibile.",
+    "options": [
+      "La context precision indica se i brani recuperati in alto sono rilevanti, la context recall indica se tutti i brani rilevanti sono stati recuperati",
+      "La context precision misura la velocità del retrieval, la context recall misura il costo in token",
+      "La context precision confronta risposta e domanda, la context recall confronta risposta e ground truth",
+      "La context precision richiede un giudice umano, la context recall richiede solo la perplexity"
+    ],
+    "origin": "esterna",
+    "q": "Quale affermazione descrive meglio la differenza tra context precision e context recall nella valutazione del retrieval?",
+    "source": "Adattata da P2PExams (NCA-GENL)",
+    "tags": [
+      "context precision",
+      "context recall"
+    ],
+    "id": "ch6-ai05",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 1,
+    "difficulty": "media",
+    "explain": "Il verbosity bias porta il giudice LLM a confondere una risposta più lunga con una risposta migliore.",
+    "options": [
+      "Il bias di posizione, perché preferisce la prima risposta mostrata",
+      "Il verbosity bias, perché premia la lunghezza invece della qualità",
+      "Il self-preference bias, perché preferisce il proprio stile di scrittura",
+      "Il recency bias, perché premia le informazioni più recenti"
+    ],
+    "origin": "esterna",
+    "q": "Un valutatore automatico basato su LLM assegna sistematicamente punteggi più alti alle risposte prolisse, anche quando dicono le stesse cose di risposte concise. Quale bias manifesta?",
+    "source": "Adattata da Whizlabs (NCA-GENL)",
+    "tags": [
+      "llm-as-judge",
+      "verbosity bias"
+    ],
+    "id": "ch6-ai06",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 2,
+    "difficulty": "media",
+    "explain": "La sensibilità all'ordine indica position bias; presentazioni bilanciate in entrambi gli ordini lo neutralizzano.",
+    "options": [
+      "Aumentando la temperatura del generatore per avere più varietà",
+      "Calcolando la perplexity delle due risposte sul modello giudice",
+      "Mediando i giudizi a ordine invertito oppure randomizzando la posizione nelle comparazioni",
+      "Sostituendo il giudice LLM con la metrica BLEU"
+    ],
+    "origin": "esterna",
+    "q": "In una valutazione con giudice LLM, lo stesso modello giudica due risposte A e B: quando A è presentata per prima vince A, quando l'ordine è invertito vince B. Come si corregge questo effetto?",
+    "source": "Adattata da TutorialDojo (NCA-GENL)",
+    "tags": [
+      "llm-as-judge",
+      "position bias"
+    ],
+    "id": "ch6-ai07",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 3,
+    "difficulty": "media",
+    "explain": "Il self-preference bias si attenua separando generatore e giudice o nascondendo quale risposta proviene da chi.",
+    "options": [
+      "Usare solo risposte molto brevi per nascondere lo stile",
+      "Abbassare la temperatura del giudice fino a zero",
+      "Misurare la context recall invece della qualità",
+      "Usare giudici diversi dal generatore oppure anonimizzare l'origine delle risposte"
+    ],
+    "origin": "esterna",
+    "q": "Un giudice LLM valuta risposte generate dallo stesso modello che fa da giudice e le preferisce a quelle di altri modelli a parità di qualità. Quale accorgimento riduce questo problema?",
+    "source": "Adattata da PrepBolt (NCA-GENL)",
+    "tags": [
+      "llm-as-judge",
+      "self-preference"
+    ],
+    "id": "ch6-ai08",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 0,
+    "difficulty": "facile",
+    "explain": "BLEU e ROUGE misurano la sovrapposizione di parole e n-grammi tra testo generato e riferimento.",
+    "options": [
+      "Alle metriche lessicali di overlap come BLEU e ROUGE",
+      "Alle metriche di faithfulness basate sul contesto",
+      "Alle metriche di ranking come context precision",
+      "Alle misure di agreement tra annotatori"
+    ],
+    "origin": "esterna",
+    "q": "Un team confronta una risposta generata con una risposta di riferimento e conta quanti n-grammi si sovrappongono. A quale famiglia di metriche appartiene questo approccio?",
+    "source": "Adattata da Udemy – practice test NCA-GENL",
+    "tags": [
+      "bleu",
+      "rouge",
+      "metriche lessicali"
+    ],
+    "id": "ch6-ai09",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 1,
+    "difficulty": "difficile",
+    "explain": "Una perplexity più bassa indica migliore modellazione linguistica, ma non garantisce risposte fedeli al contesto recuperato.",
+    "options": [
+      "Il modello è peggiorato perché valori più bassi indicano maggiore incertezza nella predizione",
+      "La generazione è diventata più fluente sul dominio ma la perplexity non dice se le risposte sono ancorate al contesto",
+      "La faithfulness è migliorata perché la perplexity misura direttamente le allucinazioni",
+      "La context recall è aumentata perché il retrieval trova documenti più pertinenti"
+    ],
+    "origin": "esterna",
+    "q": "Un modello linguistico ottiene perplexity 15 su un corpus di test e, dopo un adattamento al dominio, scende a 8 sullo stesso test. Cosa indica questo cambiamento e qual è il suo limite per un sistema RAG?",
+    "source": "Adattata da ExamTopics (NCA-GENL)",
+    "tags": [
+      "perplexity",
+      "limiti metriche"
+    ],
+    "id": "ch6-ai10",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 2,
+    "difficulty": "difficile",
+    "explain": "Un agreement alto mostra che il compito è ben definito e le etichette sono stabili; se è basso, le guide vanno riviste.",
+    "options": [
+      "Per stimare il costo in token dell'intera campagna di annotazione",
+      "Per addestrare il retriever a ordinare meglio i documenti",
+      "Per verificare che le linee guida siano chiare e le etichette siano affidabili",
+      "Per calcolare automaticamente la perplexity del modello generatore"
+    ],
+    "origin": "esterna",
+    "q": "Due annotatori umani etichettano 100 risposte RAG come 'fedele' o 'non fedele' al contesto. Perché si calcola l'inter-annotator agreement prima di usare queste etichette?",
+    "source": "Adattata da TutorialDojo (NCA-GENL)",
+    "tags": [
+      "inter-annotator agreement",
+      "valutazione umana"
+    ],
+    "id": "ch6-ai11",
+    "chapter": "ch6-metrics"
+  },
+  {
+    "answer": 3,
+    "difficulty": "difficile",
+    "explain": "Se la risposta è fedele al contesto ma errata rispetto alla ground truth, il problema è a monte nel retrieval.",
+    "options": [
+      "Il generatore inventa fatti non presenti nei brani recuperati",
+      "Il giudice LLM soffre di verbosity bias evidente",
+      "La metrica ROUGE è configurata con l'n-grammo sbagliato",
+      "Il retrieval trova brani coerenti ma sbagliati, e il generatore li riassume fedelmente"
+    ],
+    "origin": "esterna",
+    "q": "Un sistema RAG ha faithfulness alta ma answer correctness bassa su molte domande. Qual è la diagnosi più probabile?",
+    "source": "Adattata da CramTick (NCA-GENL)",
+    "tags": [
+      "faithfulness",
+      "answer correctness",
+      "diagnosi errori"
+    ],
+    "id": "ch6-ai12",
+    "chapter": "ch6-metrics"
+  }
 ]
