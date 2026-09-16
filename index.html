@@ -40,11 +40,63 @@
         <article class="area-card domande-card"><h3>📝 Banco domande</h3><p><strong id="qbank-count">315</strong> domande in stile esame (45 per capitolo), filtrabili per capitolo, difficoltà e stato, con simulazione a tempo. <a href="domande.html">Apri il banco domande →</a></p></article>
       </div>
     </section>
+
+    <section id="fonti" class="sources">
+      <h2>Fonti</h2>
+
+      <h3>Contenuti di studio</h3>
+      <p>Capitoli, slide, riassunti e script audio sono originali, riscritti e ampliati a partire da:</p>
+      <ul>
+        <li><a href="https://github.com/ednarvaez/nvidia-certified-associate-study-guide">nvidia-certified-associate-study-guide</a> — guida di studio open-source, traccia iniziale degli argomenti</li>
+        <li><a href="https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-associate/">NVIDIA Certified Associate: Generative AI LLMs</a> — pagina ufficiale della certificazione: domini d'esame e relativi pesi (Core ML e AI 30%, Software Development 24%, Experimentation 22%, Data Analysis 14%, Trustworthy AI 10%), formato e durata</li>
+        <li><a href="https://learn.nvidia.com/">NVIDIA Deep Learning Institute</a> — corsi ufficiali di preparazione</li>
+      </ul>
+
+      <h3>Banco domande</h3>
+      <p>
+        Le 315 domande sono <strong>di pratica, scritte per questo sito</strong>: non sono domande reali
+        d'esame, che NVIDIA non pubblica e che circolano solo in violazione dell'NDA. Sono state elaborate
+        sul blueprint ufficiale e verificate sulla documentazione qui sotto; ogni domanda mostra la propria
+        provenienza sotto la spiegazione.
+      </p>
+      <ul>
+        <li><strong>Documentazione NVIDIA:</strong>
+          <a href="https://docs.nvidia.com/nemo/">NeMo</a> ·
+          <a href="https://docs.nvidia.com/nemo/guardrails/">NeMo Guardrails</a> ·
+          <a href="https://docs.nvidia.com/deeplearning/triton-inference-server/">Triton Inference Server</a> ·
+          <a href="https://docs.nvidia.com/deeplearning/tensorrt/">TensorRT</a> ·
+          <a href="https://docs.nvidia.com/tensorrt-llm/">TensorRT-LLM</a> ·
+          <a href="https://docs.nvidia.com/nim/">NIM</a> ·
+          <a href="https://catalog.ngc.nvidia.com/">NGC</a> ·
+          <a href="https://developer.nvidia.com/cuda-toolkit">CUDA</a> ·
+          <a href="https://developer.nvidia.com/cudnn">cuDNN</a>
+        </li>
+        <li><strong>Standard e progetti aperti:</strong>
+          <a href="https://onnx.ai/">ONNX</a> ·
+          <a href="https://rapids.ai/">RAPIDS</a>
+        </li>
+        <li><strong>Paper di riferimento:</strong>
+          <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> (Transformer) ·
+          <a href="https://arxiv.org/abs/1810.04805">BERT</a> ·
+          <a href="https://arxiv.org/abs/1910.10683">T5</a> ·
+          <a href="https://arxiv.org/abs/2106.09685">LoRA</a>
+        </li>
+        <li><strong>Altre risorse consultate:</strong>
+          <a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD</a> (question answering) ·
+          <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">What are Diffusion Models?</a> ·
+          materiale di pratica pubblico della community, usato come riferimento su stile e argomenti
+        </li>
+      </ul>
+      <p class="muted small">
+        NVIDIA, NeMo, Triton, TensorRT, CUDA e NGC sono marchi di NVIDIA Corporation.
+        Questo sito non è affiliato a NVIDIA né da essa approvato.
+      </p>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <p class="muted small">Appunti e sito web a cura di Riccardo Dominici.</p>
+      <p class="muted small">Appunti e sito web a cura di Riccardo Dominici. <a href="#fonti">Fonti</a></p>
       <button id="reset-btn" class="btn ghost small" type="button">Azzera progressi</button>
     </div>
   </footer>

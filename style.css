@@ -676,3 +676,32 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   .exam-bar { gap: 8px; }
   .exam-bar .btn { margin-left: 0; width: 100%; }
 }
+
+/* ---------- Sezione Fonti (fondo home) ---------- */
+
+.sources {
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro);
+  border-left: 4px solid var(--margine-rosso);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 0 0 32px;
+}
+.sources h2 { margin: 0 0 4px; font-size: 1.35rem; }
+.sources h3 {
+  margin: 18px 0 6px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--penna-rossa);
+}
+.sources h3:first-of-type { margin-top: 12px; }
+.sources p { margin: 0 0 8px; font-size: 0.95rem; }
+.sources ul { margin: 0; padding-left: 20px; }
+.sources li { margin: 7px 0; font-size: 0.94rem; line-height: 1.6; }
+.sources a { word-break: break-word; }
+
+@media (max-width: 640px) {
+  .sources { padding: 16px 16px; }
+  .sources li { font-size: 0.9rem; }
+}
