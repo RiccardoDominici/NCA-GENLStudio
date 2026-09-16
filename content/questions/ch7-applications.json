@@ -262,7 +262,7 @@
   "answer": 2,
   "chapter": "ch7-applications",
   "difficulty": "facile",
-  "explain": "I guardrail sono controlli programmabili (input, output, dialog, retrieval) che mantengono il modello pertinente, sicuro e conforme alle policy, ad esempio filtrando tossicità e dati personali.",
+  "explain": "I guardrail sono controlli programmabili (input, dialog, retrieval, execution, output) che mantengono il modello pertinente, sicuro e conforme alle policy, ad esempio filtrando tossicità e dati personali.",
   "id": "ch7-q15",
   "options": [
    "Le barriere hardware e termiche che proteggono i server GPU dal surriscaldamento operativo",
@@ -698,7 +698,7 @@
   "id": "ch7-q38",
   "options": [
    "L'esaurimento della memoria GPU disponibile durante la fase di generazione della risposta",
-   "Il recupero di contesto irrilevante per chunking, embedding o mismatch query-documenti",
+   "Il recupero di contesto irrilevante o insufficiente per chunking, embedding o mismatch query-documenti",
    "Il superamento del numero massimo di parametri supportati dal modello durante l'inferenza",
    "Il disallineamento introdotto dalla RLHF che rende il modello troppo prolisso e verboso"
   ],

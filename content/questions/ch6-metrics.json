@@ -703,15 +703,15 @@
   "answer": 1,
   "chapter": "ch6-metrics",
   "difficulty": "difficile",
-  "explain": "Il riferimento ha 4 unigrammi; il candidato ne cattura 3 (manca 'gatto'): recall = 3/4 = 0.75. La precision sarebbe invece 3/5 perché il candidato ha 5 token.",
+  "explain": "Il riferimento ha 5 unigrammi; il candidato ne cattura 4 (manca solo 'gatto'): recall = 4/5 = 0.80. La precision vale anch'essa 4/5 perché il candidato ha 5 token.",
   "id": "ch6-q38",
   "options": [
    "3/5, pari alla precision del candidato calcolata dividendo per i suoi 5 token totali",
-   "3/4 = 0.75, perché 3 dei 4 unigrammi del riferimento sono catturati dal candidato",
-   "4/5 = 0.80, dividendo i token del riferimento per quelli totali del candidato generato",
+   "4/5 = 0.80, perché 4 dei 5 unigrammi del riferimento sono catturati dal candidato",
+   "3/4 = 0.75, dividendo i token del candidato per quelli totali del riferimento dato",
    "1.0 pieno, perché il significato complessivo della frase risulta perfettamente preservato"
   ],
-  "q": "Riferimento: 'il gatto dorme sul divano' (4 token). Candidato: 'il cane dorme sul divano' (5 token con articolo conteggiato due volte). Quanto vale ROUGE-1 recall?",
+  "q": "Riferimento: 'il gatto dorme sul divano' (5 token). Candidato: 'il cane dorme sul divano' (5 token). Quanto vale ROUGE-1 recall?",
   "source": "elaborata su blueprint NCA-GENL",
   "tags": [
    "rouge",
