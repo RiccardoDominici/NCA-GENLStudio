@@ -116,7 +116,7 @@
   "answer": 2,
   "chapter": "ch2-llm",
   "difficulty": "facile",
-  "explain": "Il pre-training usa enormi quantita di testo non etichettato (costoso), mentre il fine-tuning adatta il modello a un task specifico con dati etichettati (economico).",
+  "explain": "Il pre-training usa enormi quantità di testo non etichettato (costoso), mentre il fine-tuning adatta il modello a un task specifico con dati etichettati (economico).",
   "id": "ch2-q07",
   "options": [
    "Sono due nomi per la stessa fase, con gli stessi dati e costi",
@@ -424,8 +424,8 @@
   "id": "ch2-q23",
   "options": [
    "A ridurre il numero totale di parametri da apprendere",
-   "A indicare l'ordine dei token nella sequenza",
    "A mascherare i token futuri come nel causal masking",
+   "A indicare l'ordine dei token nella sequenza",
    "A separare le due frasi in input come i segment embedding"
   ],
   "q": "A cosa servono i positional embedding nel Transformer?",
@@ -463,7 +463,7 @@
   "options": [
    "Che i modelli piccoli battono sempre quelli di grandi dimensioni",
    "Che la dimensione del vocabolario non conta mai per le prestazioni",
-   "Che il training vada eseguito sempre su un singolo GPU",
+   "Che il training vada eseguito sempre su una singola GPU",
    "Miglioramenti prevedibili con più parametri, dati e calcolo"
   ],
   "q": "Cosa affermano le scaling laws degli LLM?",
@@ -671,8 +671,8 @@
   "id": "ch2-q36",
   "options": [
    "Un generatore puro di testo senza vincoli di fedeltà",
-   "Un encoder bidirezionale con teste di span extraction",
    "Un modello di diffusione allenato a generare immagini",
+   "Un encoder bidirezionale con teste di span extraction",
    "Un sistema di retrieval senza alcuna lettura del testo"
   ],
   "q": "Un team legale deve evidenziare i passaggi esatti dei contratti che rispondono a una domanda. Quale architettura conviene?",
@@ -711,7 +711,7 @@
    "WordPiece fonde le coppie più frequenti, BPE massimizza la verosimiglianza",
    "BPE fonde per frequenza, WordPiece per verosimiglianza normalizzata",
    "BPE usa il prefisso ##, WordPiece usa invece il simbolo Ġ",
-   "Entrambi partono da parole intere anziche da singoli caratteri"
+   "Entrambi partono da parole intere anziché da singoli caratteri"
   ],
   "q": "Quale affermazione su BPE e WordPiece è corretta?",
   "source": "elaborata su blueprint NCA-GENL",
@@ -803,7 +803,7 @@
   "explain": "Emergenza significa comparsa qualitativa oltre una soglia di scala (es. ragionamento in-context), non un semplice aumento lineare della fluenza: per questo non è garantita raddoppiando i parametri.",
   "id": "ch2-q43",
   "options": [
-   "Un aumento lineare è garantito della fluenza del testo",
+   "Un aumento lineare garantito della fluenza del testo",
    "Capacità nuove che emergono oltre certe soglie di scala",
    "La riduzione automatica delle hallucination con la scala",
    "L'eliminazione totale del bisogno di dati di training"

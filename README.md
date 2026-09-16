@@ -68,8 +68,9 @@ python3 -m http.server 8000
 ├── audio/
 │   └── *.mp3             # audio-lezioni (gli unici file serviti dal player)
 └── tools/
-    ├── make_timing.py       # rigenera content/timing.json dagli mp3 reali
-    └── check_questions.py   # controlli di qualità sul banco domande
+    ├── make_timing.py        # rigenera content/timing.json dagli mp3 reali
+    ├── check_questions.py    # schema + bias di lunghezza del banco domande
+    └── check_answer_keys.py  # cerca chiavi `answer` puntate all'opzione errata
 ```
 
 ## Rigenerare i timing
@@ -108,6 +109,16 @@ python3 tools/check_questions.py content/questions/*.json
 Oltre allo schema, lo script controlla che la risposta corretta non sia
 riconoscibile dalla sola lunghezza — il difetto tipico dei banchi generati, che
 insegna a scegliere "la risposta più lunga" invece del concetto.
+
+Un secondo controllo cerca il difetto più grave, cioè la chiave `answer` che
+punta all'opzione sbagliata mentre tutto il resto è scritto bene:
+
+```bash
+python3 tools/check_answer_keys.py content/questions/*.json
+```
+
+Usa la spiegazione come oracolo indipendente e segnala le incoerenze; le
+segnalazioni vanno lette a mano, perché include falsi positivi.
 
 ## Deploy
 

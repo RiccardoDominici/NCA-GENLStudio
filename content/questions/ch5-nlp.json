@@ -403,7 +403,7 @@
    "Il dataset è troppo piccolo per trarre conclusioni affidabili sulle prestazioni reali",
    "Bisogna solo aumentare la max sequence length per dare più contesto al classificatore"
   ],
-  "q": "Un classificatore su dati con il 95% di esempi negativi ottiene accuracy 95% predice sempre la classe negativa. Qual è la conclusione corretta?",
+  "q": "Un classificatore su dati con il 95% di esempi negativi ottiene accuracy 95% ma predice sempre la classe negativa. Qual è la conclusione corretta?",
   "source": "elaborata su blueprint NCA-GENL",
   "tags": [
    "accuracy",
@@ -722,7 +722,7 @@
   "options": [
    "F1 = 1,0 ed EM = 1: risposta considerata perfettamente identica alla gold",
    "F1 = 0,5 ed EM = 1: EM assegnato nonostante le stringhe siano diverse",
-   "F1 = 0,75 ed EM = 0: recall calcolato erroneamente come 1,0 invece di 0,5 sulle due parole gold",
+   "F1 = 0,75 ed EM = 0: media aritmetica di precision e recall invece della media armonica",
    "F1 ≈ 0,67 ed EM = 0: una parola condivisa su una predetta e una su due gold"
   ],
   "q": "Nel QA la risposta gold è 'Paris, France' e il modello predice 'Paris'. Quanto valgono F1 token-level ed Exact Match?",

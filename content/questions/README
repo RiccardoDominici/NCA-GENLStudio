@@ -66,6 +66,25 @@ Per rientrare, **allunga i distrattori** (rendendoli più specifici e
 plausibili) invece di accorciare la corretta — ma assicurati che restino
 inequivocabilmente sbagliati.
 
+## Qualità: il difetto più grave
+
+Peggio di un banco sbilanciato c'è un banco che insegna la risposta sbagliata:
+`answer` che punta all'opzione errata mentre domanda, opzioni e spiegazione
+sono scritte bene. Non lo vede nessun controllo strutturale. Per stanarlo:
+
+```bash
+python3 tools/check_answer_keys.py content/questions/*.json
+```
+
+Confronta la spiegazione con ogni opzione: se assomiglia più a un'opzione
+diversa da quella indicata da `answer`, la segnala. Produce anche falsi
+positivi (una spiegazione che nomina il distrattore per dire perché è
+sbagliato), quindi ogni segnalazione va **letta**, non corretta al volo.
+
+Quando correggi una chiave, **scambia i testi delle opzioni** invece di
+spostare `answer`: il contenuto giusto finisce all'indice già indicato e la
+distribuzione degli indici corretti resta bilanciata.
+
 ## Nota
 
 Il conteggio totale mostrato nella scheda "Banco domande" della home è scritto
