@@ -1,0 +1,849 @@
+[
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "La NER individua nel testo le menzioni di entità (nomi di persone, organizzazioni, luoghi, date, importi) e assegna a ciascuna la categoria corretta.",
+  "id": "ch5-q01",
+  "options": [
+   "Tradurre un testo da una lingua sorgente a una lingua di destinazione diversa, come nella machine translation",
+   "Individuare nel testo menzioni di entità e assegnare loro una categoria come PERSON, ORGANIZATION o LOCATION",
+   "Riassumere un documento lungo condensandone i punti principali in frasi nuove, come nella summarization astrattiva",
+   "Generare nuovi paragrafi coerenti con un contesto dato, come fa un modello di language generation"
+  ],
+  "q": "Quale delle seguenti attività descrive meglio il task di Named Entity Recognition (NER)?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "B marca l'inizio di un'entità, I marca i token interni di continuazione e O indica i token fuori da qualsiasi entità.",
+  "id": "ch5-q02",
+  "options": [
+   "Beginning, Inside, Outside: inizio entità, continuazione e token fuori entità",
+   "Binary Input Output: codifica binaria dell'input testuale e dell'output del modello",
+   "Beginning Input Output: marcatore di inizio input e di fine output della rete neurale",
+   "Begin Intermediate Other: inizio, token intermedio e categoria residuale di tutto il resto"
+  ],
+  "q": "Nello schema di etichettatura BIO/IOB per la NER, cosa significano le lettere B, I e O?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner",
+   "etichettatura bio"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "La sentiment analysis classifica l'opinione espressa in un testo, tipicamente come positiva, negativa o neutra.",
+  "id": "ch5-q03",
+  "options": [
+   "Topic classification: assegnare a un testo la categoria tematica di cui tratta, come sport o politica",
+   "Intent classification: riconoscere l'obiettivo o l'azione richiesta dall'utente in un dialogo",
+   "Sentiment analysis: classificare la polarità dell'opinione espressa, come positiva o negativa",
+   "Coreference resolution: stabilire quali menzioni diverse si riferiscono alla stessa entità"
+  ],
+  "q": "Un'azienda vuole classificare automaticamente le recensioni dei clienti come positive, negative o neutre. Come si chiama questo task?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "sentiment",
+   "classificazione"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "L'intent classification capisce l'obiettivo dell'utente (prenotare, cancellare, chiedere info) ed è il cuore dei chatbot e degli assistenti virtuali.",
+  "id": "ch5-q04",
+  "options": [
+   "Sentiment analysis: classificare la polarità emotiva del messaggio come positiva o negativa",
+   "Topic classification: assegnare al messaggio l'argomento trattato, come viaggi o ristoranti",
+   "Named Entity Recognition: individuare e classificare nomi di persone, luoghi e organizzazioni nel testo",
+   "Intent classification: mappare l'enunciato all'obiettivo dell'utente, qui l'azione prenota_volo"
+  ],
+  "q": "In un chatbot, la frase 'Voglio prenotare un volo per Roma' deve essere mappata all'azione prenota_volo. Di quale task si tratta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "intent",
+   "chatbot"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "La topic classification assegna a un testo l'argomento di cui parla, come sport, politica o tecnologia.",
+  "id": "ch5-q05",
+  "options": [
+   "Sentiment analysis: valutare se il testo esprime un'opinione positiva, negativa o neutra",
+   "Topic classification: assegnare a ogni articolo la sezione tematica di cui tratta, come lo sport",
+   "Question answering estrattivo: estrarre da ogni articolo lo span esatto che risponde a una domanda data",
+   "Machine translation: tradurre automaticamente ogni articolo verso un'altra lingua di destinazione"
+  ],
+  "q": "Smistare automaticamente gli articoli di un giornale in sezioni come sport, politica e tecnologia è un esempio di:",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "topic",
+   "classificazione"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "La tokenization suddivide il testo in unità (parole, subword o caratteri) e le converte in ID numerici; i modelli moderni usano tokenizer subword come BPE o WordPiece.",
+  "id": "ch5-q06",
+  "options": [
+   "Suddividere il testo in unità più piccole (parole o subword) mappate a ID numerici",
+   "Cifrare il testo con algoritmi crittografici per proteggerne la riservatezza",
+   "Rimuovere dal testo le stopword, cioè le parole comuni ritenute poco informative",
+   "Convertire gli embedding vettoriali in immagini per visualizzarne la distribuzione"
+  ],
+  "q": "Cosa fa la tokenization nella pipeline NLP?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "Gli embedding sono vettori densi che rappresentano parole o frasi: parole con significato simile hanno vettori vicini nello spazio.",
+  "id": "ch5-q07",
+  "options": [
+   "Etichette discrete dello schema BIO assegnate ai token per marcare le entità nominate",
+   "Matrici di pesi di attenzione con cui il Transformer confronta ogni token con gli altri",
+   "Rappresentazioni vettoriali dense che catturano significato e relazioni semantiche tra parole",
+   "Punteggi numerici con cui la metrica BLEU valuta la qualità delle traduzioni automatiche"
+  ],
+  "q": "Cosa sono gli embedding nel NLP?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "embedding"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "I modelli accettano sequenze fino a una max sequence length: il padding allunga con token speciali le sequenze corte e la truncation taglia quelle troppo lunghe.",
+  "id": "ch5-q08",
+  "options": [
+   "Aumentare la dimensione del vocabolario del tokenizer con nuovi token speciali aggiuntivi",
+   "Rimuovere dai testi clinici i nomi e i dati identificativi per anonimizzare i pazienti",
+   "Calcolare precision e recall sui token predetti per valutare la qualità del modello",
+   "Uniformare la lunghezza delle sequenze alla max sequence length richiesta dal modello"
+  ],
+  "q": "A cosa servono padding e truncation nel preprocessing per i modelli Transformer?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "preprocessing",
+   "padding"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "Lowercasing, rimozione di stopword e punteggiatura, stemming/lemmatizzazione sono passi classici di pulizia e normalizzazione del testo prima dell'analisi.",
+  "id": "ch5-q09",
+  "options": [
+   "Addestrare una rete generativa avversaria (GAN) sui testi per produrre nuovi contenuti sintetici",
+   "Lowercasing e rimozione delle stopword: normalizzare il testo in minuscolo ed eliminare le parole comuni",
+   "Aumentare la temperature di campionamento per rendere più creative e varie le risposte generate dal modello",
+   "Quantizzare i pesi della rete riducendone la precisione numerica per velocizzare l'inferenza"
+  ],
+  "q": "Quale tra queste è un'operazione tipica di preprocessing NLP?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "preprocessing"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "L'estrattiva copia frasi esistenti dal documento, l'astrattiva genera frasi nuove che riformulano il contenuto.",
+  "id": "ch5-q10",
+  "options": [
+   "Traduzione e retro-traduzione: convertire il testo in un'altra lingua e poi ritradurlo indietro",
+   "Classificazione binaria e multi-label: assegnare al documento una sola etichetta oppure più etichette insieme",
+   "Summarization estrattiva e summarization astrattiva: copiare frasi esistenti oppure generarne di nuove",
+   "Tokenization e detokenization: suddividere il testo in token e poi ricomporlo dai token"
+  ],
+  "q": "Un sistema riassume copiando frasi esistenti dal documento, un altro genera frasi nuove con parole proprie. Come si chiamano i due approcci?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "summarization"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "La machine translation converte automaticamente un testo da una lingua sorgente a una lingua di destinazione.",
+  "id": "ch5-q11",
+  "options": [
+   "Machine translation: conversione automatica di un testo da una lingua sorgente a una di destinazione",
+   "Named Entity Recognition: individuazione nel testo di nomi di persone, luoghi e organizzazioni citati",
+   "Sentiment analysis: classificazione della polarità emotiva espressa in un testo, ad esempio positiva o negativa",
+   "Coreference resolution: collegare pronomi e menzioni diverse che si riferiscono alla stessa entità"
+  ],
+  "q": "Convertire automaticamente un manuale dall'italiano all'inglese è un task di:",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "traduzione"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "SQuAD è il dataset di riferimento per il QA: oltre 100.000 domande poste su passaggi di Wikipedia, con risposta contenuta nel passaggio.",
+  "id": "ch5-q12",
+  "options": [
+   "Una metrica automatica per valutare la qualità delle traduzioni prodotte, come il punteggio BLEU",
+   "Un modello neurale di traduzione automatica tra lingue diverse, come un Transformer encoder-decoder",
+   "Un tokenizer subword che scompone le parole rare in sotto-unità frequenti, come BPE",
+   "Un dataset di riferimento per il question answering, con domande poste su passaggi di Wikipedia"
+  ],
+  "q": "Cos'è SQuAD nel contesto del question answering?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "squad",
+   "qa estrattivo"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "L'accuracy è la frazione di predizioni corrette sul totale degli esempi valutati.",
+  "id": "ch5-q13",
+  "options": [
+   "TP diviso (TP + FP): frazione di entità predette dal sistema che sono davvero corrette",
+   "Frazione di predizioni corrette sul totale degli esempi valutati dal classificatore",
+   "2·precision·recall diviso (precision + recall): media armonica calcolata sulle due misure",
+   "Overlap di n-grammi tra testo generato e riferimento, come nelle metriche BLEU e ROUGE"
+  ],
+  "q": "Come si calcola l'accuracy di un classificatore?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "accuracy",
+   "metriche"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "Nel QA open-domain non c'è un singolo passaggio dato: un retriever cerca in una grande knowledge base i documenti rilevanti, poi il reader/generatore produce la risposta.",
+  "id": "ch5-q14",
+  "options": [
+   "Tradurre la domanda in inglese prima di cercarne la risposta nella knowledge base",
+   "Calcolare il punteggio BLEU della risposta generata confrontandola con un riferimento umano",
+   "Recuperare da una grande knowledge base i passaggi rilevanti da usare per rispondere",
+   "Mascherare le entità nominate presenti nella domanda per proteggere la privacy dell'utente finale"
+  ],
+  "q": "In un sistema di question answering open-domain, qual è il ruolo tipico del retrieval?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "qa open-domain",
+   "retrieval"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "facile",
+  "explain": "La coreference resolution stabilisce quali menzioni (pronomi, nomi) si riferiscono alla stessa entità del discorso.",
+  "id": "ch5-q15",
+  "options": [
+   "Coreference resolution: collegare le menzioni che si riferiscono alla stessa entità del discorso",
+   "Sentiment analysis: classificare la polarità emotiva espressa nel testo, ad esempio positiva, negativa o neutra",
+   "Machine translation: tradurre automaticamente il testo da una lingua sorgente a una di destinazione",
+   "Tokenization: suddividere il testo in unità minime come parole o subword, mappate a ID numerici"
+  ],
+  "q": "Nella frase 'Maria ha detto che lei verrà domani', capire che 'lei' si riferisce a Maria è un task di:",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "coreference"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Il primo token dell'entità prende B-LOC, i token successivi della stessa entità prendono I-LOC.",
+  "id": "ch5-q16",
+  "options": [
+   "B-LOC, B-LOC, B-LOC",
+   "B-LOC, I-LOC, I-LOC",
+   "I-LOC, I-LOC, I-LOC",
+   "O, O, O"
+  ],
+  "q": "Nella frase 'New York City è bellissima', se 'New York City' è un'entità LOCATION, qual è l'etichettatura BIO corretta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner",
+   "etichettatura bio"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "'Barack' apre l'entità persona (B-PER), 'Obama' la continua (I-PER), le parole comuni sono O e 'Hawaii' apre la location (B-LOC).",
+  "id": "ch5-q17",
+  "options": [
+   "B-PER, I-PER, O, O, O, B-LOC",
+   "I-PER, I-PER, O, O, O, I-LOC",
+   "B-PER, B-PER, O, O, O, B-LOC",
+   "B-PER, I-PER, O, O, O, I-LOC"
+  ],
+  "q": "Nella frase 'Barack Obama was born in Hawaii', con PERSON su 'Barack Obama' e LOCATION su 'Hawaii', qual è la sequenza BIO corretta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner",
+   "etichettatura bio"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "La NER individua nomi di persone, luoghi e altri identificatori, che possono poi essere oscurati o sostituiti per proteggere la privacy.",
+  "id": "ch5-q18",
+  "options": [
+   "Sentiment analysis sulle cartelle per misurare il tono emotivo dei testi clinici",
+   "Machine translation delle cartelle per tradurle in un'altra lingua prima dell'analisi",
+   "NER per individuare i dati identificativi nei testi, seguita da anonimizzazione",
+   "Summarization astrattiva delle cartelle per generare brevi riepiloghi dei casi clinici"
+  ],
+  "q": "Un ospedale vuole oscurare automaticamente nomi di pazienti e luoghi nelle cartelle cliniche prima di condividerle con i ricercatori. Quale soluzione è appropriata?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner",
+   "privacy"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "La precision è TP/(TP+FP): fra le entità predette dal sistema, quante sono davvero corrette.",
+  "id": "ch5-q19",
+  "options": [
+   "TP / (TP + FN): frazione di tutte le entità reali che il sistema è riuscito a trovare",
+   "(Precision + Recall) / 2: semplice media aritmetica calcolata sulle due misure",
+   "TP / totale dei token: numero di entità corrette diviso per tutti i token del testo",
+   "TP / (TP + FP): frazione delle entità predette dal sistema che risultano corrette"
+  ],
+  "q": "Nella valutazione della NER, come si calcola la precision?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "precision recall",
+   "ner"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Il recall è TP/(TP+FN): fra tutte le entità gold reali, quante il sistema è riuscito a trovare.",
+  "id": "ch5-q20",
+  "options": [
+   "TP / (TP + FP): frazione delle entità predette dal sistema che risultano corrette",
+   "TP / (TP + FN): frazione di tutte le entità reali che il sistema è riuscito a trovare",
+   "2PR / (P + R): media armonica calcolata tra precision e recall, cioè la misura F1",
+   "TN / (TP + FN): rapporto tra veri negativi ed entità reali, misura non usata nella NER"
+  ],
+  "q": "Nella valutazione della NER, come si calcola il recall?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "precision recall",
+   "ner"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Precision alta significa pochi falsi positivi; recall basso significa molti falsi negativi, cioè circa metà delle entità reali non viene trovata.",
+  "id": "ch5-q21",
+  "options": [
+   "Trova quasi tutte le entità reali ma produce anche moltissimi falsi allarmi",
+   "Ha una F1 pari alla media aritmetica di 0,95 e 0,50, quindi un punteggio pari a 0,725",
+   "Quando predice un'entità sbaglia raramente, ma si perde circa metà delle entità reali",
+   "Ha già una F1 superiore a 0,70 e quindi non serve alcun miglioramento del modello"
+  ],
+  "q": "Un sistema NER ottiene precision 0,95 e recall 0,50 sul test set. Cosa significa?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "precision recall",
+   "interpretazione"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Con classi sbilanciate l'accuracy è dominata dalla classe maggioritaria: un modello banale può sembrare ottimo senza aver imparato nulla, perciò servono precision, recall e F1.",
+  "id": "ch5-q22",
+  "options": [
+   "L'accuracy inganna: il modello non impara nulla, vanno guardate precision, recall e F1",
+   "Il modello è ottimo e già pronto per la produzione, perché un'accuracy del 95% è eccellente",
+   "Il dataset è troppo piccolo per trarre conclusioni affidabili sulle prestazioni reali",
+   "Bisogna solo aumentare la max sequence length per dare più contesto al classificatore"
+  ],
+  "q": "Un classificatore su dati con il 95% di esempi negativi ottiene accuracy 95% predice sempre la classe negativa. Qual è la conclusione corretta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "accuracy",
+   "classi sbilanciate"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "TF-IDF è una statistica bag-of-words sparsa: ignora ordine, contesto e semantica, quindi 'non buono' e 'buono' condividono il termine senza negazione; BERT contestuale gestisce questi fenomeni.",
+  "id": "ch5-q23",
+  "options": [
+   "Richiede una GPU anche per la sola inferenza, mentre BERT non ne ha mai bisogno",
+   "Non gestisce i numeri presenti nei testi e li deve sempre eliminare in fase di preprocessing",
+   "Funziona solo su testi in inglese e non può essere applicato a testi in nessun'altra lingua",
+   "Ignora ordine, contesto e semantica: non coglie la negazione in frasi come 'non buono'"
+  ],
+  "q": "Qual è il limite principale di TF-IDF con classificatore classico rispetto a un modello come BERT fine-tuned?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tf-idf",
+   "bert"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "L'architettura standard aggiunge un layer lineare con softmax sopra la rappresentazione del token speciale [CLS] e riaddestra (fine-tuning) sui dati etichettati del task.",
+  "id": "ch5-q24",
+  "options": [
+   "Si usa il decoder autoregressivo di BERT senza alcuna modifica, generando il nome della classe come testo libero",
+   "Si aggiunge una classification head (layer lineare + softmax) sul token [CLS] e si fa fine-tuning",
+   "Si collega un vocoder all'output di BERT per convertire gli embedding contestuali in segnale audio",
+   "Si usano direttamente gli embedding grezzi di BERT, senza alcun training aggiuntivo sul task"
+  ],
+  "q": "Come si usa tipicamente BERT per un task di text classification?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "classificazione"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Binaria: due classi; multi-classe: molte classi mutuamente esclusive; multi-label: più etichette applicabili insieme allo stesso testo.",
+  "id": "ch5-q25",
+  "options": [
+   "Multi-label, multi-classe, binaria: prima più etichette insieme, poi categorie esclusive, poi due classi",
+   "Multi-classe, binaria, multi-label: categorie esclusive, poi due classi, poi più etichette",
+   "Binaria, multi-classe, multi-label: due sole classi, poi categorie esclusive, poi più etichette",
+   "Binaria, multi-label, multi-classe: due classi, poi più etichette, poi categorie esclusive"
+  ],
+  "q": "Recensioni solo positivo/negativo, ticket smistati in 50 categorie esclusive, articoli con più tag applicabili insieme: a quali impostazioni corrispondono, in ordine?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "classificazione",
+   "multi-label"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Il QA estrattivo non genera testo: classifica ogni token come possibile inizio e fine della risposta e restituisce lo span esatto del passaggio.",
+  "id": "ch5-q26",
+  "options": [
+   "Predice gli indici di inizio e fine (start/end) dello span di risposta dentro il passaggio",
+   "Genera la risposta token per token con un decoder autoregressivo, come nel QA generativo",
+   "Traduce la domanda e il passaggio in inglese prima di individuare la risposta corretta",
+   "Raggruppa i passaggi con clustering non supervisionato e sceglie il cluster più probabile"
+  ],
+  "q": "Come funziona un modello di question answering estrattivo come BERT addestrato su SQuAD?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "qa estrattivo",
+   "squad"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "I modelli encoder-decoder e decoder-only generano risposte in forma libera token per token, anche con parole non presenti nel contesto.",
+  "id": "ch5-q27",
+  "options": [
+   "CRF lineare: modello discriminativo per etichettatura di sequenze come la NER",
+   "TF-IDF + Naive Bayes: rappresentazione bag-of-words con classificatore probabilistico",
+   "SVM con kernel: classificatore a margine massimo usato con feature TF-IDF",
+   "T5, BART o GPT: modelli generativi che producono la risposta token per token"
+  ],
+  "q": "Quali modelli sono adatti al question answering generativo (abstractive), che produce risposte con parole proprie?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "qa generativo",
+   "modelli"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "SQuAD 2.0 aggiunge circa 50.000 domande senza risposta: il modello deve riconoscere quando il passaggio non contiene la risposta e astenersi invece di inventare uno span.",
+  "id": "ch5-q28",
+  "options": [
+   "Solo traduzioni professionali delle domande in altre lingue, per creare un benchmark interamente multilingue",
+   "Domande senza risposta: il modello deve saper riconoscere quando astenersi",
+   "Solo nuove domande poste su contenuti audio trascritti automaticamente in formato testo",
+   "Solo nuove domande accompagnate da immagini che il modello deve prima descrivere a parole"
+  ],
+  "q": "Cosa aggiunge SQuAD 2.0 rispetto a SQuAD 1.1?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "squad",
+   "qa estrattivo"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "L'EM è binario e molto severo: dopo la normalizzazione (minuscole, punteggiatura, articoli) vale 1 solo a uguaglianza perfetta, perciò si affianca la F1 che premia la sovrapposizione parziale.",
+  "id": "ch5-q29",
+  "options": [
+   "La sovrapposizione parziale tra parole predette e gold, che premia anche le risposte solo incomplete",
+   "Il punteggio ROUGE del riassunto generato calcolato rispetto al riassunto di riferimento umano",
+   "1 se la predizione coincide esattamente con una gold dopo normalizzazione, 0 altrimenti",
+   "La precision su n-grammi della traduzione calcolata rispetto al riferimento umano, come nel BLEU"
+  ],
+  "q": "Cosa misura l'Exact Match (EM) nella valutazione del question answering?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "exact match",
+   "metriche"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "È l'associazione standard d'esame: ROUGE (recall-oriented) per la summarization, BLEU (precision con brevity penalty) per la traduzione.",
+  "id": "ch5-q30",
+  "options": [
+   "Summarization con ROUGE, traduzione con BLEU: recall del contenuto contro precision degli n-grammi",
+   "Summarization con BLEU, traduzione con ROUGE: metriche invertite rispetto all'uso standard",
+   "NER con BLEU e QA con ROUGE: metriche di generazione applicate a task estrattivi",
+   "Traduzione con accuracy e summarization con accuracy: semplice frazione di output identici al riferimento"
+  ],
+  "q": "Qual è l'associazione corretta tra task e metrica di valutazione?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rouge",
+   "bleu"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "La text similarity misura quanto due testi sono simili nel significato ed è usata per deduplicazione, FAQ matching e ranking dei passaggi recuperati.",
+  "id": "ch5-q31",
+  "options": [
+   "Named Entity Recognition: individuare nomi di persone, luoghi e organizzazioni nel testo",
+   "Sentiment analysis: classificare la polarità emotiva del testo come positiva o negativa",
+   "Machine translation: tradurre automaticamente il testo in un'altra lingua di destinazione",
+   "Text similarity: misurare la vicinanza di significato tra testi per deduplicare le FAQ"
+  ],
+  "q": "Riconoscere che 'Come resetto la password?' e 'Ho dimenticato la password, come la reimposto?' chiedono la stessa cosa per deduplicare le FAQ è un task di:",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "similarity"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Lo stemming taglia meccanicamente le desinenze e può creare frammenti non esistenti; la lemmatizzazione usa vocabolario e morfologia per restituire la forma base corretta.",
+  "id": "ch5-q32",
+  "options": [
+   "Sono la stessa tecnica con nomi diversi: entrambe restituiscono sempre la forma base corretta",
+   "Lo stemming tronca e può creare non-parole, la lemmatizzazione restituisce la forma base corretta",
+   "Lo stemming funziona solo in inglese, mentre la lemmatizzazione vale per tutte le altre lingue",
+   "La lemmatizzazione richiede sempre una rete neurale, mentre lo stemming usa regole e dizionari"
+  ],
+  "q": "Qual è la differenza tra stemming e lemmatizzazione?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "preprocessing",
+   "lemmatizzazione"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Word2Vec e GloVe assegnano un unico vettore per parola, quindi i sensi diversi collassano; gli embedding contestuali di BERT cambiano in base alla frase e distinguono i sensi.",
+  "id": "ch5-q33",
+  "options": [
+   "Non sono vettori ma etichette discrete, una diversa per ogni parola del vocabolario",
+   "Richiedono più dati annotati di BERT perché si addestrano solo con supervisione completa su frasi etichettate",
+   "Assegnano un unico vettore per parola e non distinguono i sensi diversi, come quelli di 'banco'",
+   "Non catturano alcuna relazione semantica e assegnano vettori del tutto casuali alle parole"
+  ],
+  "q": "Qual è il limite degli embedding statici come Word2Vec e GloVe rispetto agli embedding contestuali di BERT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "embedding",
+   "word2vec"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "BPE e WordPiece scompongono le parole rare o mai viste in sotto-unità frequenti già note al vocabolario, eliminando di fatto il problema delle parole fuori vocabolario.",
+  "id": "ch5-q34",
+  "options": [
+   "Scompongono le parole rare o mai viste in sotto-unità note del vocabolario esistente",
+   "Traducono prima ogni parola in inglese e poi applicano il vocabolario inglese del modello",
+   "Aumentano la max sequence length all'infinito, così anche i testi lunghissimi entrano nel modello",
+   "Sostituiscono gli embedding appresi con regole manuali scritte da linguisti esperti"
+  ],
+  "q": "Perché i tokenizer subword come BPE e WordPiece aiutano con le parole rare o mai viste dal modello?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "bpe"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "media",
+  "explain": "Il macro-average media le metriche calcolate per classe dando pari peso a ogni classe; il micro-average aggrega tutti gli esempi e pesa di più le classi frequenti.",
+  "id": "ch5-q35",
+  "options": [
+   "Sono due nomi della stessa media e producono sempre lo stesso valore su ogni dataset",
+   "Macro serve solo per la NER e micro solo per il QA: ognuno vale per un unico task",
+   "Micro ignora le classi rare eliminandole dal calcolo e valuta soltanto le classi più frequenti",
+   "Macro dà pari peso a ogni classe, micro aggrega gli esempi e favorisce le classi frequenti"
+  ],
+  "q": "In un task di classificazione multi-classe, quando il macro-average differisce dal micro-average e perché?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "macro micro",
+   "metriche"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "La valutazione strict CoNLL richiede confini e tipo esatti: lo span parziale conta come falso positivo e l'entità gold mancata come falso negativo.",
+  "id": "ch5-q36",
+  "options": [
+   "Un vero positivo sia per precision che per recall, perché il tipo PERSON è corretto",
+   "Un falso positivo e un falso negativo: sia precision che recall vengono penalizzate",
+   "Un vero negativo, perché il sistema ha comunque individuato parte dell'entità corretta",
+   "Un caso ignorato dalla valutazione, perché gli span parziali non vengono mai conteggiati"
+  ],
+  "q": "La gold standard annota 'Barack Obama' come PERSON, ma il sistema predice solo 'Obama' come PERSON. Nella valutazione exact-match rigorosa (stile CoNLL) cosa accade?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner",
+   "exact match"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "A livello di token basta azzeccare i singoli token per avere credito parziale; a livello di entità serve l'intero chunk con confini e tipo corretti, quindi è più severa.",
+  "id": "ch5-q37",
+  "options": [
+   "La F1 a token dà credito parziale, quella a entità richiede l'intero chunk corretto",
+   "Sono sempre identiche per costruzione, perché usano le stesse formule di precision e recall",
+   "La F1 a livello di entità è sempre più alta, perché valuta unità informative più grandi",
+   "La F1 a livello di token non può usare lo schema BIO e richiede etichette diverse"
+  ],
+  "q": "Qual è la differenza tra F1 a livello di token e F1 a livello di entità nella valutazione NER?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner",
+   "f1"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "F1 = 2·P·R/(P+R) = 2·0,8·0,4/1,2 = 0,64/1,2 ≈ 0,53. La media armonica è trascinata verso il valore più basso, a differenza della media aritmetica (0,60).",
+  "id": "ch5-q38",
+  "options": [
+   "0,60 — media aritmetica di precision e recall, l'errore tipico di chi usa la media semplice",
+   "0,32 — prodotto di precision per recall, senza la media armonica della formula F1",
+   "0,53 — media armonica 2·P·R/(P+R), trascinata verso il valore più basso",
+   "0,80 — uguale alla precision, come se il recall non contasse nel calcolo della F1"
+  ],
+  "q": "Un classificatore ha precision 0,8 e recall 0,4. Quanto vale la F1?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "f1",
+   "calcolo"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "La parola condivisa è una su una predetta (precision 1,0) e una su due gold (recall 0,5), quindi F1 = 2·1·0,5/1,5 ≈ 0,67; l'EM è 0 perché le stringhe non coincidono esattamente.",
+  "id": "ch5-q39",
+  "options": [
+   "F1 = 1,0 ed EM = 1: risposta considerata perfettamente identica alla gold",
+   "F1 = 0,5 ed EM = 1: EM assegnato nonostante le stringhe siano diverse",
+   "F1 = 0,75 ed EM = 0: recall calcolato erroneamente come 1,0 invece di 0,5 sulle due parole gold",
+   "F1 ≈ 0,67 ed EM = 0: una parola condivisa su una predetta e una su due gold"
+  ],
+  "q": "Nel QA la risposta gold è 'Paris, France' e il modello predice 'Paris'. Quanto valgono F1 token-level ed Exact Match?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "qa estrattivo",
+   "f1"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "BLEU misura precision su n-grammi: senza penalità basterebbe emettere poche parole sicure; la brevity penalty abbassa il punteggio delle traduzioni troppo corte rispetto al riferimento.",
+  "id": "ch5-q40",
+  "options": [
+   "Premia le traduzioni lunghe indipendentemente dalla qualità, senza applicare alcun tipo di penalità",
+   "Penalizza le traduzioni troppo corte con poche parole sicure; BLEU è orientato alla precision",
+   "Misura il recall dei riassunti estrattivi, cioè quanta parte del riferimento è coperta",
+   "Sostituisce la valutazione umana in tutti i casi, rendendo superflui i giudizi manuali"
+  ],
+  "q": "A cosa serve la brevity penalty nel BLEU e cosa la distingue da ROUGE?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bleu",
+   "traduzione"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "ROUGE-L usa la longest common subsequence tra riassunto generato e riferimento: cattura copertura del contenuto e ordine delle parole senza richiedere match consecutivi rigidi come ROUGE-2.",
+  "id": "ch5-q41",
+  "options": [
+   "L'overlap di singoli unigrammi tra il riassunto generato e il riassunto di riferimento umano",
+   "L'overlap di bigrammi consecutivi tra riassunto generato e riferimento umano",
+   "La longest common subsequence tra generato e riferimento: copertura e ordine delle parole",
+   "La brevity penalty delle traduzioni, che punisce gli output troppo corti nel BLEU"
+  ],
+  "q": "Cosa misura ROUGE-L nella valutazione della summarization?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rouge",
+   "summarization"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "Natural Questions raccoglie domande reali poste a Google con risposte annotate su Wikipedia; MS MARCO raccoglie domande Bing con risposte generate e giudizi di rilevanza, pensato anche per il ranking dei passaggi.",
+  "id": "ch5-q42",
+  "options": [
+   "NQ usa domande reali di Google su Wikipedia, MS MARCO domande Bing con giudizi di rilevanza",
+   "Sono due nomi diversi dello stesso identico dataset SQuAD, usati in modo intercambiabile in letteratura",
+   "MS MARCO valuta solo la traduzione automatica tra l'inglese e le altre lingue del mondo",
+   "Natural Questions valuta solo la NER, cioè il riconoscimento di persone e luoghi nei testi"
+  ],
+  "q": "Qual è la differenza tra i dataset Natural Questions e MS MARCO per il question answering?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "dataset",
+   "qa open-domain"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "La NER estrae le menzioni dal testo non strutturato; entity linking e relation extraction le collegano in nodi e archi del grafo di conoscenza.",
+  "id": "ch5-q43",
+  "options": [
+   "Solo sentiment analysis sugli articoli per misurare il tono positivo o negativo dei testi",
+   "Solo traduzione automatica degli articoli in inglese prima di indicizzarli nel grafo",
+   "Solo summarization estrattiva per copiare le frasi più importanti di ogni articolo",
+   "NER per estrarre le entità, più entity linking e relazioni per collegarle nel grafo"
+  ],
+  "q": "Un'editore vuole costruire un knowledge graph da migliaia di articoli (persone, aziende, luoghi e loro relazioni). Quale pipeline NLP è adeguata?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "ner",
+   "knowledge graph"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "Con poche decine di esempi per molte classi, addestrare da zero è impraticabile; gli LLM classificano bene in zero/few-shot o via embedding senza aggiornare pesi, come richiesto anche dal blueprint NCA-GENL.",
+  "id": "ch5-q44",
+  "options": [
+   "Addestrare una rete LSTM completamente da zero usando soltanto i cinque esempi di ogni categoria",
+   "Scrivere interamente a mano regole regex su misura, una diversa per ciascuna categoria",
+   "Zero/few-shot prompting o classificazione via embedding, senza training pesante",
+   "Applicare K-means ai singoli caratteri dei ticket per raggrupparli senza supervisione"
+  ],
+  "q": "Bisogna smistare ticket in 50 categorie con solo 5 esempi ciascuna e senza grandi dataset annotati. Qual è l'approccio migliore?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "few-shot",
+   "classificazione"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch5-nlp",
+  "difficulty": "difficile",
+  "explain": "La precision alta dice che le poche entità trovate sono giuste; il recall 0,45 dice che oltre metà delle entità sfugge, quindi la priorità è ampliare copertura (dati, gazetteer, soglie) senza distruggere la precision.",
+  "id": "ch5-q45",
+  "options": [
+   "Alzare la soglia di confidenza per aumentare ancora la precision del sistema NER",
+   "Cambiare metrica di valutazione e usare BLEU invece di precision, recall e F1",
+   "Raccogliere molti più dati di test senza toccare il modello, per misurare meglio le prestazioni",
+   "Lavorare sul recall: più dati annotati, gazetteer e soglie, senza distruggere la precision"
+  ],
+  "q": "Un sistema NER in produzione ha precision di entità 0,90 ma recall 0,45 sul test. Qual è l'intervento prioritario?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "precision recall",
+   "ner"
+  ]
+ }
+]

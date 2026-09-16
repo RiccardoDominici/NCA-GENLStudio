@@ -1,0 +1,842 @@
+[
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "La RAG combina un sistema di retrieval, che recupera documenti pertinenti da una knowledge base, con un modello generativo che produce la risposta basandosi su quei documenti.",
+  "id": "ch7-q01",
+  "options": [
+   "Due modelli linguistici addestrati su lingue diverse che collaborano per tradurre la risposta finale",
+   "Un retriever che cerca documenti rilevanti e un generatore che risponde basandosi su di essi",
+   "Un modello di diffusione per immagini abbinato a un classificatore di categorie testuali",
+   "Un sistema di traduzione automatica seguito da un correttore grammaticale della risposta"
+  ],
+  "q": "Quali due componenti combina l'architettura Retrieval-Augmented Generation (RAG)?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "La pipeline RAG procede in ordine: elaborazione della query, retrieval dei documenti, integrazione del contesto nel prompt e generazione della risposta.",
+  "id": "ch7-q02",
+  "options": [
+   "Elaborazione query, retrieval documenti, integrazione contesto, generazione risposta",
+   "Generazione della risposta, retrieval dei documenti, riaddestramento del modello, valutazione finale",
+   "Embedding dei testi, fine-tuning del modello, checkpointing dei pesi, deployment in produzione",
+   "Tokenizzazione dell'input, training del modello, validazione dei pesi, inferenza sul test set"
+  ],
+  "q": "Qual è l'ordine corretto delle quattro fasi di una pipeline RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "L'embedding model converte query e frammenti di testo in vettori numerici densi che catturano il significato semantico, rendendo possibile la ricerca per similarità.",
+  "id": "ch7-q03",
+  "options": [
+   "Genera direttamente la risposta finale in linguaggio naturale senza usare alcun indice esterno",
+   "Memorizza la cronologia delle conversazioni e lo stato della sessione utente nel database",
+   "Converte testi e query in vettori numerici densi che catturano il significato semantico",
+   "Applica i guardrail di sicurezza e i filtri di policy ai contenuti generati dal modello"
+  ],
+  "q": "Qual è il ruolo dell'embedding model in un sistema RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "embeddings"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "La similarità coseno misura l'angolo tra due vettori di embedding: valori alti indicano testi semanticamente vicini, ed è la metrica più usata per confrontare query e documenti.",
+  "id": "ch7-q04",
+  "options": [
+   "Il numero di parole in comune tra i due testi, ignorando l'ordine e il significato",
+   "Il punteggio BLEU della traduzione generata rispetto a una traduzione di riferimento umana",
+   "La perdita di cross-entropia calcolata sui logit durante l'addestramento del modello",
+   "Il coseno dell'angolo tra i vettori di embedding, che indica la vicinanza semantica"
+  ],
+  "q": "Cosa misura la similarità coseno tra la query e un documento in un sistema RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "vector db",
+   "embeddings"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "FAISS, Milvus, Pinecone, Weaviate e Chroma sono progettati per memorizzare embedding e supportare la ricerca approssimata dei vicini più simili (ANN) su larga scala.",
+  "id": "ch7-q05",
+  "options": [
+   "MySQL, PostgreSQL e SQLite relazionali nella loro configurazione standard senza indici vettoriali",
+   "FAISS, Milvus, Pinecone, Weaviate e Chroma, ottimizzati per la ricerca vettoriale ANN",
+   "MongoDB usato solo come cache di sessione per memorizzare le conversazioni recenti",
+   "File CSV e fogli di calcolo condivisi che elencano manualmente i documenti rilevanti"
+  ],
+  "q": "Quali strumenti sono esempi di vector database usati nella fase di retrieval della RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "vector db"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Il chunking divide documenti lunghi in passaggi brevi e semanticamente coerenti, così il retrieval trova porzioni precise e il contesto rientra nei limiti della finestra del modello.",
+  "id": "ch7-q06",
+  "options": [
+   "Divide i documenti in frammenti brevi per un retrieval preciso entro i limiti di contesto",
+   "Aumenta la dimensione della finestra di contesto del modello linguistico usato in inferenza",
+   "Cripta i documenti con una chiave simmetrica prima di salvarli nel database vettoriale",
+   "Elimina del tutto la necessità di calcolare gli embedding per i documenti indicizzati"
+  ],
+  "q": "Perché il chunking dei documenti è importante in un'applicazione RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "chunking"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Il top-k retrieval restituisce i k documenti con punteggio di similarità più alto rispetto alla query; solo questi vengono passati al modello per la generazione.",
+  "id": "ch7-q07",
+  "options": [
+   "L'addestramento del modello sui primi k esempi del dataset prima di ogni interrogazione",
+   "La selezione casuale di k documenti dal database per rendere più varie le risposte",
+   "La restituzione dei k documenti con il punteggio di similarità più alto rispetto alla query",
+   "La compressione del prompt fino a esattamente k token prima dell'invio al modello"
+  ],
+  "q": "Cosa significa il retrieval top-k in una pipeline RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "retrieval"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "La greedy search seleziona a ogni passo il token con probabilità più alta, senza esplorare alternative: è veloce e deterministica ma può restare bloccata in scelte subottimali.",
+  "id": "ch7-q08",
+  "options": [
+   "Mantiene le k sequenze più probabili e le espande in parallelo a ogni passo",
+   "Campiona dalla massa di probabilità cumulativa fino a raggiungere la soglia p fissata",
+   "Genera tutti i token dell'output in parallelo in un unico passaggio di decoding",
+   "A ogni passo seleziona il token con probabilità più alta, senza esplorare alternative"
+  ],
+  "q": "Come funziona la greedy search nella generazione di testo?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "greedy search",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Una temperatura alta appiattisce la distribuzione di probabilità, rendendo più equiprobabili i token e quindi l'output più casuale e creativo.",
+  "id": "ch7-q09",
+  "options": [
+   "Rende l'output più casuale e vario appiattendo la distribuzione di probabilità",
+   "Rende l'output più deterministico concentrando la probabilità sul token migliore previsto",
+   "Aumenta il numero di sequenze candidate mantenute in parallelo durante il decoding",
+   "Riduce il vocabolario a un sottoinsieme fisso di token tra cui il modello può scegliere"
+  ],
+  "q": "Che effetto ha un valore alto di temperatura nel campionamento di un LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "temperature",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Nello zero-shot si chiede al modello di svolgere un compito senza fornire esempi, contando solo sulle istruzioni e sulla conoscenza appresa in pretraining.",
+  "id": "ch7-q10",
+  "options": [
+   "Fornire al modello molti esempi etichettati con aggiornamento permanente dei pesi",
+   "Svolgere un compito senza alcun esempio, usando solo le istruzioni nel prompt",
+   "Mostrare al modello i passaggi intermedi di ragionamento da seguire prima di rispondere",
+   "Riaddestrare il modello su nuovi dati di dominio prima di porre ogni singola domanda"
+  ],
+  "q": "Cosa caratterizza il prompting zero-shot?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "prompt engineering"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Il few-shot prompting include alcuni esempi di input-output nel prompt, così il modello imita il formato e lo stile desiderato senza alcun riaddestramento.",
+  "id": "ch7-q11",
+  "options": [
+   "L'addestramento del modello su migliaia di esempi con aggiornamento permanente dei pesi",
+   "La generazione di più sequenze candidate mantenute in parallelo durante il decoding",
+   "L'inclusione di pochi esempi di input-output nel prompt per guidarne formato e stile",
+   "L'applicazione di filtri di sicurezza e guardrail all'output generato dal modello"
+  ],
+  "q": "In cosa consiste la tecnica few-shot nel prompt engineering?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "prompt engineering"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Il forward process è una catena markoviana fissata, senza parametri da apprendere, che aggiunge gradualmente rumore gaussiano ai dati fino a ridurli a rumore puro.",
+  "id": "ch7-q12",
+  "options": [
+   "La rimozione appresa del rumore per ricostruire un'immagine partendo da rumore puro",
+   "La compressione di un'immagine in uno spazio latente tramite un autoencoder variazionale",
+   "L'addestramento adversario tra un generatore e un discriminatore in competizione",
+   "L'aggiunta graduale di rumore gaussiano ai dati secondo uno schedule di varianze fissato"
+  ],
+  "q": "Nei diffusion models, cosa fa il forward process?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "diffusion"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Il reverse process è appreso: una rete neurale (tipicamente una U-Net) impara a rimuovere il rumore passo dopo passo, generando dati partendo da rumore puro.",
+  "id": "ch7-q13",
+  "options": [
+   "Rimuove il rumore passo dopo passo per generare dati a partire da rumore puro",
+   "Aggiunge rumore ai dati con varianze apprese durante la fase di training",
+   "Calcola gli embedding testuali per la ricerca semantica nel database vettoriale",
+   "Seleziona i documenti più rilevanti da una knowledge base esterna interrogata"
+  ],
+  "q": "Nei diffusion models, cosa fa il reverse process?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "diffusion"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "Nel customer service i chatbot RAG rispondono alle domande frequenti, instradano i ticket al reparto giusto e analizzano il sentiment, recuperando policy e manuali aggiornati.",
+  "id": "ch7-q14",
+  "options": [
+   "La progettazione di nuove molecole farmacologiche nei laboratori di ricerca e sviluppo",
+   "La risposta automatica alle FAQ, l'instradamento dei ticket e l'analisi del sentiment",
+   "La stesura autonoma di atti processuali e memorie difensive da presentare in tribunale",
+   "La validazione formale dei bilanci aziendali annuali da parte dei revisori contabili"
+  ],
+  "q": "Quale tra queste è un'applicazione tipica dei LLM nel customer service?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "customer service",
+   "applicazioni"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "facile",
+  "explain": "I guardrail sono controlli programmabili (input, output, dialog, retrieval) che mantengono il modello pertinente, sicuro e conforme alle policy, ad esempio filtrando tossicità e dati personali.",
+  "id": "ch7-q15",
+  "options": [
+   "Le barriere hardware e termiche che proteggono i server GPU dal surriscaldamento operativo",
+   "Le clausole contrattuali che regolano i rapporti con i fornitori di modelli linguistici",
+   "Controlli programmabili che mantengono le risposte sicure e conformi alle policy definite",
+   "Le tecniche di compressione e quantization che riducono la dimensione dei pesi del modello"
+  ],
+  "q": "Cosa sono i guardrail nel contesto dei LLM in produzione?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "trustworthy ai",
+   "guardrails"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "La conoscenza normativa cambia spesso e deve restare aggiornata senza riaddestrare: la RAG recupera i documenti vigenti al momento della domanda, mentre il fine-tuning fissa la conoscenza nei pesi.",
+  "id": "ch7-q16",
+  "options": [
+   "Il fine-tuning mensile del modello su tutti i documenti normativi accumulati nel tempo",
+   "La generazione senza contesto basata solo sulla memoria interna del pretraining originale",
+   "L'aumento della temperatura di campionamento per rendere le risposte più creative e varie",
+   "Un sistema RAG che recupera i documenti normativi vigenti al momento della domanda"
+  ],
+  "q": "Una banca deve rispondere a domande su normative che cambiano ogni mese. Quale approccio è più adatto?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "fine-tuning"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Il fine-tuning modifica pesi e comportamento del modello (tono, stile, formato), mentre la RAG fornisce conoscenza esterna dinamica: per uno stile stabile e duraturo si sceglie il fine-tuning.",
+  "id": "ch7-q17",
+  "options": [
+   "Il fine-tuning, perché modella stabilmente stile, tono e comportamento del modello",
+   "La RAG con retrieval continuo, perché ogni risposta richiede documenti sempre diversi",
+   "L'aumento del beam width di decoding, perché migliora lo stile formale di scrittura",
+   "La disattivazione dei guardrail di sicurezza, perché vincolano la creatività stilistica"
+  ],
+  "q": "Un'azienda vuole che il suo assistente risponda sempre con un tono formale e un formato fisso, indipendentemente dall'argomento. Cosa conviene usare?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "fine-tuning",
+   "rag"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "La context window è limitata (ad esempio 8k o 128k token): una knowledge base di milioni di documenti non può entrarci, quindi la RAG seleziona solo i frammenti rilevanti.",
+  "id": "ch7-q18",
+  "options": [
+   "Il costo orario delle GPU utilizzate durante la lunga fase di training iniziale",
+   "Il limite di token per prompt, che impedisce di inserire knowledge base molto grandi",
+   "La velocità di campionamento del nucleus sampling top-p durante la fase di generazione",
+   "Il numero di lingue naturali supportate dal tokenizzatore del modello linguistico"
+  ],
+  "q": "Quale limite rende la RAG preferibile all'inserimento diretto di interi manuali nel prompt?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "context window"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Il re-ranking è un secondo stadio preciso: un cross-encoder rivaluta i candidati iniziali (recuperati velocemente con un bi-encoder) e li riordina per rilevanza prima della generazione.",
+  "id": "ch7-q19",
+  "options": [
+   "La riscrittura casuale dell'ordine dei documenti recuperati per aumentare la diversità",
+   "La compressione degli embedding vettoriali per risparmiare memoria GPU in produzione",
+   "Riordinare con un cross-encoder i candidati recuperati prima della generazione",
+   "Il riaddestramento periodico dell'embedding model su tutti i nuovi documenti indicizzati"
+  ],
+  "q": "Qual è lo scopo del re-ranking in una pipeline RAG avanzata?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "re-ranking"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "La ricerca ibrida unisce la comprensione semantica del retrieval denso con la corrispondenza esatta delle parole chiave (BM25), migliorando il recall su codici, nomi e termini tecnici.",
+  "id": "ch7-q20",
+  "options": [
+   "Unisce ricerca semantica e keyword esatte, migliorando il recall complessivo",
+   "Elimina completamente la necessità di calcolare gli embedding per i nuovi documenti",
+   "Funziona solo per le immagini e non può essere applicata ai documenti di testo",
+   "Riduce la latenza di risposta a zero in qualsiasi condizione di carico del sistema"
+  ],
+  "q": "Qual è il vantaggio principale del retrieval ibrido (denso + sparso BM25)?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "retrieval",
+   "vector db"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Gli indici ANN come HNSW e IVF organizzano i vettori in strutture navigabili, così la ricerca dei vicini su milioni di vettori è veloce pur restando approssimata.",
+  "id": "ch7-q21",
+  "options": [
+   "Criptano i vettori memorizzati per impedire gli accessi non autorizzati ai dati",
+   "Traducono automaticamente i documenti indicizzati in più lingue prima dell'embedding",
+   "Generano la risposta finale direttamente, senza passare dal modello linguistico generativo",
+   "Organizzano i vettori per velocizzare la ricerca approssimata dei vicini su larga scala"
+  ],
+  "q": "A cosa servono gli indici ANN come HNSW e IVF nei vector database?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "vector db"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Con beam width uguale a 1 si mantiene una sola ipotesi, cioè il token migliore a ogni passo: esattamente il comportamento della greedy search.",
+  "id": "ch7-q22",
+  "options": [
+   "Al nucleus sampling con soglia p pari a 1 calcolata sull'intera distribuzione dei token",
+   "Alla greedy search, perché si mantiene una sola ipotesi alla volta senza alternative",
+   "Al top-k sampling con k pari all'intera dimensione del vocabolario del modello",
+   "Al campionamento con temperatura pari a 2 e distribuzione dei token molto appiattita"
+  ],
+  "q": "Cosa succede alla beam search quando il beam width è pari a 1?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "beam search",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Un beam più ampio esplora più sequenze candidate e spesso migliora la qualità (utile in traduzione e riassunti), ma aumenta costo computazionale e tende a output generici e ripetitivi.",
+  "id": "ch7-q23",
+  "options": [
+   "Aumenta la temperatura effettiva applicata al campionamento dei token successivi",
+   "Riduce il numero di parametri del modello attivati durante la fase di inferenza",
+   "Più sequenze esplorate e qualità migliore, ma costi maggiori e output generici",
+   "Elimina del tutto la necessità di rispettare la finestra di contesto del modello"
+  ],
+  "q": "Qual è il trade-off principale nell'aumentare il beam width della beam search?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "beam search",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Con temperatura pari a 0 la distribuzione diventa un picco sul logit massimo, quindi il campionamento equivale a scegliere sempre il token più probabile (argmax).",
+  "id": "ch7-q24",
+  "options": [
+   "Alla greedy search, perché si sceglie sempre il token più probabile",
+   "Alla beam search con ampiezza pari a 10 sequenze candidate mantenute in parallelo",
+   "Al campionamento puramente casuale e uniforme sull'intero vocabolario del modello",
+   "Al nucleus sampling con soglia p pari a 0,5 applicata alla massa di probabilità"
+  ],
+  "q": "A cosa equivale il campionamento con temperatura pari a 0?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "temperature",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Il top-k usa una soglia fissa (sempre k token), mentre il top-p seleziona il sottoinsieme più piccolo con probabilità cumulativa pari a p: pochi token quando il modello è sicuro, molti quando è incerto.",
+  "id": "ch7-q25",
+  "options": [
+   "Il top-p è deterministico mentre il top-k introduce sempre casualità durante il decoding",
+   "Il top-k è più lento in inferenza perché richiede un modello cross-encoder aggiuntivo dedicato",
+   "Il top-p elimina del tutto la necessità di regolare la temperatura durante il campionamento",
+   "Il top-k usa una soglia k fissa, il top-p adatta i token alla forma della distribuzione"
+  ],
+  "q": "Qual è la differenza fondamentale tra top-k sampling e nucleus sampling top-p?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "top-p",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Per risposte fattuali serve bassa casualità: temperatura bassa (0,1-0,3), greedy o beam search riducono variazioni e hallucination rispetto a campionamenti creativi.",
+  "id": "ch7-q26",
+  "options": [
+   "Temperatura alta con top-p vicino a 1 per massimizzare la creatività delle risposte",
+   "Temperatura bassa, oppure decoding greedy o beam search, per risposte più affidabili",
+   "Beam search con beam molto ampio combinata con temperatura alta di campionamento",
+   "Campionamento casuale uniforme su tutto il vocabolario senza alcun vincolo di probabilità"
+  ],
+  "q": "Quale configurazione di decoding è più indicata per un sistema di domande e risposte fattuali?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "temperature",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "La combinazione standard per testi creativi ma coerenti è temperatura moderata (~0,7-1,0) con top-p ~0,9 ed eventuale top-k: diversità senza degenerare in incoerenza.",
+  "id": "ch7-q27",
+  "options": [
+   "Greedy search deterministica con temperatura pari a 0 e nessuna diversità",
+   "Beam search con beam ampio e temperatura pari a 0 per output deterministici",
+   "Temperatura moderata (~0,7-1,0) con top-p intorno a 0,9 ed eventuale top-k",
+   "Temperatura molto alta con top-p pari a 1 applicato a tutto il vocabolario"
+  ],
+  "q": "Quale combinazione di parametri è più usata per la scrittura creativa diversificata ma coerente?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "top-p",
+   "temperature"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Il chain-of-thought chiede al modello di esplicitare i passaggi intermedi di ragionamento, migliorando l'accuratezza su problemi matematici e logici multi-step.",
+  "id": "ch7-q28",
+  "options": [
+   "Spinge il modello a esplicitare i passaggi intermedi di ragionamento prima di rispondere",
+   "Aumenta la dimensione del beam usato nella beam search durante la fase di decoding",
+   "Aggiunge rumore gaussiano ai dati di training come avviene nel forward dei diffusion models",
+   "Filtra i contenuti tossici e offensivi presenti nell'output generato dal modello prima dell'invio"
+  ],
+  "q": "A cosa serve la tecnica chain-of-thought nel prompt engineering?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "prompt engineering"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Il system prompt definisce identità, regole e vincoli persistenti dell'assistente (ruolo, tono, policy), a cui il modello deve attenersi per tutta la conversazione.",
+  "id": "ch7-q29",
+  "options": [
+   "A memorizzare stabilmente gli embedding dei documenti indicizzati nel vector database",
+   "A selezionare i candidati top-k più simili durante la fase di retrieval vettoriale",
+   "A riordinare i documenti recuperati tramite un modello cross-encoder dedicato al re-ranking",
+   "A definire ruolo, regole e vincoli che l'assistente segue per tutta la conversazione"
+  ],
+  "q": "Qual è il ruolo del system prompt in un'applicazione basata su LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "prompt engineering"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Le GAN usano un confronto adversario tra generatore e discriminatore, mentre i diffusion models generano tramite denoising iterativo appreso: niente discriminatore, ma più passi di inferenza.",
+  "id": "ch7-q30",
+  "options": [
+   "I diffusion models usano un discriminatore adversario, mentre le GAN ne sono prive",
+   "Diffusion con denoising iterativo appreso, GAN con sfida tra generatore e discriminatore",
+   "Le GAN aggiungono rumore gaussiano ai dati, mentre i diffusion models non lo usano mai",
+   "Sono esattamente lo stesso modello generativo indicato in letteratura con due nomi diversi"
+  ],
+  "q": "Qual è la differenza principale tra diffusion models e GAN?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "diffusion"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "In ambito sanitario le risposte devono essere verificabili: la RAG recupera linee guida e cartelle pertinenti e le cita, così il medico può controllare le fonti invece di fidarsi della sola memoria del modello.",
+  "id": "ch7-q31",
+  "options": [
+   "Aumentare la temperatura di campionamento per ottenere diagnosi più creative e varie",
+   "Usare solo la memoria interna del pretraining senza alcun contesto esterno aggiornato",
+   "Recupera linee guida pertinenti e le cita, rendendo le risposte verificabili",
+   "Disattivare tutti i guardrail di sicurezza per velocizzare le risposte nei casi urgenti"
+  ],
+  "q": "Un'azienda sanitaria vuole un assistente che aiuti i medici consultando linee guida interne. Perché la RAG è adatta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "healthcare",
+   "rag"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Nella finanza i LLM analizzano transazioni e report per segnali anomali (risk assessment, fraud detection) e generano sintesi, con human-in-the-loop per le decisioni critiche.",
+  "id": "ch7-q32",
+  "options": [
+   "Analizzare transazioni e report per valutare rischi, rilevare frodi e generare sintesi",
+   "La generazione di immagini pubblicitarie personalizzate per le filiali territoriali",
+   "La sostituzione integrale dei revisori contabili umani senza alcuna supervisione esterna",
+   "La rimozione di tutti i controlli di compliance per velocizzare le operazioni quotidiane"
+  ],
+  "q": "Quale tra queste è un'applicazione realistica dei LLM nel settore finanziario?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "finance",
+   "applicazioni"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Contratti e norme cambiano di frequente e le risposte devono citare le fonti: la RAG recupera i testi vigenti al momento della query, mentre il fine-tuning fisserebbe conoscenza destinata a invecchiare.",
+  "id": "ch7-q33",
+  "options": [
+   "Il fine-tuning annuale del modello su tutto l'archivio storico dello studio legale",
+   "La generazione libera di pareri senza alcun accesso diretto ai testi normativi vigenti",
+   "L'uso esclusivo di prompt zero-shot senza fornire alcun contesto normativo alla query",
+   "Un sistema RAG che recupera norme vigenti e cita le fonti nelle risposte"
+  ],
+  "q": "Uno studio legale deve interrogare migliaia di contratti e normative in continua evoluzione. Quale soluzione è preferibile?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "fine-tuning"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "Lo human-in-the-loop lascia la decisione finale a un esperto umano, contenendo i rischi di errori del modello in domini critici come sanità, finanza e diritto.",
+  "id": "ch7-q34",
+  "options": [
+   "L'addestramento del modello direttamente in produzione senza alcuna fase di test",
+   "La revisione e approvazione delle decisioni critiche del modello da parte di un umano",
+   "L'esecuzione del modello in un loop infinito di auto-miglioramento fino a convergenza",
+   "La sostituzione degli annotatori umani con etichette generate automaticamente dal modello"
+  ],
+  "q": "Cosa significa human-in-the-loop nei sistemi di AI affidabile?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "trustworthy ai"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "media",
+  "explain": "I bias nei dati di training possono produrre esiti discriminatori: audit, dataset bilanciati e metriche di fairness servono a rilevarli e mitigarli prima e dopo il deployment.",
+  "id": "ch7-q35",
+  "options": [
+   "La velocità di inferenza del modello misurata in token generati al secondo (throughput)",
+   "Il rumore gaussiano aggiunto progressivamente ai dati durante il forward process diffusivo",
+   "Il rischio di esiti discriminatori ereditati dagli squilibri dei dati di training",
+   "Il costo economico per token applicato dalle API di inferenza ospitate in produzione"
+  ],
+  "q": "Cosa si intende per bias nel contesto della Trustworthy AI?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "trustworthy ai"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "Le linee guida cliniche si aggiornano continuamente e gli errori hanno conseguenze gravi: la RAG garantisce informazioni correnti e citabili, mentre il fine-tuning invecchierebbe in fretta e non offrirebbe fonti verificabili.",
+  "id": "ch7-q36",
+  "options": [
+   "La RAG, perché linee guida in evoluzione richiedono fonti aggiornate e citabili",
+   "Il fine-tuning una tantum sulle linee guida attuali, supponendo che restino valide per sempre",
+   "Il solo aumento della temperatura per ottenere diagnosi più varie e creative",
+   "Nessun sistema AI, perché i LLM non possono in nessun caso essere usati in ambito sanitario"
+  ],
+  "q": "Un ospedale valuta se usare fine-tuning o RAG per un assistente che consulta protocolli terapeutici aggiornati mensilmente. Quale scelta è corretta e perché?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "healthcare",
+   "rag",
+   "fine-tuning"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "Chunk troppo grandi diluiscono le informazioni e sprecano contesto con testo irrilevante; chunk troppo piccoli perdono il contesto semantico: serve un equilibrio, spesso con overlap tra frammenti adiacenti.",
+  "id": "ch7-q37",
+  "options": [
+   "Chunk grandi aumentano sempre la precisione di retrieval senza alcun costo aggiuntivo",
+   "Chunk piccoli contengono sempre più contesto semantico rispetto a quelli grandi e rumorosi",
+   "La dimensione dei chunk non influisce in alcun modo sulla qualità del retrieval finale",
+   "Chunk grandi diluiscono l'informazione e chunk piccoli perdono contesto: serve equilibrio"
+  ],
+  "q": "Qual è il trade-off nella scelta della dimensione dei chunk per la RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "chunking",
+   "rag"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "Il retrieval miss nasce da chunking scadente, embedding deboli o mismatch query-documento: si mitiga con riscrittura della query, ricerca ibrida, HyDE e chunking migliore.",
+  "id": "ch7-q38",
+  "options": [
+   "L'esaurimento della memoria GPU disponibile durante la fase di generazione della risposta",
+   "Il recupero di contesto irrilevante per chunking, embedding o mismatch query-documenti",
+   "Il superamento del numero massimo di parametri supportati dal modello durante l'inferenza",
+   "Il disallineamento introdotto dalla RLHF che rende il modello troppo prolisso e verboso"
+  ],
+  "q": "Cos'è il failure mode chiamato retrieval miss in un sistema RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "retrieval"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "La beam search favorisce sequenze brevi (meno moltiplicazioni di probabilità) e output sicuri ma ripetitivi: la length penalty compensa normalizzando il punteggio per la lunghezza.",
+  "id": "ch7-q39",
+  "options": [
+   "La tendenza a generare solo testi eccessivamente lunghi, creativi e diversificati",
+   "L'incapacità strutturale di funzionare con qualsiasi modello basato su architettura transformer",
+   "La preferenza per sequenze brevi e generiche, mitigata dalla length penalty",
+   "L'aumento incontrollato della temperatura di campionamento durante la fase di decoding"
+  ],
+  "q": "Quale bias noto affligge la beam search e come lo si mitiga?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "beam search",
+   "decoding"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "Il modello più grande non è sempre la scelta giusta: va bilanciato tra qualità, latenza e costi con tecniche come quantization, caching, batching e test comparativi sul carico reale.",
+  "id": "ch7-q40",
+  "options": [
+   "Bilanciare qualità, latenza e costi: il modello più grande non è sempre la scelta giusta",
+   "Scegliere sempre il modello più grande disponibile, perché migliora insieme qualità, latenza e costi",
+   "Usare solo CPU per ridurre i costi di serving, ignorando del tutto i vincoli di latenza",
+   "Disattivare monitoraggio e logging in produzione per risparmiare risorse computazionali"
+  ],
+  "q": "Un'azienda deve mettere in produzione un LLM con vincoli di latenza e budget. Quale principio guida la scelta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "deployment"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "Quantization (pesi a precisione ridotta) e TensorRT (ottimizzazione dell'inferenza NVIDIA) riducono memoria e latenza con minima perdita di qualità, rendendo sostenibile il serving.",
+  "id": "ch7-q41",
+  "options": [
+   "Aumentano il numero di parametri del modello per migliorarne la qualità in produzione",
+   "Servono solo durante la fase di training distribuito su cluster di GPU aziendali",
+   "Generano automaticamente i dataset di training usati per il fine-tuning del modello",
+   "Riducono memoria occupata e latenza di inferenza con minima perdita di qualità"
+  ],
+  "q": "A cosa servono quantization e TensorRT nel deployment di LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "deployment"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "L'A/B testing espone metà traffico a ciascuna versione e confronta metriche reali (qualità, latenza, soddisfazione), permettendo decisioni basate su dati prima del rollout completo.",
+  "id": "ch7-q42",
+  "options": [
+   "L'addestramento del modello su due dataset diversi alternati a ogni epoca di training",
+   "Il confronto di due versioni su traffico reale diviso 50/50 con metriche oggettive",
+   "La duplicazione del vector database su più regioni per garantire ridondanza geografica",
+   "L'esecuzione di due beam search diverse in parallelo durante ogni singola generazione"
+  ],
+  "q": "Cosa significa fare A/B testing 50/50 nel deployment di un'applicazione LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "deployment"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "LangChain e LlamaIndex sono framework di orchestrazione: astraggono ingestion, chunking, retrieval, memoria e tool use, permettendo di comporre pipeline RAG e agenti senza reinventare l'infrastruttura.",
+  "id": "ch7-q43",
+  "options": [
+   "Sono modelli linguistici alternativi all'architettura transformer standard di base",
+   "Sono database vettoriali distribuiti eseguiti interamente su cluster di GPU dedicate",
+   "Sono framework che orchestrano ingestion, retrieval e tool use per app RAG e agenti",
+   "Sono tecniche di compressione e quantization dei pesi per un'inferenza più efficiente"
+  ],
+  "q": "Qual è il ruolo di LangChain e LlamaIndex nelle applicazioni RAG?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "orchestrazione"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "Il prompt injection manipola il modello tramite input malevoli: gli input rail (NeMo Guardrails, Colang) validano e filtrano l'input, con output rail e redazione PII come difesa in profondità.",
+  "id": "ch7-q44",
+  "options": [
+   "Validare gli input con input rail dedicati, più output rail e controlli di policy",
+   "Aumentare la temperatura per rendere il modello meno prevedibile agli attaccanti esterni",
+   "Rimuovere tutti i system prompt per non offrire alcuna superficie di attacco sfruttabile",
+   "Affidarsi solo a un contesto molto lungo per diluire e neutralizzare gli input malevoli"
+  ],
+  "q": "Come si mitiga il rischio di prompt injection in un chatbot aziendale?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "trustworthy ai",
+   "guardrails"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch7-applications",
+  "difficulty": "difficile",
+  "explain": "La RAG riduce le hallucination ancorando la risposta a documenti reali, ma non le elimina: retriever errato o cattiva interpretazione del contesto possono comunque produrre risposte infondate.",
+  "id": "ch7-q45",
+  "options": [
+   "Vero: con la RAG ancorata ai documenti il modello non può più commettere errori",
+   "Vero: la RAG rende inutile qualsiasi successiva valutazione della qualità generata",
+   "Falso: la RAG aumenta sempre le hallucination rispetto al modello base senza retrieval",
+   "Falso: le riduce, ma errori di retrieval o contesto frainteso restano possibili"
+  ],
+  "q": "Vero o falso: la RAG elimina completamente le hallucination del modello. Perché?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "rag",
+   "hallucination"
+  ]
+ }
+]

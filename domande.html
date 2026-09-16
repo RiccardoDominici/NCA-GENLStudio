@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco domande — NCA-GENL Studio</title>
+  <meta name="description" content="Banco domande d'esame NCA-GENL filtrabile per capitolo, difficoltà e stato, con simulazione d'esame a tempo.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">NVIDIA Certified Associate · NCA-GENL</p>
+      <h1>Banco domande</h1>
+      <p class="subtitle">Domande d'esame filtrabili per capitolo, difficoltà e stato — più la simulazione a tempo.</p>
+      <p><a class="back" href="index.html">← Torna alla mappa</a></p>
+    </div>
+  </header>
+
+  <main class="wrap qbank-page">
+    <div id="qbank-root" aria-live="polite">
+      <p class="muted">Caricamento banco domande…</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted small">
+        Domande di pratica in stile NCA-GENL, elaborate sul blueprint ufficiale NVIDIA e sulla
+        documentazione pubblica. Non sono domande reali d'esame.
+      </p>
+    </div>
+  </footer>
+
+  <script src="tracker.js"></script>
+  <script src="app.js"></script>
+  <script src="qbank.js"></script>
+  <script src="qbank-ui.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.NCA.qbankUI.init(document.getElementById('qbank-root'));
+    });
+  </script>
+</body>
+</html>

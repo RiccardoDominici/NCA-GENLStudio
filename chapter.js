@@ -665,6 +665,14 @@
       tabs.panels.quiz.appendChild(quizHost);
       window.NCA.quiz.render(quizHost, ch);
 
+      /* Ponte verso il banco domande già filtrato su questo capitolo. */
+      var qlink = app.el('p', 'chapter-qlink', '');
+      var a = app.el('a', '', 'Vai al banco domande di questo capitolo →');
+      a.href = 'domande.html?ch=' + encodeURIComponent(id);
+      qlink.appendChild(document.createTextNode('Vuoi allenarti ancora? '));
+      qlink.appendChild(a);
+      tabs.panels.quiz.appendChild(qlink);
+
       /* Bottone completamento fuori dalle tab, in fondo */
       var doneHost2 = app.el('div', 'done-row', '');
       root.appendChild(doneHost2);

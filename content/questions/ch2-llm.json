@@ -1,0 +1,856 @@
+[
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "BERT usa solo l'encoder del Transformer e guarda il contesto in entrambe le direzioni; GPT usa solo il decoder ed è causale, T5 usa entrambi (encoder-decoder).",
+  "id": "ch2-q01",
+  "options": [
+   "Decoder-only autoregressivo, che genera un token alla volta",
+   "Encoder-only bidirezionale, che legge l'intero contesto",
+   "Encoder-decoder text-to-text, per convertire sequenze",
+   "Rete convoluzionale per immagini, senza self-attention"
+  ],
+  "q": "BERT appartiene a quale famiglia di architetture Transformer?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "architetture"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "GPT (Generative Pre-trained Transformer) impila solo blocchi decoder e predice il token successivo; per questo eccelle nella generazione di testo.",
+  "id": "ch2-q02",
+  "options": [
+   "Decoder-only autoregressivo, che genera un token alla volta",
+   "Encoder-only bidirezionale, che legge tutto il contesto insieme",
+   "Encoder-decoder con span corruption su input e output",
+   "Modello a diffusione che genera immagini dal rumore"
+  ],
+  "q": "GPT appartiene a quale famiglia di architetture Transformer?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "gpt",
+   "architetture"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "T5 converte ogni problema (traduzione, riassunto, classificazione, QA) in un formato testo-in-testo-fuori, spesso con un prefisso che indica il task.",
+  "id": "ch2-q03",
+  "options": [
+   "Prevede solo token mascherati con contesto bidirezionale",
+   "Genera immagini da rumore tramite un processo di diffusione",
+   "Formula ogni task come conversione da testo a testo",
+   "Classifica le frasi in input senza mai generare testo"
+  ],
+  "q": "Cosa caratterizza il paradigma text-to-text di T5?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "t5",
+   "text-to-text"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Un foundation model viene pre-addestrato su enormi corpora generici e poi adattato a molti task a valle tramite fine-tuning o prompting.",
+  "id": "ch2-q04",
+  "options": [
+   "Un piccolo modello addestrato da zero per un singolo task specifico",
+   "Un modello di regressione lineare su feature manuali",
+   "Un modello rigido che non si può adattare a nuovi task",
+   "Un modello pre-addestrato su dati vasti e adattabile a molti task"
+  ],
+  "q": "Cosa si intende per foundation model?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "foundation model"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Nel masked language modeling una percentuale di token viene mascherata e il modello la predice usando sia il contesto sinistro sia quello destro.",
+  "id": "ch2-q05",
+  "options": [
+   "Predire il token successivo guardando solo i token passati",
+   "Predire i token mascherati usando il contesto bidirezionale",
+   "Predire se la seconda frase segue davvero la prima nel testo",
+   "Tradurre ogni frase dalla lingua di origine a quella di arrivo"
+  ],
+  "q": "In cosa consiste il masked language modeling (MLM) usato da BERT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "masked language modeling"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il causal masking impedisce al modello di vedere i token futuri, così la predizione del token successivo dipende solo da quelli precedenti.",
+  "id": "ch2-q06",
+  "options": [
+   "Il modello non può vedere i token futuri durante il training",
+   "Il modello vede l'intera frase in entrambe le direzioni",
+   "Il modello salta casualmente alcuni layer durante il training",
+   "Il modello ignora gli embedding posizionali della sequenza"
+  ],
+  "q": "Cosa significa causal masking nei modelli come GPT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "gpt",
+   "causal masking"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Il pre-training usa enormi quantita di testo non etichettato (costoso), mentre il fine-tuning adatta il modello a un task specifico con dati etichettati (economico).",
+  "id": "ch2-q07",
+  "options": [
+   "Sono due nomi per la stessa fase, con gli stessi dati e costi",
+   "Il pre-training usa pochi dati etichettati, il fine-tuning corpora grezzi",
+   "Pre-training su testi non etichettati, fine-tuning di specializzazione sul task",
+   "Il fine-tuning precede sempre il pre-training e ne definisce dati e obiettivo"
+  ],
+  "q": "Qual è la relazione tra pre-training e fine-tuning?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "pre-training",
+   "fine-tuning"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Nello zero-shot learning il prompt descrive solo il task, senza esempi: il modello deve generalizzare grazie a ciò che ha appreso in pre-training.",
+  "id": "ch2-q08",
+  "options": [
+   "Fornire al modello centinaia di esempi etichettati nel prompt",
+   "Riaddestrare da zero tutti i pesi del modello sul nuovo task",
+   "Mostrare al modello un singolo esempio dimostrativo del task",
+   "Descrivere il task nel prompt senza mostrare alcun esempio"
+  ],
+  "q": "Cosa significa zero-shot learning nel prompting?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "zero-shot",
+   "prompting"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "BPE parte dai caratteri e fonde iterativamente le coppie di simboli più frequenti fino a raggiungere la dimensione di vocabolario desiderata.",
+  "id": "ch2-q09",
+  "options": [
+   "Fonde iterativamente le coppie di simboli più frequenti",
+   "Sceglie le fusioni che massimizzano la verosimiglianza stimata",
+   "Divide sempre ogni parola in singoli caratteri isolati",
+   "Usa un dizionario fisso di parole intere predefinito"
+  ],
+  "q": "Come costruisce il vocabolario l'algoritmo Byte-Pair Encoding (BPE)?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "bpe"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "WordPiece, usato da BERT, segnala i sotto-token che continuano una parola con il prefisso ##, così in decodifica si sa dove riunire i pezzi.",
+  "id": "ch2-q10",
+  "options": [
+   "Il simbolo [MASK] applicato ai token oscurati in input",
+   "Il prefisso ## sui sotto-token di continuazione",
+   "Il simbolo Ġ marcato all'inizio di ogni nuova parola",
+   "Le parentesi graffe attorno a ciascun pezzo di parola"
+  ],
+  "q": "Quale convenzione usa WordPiece per marcare i sotto-token all'interno di una parola?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "wordpiece"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Scomponendo le parole in sotto-unità frequenti, anche una parola mai vista può essere rappresentata come sequenza di pezzi noti: il problema OOV sparisce in pratica.",
+  "id": "ch2-q11",
+  "options": [
+   "Aumentando il vocabolario a milioni di parole intere",
+   "Convertendo ogni testo in singoli caratteri isolati",
+   "Scomponendo le parole rare in sotto-unità note",
+   "Ignorando semplicemente le parole sconosciute in input"
+  ],
+  "q": "Perché la tokenizzazione subword risolve il problema delle parole mai viste prima?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "oov"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Si parla di hallucination quando il modello produce un testo fluente e plausibile che però contiene fatti falsi o inventati.",
+  "id": "ch2-q12",
+  "options": [
+   "La generazione di testo plausibile ma falso",
+   "Un errore di sintassi nel codice generato dal modello",
+   "Il sovrallenamento eccessivo sul training set originale",
+   "La lentezza eccessiva nella generazione delle risposte"
+  ],
+  "q": "Cosa si intende per hallucination in un LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "hallucination",
+   "limiti"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Gli embedding di segmento dicono al modello a quale frase appartiene ogni token (frase A o frase B), informazione usata nei task su coppie di frasi.",
+  "id": "ch2-q13",
+  "options": [
+   "La posizione di ciascun token dentro la sequenza",
+   "Il significato lessicale della singola parola in input",
+   "Se il token in input risulta mascherato oppure no",
+   "A quale delle due frasi in input appartiene il token"
+  ],
+  "q": "A cosa servono i segment embedding in BERT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "embedding"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "Nell'in-context learning il modello svolge il task leggendo istruzioni ed esempi nel prompt, senza alcuna modifica ai pesi.",
+  "id": "ch2-q14",
+  "options": [
+   "Il riaddestramento totale di tutti i pesi su nuovi dati",
+   "Imparare da esempi nel prompt senza toccare i pesi",
+   "L'uso di un learning rate molto alto durante il training",
+   "Il congelamento del tokenizer prima di ogni nuovo task"
+  ],
+  "q": "Cosa si intende per in-context learning?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "in-context learning",
+   "prompting"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "facile",
+  "explain": "La context window è il numero massimo di token che il modello può elaborare in un singolo input, prompt ed esempi inclusi.",
+  "id": "ch2-q15",
+  "options": [
+   "Il numero totale di parametri appresi in training",
+   "Il numero di layer Transformer impilati nel modello",
+   "Il massimo di token elaborabili in un singolo input",
+   "La dimensione complessiva del vocabolario del tokenizer"
+  ],
+  "q": "Cosa si intende per context window di un LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "context window",
+   "parametri"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "BERT è un autoencoder: ricostruisce input corrotti (token mascherati) con contesto bidirezionale per comprendere; GPT è autoregressivo: predice il futuro dal passato per generare.",
+  "id": "ch2-q16",
+  "options": [
+   "BERT ricostruisce token mascherati, GPT predice il token successivo",
+   "BERT genera testo in modo autoregressivo e GPT classifica frasi in categorie",
+   "Entrambi predicono solo il token successivo guardando i token precedenti",
+   "Entrambi usano span corruption con token sentinella speciali"
+  ],
+  "q": "Qual è la differenza tra modelli autoencoding come BERT e modelli autoregressivi come GPT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "gpt"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Essendo encoder-only e bidirezionale, BERT produce ottime rappresentazioni per classificare o estrarre risposte, ma non è progettato per generare testo libero token dopo token.",
+  "id": "ch2-q17",
+  "options": [
+   "Perché ha troppo pochi parametri per generare frasi fluenti",
+   "Perché non usa self-attention ma solo embedding statici di parola",
+   "Perché il suo vocabolario è troppo piccolo per generare testo",
+   "Perché è encoder-only e non causale, quindi non genera"
+  ],
+  "q": "Perché BERT non è adatto alla generazione libera di testo?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "generazione"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "I modelli autoregressivi mostrano capacità emergenti con la scala; i task generativi e di ragionamento in-context beneficiano tipicamente dei modelli decoder-only più grandi.",
+  "id": "ch2-q18",
+  "options": [
+   "Un modello encoder-only piccolo addestrato a classificare",
+   "Un modello decoder-only grande con prompting few-shot",
+   "Un classificatore a regole scritte a mano dagli esperti",
+   "Un modello di sola tokenizzazione senza pesi appresi"
+  ],
+  "q": "Qual è il vantaggio principale dei modelli GPT di grandi dimensioni nel few-shot learning?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "gpt",
+   "few-shot"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "T5 usa un encoder-decoder completo: l'encoder legge tutto l'input e il decoder genera l'output, struttura ideale per trasformazioni sequenza-sequenza come il riassunto.",
+  "id": "ch2-q19",
+  "options": [
+   "Perché è più leggero di BERT e classifica senza generare",
+   "Perché non usa attention ma solo convoluzioni locali",
+   "Perché unisce encoder in input e decoder in output",
+   "Perché non richiede alcuna tokenizzazione del testo"
+  ],
+  "q": "Perché un modello encoder-decoder come T5 è adatto al riassunto astrattivo?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "t5",
+   "riassunto"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "I token speciali strutturano l'input: [CLS] fornisce la rappresentazione aggregata per la classificazione, [SEP] separa le frasi, [MASK] indica i token da predire.",
+  "id": "ch2-q20",
+  "options": [
+   "[CLS] per la sequenza, [SEP] tra frasi, [MASK] sui token",
+   "I tre simboli hanno lo stesso ruolo e sono intercambiabili",
+   "Servono solo ad aumentare la dimensione del vocabolario",
+   "Vengono usati solo in fase di generazione del testo"
+  ],
+  "q": "Qual è il ruolo dei token speciali [CLS], [SEP] e [MASK] in BERT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "token speciali"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "BPE fonde le coppie più frequenti, WordPiece quelle che massimizzano la verosimiglianza; entrambe producono vocabolari subword ma con criteri di fusione diversi.",
+  "id": "ch2-q21",
+  "options": [
+   "BPE lavora a livello di byte, WordPiece a livello di frasi",
+   "Non esiste alcuna differenza tra i due algoritmi di fusione",
+   "WordPiece non è in grado di gestire le parole rare",
+   "BPE fonde per frequenza, WordPiece per verosimiglianza"
+  ],
+  "q": "Qual è la differenza principale tra BPE e WordPiece?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "bpe"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il transfer learning riusa le rappresentazioni apprese nel pre-training: il fine-tuning è la sua forma più comune per gli LLM, con pochi dati etichettati e costo ridotto.",
+  "id": "ch2-q22",
+  "options": [
+   "L'addestramento da zero di un modello separato per ciascun task",
+   "Riusare su nuovi task le rappresentazioni pre-addestrate",
+   "La traduzione automatica di testi da una lingua all'altra",
+   "La compressione del modello per dispositivi piccoli e veloci"
+  ],
+  "q": "Cosa si intende per transfer learning nel contesto degli LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "transfer learning",
+   "fine-tuning"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Gli embedding posizionali iniettano l'informazione sull'ordine dei token, che la self-attention da sola non percepirebbe essendo invariante alle permutazioni.",
+  "id": "ch2-q23",
+  "options": [
+   "A ridurre il numero totale di parametri da apprendere",
+   "A indicare l'ordine dei token nella sequenza",
+   "A mascherare i token futuri come nel causal masking",
+   "A separare le due frasi in input come i segment embedding"
+  ],
+  "q": "A cosa servono i positional embedding nel Transformer?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "embedding",
+   "positional"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il next sentence prediction chiedeva se la seconda frase segue davvero la prima; studi successivi (es. RoBERTa) hanno mostrato che è poco utile e spesso viene rimosso.",
+  "id": "ch2-q24",
+  "options": [
+   "Stabilire se la seconda frase segue davvero la prima",
+   "Predire il prossimo token della frase in modo autoregressivo",
+   "Tradurre la frase data in un'altra lingua di arrivo",
+   "Mascherare il 15% dei token in input come in MLM"
+  ],
+  "q": "Qual era l'obiettivo del next sentence prediction (NSP) in BERT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "next sentence prediction"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Le scaling laws descrivono miglioramenti prevedibili della loss al crescere di parametri, dati e computazione; oltre certe soglie emergono capacità nuove come il ragionamento in-context.",
+  "id": "ch2-q25",
+  "options": [
+   "Che i modelli piccoli battono sempre quelli di grandi dimensioni",
+   "Che la dimensione del vocabolario non conta mai per le prestazioni",
+   "Che il training vada eseguito sempre su un singolo GPU",
+   "Miglioramenti prevedibili con più parametri, dati e calcolo"
+  ],
+  "q": "Cosa affermano le scaling laws degli LLM?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "scaling laws",
+   "parametri"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il one-shot è un caso intermedio: zero esempi (zero-shot) contro una manciata di esempi (few-shot); con un solo esempio si parla di one-shot.",
+  "id": "ch2-q26",
+  "options": [
+   "Sono sinonimi perfetti che indicano la stessa cosa",
+   "One-shot mostra un solo esempio, few-shot ne mostra alcuni",
+   "One-shot richiede fine-tuning completo, few-shot solo prompting",
+   "Few-shot aggiorna i pesi del modello, one-shot invece no"
+  ],
+  "q": "Qual è la differenza tra one-shot e few-shot learning?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "few-shot",
+   "one-shot"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Nel QA estrattivo BERT predice le posizioni di inizio e fine della risposta nel passaggio: sfrutta la comprensione bidirezionale senza bisogno di generare testo.",
+  "id": "ch2-q27",
+  "options": [
+   "QA estrattivo, classificazione e NER",
+   "Generazione creativa di poesie e racconti originali",
+   "Traduzione automatica generativa tra lingue diverse",
+   "Sintesi vocale con generazione di audio parlato"
+  ],
+  "q": "Per quali task di comprensione BERT è particolarmente indicato?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "comprensione"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "SentencePiece tratta l'input come sequenza Unicode grezza (spazi inclusi) e non richiede pre-tokenizzazione: ideale per lingue senza spazi e vocabolari multilingua.",
+  "id": "ch2-q28",
+  "options": [
+   "Richiede sempre parole già separate da spazi bianchi",
+   "Non gestisce i caratteri Unicode delle lingue asiatiche",
+   "Lavora sul testo grezzo con spazi, senza pre-tokenizzazione",
+   "Funziona solo con testi scritti in lingua inglese"
+  ],
+  "q": "Qual è il vantaggio di SentencePiece rispetto a BPE e WordPiece classici?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "sentencepiece"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il modello genera la continuazione statisticamente più plausibile, che può essere falsa; verifica su fonti e tecniche come RAG riducono il rischio.",
+  "id": "ch2-q29",
+  "options": [
+   "Aumentando sempre la temperatura di campionamento",
+   "Credere che un output fluente sia sempre vero",
+   "Usando un vocabolario più piccolo del necessario",
+   "Disattivando del tutto la tokenizzazione del testo"
+  ],
+  "q": "Qual è la trappola più comune legata alle hallucination?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "hallucination",
+   "limiti"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Con pochi dati etichettati è meglio sfruttare un modello già pre-addestrato (fine-tuning o few-shot) invece di addestrare da zero, che richiederebbe enormi corpora.",
+  "id": "ch2-q30",
+  "options": [
+   "Addestrare da zero un Transformer sui pochi ticket",
+   "Fine-tuning di un foundation model o few-shot",
+   "Scrivere a mano espressioni regolari per ogni categoria",
+   "Raccogliere miliardi di token prima di poter iniziare"
+  ],
+  "q": "Un team ha pochi dati etichettati per classificare ticket di assistenza. Qual è l'approccio migliore?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "fine-tuning",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il completamento open-ended richiede generazione autoregressiva: GPT è progettato per questo, mentre BERT (comprensione) e T5 da adattare sono scelte peggiori per completare codice al volo.",
+  "id": "ch2-q31",
+  "options": [
+   "Un modello decoder-only autoregressivo come GPT",
+   "Un modello encoder-only bidirezionale come BERT",
+   "Un parser statico basato su regole grammaticali",
+   "Un modello di soli embedding senza alcun decoder"
+  ],
+  "q": "Quale modello conviene per il completamento automatico di codice in un IDE?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "gpt",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il causal masking serve solo in training/generazione autoregressiva; per classificare con contesto pieno il masking bidirezionale di BERT è più adatto.",
+  "id": "ch2-q32",
+  "options": [
+   "Usare causal masking anche dentro un modello BERT",
+   "Usare un encoder bidirezionale tipo BERT",
+   "Rimuovere gli embedding posizionali dal modello",
+   "Tokenizzare il testo a livello di frasi intere uniche"
+  ],
+  "q": "Per classificare il sentimento sfruttando tutto il contesto della frase, quale scelta è corretta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "classificazione"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "Il transfer dal pre-training copre grammatica e fatti generali; il fine-tuning specializza stile e formato del task con pochi esempi mirati.",
+  "id": "ch2-q33",
+  "options": [
+   "Il pre-training è inutile e i pesi appresi vanno scartati",
+   "Il fine-tuning richiede più dati del pre-training originale",
+   "I pesi appresi in pre-training vanno sempre reinizializzati da zero",
+   "Pre-training per la base generale, fine-tuning per specializzarla"
+  ],
+  "q": "Perché il fine-tuning richiede molti meno dati del pre-training?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "pre-training",
+   "fine-tuning"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "La tokenizzazione subword dipende dal corpus di training del tokenizer: termini specialistici rari vengono frammentati in molti pezzi, allungando le sequenze e peggiorando la rappresentazione.",
+  "id": "ch2-q34",
+  "options": [
+   "La presenza dei token speciali [CLS] e [SEP] in input",
+   "La frammentazione di termini rari in troppi sotto-token",
+   "L'uso del causal masking che blocca il contesto futuro",
+   "L'obiettivo di next sentence prediction in pre-training"
+  ],
+  "q": "Quale problema può causare un tokenizer generico applicato a testi medici molto specialistici?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "oov"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "media",
+  "explain": "T5 con prefissi di task (es. un prefisso che indica la traduzione) tratta traduzione, riassunto e classificazione con la stessa interfaccia generativa.",
+  "id": "ch2-q35",
+  "options": [
+   "Prefissi testuali che indicano il task desiderato",
+   "Un modello separato addestrato per ogni lingua",
+   "La rimozione completa dell'encoder dal modello",
+   "L'eliminazione totale della tokenizzazione in input"
+  ],
+  "q": "Come indica T5 quale task svolgere su un dato input?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "t5",
+   "text-to-text"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il QA estrattivo su documenti richiede di localizzare span esatti nel testo: BERT bidirezionale eccelle qui; un generatore rischierebbe di parafrasare o inventare riferimenti.",
+  "id": "ch2-q36",
+  "options": [
+   "Un generatore puro di testo senza vincoli di fedeltà",
+   "Un encoder bidirezionale con teste di span extraction",
+   "Un modello di diffusione allenato a generare immagini",
+   "Un sistema di retrieval senza alcuna lettura del testo"
+  ],
+  "q": "Un team legale deve evidenziare i passaggi esatti dei contratti che rispondono a una domanda. Quale architettura conviene?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "La traduzione richiede lettura completa della frase sorgente (encoder bidirezionale) più generazione fluente del target (decoder autoregressivo): il profilo tipico dell'encoder-decoder.",
+  "id": "ch2-q37",
+  "options": [
+   "Un encoder-only puro senza alcuna generazione",
+   "Un decoder-only senza condizionamento sulla sorgente",
+   "Un classificatore di singole frasi senza generazione",
+   "Encoder-decoder: lettura piena e generazione"
+  ],
+  "q": "Un team deve tradurre manuali tecnici tra due lingue con alta fedeltà. Quale architettura è più indicata e perché?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "t5",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il distrattore confonde BPE e WordPiece: BPE fonde per frequenza grezza delle coppie, WordPiece normalizza per le frequenze dei singoli simboli (guadagno di verosimiglianza).",
+  "id": "ch2-q38",
+  "options": [
+   "WordPiece fonde le coppie più frequenti, BPE massimizza la verosimiglianza",
+   "BPE fonde per frequenza, WordPiece per verosimiglianza normalizzata",
+   "BPE usa il prefisso ##, WordPiece usa invece il simbolo Ġ",
+   "Entrambi partono da parole intere anziche da singoli caratteri"
+  ],
+  "q": "Quale affermazione su BPE e WordPiece è corretta?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "tokenization",
+   "bpe"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Con budget limitato e risposte basate su documenti, la RAG ancora il modello a fonti verificabili; il fine-tuning massiccio su pochi documenti rischia overfitting e non elimina le hallucination.",
+  "id": "ch2-q39",
+  "options": [
+   "Fare fine-tuning completo su migliaia di documenti interni",
+   "Aumentare la temperatura di sampling in generazione",
+   "Usare retrieval-augmented generation sopra i documenti aziendali",
+   "Addestrare da zero un nuovo foundation model proprietario interno"
+  ],
+  "q": "Una startup con piccolo budget deve rispondere a domande sui propri manuali senza inventare contenuti. Strategia migliore?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "hallucination",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Gli esempi few-shot occupano contesto prezioso e oltre una certa soglia i guadagni calano; prompt più lunghi costano di più e possono introdurre rumore o bias di posizione.",
+  "id": "ch2-q40",
+  "options": [
+   "Più esempi migliorano sempre le prestazioni senza limiti",
+   "Gli esempi few-shot non occupano spazio di context window",
+   "Aggiungere esempi non cambia mai i costi di ogni inferenza",
+   "Oltre una soglia benefici calano, costi e rumore crescono"
+  ],
+  "q": "Qual è il limite principale del few-shot learning con moltissimi esempi nel prompt?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "few-shot",
+   "context window"
+  ]
+ },
+ {
+  "answer": 0,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il modello causale non deve mai vedere il futuro durante il training: la maschera triangolare azzera i pesi di attenzione verso le posizioni successive.",
+  "id": "ch2-q41",
+  "options": [
+   "Una maschera triangolare che nasconde i token futuri",
+   "Nessuna maschera, con attenzione completa bidirezionale",
+   "Una maschera casuale diversa a ogni step di training",
+   "Il congelamento completo di tutti i pesi del decoder"
+  ],
+  "q": "Come viene implementata la causalità nel meccanismo di self-attention di GPT?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "gpt",
+   "causal masking"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Per NER servono rappresentazioni contestuali fini di ogni token con contesto destro e sinistro: l'encoder bidirezionale di BERT con classificazione per-token è la scelta standard.",
+  "id": "ch2-q42",
+  "options": [
+   "Generazione libera di testo con un decoder-only",
+   "Solo retrieval dei documenti senza lettura mirata",
+   "Encoder bidirezionale che classifica ogni token",
+   "Traduzione delle cartelle con un encoder-decoder"
+  ],
+  "q": "Un ospedale deve riconoscere nomi di farmaci e dosaggi nelle cartelle cliniche (NER). Quale approccio è più adatto?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 1,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Emergenza significa comparsa qualitativa oltre una soglia di scala (es. ragionamento in-context), non un semplice aumento lineare della fluenza: per questo non è garantita raddoppiando i parametri.",
+  "id": "ch2-q43",
+  "options": [
+   "Un aumento lineare è garantito della fluenza del testo",
+   "Capacità nuove che emergono oltre certe soglie di scala",
+   "La riduzione automatica delle hallucination con la scala",
+   "L'eliminazione totale del bisogno di dati di training"
+  ],
+  "q": "Cosa significa capacità emergente nel contesto delle scaling laws?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "scaling laws",
+   "emergenza"
+  ]
+ },
+ {
+  "answer": 3,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Con una sola coppia tradotta come esempio (one-shot) più l'istruzione, un grande decoder-only può generalizzare il pattern senza aggiornare i pesi, soluzione rapida ed economica.",
+  "id": "ch2-q44",
+  "options": [
+   "Addestrare da zero un traduttore neurale dedicato",
+   "Pre-addestrare un nuovo foundation model multilingua",
+   "Fare fine-tuning completo su milioni di frasi parallele",
+   "Prompting one-shot con un grande modello decoder-only"
+  ],
+  "q": "Una ONG deve tradurre avvisi sanitari in una lingua a basse risorse e ha una sola coppia di frasi d'esempio. Soluzione più rapida?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "one-shot",
+   "scenario"
+  ]
+ },
+ {
+  "answer": 2,
+  "chapter": "ch2-llm",
+  "difficulty": "difficile",
+  "explain": "Il 15% è un compromesso: abbastanza contesto da rendere il task impegnativo ma abbastanza segnale da apprendere; percentuali molto alte renderebbero la ricostruzione quasi impossibile.",
+  "id": "ch2-q45",
+  "options": [
+   "Perché è un numero casuale scelto senza alcun motivo",
+   "Perché coincide con la dimensione del vocabolario usato",
+   "Per bilanciare segnale utile e difficoltà del task",
+   "Perché lo richiede la licenza d'uso del dataset originale"
+  ],
+  "q": "Perché BERT maschera circa il 15% dei token nel pre-training?",
+  "source": "elaborata su blueprint NCA-GENL",
+  "tags": [
+   "bert",
+   "masked language modeling"
+  ]
+ }
+]

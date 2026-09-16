@@ -19,6 +19,8 @@ Appunti e sito web a cura di Riccardo Dominici.
 
 Ogni capitolo ha 4 schede: **Lezione guidata** (audio + slide + trascrizione karaoke), **Riassunto**, **Parole chiave**, **Quiz**.
 
+In più, un **banco di 315 domande** d'esame (45 per capitolo) filtrabile e con simulazione a tempo.
+
 ## Caratteristiche
 
 - **Mappa SVG** dei capitoli con stato di avanzamento (da fare / in corso / completato)
@@ -28,6 +30,9 @@ Ogni capitolo ha 4 schede: **Lezione guidata** (audio + slide + trascrizione kar
 - **Trascrizione karaoke**: highlight in tempo reale, auto-scroll, click sulla frase = seek
 - **Formule** composte in MathML nativo (offline, zero CDN), con fallback Unicode
 - **Quiz** di fine capitolo + **tracker** dei progressi in `localStorage`
+- **Banco domande** (`domande.html`): 315 domande filtrabili per capitolo, difficoltà,
+  stato (da fare / sbagliate / corrette / segnate ★) e ricerca testuale, con feedback
+  immediato e spiegazione; **simulazione d'esame** a tempo con punteggio e correzione
 - 100% statico, zero build, zero dipendenze: funziona su qualsiasi hosting statico
 
 ## Uso locale
@@ -45,21 +50,26 @@ python3 -m http.server 8000
 ```
 ├── index.html            # home: mappa SVG + progressi
 ├── chapter.html          # pagina capitolo (4 schede)
+├── domande.html          # banco domande filtrabile + simulazione d'esame
 ├── app.js                # loader contenuti (unisce chapters-1/2.json)
 ├── map.js                # mappa SVG interattiva
 ├── chapter.js            # lezione: player, slide, karaoke, formule MathML
 ├── quiz.js               # quiz di fine capitolo
+├── qbank.js              # banco domande: caricamento, filtri, stato (dati)
+├── qbank-ui.js           # banco domande: rendering, modalità studio/esame
 ├── tracker.js            # progressi in localStorage (chiave: nca-progress)
 ├── style.css             # tema carta-penna leggibile
 ├── content/
 │   ├── chapters-1.json   # capitoli 1–3 (testi, slide, script, quiz)
 │   ├── chapters-2.json   # capitoli 4–7 + quick-ref
 │   ├── timing.json       # mappa tempo→frase→slide per il player (generato)
+│   ├── questions/        # banco domande: un JSON per capitolo + contratto
 │   └── README            # contratto dello schema JSON dei capitoli
 ├── audio/
 │   └── *.mp3             # audio-lezioni (gli unici file serviti dal player)
 └── tools/
-    └── make_timing.py    # rigenera content/timing.json dagli mp3 reali
+    ├── make_timing.py       # rigenera content/timing.json dagli mp3 reali
+    └── check_questions.py   # controlli di qualità sul banco domande
 ```
 
 ## Rigenerare i timing
@@ -76,6 +86,28 @@ durata ripartita in proporzione ai caratteri. Dettagli nel docstring di `tools/m
 
 > Nota: i file `.wav` intermedi della sintesi vocale **non** sono nel repo (vedi `.gitignore`):
 > il player usa solo gli `.mp3` e `make_timing.py` legge gli `.mp3`.
+
+## Banco domande
+
+315 domande in stile NCA-GENL (45 per capitolo) in `content/questions/<capitolo>.json`,
+una per file secondo il contratto in `content/questions/README`. La pagina
+`domande.html` le filtra per capitolo, difficoltà, stato e testo libero; le
+pagine capitolo linkano il proprio sottoinsieme con `domande.html?ch=<id>`.
+Risposte e domande segnate stanno in `localStorage` (chiave `nca-domande`,
+separata dai progressi del corso).
+
+Le domande sono **di pratica**, elaborate sul blueprint ufficiale NVIDIA e sulla
+documentazione pubblica: non sono domande reali d'esame.
+
+Dopo ogni modifica al banco, verifica schema e qualità:
+
+```bash
+python3 tools/check_questions.py content/questions/*.json
+```
+
+Oltre allo schema, lo script controlla che la risposta corretta non sia
+riconoscibile dalla sola lunghezza — il difetto tipico dei banchi generati, che
+insegna a scegliere "la risposta più lunga" invece del concetto.
 
 ## Deploy
 
