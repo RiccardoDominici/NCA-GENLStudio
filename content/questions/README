@@ -47,11 +47,11 @@ Array JSON di oggetti domanda:
 - `source`: provenienza dello spunto, mostrata sotto la spiegazione.
 - `origin`: `ai` (generate per questo sito, default se assente) oppure
   `esterna` (adattate da materiale di pratica trovato online, riscritte in
-  italiano — mai copiate alla lettera). Alimenta il filtro "Origine" in
+  inglese con parole proprie — mai copiate alla lettera). Alimenta il filtro "Origine" in
   `domande.html` (le schede domanda non mostrano badge, per non dare indizi).
 - Niente HTML: il frontend usa `textContent`, i tag resterebbero visibili.
-- Testo in italiano; termini tecnici in inglese (self-attention, dynamic
-  batching, …).
+- Testo delle domande in inglese (l'esame è in inglese); termini tecnici
+  standard (self-attention, dynamic batching, …).
 
 ## Qualità: il controllo che conta
 

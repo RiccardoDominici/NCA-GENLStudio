@@ -3,34 +3,34 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Il paper di Vaswani et al. del 2017 ha introdotto il Transformer eliminando ricorrenza e convoluzione e basando tutto sulla attention. Gli altri paper citati riguardano BERT, GPT e ResNet.",
+    "explain": "The 2017 paper by Vaswani et al. introduced the Transformer, eliminating recurrence and convolution and basing everything on attention. The other cited papers cover BERT, GPT, and ResNet.",
     "id": "ch1-q01",
     "options": [
-      "Attention Is All You Need di Vaswani et al., pubblicato nel 2017",
-      "BERT: Pre-training of Deep Bidirectional Transformers del 2018",
-      "Language Models are Unsupervised Multitask Learners del 2019",
-      "Deep Residual Learning for Image Recognition di He et al. del 2015"
+      "Attention Is All You Need by Vaswani et al., published in 2017",
+      "BERT: Pre-training of Deep Bidirectional Transformers, 2018",
+      "Language Models are Unsupervised Multitask Learners, 2019",
+      "Deep Residual Learning for Image Recognition by He et al., 2015"
     ],
-    "q": "Quale paper ha introdotto l'architettura Transformer originale?",
+    "q": "Which paper introduced the original Transformer architecture?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "transformer",
-      "storia"
+      "history"
     ]
   },
   {
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "RNN e LSTM elaborano i token uno alla volta in sequenza, mentre il Transformer elabora tutti i token in parallelo grazie alla self-attention. Questo parallelismo sfrutta molto meglio le GPU.",
+    "explain": "RNNs and LSTMs process tokens one at a time in sequence, while the Transformer processes all tokens in parallel thanks to self-attention. This parallelism makes much better use of GPUs.",
     "id": "ch1-q02",
     "options": [
-      "Usa stati nascosti ricorrenti più capienti, elaborati in sequenza come quelli delle LSTM",
-      "Elabora tutti i token della sequenza in parallelo invece che uno alla volta in sequenza",
-      "Sostituisce la backpropagation con un ottimizzatore evolutivo senza alcun gradiente",
-      "Richiede meno dati di addestramento perché non usa embedding posizionali appresi"
+      "It uses larger recurrent hidden states, processed sequentially just like those of LSTMs",
+      "It processes all tokens of the sequence in parallel instead of one at a time in sequence",
+      "It replaces backpropagation with a gradient-free evolutionary optimizer",
+      "It requires less training data because it does not use learned positional embeddings at all"
     ],
-    "q": "Qual è la differenza fondamentale di elaborazione tra un Transformer e una rete RNN o LSTM?",
+    "q": "What is the fundamental processing difference between a Transformer and an RNN or LSTM?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "transformer",
@@ -41,15 +41,15 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "La matrice Key funziona come etichetta di ogni token: viene confrontata con le Query tramite prodotto scalare per misurare la compatibilità tra token. Il contenuto trasportato è invece nella Value.",
+    "explain": "The Key matrix acts as the label of each token: it is compared against the Queries via dot product to measure compatibility between tokens. The content being carried lives in the Value instead.",
     "id": "ch1-q03",
     "options": [
-      "A memorizzare il vocabolario del tokenizzatore per la decodifica finale del testo",
-      "A contenere il vettore di output finale del modello prima del softmax di classificazione",
-      "A fungere da etichetta confrontata con le Query per misurare la compatibilità tra token",
-      "A codificare la posizione assoluta del token nella sequenza di input ordinata"
+      "To store the tokenizer vocabulary for the final decoding of the text",
+      "To hold the final output vector of the model before the classification softmax layer",
+      "To act as a label compared against Queries to measure compatibility between tokens",
+      "To encode the absolute position of the token in the ordered input sequence"
     ],
-    "q": "Nella self-attention, qual è il ruolo della matrice Key?",
+    "q": "In self-attention, what is the role of the Key matrix?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "self-attention",
@@ -60,15 +60,15 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Dopo aver calcolato i pesi di attention con Query e Key, questi pesi vengono usati per fare una media pesata dei vettori Value, che contengono il contenuto informativo effettivo di ciascun token.",
+    "explain": "After computing the attention weights with Query and Key, those weights are used to take a weighted average of the Value vectors, which contain the actual informational content of each token.",
     "id": "ch1-q04",
     "options": [
-      "I punteggi di compatibilità grezzi tra Query e Key prima della normalizzazione softmax",
-      "Le probabilità di transizione che collegano un layer Transformer al successivo",
-      "I vettori di posizione sinusoidale che vengono sommati agli embedding di token",
-      "Il contenuto informativo che viene aggregato in media pesata dai pesi di attention"
+      "The raw compatibility scores between Query and Key before softmax normalization",
+      "The transition probabilities that connect one Transformer layer to the next one",
+      "The sinusoidal position vectors that are added to the token embeddings",
+      "The informational content aggregated as a weighted average by the attention weights"
     ],
-    "q": "Nella self-attention, cosa rappresenta la matrice Value?",
+    "q": "In self-attention, what does the Value matrix represent?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "self-attention",
@@ -79,15 +79,15 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "È la formula esatta della scaled dot-product attention: prodotto QK trasposta, scaling, softmax e moltiplicazione per V. Le altre formule usano funzioni o operazioni sbagliate.",
+    "explain": "This is the exact scaled dot-product attention formula: QK-transpose product, scaling, softmax, and multiplication by V. The other formulas use wrong functions or operations.",
     "id": "ch1-q05",
     "options": [
-      "Attention(Q,K,V) = softmax(QK trasposta / radice di d_k) V",
-      "Attention(Q,K,V) = ReLU(QK trasposta) + V diviso d_k",
-      "Attention(Q,K,V) = sigmoide(Q + K) moltiplicato V",
-      "Attention(Q,K,V) = softmax(QV trasposta / radice di d_model) K"
+      "Attention(Q,K,V) = softmax(QK transpose / square root of d_k) V",
+      "Attention(Q,K,V) = ReLU(QK transpose) + V divided by d_k",
+      "Attention(Q,K,V) = sigmoid(Q + K) multiplied by V",
+      "Attention(Q,K,V) = softmax(QV transpose / square root of d_model) K"
     ],
-    "q": "Qual è la formula corretta della scaled dot-product attention?",
+    "q": "What is the correct formula for scaled dot-product attention?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "self-attention",
@@ -98,15 +98,15 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Il Transformer originale usava positional encoding sinusoidali fissi, mentre BERT e GPT-2/GPT-3 usano embedding posizionali appresi in addestramento. RoPE è una tecnica più recente dei modelli come LLaMA.",
+    "explain": "The original Transformer used fixed sinusoidal positional encodings, while BERT and GPT-2/GPT-3 use positional embeddings learned during training. RoPE is a more recent technique used by models such as LLaMA.",
     "id": "ch1-q06",
     "options": [
-      "Il Transformer originale e BERT usano entrambi il Rotary Embedding (RoPE)",
-      "BERT e GPT-2/GPT-3 usano embedding posizionali appresi in addestramento",
-      "Tutti i modelli moderni usano solo sinusoidi fisse senza alcuna eccezione",
-      "GPT usa sinusoidi fisse mentre il Transformer originale usava vettori appresi"
+      "The original Transformer and BERT both use Rotary Embedding (RoPE)",
+      "BERT and GPT-2/GPT-3 use positional embeddings learned during training",
+      "All modern models use only fixed sinusoids with no exceptions",
+      "GPT uses fixed sinusoids while the original Transformer used learned vectors"
     ],
-    "q": "Quali modelli usano positional embedding appresi invece di sinusoidi fisse?",
+    "q": "Which models use learned positional embeddings instead of fixed sinusoids?",
     "source": "docs NVIDIA",
     "tags": [
       "positional encoding",
@@ -117,15 +117,15 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "La FFN è position-wise: la stessa rete a due strati lineari con ReLU viene applicata identicamente e indipendentemente a ogni posizione della sequenza. I parametri cambiano da layer a layer ma non da posizione a posizione.",
+    "explain": "The FFN is position-wise: the same two-layer linear network with ReLU is applied identically and independently to each position of the sequence. Parameters change from layer to layer but not from position to position.",
     "id": "ch1-q07",
     "options": [
-      "Mescola informazioni tra posizioni diverse della sequenza, proprio come fa la self-attention",
-      "Elabora ciascuna posizione separatamente con la stessa rete applicata a ogni token",
-      "Concatena tutti i token in un unico vettore prima di elaborarli insieme",
-      "Sostituisce il calcolo del softmax nel blocco dei pesi di attention"
+      "It mixes information across different positions of the sequence, just like self-attention does",
+      "It processes each position separately with the same network applied to every token",
+      "It concatenates all tokens into a single vector before processing them together",
+      "It replaces the softmax computation in the attention-weight block"
     ],
-    "q": "Come opera la feed-forward network (FFN) all'interno di un layer Transformer?",
+    "q": "How does the feed-forward network (FFN) operate inside a Transformer layer?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "feed-forward",
@@ -136,15 +136,15 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Ogni sub-layer è avvolto da connessione residuale e normalizzazione nella forma Output = LayerNorm(x + Sublayer(x)), detta Post-LN nel paper originale. Il dropout è applicato all'output del sub-layer prima della somma.",
+    "explain": "Each sub-layer is wrapped with a residual connection and normalization in the form Output = LayerNorm(x + Sublayer(x)), called Post-LN in the original paper. Dropout is applied to the sub-layer output before the sum.",
     "id": "ch1-q08",
     "options": [
-      "BatchNorm(x) con dropout applicato e senza alcuna connessione residuale",
-      "Sublayer(x) meno x con normalizzazione calcolata sul batch di addestramento",
-      "Solo somma x + Sublayer(x), senza applicare alcuna normalizzazione successiva",
-      "LayerNorm(x + Sublayer(x)) con connessione residuale e normalizzazione"
+      "BatchNorm(x) with applied dropout and no residual connection at all",
+      "Sublayer(x) minus x with normalization computed over the training batch",
+      "Only the sum x + Sublayer(x), with no subsequent normalization applied",
+      "LayerNorm(x + Sublayer(x)) with residual connection and normalization"
     ],
-    "q": "Qual è la struttura del blocco Add & Norm nel Transformer originale?",
+    "q": "What is the structure of the Add and Norm block in the original Transformer?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "layer norm",
@@ -155,15 +155,15 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "La padding mask impedisce al modello di prestare attenzione ai token di riempimento aggiunti per uniformare le lunghezze nel batch. Senza di essa il padding contaminerebbe le rappresentazioni.",
+    "explain": "The padding mask prevents the model from attending to the filler tokens added to make lengths uniform within a batch. Without it, padding would contaminate the representations.",
     "id": "ch1-q09",
     "options": [
-      "Impedire alla attention di considerare i token di riempimento del batch a lunghezza uniforme",
-      "Impedire al decoder di guardare i token futuri durante la generazione autoregressiva del testo",
-      "Azzerare i gradienti dei layer di normalizzazione durante la fase di fine-tuning del modello",
-      "Mascherare casualmente il 15% dei token come nel pre-training di BERT con masked LM"
+      "To stop attention from considering the filler tokens added to even out batch lengths",
+      "To stop the decoder from looking at future tokens during autoregressive text generation",
+      "To zero out the gradients of the normalization layers during model fine-tuning",
+      "To randomly mask 15% of tokens as in BERT masked-LM pre-training"
     ],
-    "q": "A cosa serve la padding mask nella self-attention?",
+    "q": "What is the purpose of the padding mask in self-attention?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "masking",
@@ -174,15 +174,15 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "La causal mask (look-ahead) azzera i punteggi verso le posizioni future così che il token in posizione i possa attendere solo ai token fino a i. Preserva la proprieta autoregressiva in addestramento e generazione.",
+    "explain": "The causal (look-ahead) mask zeroes the scores toward future positions so that the token at position i can only attend to tokens up to i. It preserves the autoregressive property in training and generation.",
     "id": "ch1-q10",
     "options": [
-      "Permettere al decoder di usare anche il contesto destro, come fa BERT in lettura bidirezionale",
-      "Impedire a ciascun token di attendere al futuro, consentendo solo passato e presente",
-      "Mascherare i token di padding nelle sequenze corte del batch di addestramento misto",
-      "Rendere bidirezionale la attention del decoder durante la generazione autoregressiva"
+      "It lets the decoder also use right-side context, as BERT does in bidirectional reading",
+      "It stops each token from attending to the future, allowing only past and present",
+      "It masks padding tokens in short sequences of a mixed training batch",
+      "It makes decoder attention bidirectional during autoregressive generation"
     ],
-    "q": "Cosa fa la causal mask (look-ahead mask) nel decoder?",
+    "q": "What does the causal mask (look-ahead mask) do in the decoder?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "masking",
@@ -193,34 +193,34 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Il layer encoder ha due sub-layer (self-attention e FFN), mentre il layer decoder ne ha tre perché aggiunge la cross-attention encoder-decoder tra la masked self-attention e la FFN.",
+    "explain": "The encoder layer has two sub-layers (self-attention and FFN), while the decoder layer has three because it adds encoder-decoder cross-attention between the masked self-attention and the FFN.",
     "id": "ch1-q11",
     "options": [
-      "Encoder e decoder hanno entrambi due sub-layer con struttura del tutto identica",
-      "Il decoder ha due sub-layer e l’encoder ne ha tre con la cross-attention",
-      "Il decoder ha tre sub-layer perché aggiunge la cross-attention encoder-decoder",
-      "L’encoder non ha FFN mentre il decoder ne usa due in parallelo tra loro"
+      "Encoder and decoder both have two sub-layers with a fully identical structure",
+      "The decoder has two sub-layers and the encoder has three with the cross-attention block",
+      "The decoder has three sub-layers because it adds encoder-decoder cross-attention",
+      "The encoder has no FFN while the decoder uses two FFNs in parallel with each other"
     ],
-    "q": "Quanti sub-layer contiene un layer decoder rispetto a un layer encoder nel Transformer originale?",
+    "q": "How many sub-layers does a decoder layer contain compared to an encoder layer in the original Transformer?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "encoder-decoder",
-      "architettura"
+      "architecture"
     ]
   },
   {
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Nella cross-attention le Query provengono dal decoder (che sta generando) mentre Key e Value provengono dall'output dell'encoder (che ha codificato l'input). Così il decoder interroga la rappresentazione dell'input.",
+    "explain": "In cross-attention the Queries come from the decoder (which is generating) while Key and Value come from the encoder output (which encoded the input). This is how the decoder queries the representation of the input.",
     "id": "ch1-q12",
     "options": [
-      "Query, Key e Value provengono tutte dal decoder come nella self-attention",
-      "Query e Key dall'encoder e Value dal decoder per simmetria",
-      "Query, Key e Value provengono tutte dall'encoder come nella self-attention",
-      "Query dal decoder mentre Key e Value provengono dall'output dell'encoder"
+      "Query, Key, and Value all come from the decoder, exactly as in self-attention",
+      "Query and Key from the encoder and Value from the decoder, purely for symmetry",
+      "Query, Key, and Value all come from the encoder, exactly as in self-attention",
+      "Query from the decoder while Key and Value come from the encoder output"
     ],
-    "q": "Nella cross-attention encoder-decoder, da dove provengono Query, Key e Value?",
+    "q": "In encoder-decoder cross-attention, where do Query, Key, and Value come from?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "cross-attention",
@@ -231,15 +231,15 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "BERT è un encoder bidirezionale adatto a comprensione e classificazione, GPT è un decoder autoregressivo adatto alla generazione. T5 e BART sono invece encoder-decoder completi.",
+    "explain": "BERT is a bidirectional encoder suited to understanding and classification, GPT is an autoregressive decoder suited to generation. T5 and BART are instead full encoder-decoder models.",
     "id": "ch1-q13",
     "options": [
-      "BERT è encoder-only bidirezionale, GPT è decoder-only autoregressivo",
-      "BERT e GPT sono entrambi encoder-decoder completi per la traduzione automatica",
-      "BERT è decoder-only causale e GPT è encoder-only con masking bidirezionale",
-      "BERT e GPT usano entrambi cross-attention senza alcuna self-attention interna"
+      "BERT is bidirectional encoder-only, GPT is autoregressive decoder-only",
+      "BERT and GPT are both full encoder-decoder models for machine translation",
+      "BERT is causal decoder-only and GPT is encoder-only with bidirectional masking",
+      "BERT and GPT both use cross-attention with no internal self-attention"
     ],
-    "q": "Quale affermazione descrive correttamente BERT rispetto a GPT?",
+    "q": "Which statement correctly describes BERT versus GPT?",
     "source": "docs NVIDIA",
     "tags": [
       "bert-gpt",
@@ -250,18 +250,18 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "La matrice dei punteggi QK trasposta ha dimensione n per n, quindi tempo e memoria crescono quadraticamente con la lunghezza n della sequenza. Questo è il collo di bottiglia per i contesti lunghi.",
+    "explain": "The QK-transpose score matrix has size n by n, so time and memory grow quadratically with the sequence length n. This is the bottleneck for long contexts.",
     "id": "ch1-q14",
     "options": [
-      "Lineare O(n) sia in tempo di calcolo che in memoria di attivazioni",
-      "Quadratica O(n^2) in tempo e memoria rispetto alla lunghezza della sequenza",
-      "Costante O(1), del tutto indipendente dalla lunghezza della sequenza elaborata",
-      "Proporzionale solo alla dimensione del vocabolario del modello linguistico"
+      "Linear O(n) in both compute time and activation memory together",
+      "Quadratic O(n^2) in time and memory with respect to sequence length",
+      "Constant O(1), fully independent of the processed sequence length",
+      "Proportional only to the vocabulary size of the language model"
     ],
-    "q": "Qual è la complessità computazionale della self-attention standard rispetto alla lunghezza n della sequenza?",
+    "q": "What is the computational complexity of standard self-attention with respect to the sequence length n?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
-      "complessità",
+      "complexity",
       "self-attention"
     ]
   },
@@ -269,18 +269,18 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Nel modello base d_model vale 512 e con 8 head ciascuna lavora su d_k = d_v = 512/8 = 64 dimensioni. Questa è la configurazione standard del paper originale.",
+    "explain": "In the base model d_model is 512, and with 8 heads each one works on d_k = d_v = 512/8 = 64 dimensions. This is the standard configuration of the original paper.",
     "id": "ch1-q15",
     "options": [
-      "d_model 256 con 4 head da 32 dimensioni ciascuna",
-      "d_model 1024 con 16 head da 128 dimensioni ciascuna",
-      "d_model 512 con 8 head da 64 dimensioni ciascuna",
-      "d_model 768 con 12 head da 96 dimensioni ciascuna"
+      "d_model 256 with 4 heads of 32 dimensions each",
+      "d_model 1024 with 16 heads of 128 dimensions each",
+      "d_model 512 with 8 heads of 64 dimensions each",
+      "d_model 768 with 12 heads of 96 dimensions each"
     ],
-    "q": "Nel Transformer base del paper originale, quali sono dimensione di embedding e dimensione di ciascuna head?",
+    "q": "In the base Transformer of the original paper, what are the embedding size and the size of each head?",
     "source": "paper Attention Is All You Need",
     "tags": [
-      "iperparametri",
+      "hyperparameters",
       "multi-head"
     ]
   },
@@ -288,15 +288,15 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Il parallelismo su tutti i token permette di saturare le unità di calcolo parallelo delle GPU, a differenza delle RNN intrinsecamente sequenziali. Questo riduce drasticamente i tempi di addestramento su sequenze lunghe.",
+    "explain": "Parallelism over all tokens keeps the parallel compute units of GPUs saturated, unlike intrinsically sequential RNNs. This drastically reduces training times on long sequences.",
     "id": "ch1-q16",
     "options": [
-      "Elimina del tutto la necessità di grandi dataset di addestramento annotato",
-      "Riduce il numero di parametri rispetto a una RNN a parità di capacità",
-      "Rende il modello interpretabile ispezionando un singolo peso per ogni token",
-      "Sfrutta il calcolo parallelo delle GPU elaborando tutti i token insieme"
+      "It completely removes the need for large annotated training datasets",
+      "It reduces the number of parameters compared to an RNN of equal capacity",
+      "It makes the model interpretable by inspecting a single weight per token",
+      "It exploits GPU parallel computation by processing all tokens together"
     ],
-    "q": "Qual è il principale vantaggio pratico del parallelismo del Transformer sulle GPU rispetto alle RNN?",
+    "q": "What is the main practical advantage of Transformer parallelism on GPUs compared to RNNs?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "transformer",
@@ -307,15 +307,15 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Nella self-attention ogni token è collegato direttamente a ogni altro con un singolo passo, quindi la distanza massima tra token è O(1). Nelle RNN il segnale deve attraversare O(n) passi sequenziali, degradandosi sulle lunghe distanze.",
+    "explain": "In self-attention every token is directly connected to every other in a single step, so the maximum distance between tokens is O(1). In RNNs the signal must cross O(n) sequential steps, degrading over long distances.",
     "id": "ch1-q17",
     "options": [
-      "La distanza massima tra token qualsiasi è un solo passo O(1), contro O(n) passi nelle RNN",
-      "Il numero di parametri del modello cresce linearmente con la lunghezza della sequenza elaborata",
-      "I gradienti non possono mai esplodere né evanescere grazie all’assenza di connessioni ricorrenti",
-      "Ogni token può attendere soltanto al token immediatamente precedente nella sequenza"
+      "The maximum distance between any tokens is a single O(1) step, versus O(n) steps in RNNs",
+      "The number of model parameters grows linearly with the processed sequence length",
+      "Gradients can never explode or vanish thanks to the total absence of recurrent connections",
+      "Each token can only attend to the token immediately preceding it in the sequence"
     ],
-    "q": "Perché la self-attention modella meglio delle RNN le dipendenze a lunga distanza?",
+    "q": "Why does self-attention model long-range dependencies better than RNNs?",
     "source": "community practice NCA-GENL",
     "tags": [
       "self-attention",
@@ -326,15 +326,15 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Senza scaling, con d_k grande i prodotti scalari assumono valori molto grandi in modulo e spingono il softmax in zone sature dove i gradienti sono quasi nulli. Dividere per la radice di d_k mantiene varianza unitaria e gradienti stabili.",
+    "explain": "Without scaling, with large d_k the dot products take very large values in magnitude and push the softmax into saturated regions where gradients are almost zero. Dividing by the square root of d_k keeps unit variance and stable gradients.",
     "id": "ch1-q18",
     "options": [
-      "Per ridurre i parametri della matrice di attention da O(n^2) a O(n) lineare",
-      "Prodotti scalari grandi saturerebbero il softmax e azzererebbero i gradienti",
-      "Per rendere la somma dei pesi di attention uguale a d_k invece che a 1 come da softmax",
-      "Per aggiungere non-linearità al calcolo dei punteggi di compatibilità tra token"
+      "To reduce the parameters of the attention matrix from O(n^2) to linear O(n)",
+      "Large dot products would saturate the softmax and zero out the gradients",
+      "To make the sum of attention weights equal d_k instead of 1 as per softmax",
+      "To add non-linearity to the compatibility-score computation between tokens"
     ],
-    "q": "Qual è la conseguenza principale di NON dividere per la radice di d_k quando d_k è grande?",
+    "q": "What is the main consequence of NOT dividing by the square root of d_k when d_k is large?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "formula",
@@ -345,15 +345,15 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Se le componenti di query e key sono indipendenti a media zero e varianza unitaria, la varianza del loro prodotto scalare vale d_k. Lo scaling riporta la varianza a circa 1, giustificando statisticamente la divisione.",
+    "explain": "If the query and key components are independent with zero mean and unit variance, the variance of their dot product equals d_k. Scaling brings the variance back to about 1, statistically justifying the division.",
     "id": "ch1-q19",
     "options": [
-      "La media del prodotto scalare cresce come il quadrato di d_k",
-      "La norma dei vettori Value si dimezza a ogni layer del modello Transformer",
-      "La varianza del prodotto scalare vale d_k e lo scaling la riporta a circa 1",
-      "La deviazione standard dei pesi softmax dopo il training è sempre pari a d_k"
+      "The mean of the dot product grows as the square of d_k",
+      "The norm of the Value vectors halves at each successive Transformer layer",
+      "The variance of the dot product equals d_k, and scaling brings it back to about 1",
+      "The standard deviation of the softmax weights after training always equals d_k"
     ],
-    "q": "Sotto ipotesi di componenti indipendenti a media zero e varianza unitaria, perché lo scaling per radice di d_k è statisticamente giustificato?",
+    "q": "Assuming independent zero-mean, unit-variance components, why is scaling by the square root of d_k statistically justified?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "formula",
@@ -364,53 +364,53 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Gli output delle h head vengono concatenati e poi riproiettati con la matrice W^O per tornare alla dimensione d_model. Senza questa proiezione le dimensioni non combacerebbero con il resto del layer.",
+    "explain": "The outputs of the h heads are concatenated and then reprojected with the W^O matrix to return to d_model size. Without this projection the dimensions would not match the rest of the layer.",
     "id": "ch1-q20",
     "options": [
-      "Vengono sommati elemento per elemento senza alcuna proiezione lineare successiva nel layer",
-      "Viene tenuta solo la head col punteggio medio più alto e vengono scartate le altre",
-      "Vengono moltiplicati tra loro per ottenere un’unica matrice di attention condivisa",
-      "Vengono concatenati e riproiettati con una matrice di output W^O alla dimensione d_model"
+      "They are added element-wise with no subsequent linear projection in the layer",
+      "Only the head with the highest average score is kept and all the rest are discarded",
+      "They are multiplied together to obtain a single shared attention matrix",
+      "They are concatenated and reprojected with an output matrix W^O to d_model size"
     ],
-    "q": "Cosa succede agli output delle singole head nella multi-head attention?",
+    "q": "What happens to the outputs of the individual heads in multi-head attention?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "multi-head",
-      "proiezione"
+      "projection"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La convenzione standard è d_k = d_v = d_model / h, quindi 512/8 = 64. Così il costo computazionale totale resta paragonabile a una singola head piena ma con maggiore espressività.",
+    "explain": "The standard convention is d_k = d_v = d_model / h, hence 512/8 = 64. This keeps the total compute cost comparable to a single full head but with greater expressiveness.",
     "id": "ch1-q21",
     "options": [
-      "Ciascuna head lavora su 64 dimensioni, dato da 512 diviso 8",
-      "Ciascuna head lavora su 512 dimensioni indipendenti per un totale di 4096",
-      "Ciascuna head lavora su 8 dimensioni, dato da 64 diviso 8",
-      "La dimensione delle head è indipendente da d_model e vale sempre 32"
+      "Each head works on 64 dimensions, given by 512 divided by 8",
+      "Each head works on 512 independent dimensions for a total of 4096",
+      "Each head works on 8 dimensions, given by 64 divided by 8",
+      "The head size is independent of d_model and always equals 32"
     ],
-    "q": "Con d_model 512 e 8 head, su quante dimensioni lavora ciascuna head secondo la convenzione standard?",
+    "q": "With d_model 512 and 8 heads, how many dimensions does each head work on under the standard convention?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "multi-head",
-      "iperparametri"
+      "hyperparameters"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La self-attention tratta l'input come insieme non ordinato: è invariante alle permutazioni. Senza informazione posizionale, frasi con le stesse parole in ordine diverso risulterebbero indistinguibili per il modello.",
+    "explain": "Self-attention treats the input as an unordered set: it is permutation-invariant. Without positional information, sentences with the same words in a different order would be indistinguishable to the model.",
     "id": "ch1-q22",
     "options": [
-      "Il modello diventerebbe insensibile all’ordine, trattando ogni frase come insieme non ordinato",
-      "I pesi di attention diventerebbero tutti nulli e l’output del modello sarebbe identicamente zero",
-      "Il modello richiederebbe il doppio dei parametri per riuscire comunque a convergere",
-      "La complessità computazionale diventerebbe cubica invece che quadratica sulla sequenza"
+      "The model would become insensitive to order, treating each sentence as an unordered set",
+      "The attention weights would all become zero and the model output would be identically zero",
+      "The model would need twice the parameters to still manage to converge",
+      "Computational complexity would become cubic instead of quadratic in the sequence"
     ],
-    "q": "Cosa accadrebbe se si rimuovesse completamente il positional encoding da un Transformer?",
+    "q": "What would happen if positional encoding were completely removed from a Transformer?",
     "source": "community practice NCA-GENL",
     "tags": [
       "positional encoding",
@@ -421,15 +421,15 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Il positional encoding ha la stessa dimensione d_model degli embedding di token, quindi può essere sommato elemento per elemento. La somma fonde informazione semantica e posizionale senza aumentare le dimensioni.",
+    "explain": "The positional encoding has the same d_model size as the token embeddings, so it can be added element-wise. The sum fuses semantic and positional information without increasing dimensions.",
     "id": "ch1-q23",
     "options": [
-      "Viene concatenato agli embedding, raddoppiando la dimensione a 2 per d_model",
-      "Viene moltiplicato per la matrice delle Value prima del calcolo del softmax",
-      "Viene sommato agli embedding di token, avendo la stessa dimensione d_model",
-      "Viene usato al posto degli embedding di token senza alcuna combinazione"
+      "It is concatenated to the embeddings, doubling the size to 2 times d_model",
+      "It is multiplied by the Value matrix before the softmax computation",
+      "It is added to the token embeddings, having the same d_model size",
+      "It is used in place of the token embeddings with no combination"
     ],
-    "q": "Come viene combinato il positional encoding con gli embedding di input nel Transformer originale?",
+    "q": "How is positional encoding combined with input embeddings in the original Transformer?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "positional encoding",
@@ -440,91 +440,91 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Il positional assoluto codifica la posizione esatta del token (es. posizione 5), quello relativo codifica la distanza tra coppie di token (es. i-j = 3). I metodi relativi come RoPE generalizzano meglio su sequenze lunghe.",
+    "explain": "Absolute positional encoding encodes the exact position of the token (e.g. position 5); relative encoding encodes the distance between pairs of tokens (e.g. i-j = 3). Relative methods such as RoPE generalize better to long sequences.",
     "id": "ch1-q24",
     "options": [
-      "Quello assoluto si somma agli embedding di token, quello relativo sostituisce il softmax",
-      "Quello assoluto serve solo al decoder causale, quello relativo solo all’encoder",
-      "Non esiste alcuna differenza: sono due nomi diversi per la stessa tecnica esatta",
-      "Quello assoluto codifica la posizione del token, quello relativo la distanza tra token"
+      "The absolute one is added to token embeddings, while the relative one replaces the softmax",
+      "The absolute one serves only the causal decoder, the relative one only the encoder",
+      "There is no difference at all: they are two names for the exact same technique",
+      "The absolute one encodes the token position, the relative one the distance between tokens"
     ],
-    "q": "Qual è la differenza tra positional encoding assoluto e relativo?",
+    "q": "What is the difference between absolute and relative positional encoding?",
     "source": "docs NVIDIA",
     "tags": [
       "positional encoding",
-      "relativo"
+      "relative"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Il percorso identitario y = x + Sublayer(x) offre ai gradienti una via diretta attraverso i layer profondi, mitigando il problema dei gradienti evanescenti. Il sub-layer deve imparare solo il residuo, compito più facile da ottimizzare.",
+    "explain": "The identity path y = x + Sublayer(x) offers gradients a direct route through deep layers, mitigating the vanishing-gradient problem. The sub-layer only has to learn the residual, an easier optimization task.",
     "id": "ch1-q25",
     "options": [
-      "Danno ai gradienti una via diretta lungo il percorso identitario, mitigando l’evanescenza",
-      "Riducono la complessità della attention da quadratica a lineare sulla lunghezza di sequenza",
-      "Eliminano del tutto la necessità del positional encoding nei modelli molto profondi",
-      "Congelano i pesi dei primi layer della rete per accelerare la fase di fine-tuning"
+      "They give gradients a direct path along the identity route, mitigating vanishing",
+      "They reduce attention complexity from quadratic to linear in sequence length",
+      "They completely remove the need for positional encoding in very deep models",
+      "They freeze the weights of the first network layers to speed up fine-tuning"
     ],
-    "q": "Perché le connessioni residuali sono essenziali per addestrare Transformer profondi?",
+    "q": "Why are residual connections essential for training deep Transformers?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "residual",
-      "gradienti"
+      "gradients"
     ]
   },
   {
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La LayerNorm calcola media e varianza sulle feature di un singolo token, quindi è indipendente dal batch. La BatchNorm dipende dalle statistiche del batch, instabili con sequenze di lunghezza variabile e batch piccoli tipici dell'NLP.",
+    "explain": "LayerNorm computes mean and variance over the features of a single token, so it is batch-independent. BatchNorm depends on batch statistics, which are unstable with variable-length sequences and the small batches typical of NLP.",
     "id": "ch1-q26",
     "options": [
-      "La BatchNorm non è differenziabile e quindi impedisce la retropropagazione nei layer profondi",
-      "Le sequenze variano in lunghezza con statistiche di batch instabili; la LayerNorm opera per token",
-      "La LayerNorm introduce molti più parametri e quindi maggiore capacità espressiva del modello",
-      "La BatchNorm funziona solo sulle immagini e non sui testi in linguaggio naturale tokenizzato"
+      "BatchNorm is not differentiable and therefore blocks backpropagation in deep layers",
+      "Sequences vary in length with unstable batch statistics; LayerNorm operates per token",
+      "LayerNorm introduces many more parameters and hence greater model expressiveness",
+      "BatchNorm only works on images, never on tokenized natural-language text"
     ],
-    "q": "Perché nei Transformer si usa la LayerNorm invece della BatchNorm?",
+    "q": "Why do Transformers use LayerNorm instead of BatchNorm?",
     "source": "community practice NCA-GENL",
     "tags": [
       "layer norm",
-      "normalizzazione"
+      "normalization"
     ]
   },
   {
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Il paper originale usa Post-LN (LayerNorm dopo la somma residuale), mentre modelli successivi come GPT-2 adottano Pre-LN (normalizzazione prima del sub-layer) perché più stabile con reti molto profonde e learning rate alti.",
+    "explain": "The original paper uses Post-LN (LayerNorm after the residual sum), while later models such as GPT-2 adopt Pre-LN (normalization before the sub-layer) because it is more stable with very deep networks and high learning rates.",
     "id": "ch1-q27",
     "options": [
-      "Sono del tutto equivalenti e la scelta è puramente estetica, senza alcun effetto sull’addestramento",
-      "Post-LN rimuove le residuali e Pre-LN rimuove del tutto la normalizzazione del layer",
-      "Il paper usa Post-LN dopo la somma; i modelli moderni usano Pre-LN, più stabile in profondità",
-      "Pre-LN normalizza il batch di esempi, Post-LN normalizza il singolo layer denso del blocco"
+      "They are fully equivalent and the choice is purely cosmetic, with no effect on training",
+      "Post-LN removes the residuals and Pre-LN removes layer normalization entirely",
+      "The paper uses Post-LN after the sum; modern models use Pre-LN, more stable in depth",
+      "Pre-LN normalizes the batch of examples, Post-LN normalizes the single dense layer of the block"
     ],
-    "q": "Qual è la differenza tra Post-LN e Pre-LN nei Transformer?",
+    "q": "What is the difference between Post-LN and Pre-LN in Transformers?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "layer norm",
-      "architettura"
+      "architecture"
     ]
   },
   {
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La padding mask nasconde i token di riempimento del batch, la causal mask nasconde le posizioni future per preservare l'autoregressività. Hanno scopi diversi e nel decoder durante l'addestramento possono coesistere.",
+    "explain": "The padding mask hides batch filler tokens, the causal mask hides future positions to preserve autoregressivity. They serve different purposes and can coexist in the decoder during training.",
     "id": "ch1-q28",
     "options": [
-      "Sono identiche e liberamente intercambiabili in qualsiasi architettura Transformer esistente",
-      "La padding mask serve al decoder e la causal mask soltanto all’encoder",
-      "La causal mask azzera i gradienti mentre la padding mask li amplifica in training",
-      "La padding mask nasconde il riempimento, la causal mask nasconde le posizioni future"
+      "They are identical and freely interchangeable in any existing Transformer architecture",
+      "The padding mask serves the decoder and the causal mask only the encoder",
+      "The causal mask zeroes gradients while the padding mask amplifies them in training",
+      "The padding mask hides filler tokens, the causal mask hides future positions"
     ],
-    "q": "Qual è la differenza tra padding mask e causal mask?",
+    "q": "What is the difference between a padding mask and a causal mask?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "masking",
@@ -535,34 +535,34 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Senza causal mask il modello vedrebbe i token futuri durante l'addestramento (information leakage) e imparerebbe a barare invece che a predire. In generazione sarebbe comunque costretto a procedere da sinistra a destra.",
+    "explain": "Without a causal mask the model would see future tokens during training (information leakage) and learn to cheat instead of predicting. At generation time it would still be forced to proceed left to right.",
     "id": "ch1-q29",
     "options": [
-      "Sbircerebbe i token futuri in training, invalidando l’apprendimento autoregressivo",
-      "Diventerebbe più veloce in training senza alcuna perdita di qualità finale del modello",
-      "La complessità scenderebbe da quadratica a lineare in modo del tutto automatico e gratuito",
-      "Nulla cambierebbe perché la mask viene usata soltanto durante l’inferenza"
+      "It would peek at future tokens in training, invalidating autoregressive learning",
+      "It would become faster in training with no loss at all in final model quality",
+      "Complexity would drop from quadratic to linear in a fully automatic and free way",
+      "Nothing would change because the mask is only ever used during inference"
     ],
-    "q": "Cosa succederebbe rimuovendo la causal mask da un decoder GPT durante l'addestramento?",
+    "q": "What would happen if the causal mask were removed from a GPT decoder during training?",
     "source": "community practice NCA-GENL",
     "tags": [
       "masking",
-      "autoregressivo"
+      "autoregressive"
     ]
   },
   {
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Nella traduzione l'encoder codifica l'intera frase sorgente e il decoder genera la traduzione consultando quella codifica tramite cross-attention. È il caso d'uso originario del paper del 2017.",
+    "explain": "In translation the encoder encodes the whole source sentence and the decoder generates the translation by consulting that encoding via cross-attention. This is the original use case of the 2017 paper.",
     "id": "ch1-q30",
     "options": [
-      "La classificazione di singole frasi con un encoder bidirezionale compatto ed efficiente",
-      "La traduzione automatica, con encoder che codifica e decoder che genera consultandolo",
-      "La generazione libera di testo senza alcun input condizionante esterno al modello",
-      "Il riconoscimento di immagini senza alcun componente testuale associato al sistema"
+      "Classifying single sentences with a compact and efficient bidirectional encoder model",
+      "Machine translation, with an encoder that encodes and a decoder that generates",
+      "Free text generation with no external conditioning input to the model at all",
+      "Image recognition with no textual component associated with the system"
     ],
-    "q": "Per quale compito l'architettura encoder-decoder completa è la scelta più naturale?",
+    "q": "For which task is the full encoder-decoder architecture the most natural choice?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "encoder-decoder",
@@ -573,18 +573,18 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Il costo quadratico limita la lunghezza massima elaborabile, definendo la context window del modello. Superarla richiede troncamento o tecniche efficienti come sliding window o attention sparsa.",
+    "explain": "Quadratic cost limits the maximum processable length, defining the context window of the model. Going beyond it requires truncation or efficient techniques such as sliding window or sparse attention.",
     "id": "ch1-q31",
     "options": [
-      "La dimensione del vocabolario deve restare sempre minore della lunghezza della sequenza",
-      "La context window è limitata dal costo quadratico: oltre servono troncamento o attention efficienti",
-      "Il numero di head deve crescere linearmente con la lunghezza della sequenza elaborata",
-      "Il positional encoding sinusoidale smette di funzionare oltre i 100 token di contesto"
+      "The vocabulary size must always stay smaller than the processed sequence length",
+      "The context window is limited by quadratic cost: beyond it, truncation or efficient attention is needed",
+      "The number of heads must grow linearly with the processed sequence length",
+      "Sinusoidal positional encoding stops working entirely beyond 100 context tokens"
     ],
-    "q": "Come vincola la complessità O(n^2) la context window di un modello?",
+    "q": "How does O(n^2) complexity constrain the context window of a model?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
-      "complessità",
+      "complexity",
       "context window"
     ]
   },
@@ -592,34 +592,34 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Nel modello base la FFN espande da 512 a 2048 con il primo strato lineare e riproietta a 512 con il secondo, con ReLU in mezzo. L'espansione intermedia da capacità al modello.",
+    "explain": "In the base model the FFN expands from 512 to 2048 with the first linear layer and projects back to 512 with the second, with ReLU in between. The intermediate expansion gives the model capacity.",
     "id": "ch1-q32",
     "options": [
-      "Da 512 a 64 e ritorno a 512 con tangente iperbolica",
-      "Da 512 a 512 senza espansione intermedia e senza attivazione",
-      "Da 2048 a 512 e ritorno a 2048 con sigmoide",
-      "Da 512 a 2048 e ritorno a 512 con ReLU in mezzo"
+      "From 512 to 64 and back to 512 with hyperbolic tangent",
+      "From 512 to 512 with no intermediate expansion and no activation",
+      "From 2048 to 512 and back to 2048 with sigmoid",
+      "From 512 to 2048 and back to 512 with ReLU in between"
     ],
-    "q": "Quali dimensioni usa la FFN nel Transformer base del paper originale?",
+    "q": "What sizes does the FFN use in the base Transformer of the original paper?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "feed-forward",
-      "iperparametri"
+      "hyperparameters"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La attention comunica tra posizioni (mescola informazione lungo la sequenza), la FFN calcola dentro ciascuna posizione aggiungendo non-linearità e capacità. Senza FFN la attention sarebbe quasi solo una combinazione lineare pesata.",
+    "explain": "Attention communicates across positions (mixing information along the sequence); the FFN computes inside each position, adding non-linearity and capacity. Without the FFN, attention would be almost only a weighted linear combination.",
     "id": "ch1-q33",
     "options": [
-      "La attention mescola informazione tra posizioni, la FFN elabora dentro ciascuna posizione",
-      "La FFN mescola informazione tra le posizioni e la attention normalizza invece il batch",
-      "Sono intercambiabili e i modelli moderni ne mantengono una sola scelta a caso",
-      "La attention serve solo in training mentre la FFN lavora solo in inferenza"
+      "Attention mixes information across positions, FFN processes within each position",
+      "The FFN mixes information across positions while attention normalizes the batch instead",
+      "They are interchangeable and modern models keep only one of them, chosen at random",
+      "Attention only works in training while the FFN only works in inference"
     ],
-    "q": "Qual è la divisione dei ruoli tra attention e FFN in un layer Transformer?",
+    "q": "What is the division of roles between attention and FFN in a Transformer layer?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "feed-forward",
@@ -630,15 +630,15 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Nella self-attention Q, K e V derivano tutti dalla stessa sequenza tramite proiezioni diverse. Nella cross-attention solo le Query vengono dal decoder, mentre Key e Value vengono dall'output dell'encoder.",
+    "explain": "In self-attention Q, K, and V all derive from the same sequence via different projections. In cross-attention only the Queries come from the decoder, while Key and Value come from the encoder output.",
     "id": "ch1-q34",
     "options": [
-      "Sono identiche in tutto: in entrambi i casi Q, K e V vengono dalla stessa sequenza di token",
-      "Self-attention: Q, K e V dalla stessa sequenza; cross-attention: Query dal decoder, resto dall’encoder",
-      "Nella self-attention manca la matrice Value, aggiunta solo nella cross-attention",
-      "Nella cross-attention Query e Key vengono dall’encoder e Value dal decoder"
+      "They are identical in every way: in both cases Q, K, and V all come from the same token sequence",
+      "Self-attention: Q, K, V from the same sequence; cross-attention: Query from decoder, rest from encoder",
+      "In self-attention the Value matrix is missing entirely and is added only in cross-attention",
+      "In cross-attention Query and Key come from the encoder and Value comes from the decoder"
     ],
-    "q": "Come si differenzia la derivazione di Q, K e V tra self-attention e cross-attention?",
+    "q": "How does the derivation of Q, K, and V differ between self-attention and cross-attention?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "self-attention",
@@ -649,15 +649,15 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La formula mascherata somma una matrice M ai punteggi prima del softmax, con M a zero sulle posizioni consentite e a meno infinito su quelle vietate. Il softmax azzera così i pesi delle posizioni mascherate.",
+    "explain": "The masked formula adds a matrix M to the scores before the softmax, with M equal to zero on allowed positions and minus infinity on forbidden ones. The softmax thus zeroes the weights of masked positions.",
     "id": "ch1-q35",
     "options": [
-      "Si moltiplicano per zero i punteggi delle posizioni vietate subito dopo il calcolo del softmax",
-      "Si rimuovono fisicamente i token vietati dalla sequenza prima di ogni layer",
-      "Si somma ai punteggi una matrice con zero sulle consentite e meno infinito sulle vietate",
-      "Si aggiunge rumore gaussiano ai punteggi delle posizioni da mascherare nel batch"
+      "The scores of forbidden positions are multiplied by zero right after the softmax computation step",
+      "Forbidden tokens are physically removed from the sequence before every single layer",
+      "A matrix with zeros on allowed and minus infinity on forbidden positions is added to the scores",
+      "Gaussian noise is added to the scores of the positions to mask in the training batch"
     ],
-    "q": "Come si implementa matematicamente una attention mask nei punteggi?",
+    "q": "How is an attention mask implemented mathematically in the scores?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "masking",
@@ -668,15 +668,15 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Per classificazione e comprensione (sentiment, NER, QA estrattiva) un encoder bidirezionale come BERT sfrutta il contesto destro e sinistro. Un decoder causale sprecherebbe meta del contesto disponibile per questi compiti.",
+    "explain": "For classification and understanding (sentiment, NER, extractive QA) a bidirectional encoder such as BERT exploits both left and right context. A causal decoder would waste half of the context available for these tasks.",
     "id": "ch1-q36",
     "options": [
-      "Un decoder-only causale perché genera un token alla volta in modo autoregressivo naturale",
-      "Un encoder-decoder completo perché serve sempre la cross-attention intermedia",
-      "Un modello bag-of-words senza attention per ridurre i costi di addestramento",
-      "Un encoder-only bidirezionale, che sfrutta il contesto destro e sinistro in classificazione"
+      "A causal decoder-only model because it generates one token at a time in a natural autoregressive way",
+      "A full encoder-decoder model because intermediate cross-attention is always needed",
+      "A bag-of-words model without attention to reduce training costs",
+      "A bidirectional encoder-only model, which exploits left and right context in classification"
     ],
-    "q": "Un team deve scegliere un modello per classificare recensioni e riconoscere entita nominate. Quale architettura è più adatta e perché?",
+    "q": "A team must pick a model to classify reviews and recognize named entities. Which architecture fits best, and why?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "bert-gpt",
@@ -687,18 +687,18 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "La generazione di chatbot richiede un decoder autoregressivo con causal mask: ogni token si genera condizionato solo al passato. Un encoder bidirezionale non potrebbe generare in modo autoregressivo naturale.",
+    "explain": "Chatbot generation requires an autoregressive decoder with a causal mask: each token is generated conditioned only on the past. A bidirectional encoder could not generate in a natural autoregressive way.",
     "id": "ch1-q37",
     "options": [
-      "Un decoder-only autoregressivo con causal mask, che genera condizionato al passato",
-      "Un encoder-only bidirezionale, perché la generazione trae vantaggio dal contesto futuro",
-      "Un modello senza positional encoding, perché l’ordine dei token non conta nel dialogo",
-      "Un encoder-decoder senza mask, perché le mask rallentano sempre l’inferenza"
+      "An autoregressive decoder-only model with causal mask, generating conditioned on the past",
+      "A bidirectional encoder-only model, because generation benefits from future context",
+      "A model without positional encoding, because token order does not matter in dialogue",
+      "An encoder-decoder model without masks, because masks always slow down inference"
     ],
-    "q": "Un team deve costruire un chatbot che genera risposte token dopo token. Quale architettura è più adatta e perché?",
+    "q": "A team must build a chatbot that generates replies token by token. Which architecture fits best, and why?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
-      "autoregressivo",
+      "autoregressive",
       "scenario"
     ]
   },
@@ -706,18 +706,18 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Con costo quadratico, raddoppiare n da 2048 a 4096 moltiplica tempo e memoria per 4 (2^2). È la ragione per cui il raddoppio della context window ha un prezzo così alto in memoria GPU.",
+    "explain": "With quadratic cost, doubling n from 2048 to 4096 multiplies time and memory by 4 (2 squared). That is why doubling the context window costs so much in GPU memory.",
     "id": "ch1-q38",
     "options": [
-      "Raddoppia soltanto la memoria occupata mentre il tempo di calcolo resta invariato",
-      "Il costo resta invariato grazie al parallelismo massiccio delle GPU moderne",
-      "Il tempo di addestramento si dimezza per effetto del batching su sequenze lunghe",
-      "Tempo e memoria circa quadruplicano per via della dipendenza quadratica"
+      "Only the occupied memory doubles while compute time stays unchanged",
+      "The cost stays unchanged thanks to the massive parallelism of modern GPUs",
+      "Training time halves due to batching over long sequences",
+      "Time and memory roughly quadruple because of the quadratic dependency"
     ],
-    "q": "Un team raddoppia la lunghezza di sequenza da 2048 a 4096 token. Cosa succede al costo della self-attention?",
+    "q": "A team doubles the sequence length from 2048 to 4096 tokens. What happens to the self-attention cost?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
-      "complessità",
+      "complexity",
       "scenario"
     ]
   },
@@ -725,15 +725,15 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Con d_k grande i prodotti scalari hanno modulo elevato, il softmax satura assegnando peso quasi 1 a un solo token e i gradienti diventano minuscoli. Lo scaling mantiene i logit in un regime dove il softmax apprende.",
+    "explain": "With large d_k, dot products have large magnitude, the softmax saturates by assigning almost all weight to a single token, and gradients become tiny. Scaling keeps the logits in a regime where the softmax can learn.",
     "id": "ch1-q39",
     "options": [
-      "Il softmax produrrebbe pesi quasi uniformi e il modello diventerebbe un bag-of-words",
-      "I pesi di attention supererebbero 1 violando la normalizzazione probabilistica del softmax",
-      "Il softmax satura su un singolo token con gradienti quasi nulli, fermando l’apprendimento",
-      "La matrice QK trasposta non sarebbe più quadrata e il prodotto matriciale fallirebbe"
+      "The softmax would produce almost uniform weights and the model would become a bag-of-words",
+      "The attention weights would exceed 1, violating the probabilistic normalization of the softmax",
+      "The softmax saturates on a single token with near-zero gradients, halting learning",
+      "The QK-transpose matrix would no longer be square and the matrix product would fail"
     ],
-    "q": "Con d_k molto grande e senza scaling, quale fenomeno blocca l'apprendimento nel softmax di attention?",
+    "q": "With very large d_k and no scaling, which phenomenon blocks learning in the attention softmax?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "scaling",
@@ -744,15 +744,15 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "RoPE ruota le rappresentazioni di Query e Key in funzione della posizione assoluta, così il prodotto scalare dipende solo dalla distanza relativa tra token. Unisce i vantaggi di codifica assoluta e relativa ed è usato da LLaMA e Mistral.",
+    "explain": "RoPE rotates the Query and Key representations as a function of absolute position, so their dot product depends only on the relative distance between tokens. It combines the benefits of absolute and relative encoding and is used by LLaMA and Mistral.",
     "id": "ch1-q40",
     "options": [
-      "Somma sinusoidi fisse agli embedding come nel Transformer originale del 2017",
-      "Apprende un vettore posizionale distinto per ciascuna posizione come fa BERT",
-      "Concatena la posizione assoluta come feature aggiuntiva subito prima della FFN del layer",
-      "Ruota Query e Key con la posizione, così il prodotto dipende dalla distanza relativa"
+      "It adds fixed sinusoids to embeddings exactly as in the original 2017 Transformer",
+      "It learns a distinct positional vector for each position, exactly as BERT does",
+      "It concatenates absolute position as an extra feature right before the layer FFN",
+      "It rotates Query and Key with position, so the product depends on relative distance"
     ],
-    "q": "Come funziona il Rotary Positional Embedding (RoPE) usato da modelli come LLaMA?",
+    "q": "How does Rotary Positional Embedding (RoPE), used by models such as LLaMA, work?",
     "source": "docs NVIDIA",
     "tags": [
       "positional encoding",
@@ -763,18 +763,18 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Nella generazione autoregressiva la KV-cache memorizza Key e Value dei token già elaborati per non ricalcolarli a ogni passo. Senza cache ogni nuovo token costerebbe una rielaborazione quadratica dell'intera sequenza.",
+    "explain": "In autoregressive generation the KV-cache stores the Key and Value of already-processed tokens so they are not recomputed at each step. Without the cache, each new token would cost a quadratic reprocessing of the whole sequence.",
     "id": "ch1-q41",
     "options": [
-      "Memorizza Key e Value dei token passati per non ricalcolarli a ogni passo",
-      "Memorizza i gradienti per riprendere l’addestramento dopo un’interruzione",
-      "Comprime i pesi del modello tramite quantizzazione a 4 bit in inferenza",
-      "Salva il vocabolario del tokenizzatore nella memoria GPU del server di serving"
+      "It stores past tokens Key and Value so they are not recomputed at each step",
+      "It stores all gradients locally to resume training after an interruption",
+      "It compresses all model weights via 4-bit quantization during inference",
+      "It saves the whole tokenizer vocabulary in the serving-server GPU memory"
     ],
-    "q": "Un team ottimizza l'inferenza di un LLM e introduce la KV-cache. Quale problema risolve?",
+    "q": "A team optimizes LLM inference and introduces the KV-cache. Which problem does it solve?",
     "source": "NVIDIA DLI",
     "tags": [
-      "inferenza",
+      "inference",
       "scenario"
     ]
   },
@@ -782,72 +782,72 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Le sinusoidi sono funzioni deterministiche definite per qualsiasi posizione, quindi il modello può estrapolare oltre le lunghezze viste in training. Gli embedding appresi invece esistono solo per le posizioni viste e falliscono oltre il massimo addestrato.",
+    "explain": "Sinusoids are deterministic functions defined for any position, so the model can extrapolate beyond the lengths seen in training. Learned embeddings exist only for seen positions and fail past the maximum trained length.",
     "id": "ch1-q42",
     "options": [
-      "Richiedono più parametri e quindi memorizzano più contesto in modo implicito e stabile",
-      "Sono deterministiche per ogni posizione e permettono estrapolazione oltre il training",
-      "Hanno una context window intrinsecamente infinita senza costi computazionali aggiuntivi",
-      "Eliminano del tutto la complessità quadratica della self-attention sulle sequenze lunghe"
+      "They require more parameters and hence implicitly store more context in a stable way",
+      "They are deterministic for every position and allow extrapolation beyond training",
+      "They have an intrinsically infinite context window with no extra compute cost",
+      "They completely eliminate the quadratic complexity of self-attention on long sequences"
     ],
-    "q": "Quale vantaggio teorico ha il positional encoding sinusoidale rispetto a quelli appresi su sequenze più lunghe del training?",
+    "q": "What theoretical advantage does sinusoidal positional encoding have over learned ones on sequences longer than training?",
     "source": "paper Attention Is All You Need",
     "tags": [
       "positional encoding",
-      "estrapolazione"
+      "extrapolation"
     ]
   },
   {
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "La FFN con strato intermedio espanso e non-linearità aggiunge la capacità computazionale che la attention da sola non ha, essendo in gran parte una media pesata lineare. Studi la interpretano come memoria chiave-valore distribuita nei pesi.",
+    "explain": "The FFN with an expanded intermediate layer and non-linearity adds the computational capacity that attention alone lacks, attention being largely a linear weighted average. Studies interpret it as key-value memory distributed in the weights.",
     "id": "ch1-q43",
     "options": [
-      "Calcola direttamente i pesi di attention mentre la attention normalizza il batch di esempi",
-      "Serve solo a ridurre i parametri e potrebbe essere rimossa senza alcun effetto pratico",
-      "Aggiunge non-linearità dentro ciascuna posizione, come memoria chiave-valore appresa",
-      "Sostituisce il positional encoding nei modelli con più di 12 layer profondi"
+      "It directly computes the attention weights while attention normalizes the example batch",
+      "It only serves to reduce parameters and could be removed with no practical effect",
+      "It adds non-linearity inside each position, like a learned key-value memory",
+      "It replaces positional encoding in models with more than 12 deep layers"
     ],
-    "q": "Perché la FFN è indispensabile anche se la attention mescola già informazione tra token?",
+    "q": "Why is the FFN indispensable even though attention already mixes information across tokens?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "feed-forward",
-      "capacità"
+      "capacity"
     ]
   },
   {
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "La trappola sta nel confondere i ruoli: l'encoder non usa causal mask ed è bidirezionale, il decoder la usa ed è causale. La padding mask invece può comparire in entrambi per gestire il batching.",
+    "explain": "The trap is confusing the roles: the encoder uses no causal mask and is bidirectional, the decoder uses one and is causal. The padding mask, instead, can appear in both to handle batching.",
     "id": "ch1-q44",
     "options": [
-      "La causal mask si usa solo nell’encoder e mai nel decoder autoregressivo del modello",
-      "La padding mask sostituisce sempre la causal mask all’interno del decoder causale",
-      "Encoder e decoder usano entrambi solo attention bidirezionale senza alcuna mask",
-      "L’encoder è bidirezionale senza causal mask, il decoder usa causal mask autoregressiva"
+      "The causal mask is used only in the encoder and never in the autoregressive decoder",
+      "The padding mask always replaces the causal mask inside the causal decoder",
+      "Encoder and decoder both use only bidirectional attention with no mask at all",
+      "The encoder is bidirectional with no causal mask, the decoder uses a causal autoregressive mask"
     ],
-    "q": "Quale affermazione sulle mask in encoder e decoder è corretta? Attenzione alla trappola tipica d'esame.",
+    "q": "Which statement about masks in encoder and decoder is correct? Watch out for the typical exam trap.",
     "source": "examtopics community",
     "tags": [
       "masking",
-      "trappola"
+      "trap"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Nel decoder in addestramento servono entrambe: la causal mask preserva l'autoregressività e la padding mask esclude il riempimento del batch. Applicarne una sola lascerebbe una falla, o leakage dal futuro o contaminazione dal padding.",
+    "explain": "In the decoder during training both are needed: the causal mask preserves autoregressivity and the padding mask excludes batch filler. Applying only one would leave a hole: either leakage from the future or contamination from padding.",
     "id": "ch1-q45",
     "options": [
-      "Applicare padding mask e causal mask insieme: una esclude il riempimento, l’altra il futuro",
-      "Usare solo la padding mask perché la causal mask è obsoleta nei modelli moderni efficienti",
-      "Rimuovere tutte le mask perché rallentano sempre l’addestramento distribuito su GPU",
-      "Usare solo la causal mask perché il padding non influenza mai i gradienti del modello"
+      "Apply padding and causal masks together: one excludes filler, the other the future",
+      "Use only the padding mask because the causal mask is obsolete in modern efficient models",
+      "Remove all masks because they always slow down distributed training on GPUs",
+      "Use only the causal mask because padding never influences model gradients"
     ],
-    "q": "Un chatbot in addestramento elabora batch con sequenze di lunghezza diversa in un decoder causale. Quale strategia di masking è corretta?",
+    "q": "A chatbot in training processes batches with different-length sequences in a causal decoder. Which masking strategy is correct?",
     "source": "elaborata su blueprint NCA-GENL",
     "tags": [
       "masking",
@@ -858,16 +858,16 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "La Query rappresenta ciò che il token sta cercando: viene confrontata con tutte le Key per decidere a quali token prestare attenzione. Il contenuto vero e proprio da aggregare è invece nella Value.",
+    "explain": "The Query represents what the token is looking for: it is compared against all Keys to decide which tokens to attend to. The actual content to aggregate lives in the Value instead.",
     "id": "ch1-ext01",
     "options": [
-      "A trasportare il contenuto informativo aggregato in media pesata dai pesi",
-      "A rappresentare ciò che il token cerca, confrontata con le Key",
-      "A codificare la posizione assoluta del token nella sequenza",
-      "A contenere l'output finale del layer prima della FFN"
+      "To carry the informational content aggregated as a weighted average by the weights",
+      "To represent what the token is looking for, compared against the Keys",
+      "To encode the absolute position of the token in the sequence",
+      "To hold the final layer output before the FFN"
     ],
     "origin": "esterna",
-    "q": "Nella self-attention, qual è il ruolo del vettore Query di un token?",
+    "q": "In self-attention, what is the role of a token Query vector?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "self-attention",
@@ -878,16 +878,16 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Il softmax normalizza i punteggi di un token verso tutti gli altri, quindi la somma vale sempre 1: i pesi formano una distribuzione di probabilità sull'intera sequenza.",
+    "explain": "The softmax normalizes the scores of one token toward all others, so the sum is always 1: the weights form a probability distribution over the whole sequence.",
     "id": "ch1-ext02",
     "options": [
-      "Vale d_k, la dimensione delle Key usata per lo scaling dei punteggi",
-      "Vale il numero di head della multi-head attention",
-      "Vale 1, come una distribuzione di probabilità sulla sequenza",
-      "Vale 0, perché le mask azzerano tutti i punteggi"
+      "It equals d_k, the Key size used for scaling the attention scores",
+      "It equals the number of heads of the multi-head attention module",
+      "It equals 1, like a probability distribution over the sequence",
+      "It equals 0 in practice, because masks zero out all the scores"
     ],
     "origin": "esterna",
-    "q": "Dopo il softmax, quanto vale la somma dei pesi di attention di un token verso tutti gli altri?",
+    "q": "After the softmax, what is the sum of a token attention weights toward all others?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "self-attention",
@@ -898,19 +898,19 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "BPE parte dai singoli caratteri e fonde a ogni passo la coppia adiacente più frequente, fino a raggiungere la dimensione di vocabolario desiderata. È il metodo usato dalla famiglia GPT.",
+    "explain": "BPE starts from individual characters and merges the most frequent adjacent pair at each step, until reaching the desired vocabulary size. This is the method used by the GPT family.",
     "id": "ch1-ext04",
     "options": [
-      "Maschera il 15% dei token come nel pre-training di BERT",
-      "Assegna un vettore appreso a ogni posizione della sequenza",
-      "Ruota Query e Key in funzione della distanza tra token",
-      "Parte dai caratteri e fonde le coppie adiacenti più frequenti"
+      "It masks 15% of tokens as in BERT pre-training",
+      "It assigns a learned vector to each sequence position",
+      "It rotates Query and Key as a function of the distance between tokens",
+      "It starts from characters and merges the most frequent adjacent pairs"
     ],
     "origin": "esterna",
-    "q": "Come costruisce il proprio vocabolario il Byte Pair Encoding (BPE)?",
+    "q": "How does Byte Pair Encoding (BPE) build its vocabulary?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
-      "tokenizzazione",
+      "tokenization",
       "bpe"
     ]
   },
@@ -918,19 +918,19 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "BPE fonde le coppie più frequenti, mentre WordPiece sceglie le fusioni che massimizzano la verosimiglianza e marca le continuazioni con ## (es. un + ##believ + ##able). Entrambi risolvono il problema delle parole fuori vocabolario.",
+    "explain": "BPE merges the most frequent pairs, while WordPiece chooses merges that maximize likelihood and marks continuations with ## (e.g. un + ##believ + ##able). Both solve the out-of-vocabulary problem.",
     "id": "ch1-ext05",
     "options": [
-      "Sono lo stesso algoritmo con due nomi diversi e identico vocabolario finale",
-      "WordPiece marca le continuazioni con ## e fonde per verosimiglianza",
-      "BPE usa il prefisso ## mentre WordPiece lavora solo a livello di parola",
-      "WordPiece non gestisce parole mai viste, BPE invece le scarta del tutto"
+      "They are the same algorithm with two names and an identical final vocabulary",
+      "WordPiece marks continuations with ## and merges by likelihood",
+      "BPE uses the ## prefix while WordPiece only works at word level",
+      "WordPiece does not handle unseen words, while BPE discards them entirely"
     ],
     "origin": "esterna",
-    "q": "Quale affermazione distingue WordPiece (BERT) dal BPE?",
+    "q": "Which statement distinguishes WordPiece (BERT) from BPE?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
-      "tokenizzazione",
+      "tokenization",
       "wordpiece",
       "bpe"
     ]
@@ -939,56 +939,56 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Un vocabolario piccolo frammenta ogni parola in molti pezzi e allunga le sequenze; uno enorme gonfia la matrice di embedding e lascia i token rari quasi mai allenati. La scelta è un compromesso tra lunghezza e copertura.",
+    "explain": "A small vocabulary fragments each word into many pieces and lengthens sequences; a huge one inflates the embedding matrix and leaves rare tokens almost never trained. The choice is a trade-off between length and coverage.",
     "id": "ch1-ext06",
     "options": [
-      "Piccolo allunga le sequenze, grande gonfia gli embedding e lascia token rari",
-      "La dimensione del vocabolario non influenza né le sequenze né i parametri appresi",
-      "Un vocabolario più grande è sempre meglio, senza alcun contro o costo",
-      "Un vocabolario più piccolo è sempre meglio, senza alcun contro o costo"
+      "Small stretches sequences, large inflates embeddings and leaves rare tokens",
+      "Vocabulary size affects neither sequences nor learned parameters",
+      "A larger vocabulary is always better, with no downside or cost",
+      "A smaller vocabulary is always better, with no downside or cost"
     ],
     "origin": "esterna",
-    "q": "Cosa comporta un vocabolario di tokenizzazione troppo piccolo o troppo grande?",
+    "q": "What does a tokenization vocabulary that is too small or too large imply?",
     "source": "Adattata da community ExamTopics (NCA-GENL)",
     "tags": [
-      "tokenizzazione",
-      "vocabolario"
+      "tokenization",
+      "vocabulary"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "L'encoder non usa causal mask: ogni token attende sia a sinistra sia a destra, costruendo rappresentazioni che incorporano l'intero contesto della frase in entrambe le direzioni.",
+    "explain": "The encoder uses no causal mask: each token attends both left and right, building representations that incorporate the whole sentence context in both directions.",
     "id": "ch1-ext09",
     "options": [
-      "Ogni token attende a sinistra e a destra, senza causal mask sul futuro",
-      "Ogni token attende solo al passato come in un decoder autoregressivo causale",
-      "Usa cross-attention verso un secondo encoder di supporto esterno",
-      "Elabora un token alla volta in sequenza come una RNN classica"
+      "Each token attends left and right, with no causal mask on the future",
+      "Each token attends only to the past like in a causal autoregressive decoder",
+      "It uses cross-attention toward a second external support encoder",
+      "It processes one token at a time in sequence like a classic RNN"
     ],
     "origin": "esterna",
-    "q": "Perché l'encoder del Transformer è detto bidirezionale?",
+    "q": "Why is the Transformer encoder called bidirectional?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "encoder",
-      "bidirezionale"
+      "bidirectional"
     ]
   },
   {
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "T5 e BART mantengono encoder e decoder completi collegati da cross-attention: l'encoder codifica il documento, il decoder genera il riassunto o la traduzione consultandolo passo dopo passo.",
+    "explain": "T5 and BART keep full encoders and decoders linked by cross-attention: the encoder encodes the document, the decoder generates the summary or translation by consulting it step by step.",
     "id": "ch1-ext11",
     "options": [
-      "Sono decoder-only puri ottimizzati per chatbot a singola risposta breve",
-      "Sono encoder-only con classificazione sopra il token [CLS] finale",
-      "Sono encoder-decoder completi, ideali per riassunti e traduzioni",
-      "Non usano attention ma solo reti feed-forward molto profonde"
+      "They are pure decoder-only models optimized for single short-reply chatbots",
+      "They are encoder-only with classification on top of the final [CLS] token",
+      "They are full encoder-decoder models, ideal for summaries and translations",
+      "They use no attention but only very deep feed-forward networks"
     ],
     "origin": "esterna",
-    "q": "T5 e BART usano quale architettura, e per quali compiti è pensata?",
+    "q": "Which architecture do T5 and BART use, and which tasks is it designed for?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "encoder-decoder",
@@ -999,136 +999,136 @@
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Nell'image captioning un encoder visivo produce le feature dell'immagine e il decoder testuale le interroga: le Query nascono dal testo in generazione, Key e Value dalle regioni dell'immagine codificata.",
+    "explain": "In image captioning a visual encoder produces the image features and the text decoder queries them: Queries arise from the text being generated, Key and Value from the regions of the encoded image.",
     "id": "ch1-ext12",
     "options": [
-      "Query, Key e Value provengono tutte dai pixel dell'immagine originale",
-      "La cross-attention non si usa nei modelli multimodali moderni",
-      "Query e Key dall'immagine e Value dal testo generato finora",
-      "Query dal decoder testuale, Key e Value dalle feature visive codificate"
+      "Query, Key, and Value all come from the pixels of the original input image",
+      "Cross-attention is never used in any modern multimodal model",
+      "Query and Key from the image and Value from the text generated so far",
+      "Query from the text decoder, Key and Value from the encoded visual features"
     ],
     "origin": "esterna",
-    "q": "In un modello di image captioning, come si distribuiscono Query, Key e Value nella cross-attention?",
+    "q": "In an image captioning model, how are Query, Key, and Value distributed in cross-attention?",
     "source": "Adattata da community ExamTopics (NCA-GENL)",
     "tags": [
       "cross-attention",
-      "multimodale"
+      "multimodal"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Ogni head proietta lo stesso input con tre matrici apprese diverse (W_Q, W_K, W_V): da un'unica sequenza nascono così tre viste differenti, una per cercare, una per farsi trovare e una per trasportare contenuto.",
+    "explain": "Each head projects the same input with three different learned matrices (W_Q, W_K, W_V): from a single sequence three different views arise — one for searching, one for being found, one for carrying content.",
     "id": "ch1-ext13",
     "options": [
-      "Da proiezioni apprese dell'input, con matrici W_Q, W_K e W_V per head",
-      "Da tre sequenze di input diverse fornite separatamente al modello insieme",
-      "Da vettori casuali fissi che restano invariati durante l'addestramento",
-      "Dalla scomposizione del positional encoding in tre componenti uguali"
+      "From learned projections of the input, with W_Q, W_K, and W_V matrices per head",
+      "From three different input sequences fed separately to the model all together",
+      "From fixed random vectors that stay unchanged during the whole training",
+      "From splitting the positional encoding into three equal-sized components"
     ],
     "origin": "esterna",
-    "q": "Da dove nascono Q, K e V all'interno di una head di attention?",
+    "q": "Where do Q, K, and V come from inside an attention head?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "self-attention",
-      "proiezioni"
+      "projections"
     ]
   },
   {
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Proiezioni indipendenti permettono a ciascuna head di specializzarsi: una può seguire le relazioni sintattiche, un'altra le coreferenze tra pronomi e nomi, un'altra ancora le dipendenze a lunga distanza.",
+    "explain": "Independent projections let each head specialize: one may track syntactic relations, another coreferences between pronouns and nouns, yet another long-range dependencies.",
     "id": "ch1-ext14",
     "options": [
-      "Per raddoppiare i parametri senza cambiare il comportamento del modello",
-      "Per elaborare batch diversi in parallelo sulla stessa GPU",
-      "Così ogni head osserva un sottospazio diverso e può specializzarsi",
-      "Per rendere la complessità lineare sulla lunghezza della sequenza"
+      "To double the parameters without changing the behavior of the model",
+      "To process several different batches in parallel on the same GPU",
+      "So each head observes a different subspace and can specialize",
+      "To make the overall complexity linear in the sequence length"
     ],
     "origin": "esterna",
-    "q": "Perché ogni head di attention ha le proprie matrici di proiezione indipendenti?",
+    "q": "Why does each attention head have its own independent projection matrices?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "multi-head",
-      "specializzazione"
+      "specialization"
     ]
   },
   {
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "L'attention dropout azzera casualmente alcuni pesi dopo il softmax durante l'addestramento: impedisce alle head di co-adattarsi e di dipendere sempre dagli stessi token, migliorando la generalizzazione.",
+    "explain": "Attention dropout randomly zeroes some weights after the softmax during training: it stops heads from co-adapting and from always depending on the same tokens, improving generalization.",
     "id": "ch1-ext15",
     "options": [
-      "A velocizzare l'inferenza saltando il calcolo del softmax finale in ogni head",
-      "A regolarizzare azzerando casualmente alcuni pesi in addestramento",
-      "A mascherare i token di padding nei batch di lunghezza mista",
-      "A impedire al decoder di osservare i token futuri in generazione"
+      "To speed up inference by skipping the final softmax computation in each head",
+      "To regularize by randomly zeroing some weights during training",
+      "To mask padding tokens in mixed-length batches",
+      "To stop the decoder from observing future tokens in generation"
     ],
     "origin": "esterna",
-    "q": "A cosa serve l'attention dropout nel Transformer?",
+    "q": "What is attention dropout for in the Transformer?",
     "source": "Adattata da community ExamTopics (NCA-GENL)",
     "tags": [
       "dropout",
-      "regolarizzazione"
+      "regularization"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Il positional encoding originale alterna seno sulle dimensioni pari e coseno sulle dispari, con frequenze decrescenti secondo il denominatore 10000 elevato a 2i/d_model. È fisso e deterministico per ogni posizione.",
+    "explain": "The original positional encoding alternates sine on even dimensions and cosine on odd ones, with decreasing frequencies according to the denominator 10000 raised to 2i/d_model. It is fixed and deterministic for each position.",
     "id": "ch1-ext17",
     "options": [
-      "Seno sulle pari e coseno sulle dispari, con frequenze decrescenti",
-      "Sigmoide su tutte le dimensioni con la stessa identica frequenza",
-      "Vettori casuali appresi diversi a ogni epoca di addestramento del modello",
-      "ReLU applicata alla posizione assoluta divisa per d_model"
+      "Sine on even and cosine on odd dimensions, with decreasing frequencies",
+      "Sigmoid on all dimensions with the very same identical frequency",
+      "Learned random vectors that differ at each model training epoch",
+      "ReLU applied to the absolute position divided by d_model"
     ],
     "origin": "esterna",
-    "q": "Quali funzioni usa il positional encoding sinusoidale del paper originale?",
+    "q": "Which functions does the sinusoidal positional encoding of the original paper use?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "positional encoding",
-      "sinusoidale"
+      "sinusoidal"
     ]
   },
   {
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Le lunghezze d'onda in progressione geometrica da 2π a 10000·2π assegnano a ogni posizione un'impronta unica: le alte frequenze distinguono posizioni vicine, le basse frequenze permettono di cogliere distanze e spostamenti relativi.",
+    "explain": "The geometrically progressing wavelengths from 2 pi to 10000 times 2 pi assign each position a unique fingerprint: high frequencies distinguish nearby positions, low frequencies capture distances and relative shifts.",
     "id": "ch1-ext18",
     "options": [
-      "Per ridurre il numero di parametri rispetto agli embedding appresi",
-      "Per rendere il modello invariante all'ordine dei token in input",
-      "Per dare a ogni posizione un'impronta unica e cogliere distanze relative",
-      "Per azzerare i gradienti delle posizioni oltre i 512 token"
+      "To reduce the number of parameters compared to learned embeddings",
+      "To make the model fully invariant to the input token order",
+      "To give each position a unique fingerprint and capture relative distances",
+      "To zero out the gradients of all positions beyond 512 tokens"
     ],
     "origin": "esterna",
-    "q": "Perché le sinusoidi del positional encoding usano frequenze diverse per dimensione?",
+    "q": "Why do the positional-encoding sinusoids use different frequencies per dimension?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "positional encoding",
-      "frequenze"
+      "frequencies"
     ]
   },
   {
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Il greedy sceglie il token più probabile a ogni singolo passo e può cadere in ottimi locali; la beam search mantiene le k sequenze parziali migliori e spesso trova una frase complessivamente più probabile, al costo di più calcolo.",
+    "explain": "Greedy picks the most likely token at each single step and can fall into local optima; beam search keeps the k best partial sequences and often finds an overall more likely sentence, at the cost of more compute.",
     "id": "ch1-ext21",
     "options": [
-      "Greedy prende il miglior token a ogni passo, beam tiene le k sequenze migliori",
-      "Beam search è deterministica mentre greedy è sempre stocastica e variabile a ogni run",
-      "Greedy richiede più memoria della beam search a parità di modello",
-      "Sono identiche quando la temperatura di campionamento vale 1"
+      "Greedy takes the best token at each step, beam keeps the k best sequences",
+      "Beam search is deterministic while greedy is always stochastic and varies each run",
+      "Greedy requires more memory than beam search for the same model",
+      "They are identical when the sampling temperature equals 1"
     ],
     "origin": "esterna",
-    "q": "Qual è la differenza tra greedy decoding e beam search in generazione?",
+    "q": "What is the difference between greedy decoding and beam search in generation?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "decoding",
@@ -1139,36 +1139,36 @@
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La temperatura divide i logit prima del softmax: valori alti appiattiscono la distribuzione e rendono l'output più vario e creativo, valori bassi la concentrano sui token migliori; al limite di temperatura zero si ottiene il greedy.",
+    "explain": "Temperature divides the logits before the softmax: high values flatten the distribution and make output more varied and creative, low values concentrate it on the best tokens; at the zero-temperature limit you get greedy decoding.",
     "id": "ch1-ext22",
     "options": [
-      "Conta il numero di token generati prima dello stop automatico della sequenza generata",
-      "Alta appiattisce la distribuzione e aumenta la varietà, bassa la concentra",
-      "Moltiplica il numero di head di attention durante l'inferenza",
-      "Normalizza i gradienti per evitare l'esplosione in addestramento"
+      "It counts the number of generated tokens before automatic stopping of the generated sequence",
+      "High flattens the distribution and increases variety, low concentrates it",
+      "It multiplies the number of attention heads during inference",
+      "It normalizes gradients to prevent explosion in training"
     ],
     "origin": "esterna",
-    "q": "Cosa controlla la temperatura nel campionamento da un LLM?",
+    "q": "What does temperature control in LLM sampling?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "decoding",
-      "temperatura"
+      "temperature"
     ]
   },
   {
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Top-k tronca a un numero fisso di candidati, rigido quando la distribuzione è piatta o appuntita; top-p seleziona il gruppo più piccolo che copre probabilità p, adattando il numero di candidati alla forma della distribuzione passo dopo passo.",
+    "explain": "Top-k truncates to a fixed number of candidates, rigid when the distribution is flat or peaked; top-p selects the smallest group covering probability p, adapting the candidate count to the shape of the distribution step by step.",
     "id": "ch1-ext23",
     "options": [
-      "Top-k ordina per posizione, top-p ordina per frequenza nel training",
-      "Top-p esiste solo in addestramento, top-k solo in inferenza",
-      "Top-k tiene un numero fisso di token, top-p il gruppo minimo che copre probabilità p",
-      "Top-k aumenta la temperatura, top-p aumenta la lunghezza massima"
+      "Top-k sorts by position in the sequence, top-p sorts by frequency seen in training",
+      "Top-p exists only in training, while top-k is used only in inference",
+      "Top-k keeps a fixed number of tokens, top-p the smallest group covering probability p",
+      "Top-k raises the sampling temperature, top-p raises the maximum output length"
     ],
     "origin": "esterna",
-    "q": "Qual è la differenza tra campionamento top-k e top-p (nucleus)?",
+    "q": "What is the difference between top-k and top-p (nucleus) sampling?",
     "source": "Adattata da community ExamTopics (NCA-GENL)",
     "tags": [
       "decoding",
@@ -1179,59 +1179,59 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Il Transformer base impila 6 layer di encoder e 6 di decoder; la versione big mantiene 6 layer ma con dimensioni maggiori (d_model 1024, 16 head). La profondità a 6 è lo standard del paper del 2017.",
+    "explain": "The base Transformer stacks 6 encoder and 6 decoder layers; the big version keeps 6 layers but with larger sizes (d_model 1024, 16 heads). Depth 6 is the standard of the 2017 paper.",
     "id": "ch1-ext25",
     "options": [
-      "6 layer di encoder e 6 di decoder impilati in profondità",
-      "12 layer di encoder e 12 di decoder già nella versione base",
-      "1 solo layer di encoder e 1 di decoder molto larghi",
-      "96 layer di encoder senza alcun blocco decoder"
+      "6 encoder layers and 6 decoder layers stacked in depth",
+      "12 encoder layers and 12 decoder layers already in the base version",
+      "A single very wide encoder layer and decoder layer",
+      "96 encoder layers with no decoder block at all"
     ],
     "origin": "esterna",
-    "q": "Quanti layer ha il Transformer base del paper originale?",
+    "q": "How many layers does the base Transformer of the original paper have?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
-      "architettura",
-      "iperparametri"
+      "architecture",
+      "hyperparameters"
     ]
   },
   {
     "answer": 1,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "La FFN contiene due grandi matrici dense (d_model×d_ff e ritorno) per ogni layer: circa due terzi dei parametri del modello vivono qui, non nelle matrici di attention. Per questo la FFN è anche vista come memoria distribuita.",
+    "explain": "The FFN contains two large dense matrices (d_model by d_ff and back) per layer: about two thirds of model parameters live there, not in the attention matrices. That is also why the FFN is seen as distributed memory.",
     "id": "ch1-ext26",
     "options": [
-      "Nelle matrici Query, Key e Value della self-attention di ogni layer profondo",
-      "Nella FFN, con le due matrici dense di espansione e proiezione",
-      "Nel positional encoding sinusoidale fisso del primo layer",
-      "Nella matrice di embedding del token di padding"
+      "In the Query, Key, and Value matrices of each deep layer self-attention",
+      "In the FFN, with the two dense expansion and projection matrices",
+      "In the fixed sinusoidal positional encoding of the first layer",
+      "In the embedding matrix of the padding token"
     ],
     "origin": "esterna",
-    "q": "Dove si trova la maggior parte dei parametri di un layer Transformer?",
+    "q": "Where do most parameters of a Transformer layer live?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "feed-forward",
-      "parametri"
+      "parameters"
     ]
   },
   {
     "answer": 3,
     "chapter": "ch1-transformer",
     "difficulty": "difficile",
-    "explain": "Ogni token generato aggiunge le proprie Key e Value in ogni layer, quindi la cache cresce linearmente con la lunghezza; il fattore dominante in memoria è il prodotto tra numero di layer, lunghezza e dimensione delle head.",
+    "explain": "Each generated token adds its own Key and Value in every layer, so the cache grows linearly with length; the dominant memory factor is the product of layer count, length, and head size.",
     "id": "ch1-ext28",
     "options": [
-      "Resta costante perché i token vecchi vengono sovrascritti dai nuovi",
-      "Decresce perché i primi token vengono compressi progressivamente",
-      "Cresce in modo quadratico ricalcolando tutto a ogni passo",
-      "Cresce linearmente: ogni token aggiunge una coppia K/V per layer"
+      "It stays constant because old tokens are overwritten by new ones",
+      "It shrinks because early tokens get progressively compressed",
+      "It grows quadratically by recomputing everything at each step",
+      "It grows linearly: each token adds one K/V pair per layer"
     ],
     "origin": "esterna",
-    "q": "Come cresce la memoria della KV-cache con la lunghezza della sequenza generata?",
+    "q": "How does KV-cache memory grow with the length of the generated sequence?",
     "source": "Adattata da community ExamTopics (NCA-GENL)",
     "tags": [
-      "inferenza",
+      "inference",
       "kv-cache"
     ]
   },
@@ -1239,36 +1239,36 @@
     "answer": 0,
     "chapter": "ch1-transformer",
     "difficulty": "facile",
-    "explain": "Con positional embedding appresi esistono solo le posizioni viste in training: oltre il massimo addestrato il modello non ha riferimenti posizionali e la qualità crolla. Servono troncamento, finestre scorrevoli o tecniche di estrapolazione.",
+    "explain": "With learned positional embeddings only the positions seen in training exist: past the maximum trained length the model has no positional references and quality collapses. Truncation, sliding windows, or extrapolation techniques are needed.",
     "id": "ch1-ext29",
     "options": [
-      "Incontra posizioni mai viste e degrada: servono troncamento o estrapolazione",
-      "Continua a funzionare perfettamente fino a lunghezza infinita senza limiti",
-      "Si blocca con errore perché la attention richiede sequenze corte",
-      "Migliora automaticamente perché una finestra più ampia aiuta sempre il modello in ogni caso"
+      "It meets never-seen positions and degrades: truncation or extrapolation is needed",
+      "It keeps working perfectly up to infinite length with no limits",
+      "It crashes with an error because attention requires short sequences",
+      "It automatically improves because a wider window always helps the model in every case"
     ],
     "origin": "esterna",
-    "q": "Cosa succede se in inferenza si supera la lunghezza massima vista in addestramento?",
+    "q": "What happens if inference exceeds the maximum length seen in training?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "context window",
-      "estrapolazione"
+      "extrapolation"
     ]
   },
   {
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Senza informazione posizionale la attention dipende solo dal contenuto: permutando i token in input, output e pesi si permutano di conseguenza. L'ordine diventa invisibile e frasi anagrammate risultano identiche.",
+    "explain": "Without positional information, attention depends only on content: permuting the input tokens permutes outputs and weights accordingly. Order becomes invisible and anagram sentences look identical.",
     "id": "ch1-ext30",
     "options": [
-      "I pesi di attention diventano tutti nulli e l'output è zero",
-      "La complessità passa da quadratica a cubica sulla sequenza",
-      "Permutando l'input l'output si permuta allo stesso modo: l'ordine è invisibile",
-      "Ogni token può attendere solo a sé stesso e a nessun altro"
+      "Attention weights all become zero and the model output is always zero",
+      "Computational complexity goes from quadratic to cubic in the sequence",
+      "Permuting the input permutes the output the same way: order is invisible",
+      "Each token can then only attend to itself and to no other token at all"
     ],
     "origin": "esterna",
-    "q": "La self-attention senza positional encoding è permutazione-equivariante. Cosa significa in pratica?",
+    "q": "Self-attention without positional encoding is permutation-equivariant. What does that mean in practice?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "self-attention",
@@ -1279,20 +1279,20 @@
     "answer": 2,
     "chapter": "ch1-transformer",
     "difficulty": "media",
-    "explain": "Ogni layer trasforma le rappresentazioni del precedente: i primi colgono sintassi locale, quelli profondi semantica e relazioni astratte. Le connessioni residuali rendono ottimizzabile questa profondità, cosa impossibile per un singolo layer largo.",
+    "explain": "Each layer transforms the representations of the previous one: early layers capture local syntax, deep ones semantics and abstract relations. Residual connections make this depth optimizable, which is impossible for a single wide layer.",
     "id": "ch1-ext34",
     "options": [
-      "Per aumentare il batch size distribuito su più GPU moderne",
-      "Per ridurre la memoria occupata dalla KV-cache in inferenza",
-      "Per comporre rappresentazioni via via più astratte, rese ottimizzabili dalle residuali",
-      "Per eliminare la necessità di normalizzazione tra i blocchi"
+      "To increase the distributed batch size across multiple modern GPUs",
+      "To reduce the memory occupied by the KV-cache during inference",
+      "To compose ever more abstract representations, made optimizable by residuals",
+      "To remove entirely the need for normalization between blocks"
     ],
     "origin": "esterna",
-    "q": "Perché impilare molti layer identici invece di usare un singolo layer molto largo?",
+    "q": "Why stack many identical layers instead of using a single very wide layer?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
-      "architettura",
-      "profondità"
+      "architecture",
+      "depth"
     ]
   }
 ]

@@ -2,7 +2,7 @@
   {
     "id": "ch3-q01",
     "chapter": "ch3-training",
-    "q": "Cosa significa l'acronimo LoRA nel contesto del fine-tuning?",
+    "q": "What does the acronym LoRA stand for in the context of fine-tuning?",
     "options": [
       "Low-Rank Adaptation",
       "Large Output Regression Algorithm",
@@ -10,7 +10,7 @@
       "Long-Range Attention"
     ],
     "answer": 0,
-    "explain": "LoRA significa Low-Rank Adaptation: congela i pesi pre-addestrati e inietta piccole matrici addestrabili a basso rango.",
+    "explain": "LoRA stands for Low-Rank Adaptation: it freezes the pre-trained weights and injects small trainable low-rank matrices.",
     "difficulty": "facile",
     "tags": [
       "lora",
@@ -21,15 +21,15 @@
   {
     "id": "ch3-q02",
     "chapter": "ch3-training",
-    "q": "Cosa caratterizza il full fine-tuning di un LLM?",
+    "q": "What characterizes full fine-tuning of an LLM?",
     "options": [
-      "Si aggiornano tutti i parametri del modello",
-      "Si congelano tutti i layer e si allena solo la testina di classificazione",
-      "Si quantizza il modello a 4 bit senza addestramento",
-      "Si aggiornano solo i bias del modello"
+      "All model parameters are updated",
+      "All layers are frozen and only the classification head is trained",
+      "The model is quantized to 4 bits with no training",
+      "Only the model biases are updated"
     ],
     "answer": 0,
-    "explain": "Nel full fine-tuning tutti i pesi del modello vengono aggiornati: massime prestazioni potenziali ma costi di calcolo e memoria molto alti.",
+    "explain": "In full fine-tuning all model weights are updated: highest potential performance but very high compute and memory costs.",
     "difficulty": "facile",
     "tags": [
       "full fine-tuning"
@@ -39,15 +39,15 @@
   {
     "id": "ch3-q03",
     "chapter": "ch3-training",
-    "q": "Cosa sono gli adapter nel parameter-efficient fine-tuning?",
+    "q": "What are adapters in parameter-efficient fine-tuning?",
     "options": [
-      "Rimuovono interi layer del Transformer per alleggerire il modello in inferenza",
-      "Sostituiscono la self-attention con layer convoluzionali in ogni blocco",
-      "Piccoli moduli inseriti tra i layer, gli unici parametri addestrabili",
-      "Replicano l'intero modello con una copia completa e separata per ogni task"
+      "They remove entire Transformer layers to lighten the model at inference",
+      "They replace self-attention with convolutional layers in every block",
+      "Small modules inserted between layers, the only trainable parameters",
+      "They replicate the entire model with a complete separate copy for each task"
     ],
     "answer": 2,
-    "explain": "Gli adapter sono piccoli moduli aggiunti tra i layer del Transformer: solo i loro parametri vengono addestrati, il resto resta congelato.",
+    "explain": "Adapters are small modules added between Transformer layers: only their parameters are trained, the rest stays frozen.",
     "difficulty": "facile",
     "tags": [
       "adapters",
@@ -58,15 +58,15 @@
   {
     "id": "ch3-q04",
     "chapter": "ch3-training",
-    "q": "Nel prompt tuning (p-tuning), quali parametri vengono ottimizzati?",
+    "q": "In prompt tuning (p-tuning), which parameters are optimized?",
     "options": [
-      "Tutti i pesi del modello più l'intera matrice di embedding del vocabolario",
-      "Solo gli iperparametri di training (learning rate, batch size), senza alcun peso",
-      "Tutte le testine di attenzione query/key/value di ogni layer del Transformer",
-      "Solo gli embedding continui del prompt, con il modello congelato"
+      "All model weights plus the entire vocabulary embedding matrix",
+      "Only training hyperparameters (learning rate, batch size), with no weights at all",
+      "All query/key/value attention heads of every Transformer layer",
+      "Only the continuous prompt embeddings, with the model frozen"
     ],
     "answer": 3,
-    "explain": "Il prompt tuning congela il modello e ottimizza solo vettori continui (soft prompt) concatenati agli embedding di input.",
+    "explain": "Prompt tuning freezes the model and optimizes only continuous vectors (soft prompt) concatenated with the input embeddings.",
     "difficulty": "facile",
     "tags": [
       "prompt tuning",
@@ -77,15 +77,15 @@
   {
     "id": "ch3-q05",
     "chapter": "ch3-training",
-    "q": "Durante l'EDA prima del fine-tuning, perché si analizza la distribuzione delle lunghezze dei testi?",
+    "q": "During EDA before fine-tuning, why analyze the distribution of text lengths?",
     "options": [
-      "Per fissare max length, padding e troncamento e stimare memoria e costi",
-      "Il numero di GPU disponibili nel cluster di training distribuito",
-      "La versione del driver CUDA installata sui nodi di calcolo del cluster GPU",
-      "Il costo orario delle istanze cloud usate per il training distribuito"
+      "To set max length, padding and truncation, and estimate memory and costs",
+      "The number of GPUs available in the distributed training cluster",
+      "The CUDA driver version installed on the GPU compute nodes",
+      "The hourly cost of the cloud instances used for distributed training"
     ],
     "answer": 0,
-    "explain": "L'EDA analizza la distribuzione delle lunghezze per scegliere max sequence length, padding e troncamento, e stimare memoria e costi.",
+    "explain": "EDA analyzes the length distribution to choose max sequence length, padding and truncation, and to estimate memory and costs.",
     "difficulty": "facile",
     "tags": [
       "eda",
@@ -96,15 +96,15 @@
   {
     "id": "ch3-q06",
     "chapter": "ch3-training",
-    "q": "Qual è lo scopo dello split train/validation/test?",
+    "q": "What is the purpose of the train/validation/test split?",
     "options": [
-      "Tre copie identiche dello stesso dataset, usate in parallelo per velocizzare il training",
-      "Train per addestrare, validation per tuning ed early stopping, test per la valutazione finale",
-      "Il train set usato solo per il test, il validation per l'addestramento e il test per la validazione finale",
-      "Tre diversi modelli completi da addestrare e confrontare tra loro in parallelo"
+      "Three identical copies of the same dataset, used in parallel to speed up training",
+      "Train for training, validation for tuning and early stopping, test for final evaluation",
+      "The train set used only for testing, validation for training, and test for final validation",
+      "Three different complete models to train and compare against each other in parallel"
     ],
     "answer": 1,
-    "explain": "Train serve ad addestrare, validation a regolare gli iperparametri e decidere l'early stopping, test a una stima finale non distorta.",
+    "explain": "Train is for training, validation for tuning hyperparameters and deciding early stopping, test for a final unbiased estimate.",
     "difficulty": "facile",
     "tags": [
       "preprocessing",
@@ -115,15 +115,15 @@
   {
     "id": "ch3-q07",
     "chapter": "ch3-training",
-    "q": "Quale andamento delle curve di loss indica overfitting?",
+    "q": "Which loss-curve pattern indicates overfitting?",
     "options": [
-      "Training loss e validation loss entrambe alte e stabili a fine training",
-      "Training e validation loss che scendono insieme senza divergere",
-      "Training loss che scende mentre la validation loss risale",
-      "Training loss che oscilla vistosamente per un learning rate troppo basso"
+      "Training loss and validation loss both high and flat at the end of training",
+      "Training and validation loss decreasing together without diverging",
+      "Training loss decreasing while validation loss rises",
+      "Training loss oscillating visibly due to too low a learning rate"
     ],
     "answer": 2,
-    "explain": "Overfitting: la loss di training continua a scendere mentre quella di validation risale; il modello memorizza invece di generalizzare.",
+    "explain": "Overfitting: training loss keeps decreasing while validation loss rises; the model memorizes instead of generalizing.",
     "difficulty": "facile",
     "tags": [
       "overfitting"
@@ -133,15 +133,15 @@
   {
     "id": "ch3-q08",
     "chapter": "ch3-training",
-    "q": "Cosa indica l'underfitting?",
+    "q": "What does underfitting indicate?",
     "options": [
-      "Il modello memorizza perfettamente il training set ma fallisce sui dati di validation",
-      "Il modello dimentica i task precedenti dopo il fine-tuning sul nuovo dominio",
-      "I pesi crescono senza controllo fino a causare valori NaN nella loss di training",
-      "Il modello è troppo semplice: training e validation loss restano entrambe alte"
+      "The model perfectly memorizes the training set but fails on validation data",
+      "The model forgets previous tasks after fine-tuning on the new domain",
+      "Weights grow out of control causing NaN values in the training loss",
+      "The model is too simple: training and validation loss both stay high"
     ],
     "answer": 3,
-    "explain": "L'underfitting indica un modello troppo semplice o poco addestrato: entrambe le loss restano alte, il modello non cattura i pattern.",
+    "explain": "Underfitting indicates a model that is too simple or undertrained: both losses stay high, the model does not capture the patterns.",
     "difficulty": "facile",
     "tags": [
       "underfitting"
@@ -151,15 +151,15 @@
   {
     "id": "ch3-q09",
     "chapter": "ch3-training",
-    "q": "Durante il fine-tuning la loss oscilla in modo selvaggio e non converge. Quale intervento è prioritario?",
+    "q": "During fine-tuning the loss oscillates wildly and does not converge. Which intervention is the priority?",
     "options": [
-      "Ridurre il learning rate",
-      "Aumentare il numero di epoche a 100",
-      "Aumentare la temperature di sampling",
-      "Aggiungere più layer al modello"
+      "Reduce the learning rate",
+      "Increase the number of epochs to 100",
+      "Increase the sampling temperature",
+      "Add more layers to the model"
     ],
     "answer": 0,
-    "explain": "Un learning rate troppo alto fa compiere passi eccessivi nella discesa del gradiente: la loss oscilla o diverge invece di convergere.",
+    "explain": "Too high a learning rate takes excessively large gradient-descent steps: the loss oscillates or diverges instead of converging.",
     "difficulty": "facile",
     "tags": [
       "learning rate"
@@ -169,15 +169,15 @@
   {
     "id": "ch3-q10",
     "chapter": "ch3-training",
-    "q": "Cosa si intende per batch size nel training?",
+    "q": "What is meant by batch size in training?",
     "options": [
-      "Il numero totale di parametri addestrabili contenuti nel modello",
-      "Il numero di esempi elaborati prima di ogni aggiornamento dei pesi",
-      "Il numero massimo di token generati dal modello a ogni passo di inferenza",
-      "Il numero di layer congelati e non aggiornati durante il fine-tuning PEFT"
+      "The total number of trainable parameters in the model",
+      "The number of examples processed before each weight update",
+      "The maximum number of tokens generated by the model at each inference step",
+      "The number of frozen layers not updated during PEFT fine-tuning"
     ],
     "answer": 1,
-    "explain": "La batch size è il numero di esempi elaborati prima di ogni aggiornamento dei pesi; batch grandi danno gradienti più stabili ma consumano più memoria.",
+    "explain": "Batch size is the number of examples processed before each weight update; large batches give more stable gradients but consume more memory.",
     "difficulty": "facile",
     "tags": [
       "batch size"
@@ -187,33 +187,33 @@
   {
     "id": "ch3-q11",
     "chapter": "ch3-training",
-    "q": "Cosa si intende per epoca (epoch) nel training?",
+    "q": "What is meant by epoch in training?",
     "options": [
-      "Un singolo aggiornamento dei pesi calcolato su un mini-batch",
-      "Un'intera sessione di inferenza del modello messo in produzione",
-      "Un passaggio completo sull'intero dataset di training",
-      "Un ciclo completo di warm-up del learning rate a inizio training"
+      "A single weight update computed on one mini-batch",
+      "An entire inference session of the model deployed in production",
+      "One complete pass over the entire training dataset",
+      "One full learning-rate warm-up cycle at the start of training"
     ],
     "answer": 2,
-    "explain": "Un'epoca è un passaggio completo sull'intero dataset di training, con una forward e una backward per ogni batch che lo compone.",
+    "explain": "An epoch is one complete pass over the entire training dataset, with one forward and one backward pass for each batch it contains.",
     "difficulty": "facile",
     "tags": [
-      "epoche"
+      "epochs"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q12",
     "chapter": "ch3-training",
-    "q": "Cosa si intende per teacher forcing nel training dei modelli generativi?",
+    "q": "What is meant by teacher forcing in training generative models?",
     "options": [
-      "Forzare il modello a rispondere sempre con la stessa frase prefissata, qualunque sia l'input",
-      "Addestrare solo il modello teacher senza mai addestrare il modello student",
-      "Usare un learning rate altissimo nei primi step per forzare la convergenza",
-      "Alimentare il decoder con i token corretti precedenti invece delle sue predizioni"
+      "Forcing the model to always answer with the same fixed sentence, whatever the input",
+      "Training only the teacher model without ever training the student model",
+      "Using a very high learning rate in the first steps to force convergence",
+      "Feeding the decoder the previous correct tokens instead of its own predictions"
     ],
     "answer": 3,
-    "explain": "Con il teacher forcing, in training il decoder riceve i token corretti precedenti (ground truth) invece delle proprie predizioni, per stabilizzare l'apprendimento.",
+    "explain": "With teacher forcing, during training the decoder receives the previous correct tokens (ground truth) instead of its own predictions, to stabilize learning.",
     "difficulty": "facile",
     "tags": [
       "teacher forcing"
@@ -223,15 +223,15 @@
   {
     "id": "ch3-q13",
     "chapter": "ch3-training",
-    "q": "Quali sono i ruoli di teacher e student nella knowledge distillation?",
+    "q": "What are the roles of teacher and student in knowledge distillation?",
     "options": [
-      "Il modello grande (teacher) trasferisce conoscenza a un modello piccolo (student)",
-      "Il modello piccolo (student) addestra da zero e supervisiona il modello grande (teacher)",
-      "Due modelli identici si addestrano a vicenda sullo stesso dataset di training condiviso",
-      "Il modello viene distillato rimuovendo tutti i layer di attenzione dal Transformer"
+      "The large model (teacher) transfers knowledge to a small model (student)",
+      "The small model (student) trains from scratch and supervises the large model (teacher)",
+      "Two identical models train each other on the same shared training dataset",
+      "The model is distilled by removing all attention layers from the Transformer"
     ],
     "answer": 0,
-    "explain": "Nella distillation un grande modello teacher trasferisce la sua conoscenza a uno student compatto, che costa meno in inferenza.",
+    "explain": "In distillation, a large teacher model transfers its knowledge to a compact student, which costs less at inference.",
     "difficulty": "facile",
     "tags": [
       "distillation"
@@ -241,15 +241,15 @@
   {
     "id": "ch3-q14",
     "chapter": "ch3-training",
-    "q": "Quale affermazione sul transfer learning è corretta?",
+    "q": "Which statement about transfer learning is correct?",
     "options": [
-      "Elimina completamente la necessità di raccogliere dati etichettati per il task di destinazione",
-      "Riusa la conoscenza pre-addestrata: meno tempi, dati e calcolo del training da zero",
-      "Garantisce l'assenza di bias ereditati dal pre-training nel modello finale",
-      "Rende il modello interpretabile per costruzione, esponendo il suo ragionamento"
+      "It completely eliminates the need to collect labeled data for the target task",
+      "It reuses pre-trained knowledge: less time, data and compute than training from scratch",
+      "It guarantees no biases inherited from pre-training in the final model",
+      "It makes the model interpretable by construction, exposing its reasoning"
     ],
     "answer": 1,
-    "explain": "Il transfer learning riusa i pesi pre-addestrati come punto di partenza: accelera la convergenza e riduce dati e calcolo rispetto al training da zero.",
+    "explain": "Transfer learning reuses pre-trained weights as a starting point: it speeds up convergence and reduces data and compute versus training from scratch.",
     "difficulty": "facile",
     "tags": [
       "transfer learning"
@@ -259,15 +259,15 @@
   {
     "id": "ch3-q15",
     "chapter": "ch3-training",
-    "q": "Quali metriche vanno monitorate in un A/B test tra due versioni di un LLM in produzione?",
+    "q": "Which metrics should be monitored in an A/B test between two versions of an LLM in production?",
     "options": [
-      "Solo il numero totale di parametri dei due modelli messi a confronto nel test",
-      "Solo il colore e lo stile grafico dell'interfaccia mostrata ai valutatori",
-      "Qualità delle risposte, latenza, tasso di errore, costo per query e sicurezza",
-      "Solo la temperatura di sampling usata durante il training dei due modelli"
+      "Only the total parameter count of the two models compared in the test",
+      "Only the color and graphic style of the interface shown to evaluators",
+      "Response quality, latency, error rate, cost per query, and safety",
+      "Only the sampling temperature used during training of the two models"
     ],
     "answer": 2,
-    "explain": "In un A/B test su LLM si monitorano qualità delle risposte, latenza p50/p95, tasso di errore e rifiuto, costi per query e segnali di sicurezza.",
+    "explain": "In an LLM A/B test, monitor response quality, p50/p95 latency, error and refusal rate, cost per query, and safety signals.",
     "difficulty": "facile",
     "tags": [
       "a/b testing"
@@ -277,53 +277,53 @@
   {
     "id": "ch3-q16",
     "chapter": "ch3-training",
-    "q": "In LoRA, cosa controlla l'iperparametro rank (r)?",
+    "q": "In LoRA, what does the rank (r) hyperparameter control?",
     "options": [
-      "Il numero di GPU usate nel cluster di training distribuito multi-nodo",
-      "La lunghezza massima della finestra di contesto gestibile dal modello in inferenza",
-      "Il numero di epoche di warm-up del learning rate a inizio del training",
-      "Il rango delle matrici di update: r alto, più capacità e più parametri"
+      "The number of GPUs used in the multi-node distributed training cluster",
+      "The maximum context window length the model can handle at inference",
+      "The number of learning-rate warm-up epochs at the start of training",
+      "The rank of the update matrices: higher r means more capacity and more parameters"
     ],
     "answer": 3,
-    "explain": "Il rank r controlla la dimensione delle matrici di update: r più alto dà più capacità espressiva ma aumenta i parametri addestrabili.",
+    "explain": "Rank r controls the size of the update matrices: higher r gives more expressive capacity but increases trainable parameters.",
     "difficulty": "media",
     "tags": [
       "lora",
-      "iperparametri"
+      "hyperparameters"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q17",
     "chapter": "ch3-training",
-    "q": "In LoRA, quale ruolo ha l'iperparametro alpha?",
+    "q": "In LoRA, what is the role of the alpha hyperparameter?",
     "options": [
-      "Il fattore di scaling dell'update (scaling = alpha / r)",
-      "Il numero di layer del Transformer a cui applicare gli adapter LoRA",
-      "La percentuale di dropout applicata agli adapter LoRA durante il training",
-      "La soglia di pazienza della loss per l'early stopping in validation"
+      "The scaling factor of the update (scaling = alpha / r)",
+      "The number of Transformer layers the LoRA adapters are applied to",
+      "The dropout percentage applied to the LoRA adapters during training",
+      "The loss patience threshold for validation early stopping"
     ],
     "answer": 0,
-    "explain": "Lo scaling LoRA è alpha diviso r: a parità di r, un alpha maggiore amplifica l'effetto degli adapter sui pesi congelati.",
+    "explain": "LoRA scaling is alpha divided by r: with the same r, a larger alpha amplifies the effect of the adapters on the frozen weights.",
     "difficulty": "media",
     "tags": [
       "lora",
-      "iperparametri"
+      "hyperparameters"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q18",
     "chapter": "ch3-training",
-    "q": "Cosa distingue QLoRA da LoRA standard?",
+    "q": "What distinguishes QLoRA from standard LoRA?",
     "options": [
-      "Una variante di LoRA che allena tutti i parametri del modello a precisione doppia FP64",
-      "Modello base quantizzato a 4 bit e congelato, più adapter LoRA addestrabili",
-      "Un LoRA applicato solo alle proiezioni query, escludendo key e value del modello",
-      "Un ottimizzatore proprietario NVIDIA progettato per il training su sole CPU"
+      "A LoRA variant that trains all model parameters in FP64 double precision",
+      "Frozen 4-bit quantized base model, plus trainable LoRA adapters",
+      "A LoRA applied only to query projections, excluding model keys and values",
+      "A proprietary NVIDIA optimizer designed for training on CPUs only"
     ],
     "answer": 1,
-    "explain": "QLoRA combina quantizzazione a 4 bit (NF4) del modello base con adapter LoRA: permette il fine-tuning di modelli enormi su singole GPU.",
+    "explain": "QLoRA combines 4-bit quantization (NF4) of the base model with LoRA adapters: it enables fine-tuning huge models on single GPUs.",
     "difficulty": "media",
     "tags": [
       "lora",
@@ -334,72 +334,72 @@
   {
     "id": "ch3-q19",
     "chapter": "ch3-training",
-    "q": "Un vendor afferma che passando a LoRA l'inferenza sarà molto più veloce. Quale valutazione è corretta?",
+    "q": "A vendor claims that switching to LoRA will make inference much faster. Which assessment is correct?",
     "options": [
-      "Valutazione corretta: l'inferenza accelera perché si allenano meno parametri",
-      "Valutazione corretta: gli adapter leggeri rendono da sola la generazione più veloce",
-      "Valutazione corretta: il merging è inutile perché LoRA velocizza già l'inferenza",
-      "Valutazione sbagliata: LoRA non accelera da solo l'inferenza senza merging"
+      "Correct assessment: inference speeds up because fewer parameters are trained",
+      "Correct assessment: lightweight adapters alone make generation faster",
+      "Correct assessment: merging is useless because LoRA already speeds up inference",
+      "Wrong assessment: LoRA alone does not speed up inference without merging"
     ],
     "answer": 3,
-    "explain": "Trappola classica: il PEFT riduce parametri, memoria e storage, ma non accelera l'inferenza (gli adapter aggiungono operazioni, salvo merging).",
+    "explain": "Classic trap: PEFT reduces parameters, memory and storage, but does not speed up inference (adapters add operations, unless merged).",
     "difficulty": "media",
     "tags": [
       "peft",
-      "trappola"
+      "trap"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q20",
     "chapter": "ch3-training",
-    "q": "Quale delle seguenti affermazioni sul PEFT è FALSA?",
+    "q": "Which of the following statements about PEFT is FALSE?",
     "options": [
-      "Il PEFT allena meno parametri del full fine-tuning",
-      "Il PEFT richiede meno VRAM e meno storage per checkpoint",
-      "Il PEFT permette di servire molti task con un solo modello base più adapter leggeri",
-      "Il PEFT garantisce sempre un'accuratezza superiore al full fine-tuning"
+      "PEFT trains fewer parameters than full fine-tuning",
+      "PEFT requires less VRAM and less checkpoint storage",
+      "PEFT allows serving many tasks with one base model plus lightweight adapters",
+      "PEFT always guarantees higher accuracy than full fine-tuning"
     ],
     "answer": 3,
-    "explain": "Trappola d'esame: il PEFT migliora l'efficienza (meno parametri, meno memoria), non garantisce un'accuratezza superiore al full fine-tuning.",
+    "explain": "Exam trap: PEFT improves efficiency (fewer parameters, less memory), it does not guarantee higher accuracy than full fine-tuning.",
     "difficulty": "media",
     "tags": [
       "peft",
-      "trappola"
+      "trap"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q21",
     "chapter": "ch3-training",
-    "q": "Un team crede che con LoRA non servano più dati etichettati. È vero?",
+    "q": "A team believes LoRA removes the need for labeled data. Is that true?",
     "options": [
-      "No: serve comunque un dataset etichettato di qualità per il task",
-      "Sì: LoRA apprende il nuovo task senza alcun esempio etichettato",
-      "Sì: basta il pre-training, quindi il fine-tuning diventa unsupervised",
-      "Sì: gli adapter generano da soli le etichette corrette per l'addestramento"
+      "No: a quality labeled dataset for the task is still needed",
+      "Yes: LoRA learns the new task with no labeled examples at all",
+      "Yes: pre-training alone is enough, so fine-tuning becomes unsupervised",
+      "Yes: adapters generate the correct labels for training on their own"
     ],
     "answer": 0,
-    "explain": "Il PEFT non elimina il bisogno di esempi etichettati di qualità: serve comunque un dataset supervisionato per il task target.",
+    "explain": "PEFT does not eliminate the need for quality labeled examples: a supervised dataset for the target task is still required.",
     "difficulty": "media",
     "tags": [
       "peft",
-      "dati"
+      "data"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q22",
     "chapter": "ch3-training",
-    "q": "Quale combinazione mitiga meglio il catastrophic forgetting nel fine-tuning sequenziale?",
+    "q": "Which combination best mitigates catastrophic forgetting in sequential fine-tuning?",
     "options": [
-      "Aumentare drasticamente il learning rate per adattarsi rapidamente al nuovo task",
-      "Usare learning rate basso, PEFT e rehearsal con dati del task precedente",
-      "Rimuovere il dropout e ogni forma di regolarizzazione durante il training",
-      "Addestrare solo sul nuovo task con molte epoche e senza esempi del precedente"
+      "Drastically increase the learning rate to adapt quickly to the new task",
+      "Use a low learning rate, PEFT, and rehearsal with data from the previous task",
+      "Remove dropout and all forms of regularization during training",
+      "Train only on the new task for many epochs with no examples of the previous one"
     ],
     "answer": 1,
-    "explain": "Aggiornamenti piccoli (LR basso), pochi parametri modificati (PEFT) e replay di dati vecchi preservano la conoscenza precedente.",
+    "explain": "Small updates (low LR), few modified parameters (PEFT), and replaying old data preserve previous knowledge.",
     "difficulty": "media",
     "tags": [
       "catastrophic forgetting"
@@ -409,34 +409,34 @@
   {
     "id": "ch3-q23",
     "chapter": "ch3-training",
-    "q": "Un modello classificava bene cani e gatti, poi viene fine-tunato solo su uccelli e ora fallisce su cani e gatti. Come si diagnostica?",
+    "q": "A model classified dogs and cats well, then is fine-tuned only on birds and now fails on dogs and cats. How is this diagnosed?",
     "options": [
-      "Underfitting sul nuovo task: il modello non ha capacità sufficiente per apprenderlo",
-      "Data leakage tra train e test, con esempi di validation presenti nel training set",
-      "Catastrophic forgetting: il nuovo training ha sovrascritto la vecchia conoscenza",
-      "Vanishing gradient dovuto a sequenze di input troppo corte nel dataset del nuovo task"
+      "Underfitting on the new task: the model lacks capacity to learn it",
+      "Data leakage between train and test, with validation examples present in the training set",
+      "Catastrophic forgetting: the new training overwrote the old knowledge",
+      "Vanishing gradients due to overly short input sequences in the new task dataset"
     ],
     "answer": 2,
-    "explain": "Il modello addestrato solo sui nuovi dati sovrascrive i pesi importanti per il vecchio task: tipico catastrophic forgetting, non semplice overfitting.",
+    "explain": "A model trained only on new data overwrites weights important for the old task: typical catastrophic forgetting, not simple overfitting.",
     "difficulty": "media",
     "tags": [
       "catastrophic forgetting",
-      "diagnosi"
+      "diagnosis"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q24",
     "chapter": "ch3-training",
-    "q": "Come previene l'overfitting il dropout?",
+    "q": "How does dropout prevent overfitting?",
     "options": [
-      "Aumenta automaticamente il learning rate a ogni epoca di training",
-      "Congela i pesi del modello base ed allena solo i nuovi moduli aggiunti",
-      "Accumula i gradienti su più step per simulare batch grandi con poca memoria",
-      "Disattiva casualmente neuroni in training per ridurre il co-adattamento"
+      "It automatically increases the learning rate at each training epoch",
+      "It freezes the base model weights and trains only the added new modules",
+      "It accumulates gradients over multiple steps to simulate large batches with little memory",
+      "It randomly disables neurons during training to reduce co-adaptation"
     ],
     "answer": 3,
-    "explain": "Il dropout disattiva casualmente neuroni in training, impedendo co-adattamenti fragili e costringendo la rete a rappresentazioni ridondanti.",
+    "explain": "Dropout randomly disables neurons during training, preventing fragile co-adaptations and forcing the network into redundant representations.",
     "difficulty": "media",
     "tags": [
       "overfitting",
@@ -447,53 +447,53 @@
   {
     "id": "ch3-q25",
     "chapter": "ch3-training",
-    "q": "Cosa fa il weight decay?",
+    "q": "What does weight decay do?",
     "options": [
-      "Una penalità L2 che mantiene piccoli i pesi e riduce l'overfitting",
-      "Una tecnica per aumentare la batch size senza memoria GPU aggiuntiva",
-      "Un metodo per quantizzare il modello base a 4 bit prima del fine-tuning",
-      "Lo scheduling che porta gradualmente il learning rate a zero a fine training"
+      "An L2 penalty that keeps weights small and reduces overfitting",
+      "A technique to increase batch size without additional GPU memory",
+      "A method to quantize the base model to 4 bits before fine-tuning",
+      "The schedule that gradually brings the learning rate to zero at the end of training"
     ],
     "answer": 0,
-    "explain": "Il weight decay è una penalità L2 sui pesi: li mantiene piccoli e limita la complessità del modello, contrastando l'overfitting.",
+    "explain": "Weight decay is an L2 penalty on weights: it keeps them small and limits model complexity, countering overfitting.",
     "difficulty": "media",
     "tags": [
       "weight decay",
-      "regolarizzazione"
+      "regularization"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q26",
     "chapter": "ch3-training",
-    "q": "Quando si applica correttamente l'early stopping?",
+    "q": "When is early stopping applied correctly?",
     "options": [
-      "Fermare il training dopo un numero fisso di epoche, ad esempio sempre 100",
-      "Interrompere il training quando la validation smette di migliorare",
-      "Fermare l'inferenza in produzione quando la latenza supera la soglia",
-      "Interrompere il warm-up del learning rate appena la loss inizia a scendere"
+      "Stopping training after a fixed number of epochs, e.g. always 100",
+      "Interrupting training when validation stops improving",
+      "Stopping production inference when latency exceeds the threshold",
+      "Interrupting learning-rate warm-up as soon as the loss starts decreasing"
     ],
     "answer": 1,
-    "explain": "L'early stopping interrompe il training quando la metrica di validation smette di migliorare, evitando di memorizzare il training set.",
+    "explain": "Early stopping halts training when the validation metric stops improving, avoiding memorization of the training set.",
     "difficulty": "media",
     "tags": [
       "early stopping",
-      "regolarizzazione"
+      "regularization"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q27",
     "chapter": "ch3-training",
-    "q": "A cosa serve il gradient clipping?",
+    "q": "What is gradient clipping for?",
     "options": [
-      "Azzera completamente i gradienti dei layer congelati durante il fine-tuning PEFT",
-      "Riduce il numero di epoche necessarie per raggiungere la convergenza",
-      "Limita la norma dei gradienti per evitare update esplosivi e valori NaN",
-      "Ordina i gradienti per importanza prima di applicare l'update ai pesi"
+      "It completely zeroes the gradients of frozen layers during PEFT fine-tuning",
+      "It reduces the number of epochs needed to reach convergence",
+      "It limits gradient norms to avoid explosive updates and NaN values",
+      "It sorts gradients by importance before applying the weight update"
     ],
     "answer": 2,
-    "explain": "Il gradient clipping limita la norma dei gradienti: impedisce update esplosivi, NaN e divergenza con learning rate aggressivi o batch rumorosi.",
+    "explain": "Gradient clipping limits gradient norms: it prevents explosive updates, NaNs and divergence with aggressive learning rates or noisy batches.",
     "difficulty": "media",
     "tags": [
       "gradient clipping"
@@ -503,15 +503,15 @@
   {
     "id": "ch3-q28",
     "chapter": "ch3-training",
-    "q": "Cosa si intende per mixed precision training?",
+    "q": "What is meant by mixed precision training?",
     "options": [
-      "Addestrare metà delle epoche su un task e metà su un altro in alternanza",
-      "Dimezzare il dataset di training scartando un esempio sì e uno no",
-      "Addestrare due modelli identici in parallelo e mediarne i pesi finali",
-      "Usare FP16/BF16 per calcoli e memoria, con copie master in FP32"
+      "Training half the epochs on one task and half on another, alternating",
+      "Halving the training dataset by discarding every other example",
+      "Training two identical models in parallel and averaging their final weights",
+      "Using FP16/BF16 for compute and memory, with master copies in FP32"
     ],
     "answer": 3,
-    "explain": "La mixed precision usa FP16/BF16 per gran parte dei calcoli (meno memoria, più velocità su Tensor Core) tenendo copie master FP32 per la stabilità.",
+    "explain": "Mixed precision uses FP16/BF16 for most computations (less memory, faster on Tensor Cores) while keeping FP32 master copies for stability.",
     "difficulty": "media",
     "tags": [
       "mixed precision"
@@ -521,15 +521,15 @@
   {
     "id": "ch3-q29",
     "chapter": "ch3-training",
-    "q": "Qual è la differenza tra data parallelism e model parallelism?",
+    "q": "What is the difference between data parallelism and model parallelism?",
     "options": [
-      "Data parallelism: modello replicato e dati divisi; model parallelism: modello diviso",
-      "Data parallelism partiziona i pesi tra le GPU, model parallelism replica i dati su ognuna",
-      "Sono due nomi diversi che indicano la stessa tecnica di offload su CPU",
-      "Data parallelism serve solo per l'inferenza e model parallelism solo per l'EDA iniziale"
+      "Data parallelism: replicated model and split data; model parallelism: split model",
+      "Data parallelism partitions weights across GPUs, model parallelism replicates data on each",
+      "They are two different names for the same CPU-offload technique",
+      "Data parallelism is only for inference and model parallelism only for initial EDA"
     ],
     "answer": 0,
-    "explain": "Data parallelism: ogni GPU ha una replica del modello e processa batch diversi. Model parallelism: il modello è partizionato tra GPU.",
+    "explain": "Data parallelism: each GPU holds a replica of the model and processes different batches. Model parallelism: the model is partitioned across GPUs.",
     "difficulty": "media",
     "tags": [
       "distributed training"
@@ -539,15 +539,15 @@
   {
     "id": "ch3-q30",
     "chapter": "ch3-training",
-    "q": "Con micro-batch 4 e gradient accumulation ogni 8 step, qual è la batch size effettiva?",
+    "q": "With micro-batch 4 and gradient accumulation every 8 steps, what is the effective batch size?",
     "options": [
-      "8, perché nel calcolo conta solo il numero di accumulation steps",
-      "16, calcolata come media aritmetica tra 4 e 8",
-      "32, prodotto di micro-batch e accumulation steps",
-      "256, calcolato come quadrato di 8 moltiplicato per 4"
+      "8, because only the number of accumulation steps counts in the calculation",
+      "16, computed as the arithmetic mean of 4 and 8",
+      "32, the product of micro-batch and accumulation steps",
+      "256, computed as the square of 8 times 4"
     ],
     "answer": 2,
-    "explain": "Il batch effettivo è micro-batch per accumulation steps: 4 per 8 fa 32, simulando un batch grande con poca memoria.",
+    "explain": "The effective batch is micro-batch times accumulation steps: 4 times 8 equals 32, simulating a large batch with little memory.",
     "difficulty": "media",
     "tags": [
       "gradient accumulation"
@@ -557,15 +557,15 @@
   {
     "id": "ch3-q31",
     "chapter": "ch3-training",
-    "q": "Cosa descrivono cosine decay e linear decay nel learning rate scheduling?",
+    "q": "What do cosine decay and linear decay describe in learning-rate scheduling?",
     "options": [
-      "Due ottimizzatori diversi dedicati, uno per LoRA e uno per il full fine-tuning",
-      "Due funzioni di loss distinte, una per il training e una per la validation del modello",
-      "Due schedule che riducono il learning rate dopo il warm-up (coseno vs lineare)",
-      "Due tipi di quantizzazione dei pesi, rispettivamente a 4 e a 8 bit"
+      "Two different dedicated optimizers, one for LoRA and one for full fine-tuning",
+      "Two distinct loss functions, one for training and one for model validation",
+      "Two schedules that reduce the learning rate after warm-up (cosine vs linear)",
+      "Two types of weight quantization, at 4 and 8 bits respectively"
     ],
     "answer": 2,
-    "explain": "Il cosine decay riduce il LR seguendo un coseno fino quasi a zero; il linear decay lo riduce linearmente. Entrambi rifiniscono la convergenza dopo il warm-up.",
+    "explain": "Cosine decay reduces the LR following a cosine down to near zero; linear decay reduces it linearly. Both refine convergence after warm-up.",
     "difficulty": "media",
     "tags": [
       "scheduling",
@@ -576,15 +576,15 @@
   {
     "id": "ch3-q32",
     "chapter": "ch3-training",
-    "q": "Quale pratica è un esempio valido di data augmentation per l'NLP?",
+    "q": "Which practice is a valid example of data augmentation for NLP?",
     "options": [
-      "Duplicare esattamente gli stessi esempi mille volte senza alcuna variazione",
-      "Raccogliere dati di test e usarli direttamente per il training del modello",
-      "Normalizzare i pesi del modello dopo ogni epoca di addestramento",
-      "Generare varianti realistiche dei testi (parafrasi, back-translation)"
+      "Duplicating the exact same examples a thousand times with no variation",
+      "Collecting test data and using it directly for model training",
+      "Normalizing model weights after each training epoch",
+      "Generating realistic text variants (paraphrases, back-translation)"
     ],
     "answer": 3,
-    "explain": "Parafrasi, back-translation e sostituzioni sinonimiche generano varianti realistiche che rendono il modello robusto senza raccogliere nuovi dati.",
+    "explain": "Paraphrasing, back-translation and synonym substitutions generate realistic variants that make the model robust without collecting new data.",
     "difficulty": "media",
     "tags": [
       "data augmentation"
@@ -594,15 +594,15 @@
   {
     "id": "ch3-q33",
     "chapter": "ch3-training",
-    "q": "Come si affronta il class imbalance nel dataset di fine-tuning?",
+    "q": "How is class imbalance handled in the fine-tuning dataset?",
     "options": [
-      "Ricampionare, usare pesi di classe e valutare con F1/AUC oltre all'accuracy",
-      "Eliminare del tutto la classe minoritaria dal dataset di fine-tuning",
-      "Aumentare il learning rate fino a compensare lo sbilanciamento tra le classi del dataset",
-      "Usare solo l'accuracy come unica metrica di valutazione del modello"
+      "Resample, use class weights, and evaluate with F1/AUC in addition to accuracy",
+      "Remove the minority class entirely from the fine-tuning dataset",
+      "Increase the learning rate until it compensates the class imbalance in the dataset",
+      "Use accuracy as the only model evaluation metric"
     ],
     "answer": 0,
-    "explain": "Con classi sbilanciate si ricampiona, si usano pesi di classe o loss focali, valutando con F1/AUC e non solo con l'accuracy.",
+    "explain": "With imbalanced classes, resample, use class weights or focal losses, and evaluate with F1/AUC rather than accuracy alone.",
     "difficulty": "media",
     "tags": [
       "class imbalance",
@@ -613,34 +613,34 @@
   {
     "id": "ch3-q34",
     "chapter": "ch3-training",
-    "q": "Perché la deduplicazione è importante nel preprocessing?",
+    "q": "Why is deduplication important in preprocessing?",
     "options": [
-      "Per aumentare artificialmente il numero di epoche di training senza nuovi dati",
-      "Per rimuovere duplicati: sprecano calcolo, gonfiano metriche, rischiano leakage",
-      "Per ridurre in automatico il learning rate durante le epoche di training",
-      "Per convertire il modello in formato quantizzato a bassa precisione prima del deploy"
+      "To artificially increase the number of training epochs without new data",
+      "To remove duplicates: they waste compute, inflate metrics, and risk leakage",
+      "To automatically reduce the learning rate during training epochs",
+      "To convert the model to low-precision quantized format before deployment"
     ],
     "answer": 1,
-    "explain": "I duplicati sprecano calcolo, gonfiano le metriche e possono causare leakage train/test: la deduplicazione pulisce il segnale.",
+    "explain": "Duplicates waste compute, inflate metrics, and can cause train/test leakage: deduplication cleans the signal.",
     "difficulty": "media",
     "tags": [
       "preprocessing",
-      "deduplicazione"
+      "deduplication"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q35",
     "chapter": "ch3-training",
-    "q": "Qual è lo scopo principale della knowledge distillation prima del deployment?",
+    "q": "What is the main purpose of knowledge distillation before deployment?",
     "options": [
-      "Aumentare il numero di parametri del modello finale destinato alla produzione",
-      "Migliorare l'accuratezza del teacher usando le predizioni dello student",
-      "Ottenere uno student piccolo ed economico con qualità vicina al teacher",
-      "Eliminare la fase di validation dal training dello student distillato"
+      "To increase the parameter count of the final production model",
+      "To improve teacher accuracy using student predictions",
+      "To obtain a small, cheap student with quality close to the teacher",
+      "To eliminate the validation phase from the distilled student training"
     ],
     "answer": 2,
-    "explain": "Lo scopo primario della distillation è ottenere uno student piccolo ed economico in inferenza che conserva gran parte della qualità del teacher.",
+    "explain": "The primary goal of distillation is a small, cheap-to-serve student that retains most of the teacher's quality.",
     "difficulty": "media",
     "tags": [
       "distillation"
@@ -650,15 +650,15 @@
   {
     "id": "ch3-q36",
     "chapter": "ch3-training",
-    "q": "Dopo il fine-tuning LoRA, il team vuole eliminare la latenza aggiuntiva degli adapter in inferenza senza perdere l'adattamento. Quale operazione è corretta?",
+    "q": "After LoRA fine-tuning, the team wants to eliminate the extra adapter latency at inference without losing the adaptation. Which operation is correct?",
     "options": [
-      "Ri-addestrare tutto il modello da zero in full precision con un nuovo training completo",
-      "Fondere (merge) i pesi degli adapter nei pesi base con merge_and_unload",
-      "Aumentare il rank r dopo il training senza alcun ri-addestramento",
-      "Convertire gli adapter addestrati in prompt discreti di testo naturale"
+      "Re-train the whole model from scratch in full precision with a new complete training run",
+      "Fuse (merge) the adapter weights into the base weights with merge_and_unload",
+      "Increase the rank r after training with no retraining at all",
+      "Convert the trained adapters into discrete natural-language text prompts"
     ],
     "answer": 1,
-    "explain": "Gli adapter LoRA addestrati possono essere fusi nei pesi congelati (merge_and_unload): il modello risultante si comporta come adattato ma senza rami aggiuntivi in inferenza.",
+    "explain": "Trained LoRA adapters can be fused into the frozen weights (merge_and_unload): the resulting model behaves as adapted but with no extra branches at inference.",
     "difficulty": "difficile",
     "tags": [
       "lora",
@@ -669,15 +669,15 @@
   {
     "id": "ch3-q37",
     "chapter": "ch3-training",
-    "q": "Un team con 1 GPU da 24 GB deve adattare un LLM da 70B a un dominio specialistico. Quale strategia è realistica?",
+    "q": "A team with 1x 24 GB GPU must adapt a 70B LLM to a specialist domain. Which strategy is realistic?",
     "options": [
-      "QLoRA a 4 bit con adapter e accumulation, poche epoche con validation",
-      "Addestrare il modello da zero sulla singola GPU da 24 GB disponibili",
-      "Aumentare il learning rate di 10 volte per compensare la memoria ridotta",
-      "Full fine-tuning a 32 bit con batch size 64 e 50 epoche sulla singola GPU"
+      "4-bit QLoRA with adapters and accumulation, few epochs with validation",
+      "Training the model from scratch on the single 24 GB GPU available",
+      "Increasing the learning rate 10x to compensate for reduced memory",
+      "Full 32-bit fine-tuning with batch size 64 and 50 epochs on the single GPU"
     ],
     "answer": 0,
-    "explain": "Un 70B non sta in 24 GB in full fine-tuning: QLoRA a 4 bit più adapter, mixed precision e accumulation rendono il task fattibile.",
+    "explain": "A 70B model does not fit in 24 GB in full fine-tuning: 4-bit QLoRA plus adapters, mixed precision and accumulation make the task feasible.",
     "difficulty": "difficile",
     "tags": [
       "qlora",
@@ -688,53 +688,53 @@
   {
     "id": "ch3-q38",
     "chapter": "ch3-training",
-    "q": "La train loss scende fino a fine training ma la validation loss risale dopo l'epoca 3. Diagnosi e rimedio?",
+    "q": "Train loss keeps falling until the end of training but validation loss rises after epoch 3. Diagnosis and remedy?",
     "options": [
-      "Aumentare il learning rate e continuare il training per altre 20 epoche",
-      "Early stopping più regolarizzazione (dropout, weight decay) o più dati",
-      "Congelare il validation set e continuare solo sulla train loss ignorando la divergenza",
-      "Passare a un modello 10 volte più grande senza altri cambiamenti"
+      "Increase the learning rate and continue training for 20 more epochs",
+      "Early stopping plus regularization (dropout, weight decay) or more data",
+      "Freeze the validation set and continue on train loss only, ignoring the divergence",
+      "Switch to a 10x larger model with no other changes"
     ],
     "answer": 1,
-    "explain": "Divergenza train/val dopo l'epoca 3 è overfitting emergente: fermarsi con early stopping e aumentare regolarizzazione o dati.",
+    "explain": "Train/val divergence after epoch 3 is emerging overfitting: stop with early stopping and increase regularization or data.",
     "difficulty": "difficile",
     "tags": [
       "overfitting",
-      "diagnosi"
+      "diagnosis"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q39",
     "chapter": "ch3-training",
-    "q": "Durante il training compaiono loss NaN ed esplosioni dei gradienti. Quale intervento è più appropriato?",
+    "q": "During training, NaN losses and gradient explosions appear. Which intervention is most appropriate?",
     "options": [
-      "Raddoppiare la batch size e triplicare il learning rate per stabilizzare la loss",
-      "Disattivare tutti i log di monitoraggio e continuare il training fino a convergenza",
-      "Gradient clipping, LR più basso con warm-up e controllo di dati e precisione",
-      "Aumentare la temperature di sampling usata durante la generazione"
+      "Double the batch size and triple the learning rate to stabilize the loss",
+      "Disable all monitoring logs and continue training until convergence",
+      "Gradient clipping, lower LR with warm-up, and checking data and precision",
+      "Increase the sampling temperature used during generation"
     ],
     "answer": 2,
-    "explain": "Loss NaN ed esplosioni indicano gradienti instabili: clipping, LR più basso con warm-up e verifica di mixed precision e dati corrotti.",
+    "explain": "NaN loss and explosions indicate unstable gradients: clipping, a lower LR with warm-up, and checking mixed precision and corrupted data.",
     "difficulty": "difficile",
     "tags": [
       "gradient clipping",
-      "diagnosi"
+      "diagnosis"
     ],
     "source": "elaborata su blueprint NCA-GENL"
   },
   {
     "id": "ch3-q40",
     "chapter": "ch3-training",
-    "q": "Qual è la differenza tra rehearsal (replay) ed Elastic Weight Consolidation (EWC) contro il forgetting?",
+    "q": "What is the difference between rehearsal (replay) and Elastic Weight Consolidation (EWC) against forgetting?",
     "options": [
-      "Il rehearsal aumenta il learning rate mentre EWC lo azzera del tutto",
-      "Il rehearsal rimuove i dati vecchi mentre EWC li duplica nel training",
-      "Il rehearsal congela l'intero modello mentre EWC scongela tutti i layer",
-      "Rehearsal ripropone vecchi dati; EWC vincola i pesi importanti del passato"
+      "Rehearsal increases the learning rate while EWC zeroes it entirely",
+      "Rehearsal removes old data while EWC duplicates it in training",
+      "Rehearsal freezes the entire model while EWC unfreezes all layers",
+      "Rehearsal replays old data; EWC constrains weights important in the past"
     ],
     "answer": 3,
-    "explain": "Il rehearsal mescola esempi del vecchio task nel training del nuovo; EWC penalizza le modifiche ai pesi importanti per i task passati.",
+    "explain": "Rehearsal mixes examples of the old task into the new-task training; EWC penalizes changes to weights important for past tasks.",
     "difficulty": "difficile",
     "tags": [
       "catastrophic forgetting",
@@ -745,15 +745,15 @@
   {
     "id": "ch3-q41",
     "chapter": "ch3-training",
-    "q": "Dopo 2 giorni di A/B test su 200 query, il modello B ha +2% di gradimento. Cosa dovrebbe fare il team?",
+    "q": "After 2 days of A/B testing on 200 queries, model B shows +2% approval. What should the team do?",
     "options": [
-      "Dichiarare B vincitore perché il +2% osservato su 200 query è sicuramente significativo",
-      "Concludere che A e B sono equivalenti senza analizzare i segmenti di utenti e casi d'uso",
-      "Verificare significatività e potenza con campione e durata adeguati prima di promuovere B",
-      "Fermare il test al primo giorno in cui B supera A, senza attendere la durata prevista"
+      "Declare B the winner because the +2% observed on 200 queries is certainly significant",
+      "Conclude that A and B are equivalent without analyzing user segments and use cases",
+      "Check significance and power with an adequate sample and duration before promoting B",
+      "Stop the test on the first day B beats A, without waiting for the planned duration"
     ],
     "answer": 2,
-    "explain": "Un A/B test valido richiede ipotesi, metrica primaria, potenza statistica e durata sufficiente: un +2% su 200 query raramente è significativo.",
+    "explain": "A valid A/B test requires a hypothesis, a primary metric, statistical power and sufficient duration: +2% on 200 queries is rarely significant.",
     "difficulty": "difficile",
     "tags": [
       "a/b testing",
@@ -764,15 +764,15 @@
   {
     "id": "ch3-q42",
     "chapter": "ch3-training",
-    "q": "Un fine-tuning con learning rate alto diverge già nei primi 100 step. Qual è la diagnosi più probabile?",
+    "q": "A fine-tuning run with a high learning rate diverges within the first 100 steps. What is the most likely diagnosis?",
     "options": [
-      "La batch size scelta era troppo piccola per il validation set usato nel test",
-      "Divergenza precoce da LR alto senza warm-up: serve la rampa iniziale",
-      "Manca necessariamente più dropout applicato in fase di inferenza",
-      "La temperature di sampling usata in generazione era troppo bassa"
+      "The batch size chosen was too small for the validation set used in the test",
+      "Early divergence from high LR without warm-up: the initial ramp is needed",
+      "More dropout applied at inference is necessarily missing",
+      "The sampling temperature used in generation was too low"
     ],
     "answer": 1,
-    "explain": "Senza warm-up, un LR alto nei primi step con pesi e statistiche instabili causa divergenza precoce; la rampa iniziale la previene.",
+    "explain": "Without warm-up, a high LR in the first steps with unstable weights and statistics causes early divergence; the initial ramp prevents it.",
     "difficulty": "difficile",
     "tags": [
       "warm-up",
@@ -783,15 +783,15 @@
   {
     "id": "ch3-q43",
     "chapter": "ch3-training",
-    "q": "Un'azienda vuole servire 20 task con un solo modello base. Quale affermazione su LoRA, prompt tuning e prefix tuning è corretta?",
+    "q": "A company wants to serve 20 tasks with a single base model. Which statement about LoRA, prompt tuning and prefix tuning is correct?",
     "options": [
-      "Sono tre denominazioni diverse del classico full fine-tuning su tutti i pesi",
-      "LoRA: low-rank nei pesi; prompt tuning: soft prompt; prefix: vettori per layer",
-      "Prompt tuning aggiorna tutti i 70 miliardi di parametri del modello base",
-      "Ogni adapter richiede sempre un modello base diverso e separato per ciascun task servito"
+      "They are three different names for classic full fine-tuning on all weights",
+      "LoRA: low-rank in weights; prompt tuning: soft prompt; prefix: per-layer vectors",
+      "Prompt tuning updates all 70 billion parameters of the base model",
+      "Each adapter always requires a different separate base model for each task served"
     ],
     "answer": 1,
-    "explain": "LoRA modifica i pesi via matrici low-rank, prompt tuning agisce sugli input, prefix tuning sulle chiavi/valori di ogni layer; tutti favoriscono il multi-task su un unico base model.",
+    "explain": "LoRA modifies weights via low-rank matrices, prompt tuning acts on inputs, prefix tuning on the keys/values of each layer; all favor multi-task serving on a single base model.",
     "difficulty": "difficile",
     "tags": [
       "lora",
@@ -802,15 +802,15 @@
   {
     "id": "ch3-q44",
     "chapter": "ch3-training",
-    "q": "Un modello da 70B in FP32 non entra in una GPU da 24 GB nemmeno con batch 1. Quale soluzione architetturale è corretta?",
+    "q": "A 70B model in FP32 does not fit on a 24 GB GPU even with batch 1. Which architectural solution is correct?",
     "options": [
-      "Aumentare il numero di epoche finché il modello entra nella memoria GPU",
-      "Usare solo data parallelism replicando l'intero modello su ogni GPU disponibile nel cluster",
-      "Aggiungere più dati di training per ridurre la memoria occupata",
-      "Partizionare il modello tra GPU (model parallelism), con quantizzazione e offload"
+      "Increase the number of epochs until the model fits into GPU memory",
+      "Use only data parallelism, replicating the whole model on each available cluster GPU",
+      "Add more training data to reduce the memory footprint",
+      "Partition the model across GPUs (model parallelism), with quantization and offload"
     ],
     "answer": 3,
-    "explain": "Se il modello non sta su una GPU servono model/tensor/pipeline parallelism o offload/quantizzazione; il solo data parallelism replica il modello e non basta.",
+    "explain": "If the model does not fit on one GPU, model/tensor/pipeline parallelism or offload/quantization are needed; data parallelism alone replicates the model and is not enough.",
     "difficulty": "difficile",
     "tags": [
       "distributed training",
@@ -821,15 +821,15 @@
   {
     "id": "ch3-q45",
     "chapter": "ch3-training",
-    "q": "L'EDA rivela che il dataset sovra-rappresenta un gruppo demografico e contiene battute offensive. Qual è la risposta corretta prima del fine-tuning?",
+    "q": "EDA reveals the dataset over-represents one demographic group and contains offensive jokes. What is the correct response before fine-tuning?",
     "options": [
-      "Ribilanciare e filtrare i dati, valutare la fairness e monitorare il deploy",
-      "Ignorare il problema perché il transfer learning elimina da solo i bias ereditati",
-      "Aumentare semplicemente le epoche di training sul dataset distorto",
-      "Rimuovere la validation split per addestrarsi su più dati, anche se distorti"
+      "Rebalance and filter the data, evaluate fairness, and monitor the deployment",
+      "Ignore the issue because transfer learning alone removes inherited biases",
+      "Simply increase training epochs on the skewed dataset",
+      "Remove the validation split to train on more data, even if skewed"
     ],
     "answer": 0,
-    "explain": "Se l'EDA mostra squilibri e contenuti offensivi, il fine-tuning li amplifica: servono ribilanciamento, filtraggio, valutazioni di fairness e monitoraggio post-deployment.",
+    "explain": "If EDA shows imbalances and offensive content, fine-tuning amplifies them: rebalancing, filtering, fairness evaluations and post-deployment monitoring are needed.",
     "difficulty": "difficile",
     "tags": [
       "eda",
@@ -840,15 +840,15 @@
   {
     "id": "ch3-ext01",
     "chapter": "ch3-training",
-    "q": "Durante il pre-training di un LLM, quale obiettivo viene ottimizzato?",
+    "q": "During LLM pre-training, which objective is optimized?",
     "options": [
-      "Classificare ogni frase in categorie predefinite assegnate da annotatori umani",
-      "Predire il token successivo dato il contesto precedente",
-      "Ordinare i documenti del corpus in base alla loro data di pubblicazione",
-      "Quantizzare i pesi a 4 bit prima di iniziare l'addestramento"
+      "Classifying each sentence into predefined categories assigned by human annotators",
+      "Predicting the next token given the previous context",
+      "Sorting the corpus documents by their publication date",
+      "Quantizing the weights to 4 bits before starting training"
     ],
     "answer": 1,
-    "explain": "Il pre-training usa il causal language modeling: il modello impara a predire il token successivo dato il contesto, senza etichette manuali.",
+    "explain": "Pre-training uses causal language modeling: the model learns to predict the next token given the context, with no manual labels.",
     "difficulty": "facile",
     "tags": [
       "pre-training",
@@ -860,15 +860,15 @@
   {
     "id": "ch3-ext03",
     "chapter": "ch3-training",
-    "q": "Com'è fatto tipicamente un dataset di supervised fine-tuning (SFT)?",
+    "q": "What does a typical supervised fine-tuning (SFT) dataset look like?",
     "options": [
-      "Coppie istruzione/risposta che mostrano il comportamento desiderato",
-      "Testo grezzo non strutturato, come quello usato nel pre-training",
-      "Solo etichette numeriche di classe senza alcun testo di esempio",
-      "Coppie di risposte ordinate per preferenza con punteggi di reward"
+      "Instruction/response pairs showing the desired behavior",
+      "Raw unstructured text, like that used in pre-training",
+      "Only numeric class labels with no example text at all",
+      "Response pairs ranked by preference with reward scores"
     ],
     "answer": 0,
-    "explain": "Il dataset SFT contiene esempi dimostrativi in formato istruzione/risposta: il modello impara a imitare il comportamento desiderato.",
+    "explain": "The SFT dataset contains demonstration examples in instruction/response format: the model learns to imitate the desired behavior.",
     "difficulty": "facile",
     "tags": [
       "sft",
@@ -880,19 +880,19 @@
   {
     "id": "ch3-ext05",
     "chapter": "ch3-training",
-    "q": "Quali sono, nell'ordine corretto, le tre fasi del RLHF?",
+    "q": "What are the three stages of RLHF, in the correct order?",
     "options": [
-      "Reward model, pre-training da zero, quantizzazione del modello finale",
-      "SFT, training del reward model, ottimizzazione con RL",
-      "Ottimizzazione con RL, raccolta delle preferenze, SFT conclusivo",
-      "Instruction tuning, pruning dei pesi, distillazione sullo student"
+      "Reward model, pre-training from scratch, quantization of the final model",
+      "SFT, reward-model training, optimization with RL",
+      "Optimization with RL, preference collection, concluding SFT",
+      "Instruction tuning, weight pruning, distillation onto the student"
     ],
     "answer": 1,
-    "explain": "Il RLHF procede in tre fasi: SFT dimostrativo, training del reward model su risposte ordinate per preferenza, ottimizzazione della policy con reinforcement learning.",
+    "explain": "RLHF proceeds in three stages: demonstrative SFT, reward-model training on preference-ranked responses, policy optimization with reinforcement learning.",
     "difficulty": "media",
     "tags": [
       "rlhf",
-      "allineamento"
+      "alignment"
     ],
     "origin": "esterna",
     "source": "Adattata da ExamTopics (NCA-GENL)"
@@ -900,15 +900,15 @@
   {
     "id": "ch3-ext12",
     "chapter": "ch3-training",
-    "q": "Un assistente deve rispondere con dati aggiornati ogni giorno (prezzi, normative). Quale approccio è più adeguato?",
+    "q": "An assistant must answer with data updated daily (prices, regulations). Which approach is most appropriate?",
     "options": [
-      "Full fine-tuning completo eseguito di nuovo ogni singola notte",
-      "Addestramento da zero ogni settimana sull'intero corpus testuale",
-      "RAG con fonti aggiornate al momento della query",
-      "Temperature di sampling alzata per stimolare la memoria"
+      "Full fine-tuning redone every single night",
+      "Training from scratch every week on the entire text corpus",
+      "RAG with sources updated at query time",
+      "Raised sampling temperature to stimulate memory"
     ],
     "answer": 2,
-    "explain": "Per conoscenze che cambiano spesso, RAG recupera i fatti aggiornati al momento della query: rifare il fine-tuning ogni giorno sarebbe costoso e fragile.",
+    "explain": "For fast-changing knowledge, RAG retrieves up-to-date facts at query time: redoing fine-tuning every day would be costly and fragile.",
     "difficulty": "media",
     "tags": [
       "rag",
@@ -921,19 +921,19 @@
   {
     "id": "ch3-ext16",
     "chapter": "ch3-training",
-    "q": "Come sono fatti i dati per addestrare un reward model?",
+    "q": "What does the data for training a reward model look like?",
     "options": [
-      "Testo grezzo prelevato dal web senza alcun filtro",
-      "Frasi etichettate con la classe grammaticale di ogni parola",
-      "Coppie istruzione/risposta singola senza alcun confronto",
-      "Risposte a confronto ordinate per preferenza umana"
+      "Raw text taken from the web with no filtering",
+      "Sentences labeled with the grammatical class of each word",
+      "Single instruction/response pairs with no comparison",
+      "Responses compared and ranked by human preference"
     ],
     "answer": 3,
-    "explain": "Il reward model impara da confronti: per ogni prompt due risposte ordinate (preferita vs rifiutata) secondo il giudizio umano.",
+    "explain": "The reward model learns from comparisons: for each prompt, two ranked responses (preferred vs rejected) according to human judgment.",
     "difficulty": "media",
     "tags": [
       "reward model",
-      "preferenze"
+      "preferences"
     ],
     "origin": "esterna",
     "source": "Adattata da ExamTopics (NCA-GENL)"
@@ -941,15 +941,15 @@
   {
     "id": "ch3-ext17",
     "chapter": "ch3-training",
-    "q": "Dopo un adattamento solo su nuovi dati, il modello eccelle sul nuovo task ma crolla sui precedenti. Come si chiama il fenomeno?",
+    "q": "After adaptation on new data only, the model excels on the new task but collapses on previous ones. What is this phenomenon called?",
     "options": [
-      "Perdita dei checkpoint per un guasto al disco di storage",
-      "Oblio catastrofico della conoscenza appresa in precedenza",
-      "Crollo della loss a zero già dopo la primissima epoca",
-      "Azzeramento casuale dei pesi a ogni step di ottimizzazione"
+      "Loss of checkpoints due to a storage disk failure",
+      "Catastrophic forgetting of previously learned knowledge",
+      "Loss collapsing to zero after the very first epoch",
+      "Random resetting of weights at every optimization step"
     ],
     "answer": 1,
-    "explain": "Addestrando solo su nuovi dati, il modello sovrascrive i pesi utili ai task precedenti e peggiora su di essi: è il catastrophic forgetting.",
+    "explain": "Training only on new data, the model overwrites weights useful for previous tasks and degrades on them: this is catastrophic forgetting.",
     "difficulty": "facile",
     "tags": [
       "catastrophic forgetting"
@@ -960,19 +960,19 @@
   {
     "id": "ch3-ext19",
     "chapter": "ch3-training",
-    "q": "Il training converge ma in modo lentissimo, con miglioramenti minimi a ogni epoca. Causa più probabile?",
+    "q": "Training converges but extremely slowly, with minimal improvement each epoch. Most likely cause?",
     "options": [
-      "Batch size eccessiva che rende i gradienti troppo rumorosi",
-      "Temperature di sampling impostata a un valore troppo elevato",
-      "Learning rate troppo basso, con passi di aggiornamento minuscoli",
-      "Dropout aggressivo applicato erroneamente in fase di inferenza"
+      "Oversized batch size making gradients too noisy",
+      "Sampling temperature set to too high a value",
+      "Learning rate too low, with tiny update steps",
+      "Aggressive dropout wrongly applied at inference"
     ],
     "answer": 2,
-    "explain": "Un learning rate troppo basso fa compiere passi piccolissimi: la loss scende ma lentissimamente, sprecando epoche e calcolo.",
+    "explain": "Too low a learning rate takes tiny steps: the loss decreases but very slowly, wasting epochs and compute.",
     "difficulty": "facile",
     "tags": [
       "learning rate",
-      "diagnosi"
+      "diagnosis"
     ],
     "origin": "esterna",
     "source": "Adattata da Quizlet – set NCA-GENL"
@@ -980,19 +980,19 @@
   {
     "id": "ch3-ext21",
     "chapter": "ch3-training",
-    "q": "Come si interpreta la perplexity di un modello linguistico?",
+    "q": "How is the perplexity of a language model interpreted?",
     "options": [
-      "Valori alti indicano risposte più creative e diversificate",
-      "Misura la memoria GPU occupata durante il training distribuito",
-      "Conta il numero di parametri addestrabili presenti nel modello",
-      "Valori bassi indicano migliore capacità predittiva sul testo"
+      "High values indicate more creative and diverse responses",
+      "It measures GPU memory used during distributed training",
+      "It counts the number of trainable parameters in the model",
+      "Low values indicate better predictive ability on text"
     ],
     "answer": 3,
-    "explain": "La perplexity misura l'incertezza media nella predizione del token successivo: più è bassa, meglio il modello prevede il testo.",
+    "explain": "Perplexity measures the average uncertainty in predicting the next token: the lower it is, the better the model predicts text.",
     "difficulty": "media",
     "tags": [
       "perplexity",
-      "metriche"
+      "metrics"
     ],
     "origin": "esterna",
     "source": "Adattata da ExamTopics (NCA-GENL)"
@@ -1000,15 +1000,15 @@
   {
     "id": "ch3-ext24",
     "chapter": "ch3-training",
-    "q": "Cosa controlla la temperature nella generazione di testo?",
+    "q": "What does temperature control in text generation?",
     "options": [
-      "Il numero massimo di token generabili in una risposta",
-      "La casualità: bassa più deterministica, alta più varia",
-      "La memoria GPU allocata per mantenere il KV-cache",
-      "Il numero di documenti recuperati dalla vector database"
+      "The maximum number of tokens that can be generated in a response",
+      "Randomness: low is more deterministic, high is more varied",
+      "The GPU memory allocated to hold the KV-cache",
+      "The number of documents retrieved from the vector database"
     ],
     "answer": 1,
-    "explain": "La temperature scala i logit prima del sampling: valori bassi rendono l'output deterministico, valori alti più creativo ma meno prevedibile.",
+    "explain": "Temperature scales the logits before sampling: low values make output deterministic, high values more creative but less predictable.",
     "difficulty": "facile",
     "tags": [
       "temperature",
@@ -1020,19 +1020,19 @@
   {
     "id": "ch3-ext26",
     "chapter": "ch3-training",
-    "q": "Un fine-tuning su un piccolo dataset prosegue per 50 epoche e la train loss arriva quasi a zero. Cosa è accaduto?",
+    "q": "A fine-tuning run on a small dataset continues for 50 epochs and train loss reaches near zero. What happened?",
     "options": [
-      "Il modello ha memorizzato gli esempi invece di generalizzare",
-      "Ha raggiunto un allineamento perfetto alle preferenze umane",
-      "Il learning rate si è auto-azzerato a warm-up completato",
-      "I pesi si sono quantizzati da soli a 4 bit esatti"
+      "The model memorized the examples instead of generalizing",
+      "It achieved perfect alignment with human preferences",
+      "The learning rate self-zeroed when warm-up completed",
+      "The weights self-quantized to exactly 4 bits"
     ],
     "answer": 0,
-    "explain": "Troppe epoche su pochi dati portano alla memorizzazione: train loss vicina a zero con crollo atteso sulle metriche di validation.",
+    "explain": "Too many epochs on little data lead to memorization: near-zero train loss with an expected collapse on validation metrics.",
     "difficulty": "media",
     "tags": [
       "overfitting",
-      "epoche"
+      "epochs"
     ],
     "origin": "esterna",
     "source": "Adattata da Quizlet – set NCA-GENL"
@@ -1040,15 +1040,15 @@
   {
     "id": "ch3-ext28",
     "chapter": "ch3-training",
-    "q": "Il few-shot prompting non basta: servirebbero decine di esempi per descrivere il task. Cosa conviene valutare?",
+    "q": "Few-shot prompting is not enough: dozens of examples would be needed to describe the task. What should be considered?",
     "options": [
-      "Alzare la temperature fino a ottenere la risposta per caso",
-      "Incorporare il comportamento nei pesi con il fine-tuning",
-      "Ripetere lo stesso prompt centinaia di volte finché funziona",
-      "Ridurre la finestra di contesto per forzare risposte brevi"
+      "Raise the temperature until the answer appears by chance",
+      "Bake the behavior into the weights with fine-tuning",
+      "Repeat the same prompt hundreds of times until it works",
+      "Shrink the context window to force short answers"
     ],
     "answer": 1,
-    "explain": "Quando il task richiede troppi esempi nel prompt (costi, latenza, limite di contesto), il fine-tuning incorpora il comportamento nei pesi in modo stabile.",
+    "explain": "When the task requires too many in-prompt examples (cost, latency, context limit), fine-tuning bakes the behavior into the weights in a stable way.",
     "difficulty": "difficile",
     "tags": [
       "fine-tuning",
@@ -1061,15 +1061,15 @@
   {
     "id": "ch3-ext33",
     "chapter": "ch3-training",
-    "q": "A cosa servono i checkpoint salvati durante il training?",
+    "q": "What are checkpoints saved during training for?",
     "options": [
-      "A riprendere il training e ripristinare l'epoca migliore",
-      "A generare risposte più creative in fase di inferenza",
-      "A sostituire il validation set nella valutazione finale",
-      "A eliminare i testi duplicati presenti nel dataset"
+      "To resume training and restore the best epoch",
+      "To generate more creative responses at inference",
+      "To replace the validation set in final evaluation",
+      "To remove duplicate texts present in the dataset"
     ],
     "answer": 0,
-    "explain": "I checkpoint salvano pesi e stato dell'ottimizzatore: permettono resume dopo interruzioni, confronto tra epoche e rollback alla versione migliore.",
+    "explain": "Checkpoints save weights and optimizer state: they allow resuming after interruptions, comparing epochs, and rolling back to the best version.",
     "difficulty": "facile",
     "tags": [
       "checkpoint",
@@ -1081,15 +1081,15 @@
   {
     "answer": 0,
     "difficulty": "facile",
-    "explain": "La pipeline standard è: prima SFT su dimostrazioni, poi reward model sulle preferenze, infine ottimizzazione della policy guidata dal reward.",
+    "explain": "The standard pipeline is: first SFT on demonstrations, then reward model on preferences, finally reward-guided policy optimization.",
     "options": [
-      "Supervised fine-tuning (SFT), addestramento del reward model su preferenze umane, ottimizzazione della policy con reinforcement learning",
-      "Ottimizzazione della policy con reinforcement learning, supervised fine-tuning (SFT), addestramento del reward model",
-      "Addestramento del reward model, ottimizzazione della policy con reinforcement learning, supervised fine-tuning (SFT)",
-      "Supervised fine-tuning (SFT), ottimizzazione della policy con reinforcement learning, addestramento del reward model"
+      "Supervised fine-tuning (SFT), reward-model training on human preferences, policy optimization with reinforcement learning",
+      "Policy optimization with reinforcement learning, supervised fine-tuning (SFT), reward-model training",
+      "Reward-model training, policy optimization with reinforcement learning, supervised fine-tuning (SFT)",
+      "Supervised fine-tuning (SFT), policy optimization with reinforcement learning, reward-model training"
     ],
     "origin": "esterna",
-    "q": "Qual è l'ordine corretto delle tre fasi principali della pipeline RLHF usata per allineare un LLM?",
+    "q": "What is the correct order of the three main stages of the RLHF pipeline used to align an LLM?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "rlhf",
@@ -1101,15 +1101,15 @@
   {
     "answer": 1,
     "difficulty": "facile",
-    "explain": "L'instruction tuning allena il modello su coppie istruzione-risposta così da eseguire meglio istruzioni nuove e generalizzare tra task diversi.",
+    "explain": "Instruction tuning trains the model on instruction-response pairs so it better follows new instructions and generalizes across different tasks.",
     "options": [
-      "Aumentare il numero di parametri del modello per memorizzare più fatti",
-      "Insegnare al modello a seguire istruzioni in linguaggio naturale e generalizzare a task mai visti",
-      "Sostituire il pre-training eliminando la fase non supervisionata",
-      "Ridurre la finestra di contesto per velocizzare l'inferenza"
+      "To increase the model parameter count to memorize more facts",
+      "To teach the model to follow natural-language instructions and generalize to unseen tasks",
+      "To replace pre-training by eliminating the unsupervised phase",
+      "To shrink the context window to speed up inference"
     ],
     "origin": "esterna",
-    "q": "Qual è lo scopo principale dell'instruction tuning in un LLM?",
+    "q": "What is the main purpose of instruction tuning in an LLM?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "instruction tuning",
@@ -1121,15 +1121,15 @@
   {
     "answer": 2,
     "difficulty": "media",
-    "explain": "Il reward model impara dalle preferenze umane a dare un punteggio alle risposte, punteggio poi usato per ottimizzare la policy.",
+    "explain": "The reward model learns from human preferences to score responses, a score then used to optimize the policy.",
     "options": [
-      "A generare nuovi prompt di pre-training da dati web grezzi",
-      "A comprimere i pesi del modello con quantizzazione post-training",
-      "A stimare un punteggio di qualità/allineamento di una risposta da usare come segnale di reward",
-      "A calcolare la loss di ricostruzione mascherata del pre-training"
+      "To generate new pre-training prompts from raw web data",
+      "To compress model weights with post-training quantization",
+      "To estimate a quality/alignment score for a response, used as a reward signal",
+      "To compute the masked-reconstruction loss of pre-training"
     ],
     "origin": "esterna",
-    "q": "Nella pipeline RLHF, a cosa serve il reward model?",
+    "q": "In the RLHF pipeline, what is the reward model for?",
     "source": "Adattata da Udemy – practice test NCA-GENL",
     "tags": [
       "rlhf",
@@ -1141,15 +1141,15 @@
   {
     "answer": 3,
     "difficulty": "media",
-    "explain": "La penalità KL àncora la policy al modello SFT di riferimento e impedisce che massimizzi il reward a scapito di fluency e comportamenti sicuri.",
+    "explain": "The KL penalty anchors the policy to the reference SFT model and prevents it from maximizing reward at the expense of fluency and safe behavior.",
     "options": [
-      "Per azzerare i gradienti dei layer di embedding durante il training",
-      "Per aumentare la temperature di sampling in fase di inferenza",
-      "Per congelare automaticamente gli adapter LoRA inseriti nel modello",
-      "Per evitare che la policy si allontani troppo dal modello di partenza e collassi su risposte degenerate"
+      "To zero the gradients of the embedding layers during training",
+      "To increase the sampling temperature at inference",
+      "To automatically freeze the LoRA adapters inserted into the model",
+      "To keep the policy from drifting too far from the starting model and collapsing into degenerate responses"
     ],
     "origin": "esterna",
-    "q": "Perché nell'ottimizzazione PPO per RLHF si aggiunge una penalità KL rispetto al modello SFT di riferimento?",
+    "q": "Why is a KL penalty against the reference SFT model added in PPO optimization for RLHF?",
     "source": "Adattata da CramTick (NCA-GENL)",
     "tags": [
       "ppo",
@@ -1161,15 +1161,15 @@
   {
     "answer": 0,
     "difficulty": "media",
-    "explain": "DPO trasforma le preferenze in una loss supervisionata sulla policy, eliminando reward model separato e loop di reinforcement learning tipici di PPO.",
+    "explain": "DPO turns preferences into a supervised loss on the policy, eliminating a separate reward model and the reinforcement-learning loop typical of PPO.",
     "options": [
-      "DPO ottimizza direttamente la policy sulle coppie di preferenze senza addestrare un reward model esplicito né usare reinforcement learning",
-      "DPO richiede sempre un reward model separato più grande della policy da ottimizzare",
-      "DPO usa solo prompt senza risposte e nessun dato di preferenza umana",
-      "DPO congela l'intero modello e aggiorna solo i token di input"
+      "DPO directly optimizes the policy on preference pairs without training an explicit reward model or using reinforcement learning",
+      "DPO always requires a separate reward model larger than the policy being optimized",
+      "DPO uses only prompts with no responses and no human preference data",
+      "DPO freezes the entire model and updates only the input tokens"
     ],
     "origin": "esterna",
-    "q": "Qual è la differenza chiave tra DPO (Direct Preference Optimization) e PPO nella fase di allineamento alle preferenze?",
+    "q": "What is the key difference between DPO (Direct Preference Optimization) and PPO in the preference-alignment stage?",
     "source": "Adattata da P2PExams (NCA-GENL)",
     "tags": [
       "dpo",
@@ -1181,15 +1181,15 @@
   {
     "answer": 1,
     "difficulty": "media",
-    "explain": "In RLAIF un LLM giudice produce le etichette di preferenza, riducendo costi e tempi dell'annotazione umana pur mantenendo lo schema RLHF.",
+    "explain": "In RLAIF an LLM judge produces the preference labels, reducing human-annotation cost and time while keeping the RLHF scheme.",
     "options": [
-      "Un metodo che addestra il modello solo con dati sintetici di pre-training senza alcun feedback",
-      "Una variante di RLHF in cui il feedback di preferenza è generato da un modello AI invece che da annotatori umani",
-      "Una tecnica di quantizzazione che usa l'AI per ridurre i pesi a 4 bit",
-      "Un attacco in cui un modello ruba i reward di un altro modello"
+      "A method that trains the model only on synthetic pre-training data with no feedback at all",
+      "A variant of RLHF in which preference feedback is generated by an AI model instead of human annotators",
+      "A quantization technique that uses AI to shrink weights to 4 bits",
+      "An attack in which one model steals the rewards of another model"
     ],
     "origin": "esterna",
-    "q": "Cosa si intende con RLAIF (Reinforcement Learning from AI Feedback)?",
+    "q": "What is meant by RLAIF (Reinforcement Learning from AI Feedback)?",
     "source": "Adattata da PrepBolt (NCA-GENL)",
     "tags": [
       "rlaif",
@@ -1201,19 +1201,19 @@
   {
     "answer": 2,
     "difficulty": "media",
-    "explain": "Il reward hacking sfrutta scorciatoie del proxy di reward, come verbosità o sycophancy, che alzano il punteggio senza migliorare la qualità reale.",
+    "explain": "Reward hacking exploits proxy-reward shortcuts, such as verbosity or sycophancy, which raise the score without improving real quality.",
     "options": [
-      "Il modello riduce la loss di training troppo lentamente per mancanza di dati",
-      "Il modello va in out-of-memory perché la batch size è eccessiva",
-      "Il modello produce risposte prolisse e adulatrici che ottengono reward alto senza essere davvero più utili o corrette",
-      "Il modello dimentica la lingua di pre-training per un bug di tokenizzazione"
+      "The model reduces training loss too slowly for lack of data",
+      "The model runs out of memory because the batch size is excessive",
+      "The model produces verbose, flattering responses that earn high reward without being truly more useful or correct",
+      "The model forgets the pre-training language due to a tokenization bug"
     ],
     "origin": "esterna",
-    "q": "Quale dei seguenti è un tipico esempio di reward hacking durante l'allineamento di un LLM?",
+    "q": "Which of the following is a typical example of reward hacking during LLM alignment?",
     "source": "Adattata da Whizlabs (NCA-GENL)",
     "tags": [
       "reward hacking",
-      "allineamento"
+      "alignment"
     ],
     "id": "ch3-ai07",
     "chapter": "ch3-training"
@@ -1221,15 +1221,15 @@
   {
     "answer": 3,
     "difficulty": "media",
-    "explain": "LoRA congela i pesi originali e allena poche matrici aggiuntive, quindi basta una GPU modesta e si conserva meglio la conoscenza pre-addestrata.",
+    "explain": "LoRA freezes the original weights and trains few additional matrices, so a modest GPU suffices and pre-trained knowledge is better preserved.",
     "options": [
-      "Perché LoRA aumenta tutti i parametri del modello per memorizzare più esempi",
-      "Perché LoRA richiede sempre più memoria del full fine-tuning ma converge prima",
-      "Perché LoRA elimina la necessità di qualsiasi dato di training supervisionato",
-      "Perché LoRA aggiorna solo piccoli adapter a basso rango, riducendo memoria, storage e rischio di overfitting"
+      "Because LoRA increases all model parameters to memorize more examples",
+      "Because LoRA always requires more memory than full fine-tuning but converges sooner",
+      "Because LoRA eliminates the need for any supervised training data",
+      "Because LoRA updates only small low-rank adapters, reducing memory, storage and overfitting risk"
     ],
     "origin": "esterna",
-    "q": "Un team vuole adattare un LLM da 70B a un task aziendale con una sola GPU e pochi dati. Perché LoRA/PEFT è preferibile al full fine-tuning?",
+    "q": "A team wants to adapt a 70B LLM to a business task with a single GPU and little data. Why is LoRA/PEFT preferable to full fine-tuning?",
     "source": "Adattata da TutorialDojo (NCA-GENL)",
     "tags": [
       "lora",
@@ -1241,15 +1241,15 @@
   {
     "answer": 0,
     "difficulty": "facile",
-    "explain": "Congelare il backbone mantiene fissa la rappresentazione appresa in pre-training e aggiorna solo pochi parametri nuovi, con training più stabile ed economico.",
+    "explain": "Freezing the backbone keeps the representation learned in pre-training fixed and updates only a few new parameters, with more stable and cheaper training.",
     "options": [
-      "Lasciare invariati i pesi del modello pre-addestrato e allenare solo la testina o gli adapter aggiunti",
-      "Azzerare tutti i pesi del modello prima di ogni epoca di training",
-      "Eseguire l'inferenza a temperature pari a zero senza sampling",
-      "Rimuovere i layer di attenzione per velocizzare il training"
+      "Leaving the pre-trained model weights unchanged and training only the added head or adapters",
+      "Zeroing all model weights before each training epoch",
+      "Running inference at zero temperature with no sampling",
+      "Removing attention layers to speed up training"
     ],
     "origin": "esterna",
-    "q": "Cosa significa congelare il backbone durante il fine-tuning di un LLM?",
+    "q": "What does freezing the backbone mean during LLM fine-tuning?",
     "source": "Adattata da ExamTopics (NCA-GENL)",
     "tags": [
       "fine-tuning",
@@ -1261,19 +1261,19 @@
   {
     "answer": 1,
     "difficulty": "difficile",
-    "explain": "Il clipping di PPO impedisce passi eccessivi che destabilizzano la policy, problema frequente quando il segnale di reward è rumoroso.",
+    "explain": "PPO clipping prevents excessively large steps that destabilize the policy, a frequent problem when the reward signal is noisy.",
     "options": [
-      "Per ordinare i token generati in base alla frequenza nel vocabolario",
-      "Per limitare aggiornamenti troppo aggressivi della policy e mantenere il training stabile vicino alla policy corrente",
-      "Per tagliare la lunghezza massima delle risposte generate dal modello",
-      "Per rimuovere il termine di penalità KL e massimizzare solo il reward grezzo"
+      "To sort generated tokens by vocabulary frequency",
+      "To limit overly aggressive policy updates and keep training stable near the current policy",
+      "To cut the maximum length of model-generated responses",
+      "To remove the KL penalty term and maximize only the raw reward"
     ],
     "origin": "esterna",
-    "q": "Perché PPO usa un obiettivo clipped (con clipping del rapporto tra nuova e vecchia policy) nell'allineamento RLHF?",
+    "q": "Why does PPO use a clipped objective (clipping the new-to-old policy ratio) in RLHF alignment?",
     "source": "Adattata da Quizlet – set NCA-GENL",
     "tags": [
       "ppo",
-      "ottimizzazione policy"
+      "policy optimization"
     ],
     "id": "ch3-ai10",
     "chapter": "ch3-training"
@@ -1281,19 +1281,19 @@
   {
     "answer": 2,
     "difficulty": "difficile",
-    "explain": "La loss DPO spinge la policy a preferire la risposta scelta rispetto a quella scartata, con un vincolo implicito di vicinanza al modello di riferimento.",
+    "explain": "The DPO loss pushes the policy to prefer the chosen response over the rejected one, with an implicit constraint of closeness to the reference model.",
     "options": [
-      "Ignora la risposta rifiutata e massimizza solo la likelihood di quella preferita",
-      "Minimizza la likelihood di entrambe le risposte per regolarizzare il modello",
-      "Aumenta il margine di log-probabilità della risposta preferita rispetto a quella rifiutata, ancorato al modello di riferimento",
-      "Assegna lo stesso target di probabilità a entrambe le risposte del confronto"
+      "It ignores the rejected response and maximizes only the preferred one's likelihood",
+      "It minimizes the likelihood of both responses to regularize the model",
+      "It increases the log-probability margin of the preferred response over the rejected one, anchored to the reference model",
+      "It assigns the same probability target to both responses in the comparison"
     ],
     "origin": "esterna",
-    "q": "Nell'ottimizzazione DPO, come la loss tratta una coppia di risposte preferita e rifiutata per lo stesso prompt?",
+    "q": "In DPO optimization, how does the loss treat a preferred/rejected response pair for the same prompt?",
     "source": "Adattata da Udemy – practice test NCA-GENL",
     "tags": [
       "dpo",
-      "preferenze"
+      "preferences"
     ],
     "id": "ch3-ai11",
     "chapter": "ch3-training"
@@ -1301,15 +1301,15 @@
   {
     "answer": 3,
     "difficulty": "difficile",
-    "explain": "KL calibrata, validazione del reward su dati non visti e metriche umane indipendenti rivelano quando il reward cresce ma la qualità reale no.",
+    "explain": "Calibrated KL, reward validation on unseen data, and independent human metrics reveal when reward grows but real quality does not.",
     "options": [
-      "Aumentare soltanto la learning rate e rimuovere ogni vincolo sulla policy",
-      "Allenare il reward model su un solo annotatore per coerenza di stile",
-      "Usare solo risposte molto lunghe come segnale implicito di qualità",
-      "Calibrare la penalità KL, validare il reward model su dati held-out e monitorare win-rate umano oltre al reward"
+      "Only increasing the learning rate and removing every constraint on the policy",
+      "Training the reward model on a single annotator for style consistency",
+      "Using only very long responses as an implicit quality signal",
+      "Calibrating the KL penalty, validating the reward model on held-out data, and monitoring human win-rate beyond reward"
     ],
     "origin": "esterna",
-    "q": "Quale combinazione di contromisure riduce meglio il reward hacking in una pipeline RLHF/RLAIF?",
+    "q": "Which combination of countermeasures best reduces reward hacking in an RLHF/RLAIF pipeline?",
     "source": "Adattata da CramTick (NCA-GENL)",
     "tags": [
       "reward hacking",
