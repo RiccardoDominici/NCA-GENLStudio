@@ -19,7 +19,7 @@ Appunti e sito web a cura di Riccardo Dominici.
 
 Ogni capitolo ha 4 schede: **Lezione guidata** (audio + slide + trascrizione karaoke), **Riassunto**, **Parole chiave**, **Quiz**.
 
-In più, un **banco di 492 domande** d'esame (57-76 per capitolo) filtrabile e con simulazione a tempo.
+In più, un **banco di 491 domande** d'esame (57-76 per capitolo) filtrabile e con simulazione a tempo.
 
 ## Caratteristiche
 
@@ -30,7 +30,7 @@ In più, un **banco di 492 domande** d'esame (57-76 per capitolo) filtrabile e c
 - **Trascrizione karaoke**: highlight in tempo reale, auto-scroll, click sulla frase = seek
 - **Formule** composte in MathML nativo (offline, zero CDN), con fallback Unicode
 - **Quiz** di fine capitolo + **tracker** dei progressi in `localStorage`
-- **Banco domande** (`domande.html`): 492 domande filtrabili per capitolo, difficoltà,
+- **Banco domande** (`domande.html`): 491 domande filtrabili per capitolo, difficoltà,
   stato (da fare / sbagliate / corrette / segnate ★), origine (🤖 generate dal sito /
   🌐 adattate da pratica online) e ricerca testuale, con selezione multipla
   per ogni riga di filtro, feedback
@@ -111,7 +111,7 @@ durata ripartita in proporzione ai caratteri. Dettagli nel docstring di `tools/m
 
 ## Banco domande
 
-492 domande in stile NCA-GENL (57-76 per capitolo) in `content/questions/<capitolo>.json`,
+491 domande in stile NCA-GENL (57-76 per capitolo) in `content/questions/<capitolo>.json`,
 una per file secondo il contratto in `content/questions/README`. La pagina
 `domande.html` le filtra per capitolo, difficoltà, stato, origine e testo libero
 (con selezione multipla per riga: OR dentro la riga, AND tra righe); le

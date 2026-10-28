@@ -1212,27 +1212,6 @@
     ]
   },
   {
-    "answer": 0,
-    "chapter": "ch5-nlp",
-    "difficulty": "difficile",
-    "explain": "Faithfulness checks that the answer is supported by the retrieved context (no inventions); answer relevance checks that it truly answers the question asked.",
-    "id": "ch5-ext28",
-    "options": [
-      "Faithfulness checks support in the context; relevance checks pertinence to the question",
-      "They are translation metrics: one counts bigrams and the other unigrams",
-      "Faithfulness measures retrieval speed; relevance measures memory consumption",
-      "They are the same metric with two different names and always give the same value"
-    ],
-    "origin": "esterna",
-    "q": "In the RAGAS framework for evaluating RAG systems, what is the difference between faithfulness and answer relevance?",
-    "source": "Adattata da ExamTopics (NCA-GENL)",
-    "tags": [
-      "rag",
-      "evaluation",
-      "ragas"
-    ]
-  },
-  {
     "answer": 2,
     "chapter": "ch5-nlp",
     "difficulty": "difficile",
